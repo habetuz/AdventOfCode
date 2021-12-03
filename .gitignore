@@ -1,0 +1,5 @@
+desktop.files.json
+*/.vs
+*/bin
+*/obj
+*/packages
