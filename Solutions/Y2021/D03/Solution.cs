@@ -26,7 +26,7 @@ namespace AdventOfCode.Solutions.Y2021.D03
                 {
                     counter += input[y][x];
                     counter0 += (input[y][x] - 1) * -1;
-                    s_progressTracker.CurrentStep = (x + 1) * (y + 1);
+                    s_progressTracker.CurrentStep ++;
                 }
 
 
@@ -53,12 +53,18 @@ namespace AdventOfCode.Solutions.Y2021.D03
 
         internal override string Puzzle2(int[][] input)
         {
+            s_progressTracker = new ProgressTracker( 2 * (input[0].Length -2), (int progress) =>
+            {
+                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
+            });
+
             int[] oxygenRate = recursiveFilter(input, filterForMostCommon: true, 0);
             int oxygenRateDec = Tools.BinaryIntArrayToDecInt(oxygenRate);
 
             int[] co2Rate = recursiveFilter(input, filterForMostCommon: false, 0);
             int co2RateDec = Tools.BinaryIntArrayToDecInt(co2Rate);
 
+            s_progressTracker.CurrentStep = s_progressTracker.NeededSteps;
             s_logger.Log($"Oxygen rate is {oxygenRateDec} and CO2 rate is {co2RateDec}. Result is {oxygenRateDec * co2RateDec}", LogType.Info);
 
             return string.Empty + (oxygenRateDec * co2RateDec);
@@ -66,6 +72,8 @@ namespace AdventOfCode.Solutions.Y2021.D03
 
         private int[] recursiveFilter(int[][] input, bool filterForMostCommon, int x)
         {
+            s_progressTracker.CurrentStep++;
+
             if (input.Length == 1)
             {
                 return input[0];
