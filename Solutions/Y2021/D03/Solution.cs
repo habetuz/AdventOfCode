@@ -1,56 +1,103 @@
 ﻿using AdventOfCode.Common;
 using SharpLog;
+using System;
+using System.Collections.Generic;
 
 namespace AdventOfCode.Solutions.Y2021.D03
 {
-    internal class Solution : Solution<int[]>
+    internal class Solution : Solution<int[][]>
     {
-        internal override string Puzzle1(int[] input)
+        internal override string Puzzle1(int[][] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length - 1, (int progress) =>
+            s_progressTracker = new ProgressTracker(input.Length * input[0].Length, (int progress) =>
             {
                 s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
             });
 
-            int increaseCounter = 0;
+            ////Tools.Print2D(input);
 
-            for (int i = 1; i < input.Length; i++)
+            string gammaRate = string.Empty;
+            string eplsilonRate = string.Empty;
+            for (int x = 0; x < input[0].Length; x++)
             {
-                if (input[i - 1] < input[i])
+                int counter = 0;
+                int counter0 = 0;
+                for (int y = 0; y < input.Length; y++)
                 {
-                    increaseCounter++;
+                    counter += input[y][x];
+                    counter0 += (input[y][x] - 1) * -1;
+                    s_progressTracker.CurrentStep = (x + 1) * (y + 1);
                 }
 
-                s_progressTracker.CurrentStep = i;
+
+                if (counter > input.Length / 2)
+                {
+                    gammaRate += "1";
+                }
+                else
+                {
+                    gammaRate += "0";
+                }
+
             }
 
-            s_logger.Log(string.Format("The ocean floor increases {0} many times!", increaseCounter), LogType.Info);
-            return increaseCounter + string.Empty;
+            int gammaRateDec = Convert.ToInt32(gammaRate, 2);
+            int eplsilonRateDec = (int)Math.Pow(2, input[0].Length) - 1 - gammaRateDec;
+
+            s_logger.Log(string.Format("Expected: {0} | Reality: {1}", (int)Math.Pow(2, input[0].Length) - 1, gammaRateDec + eplsilonRateDec));
+
+            s_logger.Log(string.Format("Gamma rate is {0} and epsilon rate is {1}. Solution: {2}", gammaRateDec, eplsilonRateDec, gammaRateDec * eplsilonRateDec), LogType.Info);
+
+            return "" + (gammaRateDec * eplsilonRateDec);
         }
 
-        internal override string Puzzle2(int[] input)
+        internal override string Puzzle2(int[][] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length - 1, (int progress) =>
+            int[] oxygenRate = recursiveFilter(input, filterForMostCommon: true, 0);
+            int oxygenRateDec = Tools.BinaryIntArrayToDecInt(oxygenRate);
+
+            int[] co2Rate = recursiveFilter(input, filterForMostCommon: false, 0);
+            int co2RateDec = Tools.BinaryIntArrayToDecInt(co2Rate);
+
+            s_logger.Log($"Oxygen rate is {oxygenRateDec} and CO2 rate is {co2RateDec}. Result is {oxygenRateDec * co2RateDec}", LogType.Info);
+
+            return string.Empty + (oxygenRateDec * co2RateDec);
+        }
+
+        private int[] recursiveFilter(int[][] input, bool filterForMostCommon, int x)
+        {
+            if (input.Length == 1)
             {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
-            int increaseCounter = 0;
-
-            for (int i = 3; i < input.Length; i++)
-            {
-                int a = input[i - 3] + input[i - 2] + input[i - 1];
-                int b = input[i - 2] + input[i - 1] + input[i];
-                if (a < b)
-                {
-                    increaseCounter++;
-                }
-
-                s_progressTracker.CurrentStep = i;
+                return input[0];
             }
 
-            s_logger.Log(string.Format("The ocean floor increases {0} many times!", increaseCounter), LogType.Info);
-            return string.Empty + increaseCounter;
+            List<int[]> list1 = new List<int[]>();
+            List<int[]> list0 = new List<int[]>();
+
+            for (int y = 0; y < input.Length; y++)
+            {
+                if (input[y][x] == 0)
+                {
+                    list0.Add(input[y]);
+                }
+                else
+                {
+                    list1.Add(input[y]);
+                }
+            }
+
+            if ((list1.Count >= list0.Count) == filterForMostCommon)
+            {
+                s_logger.Log($"{x} - {list1.Count}");
+                if (list1.Count == 1) return list1[0];
+                return recursiveFilter(list1.ToArray(), filterForMostCommon, x + 1);
+            }
+            else
+            {
+                s_logger.Log($"{x} - {list0.Count}");
+                if (list0.Count == 1) return list0[0];
+                return recursiveFilter(list0.ToArray(), filterForMostCommon, x + 1);
+            }
         }
     }
 }

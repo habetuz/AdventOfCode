@@ -1,11 +1,5 @@
 ﻿using SharpLog;
 using System;
-using AdventOfCode.Common;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Diagnostics;
 using System.Windows.Forms;
 

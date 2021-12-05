@@ -87,6 +87,7 @@
     <Compile Include="Common\Parser.cs" />
     <Compile Include="Common\ProgressTracker.cs" />
     <Compile Include="Common\Solution.cs" />
+    <Compile Include="Common\Tools.cs" />
     <Compile Include="Solutions\Y2021\D01\Parser.cs" />
     <Compile Include="Solutions\Y2021\D01\Solution.cs" />
     <Compile Include="Program.cs" />
@@ -95,6 +96,9 @@
     <Compile Include="Solutions\Y2021\D02\Solution.cs" />
     <Compile Include="Solutions\Y2021\D03\Parser.cs" />
     <Compile Include="Solutions\Y2021\D03\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D04\Board.cs" />
+    <Compile Include="Solutions\Y2021\D04\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D04\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

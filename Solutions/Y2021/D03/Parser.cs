@@ -1,32 +1,35 @@
 ﻿using AdventOfCode.Common;
 using SharpLog;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventOfCode.Solutions.Y2021.D03
 {
-    internal class Parser : Parser<int[]>
+    internal class Parser : Parser<int[][]>
     {
-        internal override int[] Parse(string input)
+        internal override int[][] Parse(string input)
         {
+            // Split file into lines
             string[] lines = input.Split('\n');
 
-            List<int> inputArray = new List<int>();
-
-            s_progressTracker = new ProgressTracker(lines.Length - 1, (int progress) =>
+            s_progressTracker = new ProgressTracker(lines.Length, (int progress) =>
             {
                 s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
             });
 
-            // Parsing
-            for (int i = 0; i < lines.Length; i++)
+            // Parsing to integer
+            List<int[]> inputArray = new List<int[]>();
+            for (int i = 0; i < lines.Length - 1; i++)
             {
-                int number;
-                int.TryParse(lines[i], out number);
-                inputArray.Add(number);
+                int[] bits = new int[lines[0].Length];
+
+                for (int bit = 0; bit < lines[0].Length; bit++)
+                {
+                    bits[bit] = lines[i][bit] - '0';
+                    s_logger.Log(string.Format("{2}:{3} | From {0} to {1}", lines[i][bit], bits[bit], i, bit));
+                }
+
+                inputArray.Add(bits);
+
                 s_progressTracker.CurrentStep = i;
             }
 

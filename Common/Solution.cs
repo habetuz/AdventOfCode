@@ -12,7 +12,6 @@ namespace AdventOfCode.Common
         protected static readonly Logger s_logger = new Logger()
         {
             Ident = "Solution",
-            LogDebug = true,
         };
 
         protected ProgressTracker s_progressTracker;

@@ -1,14 +1,8 @@
 ﻿using SharpLog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Security.Policy;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Diagnostics;
 
 namespace AdventOfCode
@@ -87,9 +81,16 @@ namespace AdventOfCode
                 stopwatch.Stop();
                 s_logger.Log($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.", LogType.Info);
             }
-            catch (NotImplementedException)
+            catch (Exception exc)
             {
-                s_logger.Log("Solution is not implemented!", LogType.Warning);
+                if (exc.ToString().Contains("NotImplementedException"))
+                {
+                    s_logger.Log("Solution is not implemented!", LogType.Warning);
+                }
+                else
+                {
+                    throw exc;
+                }
             }
 
             return clipboard;

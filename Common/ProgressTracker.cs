@@ -25,6 +25,8 @@ namespace AdventOfCode.Common
             }
         }
 
+        public int NeededSteps { get; set; }
+
         internal ProgressTracker(int neededSteps, ProgressChangeEventHandler progressChange)
         {
             _neededSteps = neededSteps;
