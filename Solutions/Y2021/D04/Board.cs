@@ -42,10 +42,10 @@ namespace AdventOfCode.Solutions.Y2021.D04
 
         internal void AddToDrawEvent(Solution solution)
         {
-            solution.NewDrawEvent += Draw;
+            solution.NewDrawEvent += this.Draw;
         }
 
-        private void Draw(int draw)
+        private void Draw(Solution sender, int draw)
         {
             for (int x = 0; x < _boardValues.GetLength(0); x++)
             {
@@ -56,6 +56,7 @@ namespace AdventOfCode.Solutions.Y2021.D04
                         _boardChecked[x, y] = true;
                         if (IsCompleted(x, y))
                         {
+                            sender.NewDrawEvent -= this.Draw;
                             CompletedEvent(this, draw);
                         }
                     }

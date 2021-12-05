@@ -17,15 +17,15 @@ namespace AdventOfCode.Common
             {
                 _currentStep = value;
 
-                if (((float)_currentStep / (float)_neededSteps) * 10 >= _lastProgressChange + 1)
+                if (((float)_currentStep / (float)_neededSteps) * 10 >= _lastProgressChange + 1 || ((float)_currentStep / (float)_neededSteps) * 10 <= _lastProgressChange - 1)
                 {
-                    _lastProgressChange += 1;
+                    _lastProgressChange = (int) ((float)_currentStep / (float)_neededSteps * 10);
                     _progressChanged(_lastProgressChange);
                 }
             }
         }
 
-        public int NeededSteps { get; set; }
+        public int NeededSteps { get { return _neededSteps; } }
 
         internal ProgressTracker(int neededSteps, ProgressChangeEventHandler progressChange)
         {

@@ -12,9 +12,10 @@ namespace AdventOfCode.Solutions.Y2021.D04
     {
         internal event NewDrawHandler NewDrawEvent;
 
-        internal delegate void NewDrawHandler(int draw);
+        internal delegate void NewDrawHandler(Solution sender, int draw);
 
-        private int _solution = -1;
+        private int _lastCompletion = -1;
+        private int _drawIndex = 0;
 
         internal override string Puzzle1(Tuple<int[], Board[]> input)
         {
@@ -29,22 +30,45 @@ namespace AdventOfCode.Solutions.Y2021.D04
                 board.CompletedEvent += BoardCompleted;
             }
 
-            foreach (int draw in input.Item1)
+            for (int i = 0; i < input.Item1.Length; i++)
             {
-                if (_solution != -1) break;
-                NewDrawEvent(draw);
-                s_progressTracker.CurrentStep++;
+                int draw = input.Item1[i];
+                if (_lastCompletion != -1) break;
+                NewDrawEvent(this, draw);
+                s_progressTracker.CurrentStep = i;
+                _drawIndex = i;
             }
 
             s_progressTracker.CurrentStep = s_progressTracker.NeededSteps;
-            s_logger.Log($"The solution is {_solution}!", LogType.Info);
+            s_logger.Log($"The solution is {_lastCompletion}!", LogType.Info);
 
-            return _solution.ToString();
+            return _lastCompletion.ToString();
+        }
+
+        internal override string Puzzle2(Tuple<int[], Board[]> input)
+        {
+            s_progressTracker = new ProgressTracker(input.Item1.Length - _drawIndex, (int progress) =>
+            {
+                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
+            });
+
+            for (int i = _drawIndex +1; i < input.Item1.Length; i++)
+            {
+                int draw = input.Item1[i];
+                if (NewDrawEvent == null) break;
+                NewDrawEvent(this, draw);
+                s_progressTracker.CurrentStep = i - _drawIndex - 1;
+            }
+
+            s_progressTracker.CurrentStep = s_progressTracker.NeededSteps;
+            s_logger.Log($"The solution is {_lastCompletion}!", LogType.Info);
+
+            return _lastCompletion.ToString();
         }
 
         private void BoardCompleted(Board sender, int lastDraw)
         {
-            _solution = lastDraw * sender.Value;
+            _lastCompletion = lastDraw * sender.Value;
         }
     }
 }

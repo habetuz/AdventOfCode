@@ -99,10 +99,17 @@
     <Compile Include="Solutions\Y2021\D04\Board.cs" />
     <Compile Include="Solutions\Y2021\D04\Parser.cs" />
     <Compile Include="Solutions\Y2021\D04\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D05\Line.cs" />
+    <Compile Include="Solutions\Y2021\D05\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D05\Point.cs" />
+    <Compile Include="Solutions\Y2021\D05\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
@@ -112,4 +119,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\System.Text.Json.6.0.0\build\System.Text.Json.targets'))" />
   </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties settings_1json__JsonSchema="https://appsemble.app/api.json" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

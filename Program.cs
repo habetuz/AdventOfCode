@@ -25,7 +25,8 @@ namespace AdventOfCode
 
             // Solution
             Type solutionType = AdventRunner.GetSolution();
-            Clipboard.SetText(AdventRunner.Solve(solutionType, parsedInput));
+            string clipboard = AdventRunner.Solve(solutionType, parsedInput);
+            if (clipboard != null && clipboard.Length != 0) Clipboard.SetText(clipboard);
 
             Console.ReadLine();
         }
