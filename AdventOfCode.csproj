@@ -103,6 +103,9 @@
     <Compile Include="Solutions\Y2021\D05\Parser.cs" />
     <Compile Include="Solutions\Y2021\D05\Point.cs" />
     <Compile Include="Solutions\Y2021\D05\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D06\Lanternfish.cs" />
+    <Compile Include="Solutions\Y2021\D06\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D06\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

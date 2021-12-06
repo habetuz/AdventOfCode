@@ -9,8 +9,6 @@ namespace AdventOfCode.Solutions.Y2021.D05
     {
         internal override Tuple<Line[], Point> Parse(string input)
         {
-            s_logger.LogDebug = false;
-
             string[] lines = input.Split('\n');
 
             s_progressTracker = new ProgressTracker(lines.Length - 1, (int progress) =>

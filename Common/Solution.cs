@@ -9,6 +9,8 @@ namespace AdventOfCode.Common
 {
     internal abstract class Solution<T>
     {
+        internal class SolutionNotImplementedException : Exception { }
+
         protected static readonly Logger s_logger = new Logger()
         {
             Ident = "Solution",
@@ -18,12 +20,12 @@ namespace AdventOfCode.Common
 
         internal virtual string Puzzle1(T input)
         {
-            throw new NotImplementedException();
+            throw new SolutionNotImplementedException();
         }
 
         internal virtual string Puzzle2(T input)
         {
-            throw new NotImplementedException();
+            throw new SolutionNotImplementedException();
         }
     }
 }

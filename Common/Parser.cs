@@ -9,6 +9,8 @@ namespace AdventOfCode.Common
 {
     internal abstract class Parser<T>
     {
+        internal class ParserNotImplementedException : Exception { }
+
         protected static readonly Logger s_logger = new Logger()
         {
             Ident = "Parser",
@@ -18,7 +20,7 @@ namespace AdventOfCode.Common
 
         internal virtual T Parse(string input)
         {
-            throw new NotImplementedException();
+            throw new ParserNotImplementedException();
         }
     }
 }

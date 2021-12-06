@@ -59,6 +59,7 @@ namespace AdventOfCode
 
         internal static string Solve(Type solutionType, object parsedInput)
         {
+            if (parsedInput == null) return null;
             var solution = solutionType.GetConstructor(new Type[0]).Invoke(null);
             Stopwatch stopwatch = new Stopwatch();
             string clipboard = string.Empty;
@@ -83,7 +84,7 @@ namespace AdventOfCode
             }
             catch (Exception exc)
             {
-                if (exc.ToString().Contains("NotImplementedException"))
+                if (exc.ToString().Contains("SolutionNotImplementedException"))
                 {
                     s_logger.Log("Solution is not implemented!", LogType.Warning);
                 }
@@ -104,14 +105,30 @@ namespace AdventOfCode
         internal static object Parse(Type parserType, string input)
         {
             s_logger.Log("Parsing input...", LogType.Info);
-            var parser = parserType.GetConstructor(new Type[0]).Invoke(null);
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            var parsedInput = parserType
-                .GetMethod("Parse", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                .Invoke(parser, new string[] { input });
-            stopwatch.Stop();
-            s_logger.Log($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.", LogType.Info);
-            return parsedInput;
+
+            try
+            {
+                var parser = parserType.GetConstructor(new Type[0]).Invoke(null);
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                var parsedInput = parserType
+                    .GetMethod("Parse", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                    .Invoke(parser, new string[] { input });
+                stopwatch.Stop();
+                s_logger.Log($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.", LogType.Info);
+                return parsedInput;
+            } catch (Exception exc)
+            {
+                if (exc.Message.Contains("ParserNotImplementedException"))
+                {
+                    s_logger.Log("Parser is not implemented!", LogType.Error);
+                } else
+                {
+                    throw exc;
+                }
+            }
+
+            return null;
+            
         }
     }
 }
