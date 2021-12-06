@@ -8,38 +8,40 @@ using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2021.D06
 {
-    internal class Solution : Solution<List<Lanternfish>>
+    internal class Solution : Solution<int[]>
     {
-        private int _LanternfishCounter;
+        private long[] _fishCounter = new long[256 + 10];
 
-        internal override string Puzzle1(List<Lanternfish> input)
+        internal override string Puzzle1(int[] input)
         {
             s_progressTracker = new ProgressTracker(80, (int progress) =>
             {
                 s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
             });
 
-            _LanternfishCounter = input.Count;
+            s_logger.LogDebug = true;
 
-            foreach (Lanternfish lanternfish in input)
+            _fishCounter[0] = input.Length;
+            foreach (int fish in input)
             {
-                lanternfish.AddToNewDayEvent(this);
-                lanternfish.Breed += BreedEvent;
+                _fishCounter[fish + 1]++;
             }
 
             for (int day = 1; day <= 80; day++)
             {
-                NewDay();
+                _fishCounter[day + 7] += _fishCounter[day];
+                _fishCounter[day + 9] += _fishCounter[day];
+                _fishCounter[day] += _fishCounter[day - 1];
+                //// s_logger.Log($"After {day:D2} days there are {_fishCounter[day]} fish.");
                 s_progressTracker.CurrentStep = day;
-                ////s_logger.Log($"After {day:D2} days: {_LanternfishCounter}", LogType.Info);
             }
 
-            s_logger.Log($"After 80 days there will be {_LanternfishCounter} laternfish!", LogType.Info);
+            s_logger.Log($"After 80 days there will be {_fishCounter[80]} laternfish!", LogType.Info);
 
-            return _LanternfishCounter.ToString();
+            return _fishCounter[80].ToString();
         }
 
-        internal override string Puzzle2(List<Lanternfish> input)
+        internal override string Puzzle2(int[] input)
         {
             s_progressTracker = new ProgressTracker(256 - 80, (int progress) =>
             {
@@ -48,24 +50,15 @@ namespace AdventOfCode.Solutions.Y2021.D06
 
             for (int day = 81; day <= 256; day++)
             {
-                NewDay();
+                _fishCounter[day + 7] += _fishCounter[day];
+                _fishCounter[day + 9] += _fishCounter[day];
+                _fishCounter[day] += _fishCounter[day - 1];
                 s_progressTracker.CurrentStep = day - 80;
-                s_logger.Log($"After {day:D2} days: {_LanternfishCounter}", LogType.Info);
             }
 
-            s_logger.Log($"After 256 days there will be {_LanternfishCounter} laternfish!", LogType.Info);
+            s_logger.Log($"After 256 days there will be {_fishCounter[256]} laternfish!", LogType.Info);
 
-            return _LanternfishCounter.ToString();
+            return _fishCounter[256].ToString();
         }
-
-        internal void BreedEvent()
-        {
-            _LanternfishCounter++;
-            new Lanternfish(this, BreedEvent);
-        }
-
-        internal event NewDayHandler NewDay;
-
-        internal delegate void NewDayHandler();
     }
 }

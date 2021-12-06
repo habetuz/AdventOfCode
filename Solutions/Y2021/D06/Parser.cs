@@ -8,9 +8,9 @@ using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2021.D06
 {
-    internal class Parser : Parser<List<Lanternfish>>
+    internal class Parser : Parser<int[]>
     {
-        internal override List<Lanternfish> Parse(string input)
+        internal override int[] Parse(string input)
         {
             string[] values = input.Split(',');
 
@@ -19,18 +19,18 @@ namespace AdventOfCode.Solutions.Y2021.D06
                 s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
             });
 
-            List<Lanternfish> fishes = new List<Lanternfish>();
+            List<int> startValues = new List<int>();
 
             foreach (string value in values)
             {
-                fishes.Add(new Lanternfish(int.Parse(value)));
+                startValues.Add(int.Parse(value));
 
                 s_progressTracker.CurrentStep++;
             }
 
-            s_logger.Log($"There are {fishes.Count} fishes!", LogType.Info);
+            s_logger.Log($"There are {startValues.Count} fishes!", LogType.Info);
 
-            return fishes;
+            return startValues.ToArray();
         }
     }
 }
