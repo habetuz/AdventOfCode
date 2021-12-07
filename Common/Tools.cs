@@ -66,5 +66,12 @@ namespace AdventOfCode.Common
             }
             return Convert.ToInt32(binaryString, 2);
         }
+
+        internal static long FactorialAdd(int num)
+        {
+            if (num == 1) return 1;
+
+            return (long) FactorialAdd(num - 1) + (long) num;
+        }
     }
 }
