@@ -30,22 +30,41 @@ namespace AdventOfCode.Solutions.Y2021.D07
 
         internal override string Puzzle2(int[] input)
         {
-            long fuel = 0;
+            s_logger.LogDebug = true;
+
+            int fuelLeft = 0;
+            int fuelRight = 0;
+            int fuelMiddle = 0;
             int alignPosition = 0;
             foreach (int crab in input)
             {
                 alignPosition += crab;
             }
-            alignPosition = (int) Math.Round((float) alignPosition / (float)input.Length);
-
-            s_logger.Log($"The crabs need to align at position {alignPosition}", SharpLog.LogType.Info);
+            alignPosition = (int) Math.Round((double) alignPosition / (double)input.Length);
 
             foreach (int crab in input)
             {
-                fuel += Tools.FactorialAdd(Math.Abs(crab - alignPosition));
+                for (int i = Math.Abs(crab - alignPosition); i > 0; i--)
+                {
+                    fuelMiddle += i;
+                }
+
+                for (int i = Math.Abs(crab - alignPosition -1); i > 0; i--)
+                {
+                    fuelLeft += i;
+                }
+
+                for (int i = Math.Abs(crab - alignPosition + 1); i > 0; i--)
+                {
+                    fuelRight += i;
+                }
             }
 
+            int fuel = fuelLeft < fuelMiddle? fuelLeft : fuelMiddle;
+            fuel = fuelRight < fuel? fuelRight : fuel;
+
             s_logger.Log($"The crabs need {fuel} fuel!", SharpLog.LogType.Info);
+
 
             return fuel.ToString();
         }
