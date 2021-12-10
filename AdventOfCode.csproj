@@ -107,6 +107,9 @@
     <Compile Include="Solutions\Y2021\D06\Solution.cs" />
     <Compile Include="Solutions\Y2021\D07\Parser.cs" />
     <Compile Include="Solutions\Y2021\D07\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D08\Display.cs" />
+    <Compile Include="Solutions\Y2021\D08\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D08\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -115,9 +118,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Solutions\Y2021\NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

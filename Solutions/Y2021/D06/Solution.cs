@@ -19,8 +19,6 @@ namespace AdventOfCode.Solutions.Y2021.D06
                 s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
             });
 
-            s_logger.LogDebug = true;
-
             _fishCounter[0] = input.Length;
             foreach (int fish in input)
             {

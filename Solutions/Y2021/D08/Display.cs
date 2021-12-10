@@ -17,7 +17,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
             {4, new char[] {'b', 'c', 'd', 'f'} },
             {5, new char[] {'a', 'b', 'd', 'f', 'g'} },
             {6, new char[] {'a', 'b', 'd', 'e', 'f', 'g'} },
-            {7, new char[] {'a', 'c', 'g'} },
+            {7, new char[] {'a', 'c', 'f'} },
             {8, new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
             {9, new char[] {'a', 'b', 'c', 'd', 'f', 'g' } }
         };
@@ -43,6 +43,11 @@ namespace AdventOfCode.Solutions.Y2021.D08
             {
                 throw new NotImplementedException();
             }
+        }
+
+        internal string[] Outputs
+        {
+            get { return _digits; }
         }
 
         internal Display(string[] inputs, string[] digits)
