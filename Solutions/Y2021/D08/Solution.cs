@@ -25,10 +25,10 @@ namespace AdventOfCode.Solutions.Y2021.D08
                 foreach (string digit in display.Outputs)
                 {
                     if (
-                        digit.Length == Display.DigitSegments[1].Length || 
-                        digit.Length == Display.DigitSegments[4].Length || 
-                        digit.Length == Display.DigitSegments[7].Length || 
-                        digit.Length == Display.DigitSegments[8].Length)
+                        digit.Length == Display.s_digitSegments[1].Length || 
+                        digit.Length == Display.s_digitSegments[4].Length || 
+                        digit.Length == Display.s_digitSegments[7].Length || 
+                        digit.Length == Display.s_digitSegments[8].Length)
                     {
                         uniqueCounter++;
                     }
@@ -49,6 +49,8 @@ namespace AdventOfCode.Solutions.Y2021.D08
                 s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
             });
 
+            int values = 0;
+
             foreach (Display display in input)
             {
                 Rule1(display, 1);
@@ -66,15 +68,26 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
                 foreach (string test in display.Inputs)
                 {
-                    if (test.Length == 1 || test.Length == 4 || test.Length == 7 || test.Length == 8) continue;
+                    if (test.Length == 1 || test.Length == 4 || test.Length == 7 || test.Length == 8)
+                    {
+                        continue;
+                    }
 
                     Rule4(display, test);
+                    if (display.PossibleWiring.All(pair => { return pair.Value.Length == 1; }))
+                    {
+                        break;
+                    }
                 }
+
+                values += display.Value;
 
                 s_progressTracker.CurrentStep++;
             }
 
-            return base.Puzzle2(input);
+            s_logger.Log($"The displays add up to {values}!", LogType.Info);
+
+            return values.ToString();
         }
 
         /// <summary>
@@ -84,12 +97,12 @@ namespace AdventOfCode.Solutions.Y2021.D08
         {
             foreach (string input in display.Inputs)
             {
-                if (input.Length == Display.DigitSegments[num].Length)
+                if (input.Length == Display.s_digitSegments[num].Length)
                 {
                     foreach (char c in input)
                     {
                         // Intersection of possible wiring of each char and the segments that the unique num has.
-                        display.PossibleWiring[c] = display.PossibleWiring[c].Intersect(Display.DigitSegments[num]).ToArray();
+                        display.PossibleWiring[c] = display.PossibleWiring[c].Intersect(Display.s_digitSegments[num]).ToArray();
                     }
                     return;
                 }
@@ -184,18 +197,70 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
         private void Rule4 (Display display, string test)
         {
-            Dictionary<char, char[]> possibleWiring = display.PossibleWiring.Copy;
+            Dictionary<char, char[]> possibleWiring = new Dictionary<char, char[]> ();
+
+            foreach (Dictionary<char, char> wiring in new WiringEnumerator(display.PossibleWiring))
+            {
+                if (Display.IsDigit(wiring, test))
+                {
+                    foreach (KeyValuePair<char, char> pair in wiring)
+                    {
+                        char[] configuration;
+                        try
+                        {
+                            configuration = possibleWiring[pair.Key];
+                            if (!configuration.Contains(pair.Value))
+                            {
+                                Array.Resize(ref configuration, configuration.Length + 1);
+                                configuration[configuration.Length - 1] = pair.Value;
+                            }
+                        } catch (KeyNotFoundException)
+                        {
+                            configuration = new char[] { pair.Value };
+                        }
+
+                        possibleWiring[pair.Key] = configuration;
+                    }
+                }
+            }
+
+            display.PossibleWiring = possibleWiring;
         }
 
-        private class WiringEnumerator : IEnumerable<KeyValuePair<char, char>>
+        private class WiringEnumerator : IEnumerable<Dictionary<char, char>>
         {
             private readonly Dictionary<char[], char[]> _configurations = new Dictionary<char[], char[]> ();
-            private readonly Dictionary<char, char[]> _wiring;
+            private readonly Dictionary<char, char> _templateDictionary = new Dictionary<char, char> ();
 
             public WiringEnumerator(Dictionary<char, char[]> wiring)
             {
-                _wiring = wiring;
                 List<char> skip = new List<char> ();
+                for (char i = 'a'; i <= 'g'; i++)
+                {
+                    if (skip.Contains(i)) continue;
+                    if (wiring[i].Length == 2)
+                    {
+                        for (char j = (char)(i + 1); j <= 'g'; j++)
+                        {
+                            if (skip.Contains(j)) continue;
+                            if (wiring[j].All(c => wiring[i].Contains(c)))
+                            {
+                                _configurations.Add(wiring[i], new char[] { i, j });
+                                skip.Add(j);
+                                break;
+                            }
+                        }
+                    } 
+                    else if (wiring[i].Length == 1)
+                    {
+                        _templateDictionary.Add(i, wiring[i][0]);
+                    }
+                }
+            }
+
+            private WiringEnumerator(Dictionary<char, char[]> wiring, bool test)
+            {
+                List<char> skip = new List<char>();
                 for (char i = 'a'; i <= 'f'; i++)
                 {
                     if (skip.Contains(i)) continue;
@@ -204,7 +269,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
                         for (char j = (char)(i + 1); j <= 'g'; j++)
                         {
                             if (skip.Contains(j)) continue;
-                            if (wiring[j].SequenceEqual(wiring[i]))
+                            if (wiring[j].All(c => wiring[i].Contains(c)))
                             {
                                 _configurations.Add(wiring[i], new char[] { i, j });
                                 skip.Add(j);
@@ -212,12 +277,28 @@ namespace AdventOfCode.Solutions.Y2021.D08
                             }
                         }
                     }
+                    else if (wiring[i].Length == 1)
+                    {
+                        _templateDictionary.Add(i, wiring[i][0]);
+                    }
                 }
             }
 
-            public IEnumerator<KeyValuePair<char, char>> GetEnumerator()
+            public IEnumerator<Dictionary<char, char>> GetEnumerator()
             {
-                throw new NotImplementedException();
+                for (int i = 0; i < Math.Pow(2, _configurations.Count + 1); i++)
+                {
+                    string binaryString = Convert.ToString(i, 2);
+                    binaryString = binaryString.PadLeft(_configurations.Count, '0');
+                    List<KeyValuePair<char[], char[]>> configurations = _configurations.ToList();
+                    for (int j = 0; j < _configurations.Count; j++)
+                    {
+                        _templateDictionary[configurations[j].Value[0]] = configurations[j].Key[int.Parse(binaryString[j].ToString())];
+                        _templateDictionary[configurations[j].Value[1]] = configurations[j].Key[Math.Abs(int.Parse(binaryString[j].ToString()) - 1)];
+                    }
+
+                    yield return _templateDictionary;
+                }
             }
 
             IEnumerator IEnumerable.GetEnumerator()

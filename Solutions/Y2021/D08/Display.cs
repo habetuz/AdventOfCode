@@ -8,7 +8,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
 {
     internal class Display
     {
-        internal static readonly Dictionary<short, char[]> DigitSegments = new Dictionary<short, char[]>()
+        internal static readonly Dictionary<short, char[]> s_digitSegments = new Dictionary<short, char[]>()
         {
             {0, new char[] {'a', 'b', 'c', 'e', 'f', 'g'} },
             {1, new char[] {'c', 'f'} },
@@ -22,7 +22,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
             {9, new char[] {'a', 'b', 'c', 'd', 'f', 'g' } }
         };
 
-        internal readonly Dictionary<char, char[]> PossibleWiring = new Dictionary<char, char[]>()
+        internal Dictionary<char, char[]> PossibleWiring = new Dictionary<char, char[]>()
         {
             {'a', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
             {'b', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
@@ -37,11 +37,25 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
         private string[] _digits;
 
-        internal string[] Digits
+        internal int Value
         {
             get
             {
-                throw new NotImplementedException();
+                Dictionary<char, char> wiring = new Dictionary<char, char>();
+                foreach (char c in PossibleWiring.Keys)
+                {
+                    if (PossibleWiring[c].Length > 1) throw new Exception("Wiring is not solved yet!");
+
+                    wiring[c] = PossibleWiring[c][0];
+                }
+                int value = 0;
+                value += GetDigit(Decode(wiring, _digits[0])) * 1000;
+                value += GetDigit(Decode(wiring, _digits[1])) * 100;
+                value += GetDigit(Decode(wiring, _digits[2])) * 10;
+                value += GetDigit(Decode(wiring, _digits[3])) * 1;
+
+                return value;
+
             }
         }
 
@@ -54,6 +68,37 @@ namespace AdventOfCode.Solutions.Y2021.D08
         {
             Inputs = inputs;
             _digits = digits;
+        }
+
+        internal static bool IsDigit(Dictionary<char, char> wiring, string segments)
+        {
+            segments = Decode(wiring, segments);
+            return GetDigit(segments) != -1;
+        }
+
+        internal static short GetDigit(string segments)
+        {
+            foreach (KeyValuePair<short, char[]> digit in s_digitSegments)
+            {
+                if (digit.Value.Length == segments.Length &&
+                    digit.Value.All(c => { return segments.Contains(c); }))
+                {
+                    return digit.Key;
+                }
+            }
+            return -1;
+        }
+
+        internal static string Decode(Dictionary<char, char> wiring, string segments)
+        {
+            string decodedSegments = string.Empty;
+
+            foreach (char segment in segments)
+            {
+                decodedSegments += wiring[segment];
+            }
+
+            return decodedSegments;
         }
     }
 }
