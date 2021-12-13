@@ -25,7 +25,7 @@ namespace AdventOfCode.Solutions.Y2021.D09
             {
                 for (int x = 0; x < output.GetLength(0); x++)
                 {
-                    output[x, y] = values[y][x];
+                    output[x, y] = int.Parse(values[y][x].ToString());
                 }
 
                 s_progressTracker.CurrentStep++;
