@@ -112,6 +112,8 @@
     <Compile Include="Solutions\Y2021\D08\Solution.cs" />
     <Compile Include="Solutions\Y2021\D09\Parser.cs" />
     <Compile Include="Solutions\Y2021\D09\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D10\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D10\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

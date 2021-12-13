@@ -6,29 +6,15 @@ using System.Threading.Tasks;
 using AdventOfCode.Common;
 using SharpLog;
 
-namespace AdventOfCode.Solutions.Y2021.D07
+namespace AdventOfCode.Solutions.Y2021.D10
 {
-    internal class Parser : Parser<int[]>
+    internal class Parser : Parser<string[]>
     {
-        internal override int[] Parse(string input)
+        internal override string[] Parse(string input)
         {
-            string[] values = input.Split(',');
+            string[] values = input.Split(new char[] {'\n', '\r'}, StringSplitOptions.RemoveEmptyEntries);
 
-            s_progressTracker = new ProgressTracker(values.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
-            List<int> startValues = new List<int>();
-
-            foreach (string value in values)
-            {
-                startValues.Add(int.Parse(value));
-
-                s_progressTracker.CurrentStep++;
-            }
-
-            return startValues.ToArray();
+            return values;
         }
     }
 }
