@@ -129,7 +129,7 @@ namespace AdventOfCode.Solutions.Y2021.D10
             string completionString = string.Empty;
             for (int i = 0; i < line.Length; i++)
             {
-                (completionString, i) = MissingSyntaxAnalysis(line, string.Empty, 0);
+                (completionString, i) = MissingSyntaxAnalysis(line, string.Empty, i);
             }
             return completionString;
         }
