@@ -114,6 +114,13 @@
     <Compile Include="Solutions\Y2021\D09\Solution.cs" />
     <Compile Include="Solutions\Y2021\D10\Parser.cs" />
     <Compile Include="Solutions\Y2021\D10\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D11\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D11\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D12\Node.cs" />
+    <Compile Include="Solutions\Y2021\D12\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D12\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D13\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D13\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

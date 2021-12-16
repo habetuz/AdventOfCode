@@ -14,15 +14,31 @@ namespace AdventOfCode.Common
         internal static void Print2D(int[,] array)
         {
 
-            for (int y = 0; y < array.GetLength(0); y++)
+            for (int y = 0; y < array.GetLength(1); y++)
             {
                 string str = string.Empty;
-                for (int x = 0; x < array.GetLength(1); x++)
+                for (int x = 0; x < array.GetLength(0); x++)
                 {
                     str += array[x, y];
                 }
 
-                s_logger.Log(str + " - " + y, LogType.Info);
+                s_logger.Log(str + " - " + y);
+            }
+        }
+
+        internal static void Print2D(bool[,] array)
+        {
+
+            for (int y = 0; y < array.GetLength(1); y++)
+            {
+                string str = string.Empty;
+                for (int x = 0; x < array.GetLength(0); x++)
+                {
+                    if (array[x, y]) str += "#";
+                    else             str += ".";
+                }
+
+                s_logger.Log(str + " - " + y);
             }
         }
 
