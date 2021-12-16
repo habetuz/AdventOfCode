@@ -12,7 +12,6 @@ namespace AdventOfCode.Solutions.Y2021.D13
         internal override ((char, int)[], bool[,]) Parse(string input)
         {
             string[] lines = input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            SetupProgressTracker(lines.Length + 1);
 
             List<(char, int)> instructions = new List<(char, int)>();
             List<(int, int)> coordinates = new List<(int, int)>();
@@ -30,7 +29,7 @@ namespace AdventOfCode.Solutions.Y2021.D13
                     if (coordinates.Last().Item1 > maxIndex.Item1) maxIndex.Item1 = coordinates.Last().Item1;
                     if (coordinates.Last().Item2 > maxIndex.Item2) maxIndex.Item2 = coordinates.Last().Item2;
                 }
-                s_progressTracker.CurrentStep++;
+                
             }
 
             bool[,] paper = new bool[maxIndex.Item1 + 1, maxIndex.Item2 + 1];

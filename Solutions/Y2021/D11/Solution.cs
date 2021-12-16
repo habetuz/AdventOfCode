@@ -8,8 +8,6 @@ namespace AdventOfCode.Solutions.Y2021.D11
     {
         internal override string Puzzle1(int[,] input)
         {
-            SetupProgressTracker(100);
-
             int flashes = 0;
 
             for (int i = 1; i <= 100; i++)
@@ -32,8 +30,6 @@ namespace AdventOfCode.Solutions.Y2021.D11
                         }
                     }
                 }
-                s_progressTracker.CurrentStep = i;
-
                 ////s_logger.Log($"After step {i}");
                 ////Tools.Print2D(input);
             }
@@ -45,8 +41,6 @@ namespace AdventOfCode.Solutions.Y2021.D11
         internal override string Puzzle2(int[,] input)
         {
             s_logger.LogDebug = true;
-
-            SetupProgressTracker(900);
 
             int syncStep = 0;
 
@@ -78,8 +72,6 @@ namespace AdventOfCode.Solutions.Y2021.D11
 
                 ////s_logger.Log($"After step {i}");
                 ////Tools.Print2D(input);
-
-                s_progressTracker.CurrentStep = s_progressTracker.NeededSteps - sum;
 
                 if (sum == 0)
                 {

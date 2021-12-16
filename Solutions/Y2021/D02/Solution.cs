@@ -9,11 +9,6 @@ namespace AdventOfCode.Solutions.Y2021.D02
     {
         internal override string Puzzle1(KeyValuePair<Direction, int>[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             // Solution here
             int posHorizontal = 0;
             int posVertical = 0;
@@ -25,7 +20,6 @@ namespace AdventOfCode.Solutions.Y2021.D02
                     case Direction.Up: posVertical -= input[i].Value; break;
                     case Direction.Down: posVertical += input[i].Value; break;
                 }
-                s_progressTracker.CurrentStep = i;
             }
 
             s_logger.Log(string.Format(
@@ -39,11 +33,6 @@ namespace AdventOfCode.Solutions.Y2021.D02
 
         internal override string Puzzle2(KeyValuePair<Direction, int>[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             // Solution here
             int posHorizontal = 0;
             int posVertical = 0;
@@ -59,7 +48,6 @@ namespace AdventOfCode.Solutions.Y2021.D02
                     case Direction.Up: aim -= input[i].Value; break;
                     case Direction.Down: aim += input[i].Value; break;
                 }
-                s_progressTracker.CurrentStep = i;
             }
 
             s_logger.Log(string.Format(

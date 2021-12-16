@@ -14,18 +14,11 @@ namespace AdventOfCode.Solutions.Y2021.D06
         {
             string[] values = input.Split(',');
 
-            s_progressTracker = new ProgressTracker(values.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             List<int> startValues = new List<int>();
 
             foreach (string value in values)
             {
                 startValues.Add(int.Parse(value));
-
-                s_progressTracker.CurrentStep++;
             }
 
             s_logger.Log($"There are {startValues.Count} fishes!", LogType.Info);

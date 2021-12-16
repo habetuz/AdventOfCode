@@ -14,11 +14,6 @@ namespace AdventOfCode.Solutions.Y2021.D06
 
         internal override string Puzzle1(int[] input)
         {
-            s_progressTracker = new ProgressTracker(80, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             _fishCounter[0] = input.Length;
             foreach (int fish in input)
             {
@@ -31,7 +26,6 @@ namespace AdventOfCode.Solutions.Y2021.D06
                 _fishCounter[day + 9] += _fishCounter[day];
                 _fishCounter[day] += _fishCounter[day - 1];
                 //// s_logger.Log($"After {day:D2} days there are {_fishCounter[day]} fish.");
-                s_progressTracker.CurrentStep = day;
             }
 
             s_logger.Log($"After 80 days there will be {_fishCounter[80]} laternfish!", LogType.Info);
@@ -41,17 +35,11 @@ namespace AdventOfCode.Solutions.Y2021.D06
 
         internal override string Puzzle2(int[] input)
         {
-            s_progressTracker = new ProgressTracker(256 - 80, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             for (int day = 81; day <= 256; day++)
             {
                 _fishCounter[day + 7] += _fishCounter[day];
                 _fishCounter[day + 9] += _fishCounter[day];
                 _fishCounter[day] += _fishCounter[day - 1];
-                s_progressTracker.CurrentStep = day - 80;
             }
 
             s_logger.Log($"After 256 days there will be {_fishCounter[256]} laternfish!", LogType.Info);

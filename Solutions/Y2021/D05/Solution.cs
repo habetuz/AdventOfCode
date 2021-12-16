@@ -11,16 +11,11 @@ namespace AdventOfCode.Solutions.Y2021.D05
 
         internal override string Puzzle1(Tuple<Line[], Point> input)
 {
-            s_progressTracker = new ProgressTracker(input.Item1.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             _field = new int[input.Item2.X, input.Item2.Y];
 
             foreach (Line line in input.Item1)
             {
-                s_progressTracker.CurrentStep++;
+                
 
                 if (!line.IsVertical && !line.IsHorizontal) continue;
                 foreach (Point point in line.CoveredPoints)
@@ -44,16 +39,11 @@ namespace AdventOfCode.Solutions.Y2021.D05
 
         internal override string Puzzle2(Tuple<Line[], Point> input)
         {
-            s_progressTracker = new ProgressTracker(input.Item1.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             _field = new int[input.Item2.X, input.Item2.Y];
 
             foreach (Line line in input.Item1)
             {
-                s_progressTracker.CurrentStep++;
+                
 
                 foreach (Point point in line.CoveredPoints)
                 {

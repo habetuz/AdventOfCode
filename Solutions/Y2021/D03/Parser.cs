@@ -11,11 +11,6 @@ namespace AdventOfCode.Solutions.Y2021.D03
             // Split file into lines
             string[] lines = input.Split('\n');
 
-            s_progressTracker = new ProgressTracker(lines.Length -2, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             // Parsing to integer
             List<int[]> inputArray = new List<int[]>();
             for (int i = 0; i < lines.Length - 1; i++)
@@ -29,8 +24,6 @@ namespace AdventOfCode.Solutions.Y2021.D03
                 }
 
                 inputArray.Add(bits);
-
-                s_progressTracker.CurrentStep = i;
             }
 
             return inputArray.ToArray();

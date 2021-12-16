@@ -11,11 +11,6 @@ namespace AdventOfCode.Solutions.Y2021.D05
         {
             string[] lines = input.Split('\n');
 
-            s_progressTracker = new ProgressTracker(lines.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             // Parsing
             List<Line> parsedLines = new List<Line>();
             int maxX = 0;
@@ -49,8 +44,6 @@ namespace AdventOfCode.Solutions.Y2021.D05
                 }
 
                 parsedLines.Add(new Line(points[0], points[1]));
-
-                s_progressTracker.CurrentStep++;
             }
 
             s_logger.Log($"There are {parsedLines.Count} lines with a dimension of {maxX} times {maxY}.", LogType.Info);

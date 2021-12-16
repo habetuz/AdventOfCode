@@ -13,11 +13,6 @@ namespace AdventOfCode.Solutions.Y2021.D08
     {
         internal override string Puzzle1 (Display[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int uniqueCounter = 0;
 
             foreach (Display display in input)
@@ -34,7 +29,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
                     }
                 }
 
-                s_progressTracker.CurrentStep++;
+                
             }
 
             s_logger.Log($"There are {uniqueCounter} unique digits in the output!", LogType.Info);
@@ -44,11 +39,6 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
         internal override string Puzzle2 (Display[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int values = 0;
 
             foreach (Display display in input)
@@ -82,7 +72,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
                 values += display.Value;
 
-                s_progressTracker.CurrentStep++;
+                
             }
 
             s_logger.Log($"The displays add up to {values}!", LogType.Info);

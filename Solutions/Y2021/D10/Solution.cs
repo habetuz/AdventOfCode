@@ -36,11 +36,6 @@ namespace AdventOfCode.Solutions.Y2021.D10
 
         internal override string Puzzle1(string[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int errorScore = 0;
 
             foreach (string line in input)
@@ -54,7 +49,7 @@ namespace AdventOfCode.Solutions.Y2021.D10
                     errorScore += s_wrongCharacterScore[ex.Character];
                 }
                 catch (MissingSyntaxExcpetion) { }
-                s_progressTracker.CurrentStep++;
+                
             }
 
             s_logger.Log($"The total syntax error score is {errorScore}!", LogType.Info);
@@ -63,11 +58,6 @@ namespace AdventOfCode.Solutions.Y2021.D10
 
         internal override string Puzzle2(string[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             List<long> errorScores = new List<long>();
 
             foreach (string line in input)
@@ -85,7 +75,7 @@ namespace AdventOfCode.Solutions.Y2021.D10
                 }
                 catch (WrongSyntaxExcpetion) { }
                 
-                s_progressTracker.CurrentStep++;
+                
             }
 
             errorScores.Sort();

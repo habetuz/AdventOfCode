@@ -19,11 +19,6 @@ namespace AdventOfCode.Solutions.Y2021.D04
 
         internal override string Puzzle1(Tuple<int[], Board[]> input)
         {
-            s_progressTracker = new ProgressTracker(input.Item1.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             foreach (Board board in input.Item2)
             {
                 board.AddToDrawEvent(this);
@@ -35,11 +30,9 @@ namespace AdventOfCode.Solutions.Y2021.D04
                 int draw = input.Item1[i];
                 if (_lastCompletion != -1) break;
                 NewDrawEvent(this, draw);
-                s_progressTracker.CurrentStep = i;
                 _drawIndex = i;
             }
 
-            s_progressTracker.CurrentStep = s_progressTracker.NeededSteps;
             s_logger.Log($"The solution is {_lastCompletion}!", LogType.Info);
 
             return _lastCompletion.ToString();
@@ -47,20 +40,13 @@ namespace AdventOfCode.Solutions.Y2021.D04
 
         internal override string Puzzle2(Tuple<int[], Board[]> input)
         {
-            s_progressTracker = new ProgressTracker(input.Item1.Length - _drawIndex, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             for (int i = _drawIndex +1; i < input.Item1.Length; i++)
             {
                 int draw = input.Item1[i];
                 if (NewDrawEvent == null) break;
                 NewDrawEvent(this, draw);
-                s_progressTracker.CurrentStep = i - _drawIndex - 1;
             }
 
-            s_progressTracker.CurrentStep = s_progressTracker.NeededSteps;
             s_logger.Log($"The solution is {_lastCompletion}!", LogType.Info);
 
             return _lastCompletion.ToString();

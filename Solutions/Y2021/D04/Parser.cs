@@ -15,11 +15,6 @@ namespace AdventOfCode.Solutions.Y2021.D04
         {
             string[] lines = input.Split('\n');
 
-            s_progressTracker = new ProgressTracker(lines.Length -2, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             string[] drawsString = lines[0].Split(',');
             int[] draws = new int[drawsString.Length];
             for(int i = 0; i < drawsString.Length; i++)
@@ -43,7 +38,6 @@ namespace AdventOfCode.Solutions.Y2021.D04
                         boardValues[x, y] = int.Parse(line[x]);
                     }
 
-                    s_progressTracker.CurrentStep = boardIndex + y;
                 }
 
                 boards.Add(new Board(boardValues));

@@ -16,16 +16,6 @@ namespace AdventOfCode.Common
             Ident = "Solution",
         };
 
-        protected ProgressTracker s_progressTracker;
-
-        protected void SetupProgressTracker(int neededSteps)
-        {
-            s_progressTracker = new ProgressTracker(neededSteps, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-        }
-
         internal virtual string Puzzle1(T input)
         {
             throw new SolutionNotImplementedException();

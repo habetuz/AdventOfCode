@@ -8,7 +8,6 @@ namespace AdventOfCode.Solutions.Y2021.D11
         internal override int[,] Parse(string input)
         {
             string[] lines = input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            SetupProgressTracker(lines.Length);
             int[,] result = new int[lines[0].Length, lines.Length];
             for (int y = 0; y < result.GetLength(1); y++)
             {
@@ -16,7 +15,7 @@ namespace AdventOfCode.Solutions.Y2021.D11
                 {
                     result[x, y] = int.Parse(lines[y][x].ToString());
                 }
-                s_progressTracker.CurrentStep++;
+                
             }
             return result;
         }

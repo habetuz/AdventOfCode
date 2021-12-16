@@ -7,11 +7,6 @@ namespace AdventOfCode.Solutions.Y2021.D01
     {
         internal override string Puzzle1(int[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int increaseCounter = 0;
 
             for (int i = 1; i < input.Length; i++)
@@ -20,8 +15,6 @@ namespace AdventOfCode.Solutions.Y2021.D01
                 {
                     increaseCounter++;
                 }
-
-                s_progressTracker.CurrentStep = i;
             }
 
             s_logger.Log(string.Format("The ocean floor increases {0} many times!", increaseCounter), LogType.Info);
@@ -30,11 +23,6 @@ namespace AdventOfCode.Solutions.Y2021.D01
 
         internal override string Puzzle2(int[] input)
         {
-            s_progressTracker = new ProgressTracker(input.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int increaseCounter = 0;
 
             for (int i = 3; i < input.Length; i++)
@@ -46,7 +34,6 @@ namespace AdventOfCode.Solutions.Y2021.D01
                     increaseCounter++;
                 }
 
-                s_progressTracker.CurrentStep = i;
             }
 
             s_logger.Log(string.Format("The ocean floor increases {0} many times!", increaseCounter), LogType.Info);

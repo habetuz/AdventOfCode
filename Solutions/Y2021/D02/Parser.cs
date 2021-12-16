@@ -16,11 +16,6 @@ namespace AdventOfCode.Solutions.Y2021.D02
             // Split file into lines
             string[] lines = input.Split('\n');
 
-            s_progressTracker = new ProgressTracker(lines.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             // Parsing to KeyValuePair
             List<KeyValuePair<Direction, int>> inputArray = new List<KeyValuePair<Direction, int>>();
             for (int i = 0; i < lines.Length; i++)
@@ -34,7 +29,6 @@ namespace AdventOfCode.Solutions.Y2021.D02
                         number
                         ));
                 }
-                s_progressTracker.CurrentStep = i;
             }
 
             return inputArray.ToArray();

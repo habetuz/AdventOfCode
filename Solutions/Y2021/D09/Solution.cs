@@ -14,11 +14,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
 
         internal override string Puzzle1(int[,] input)
         {
-            s_progressTracker = new ProgressTracker(input.GetLength(1), (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int riskLevel = 0;
 
             for (int y = 0; y < input.GetLength(1); y++)
@@ -37,7 +32,7 @@ namespace AdventOfCode.Solutions.Y2021.D09
                     }
                 }
 
-                s_progressTracker.CurrentStep++;
+                
             }
 
             s_logger.Log($"The sum of all risk levels is {riskLevel}!", LogType.Info);
@@ -46,17 +41,12 @@ namespace AdventOfCode.Solutions.Y2021.D09
 
         internal override string Puzzle2(int[,] input)
         {
-            s_progressTracker = new ProgressTracker(_lowPoints.Count, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             List<int> basinSizes = new List<int>();
 
             foreach (Tuple<int, int> lowPoint in _lowPoints)
             {
                 basinSizes.Add(GetBasinSize(lowPoint, input));
-                s_progressTracker.CurrentStep++;
+                
             }
 
             basinSizes.Sort();

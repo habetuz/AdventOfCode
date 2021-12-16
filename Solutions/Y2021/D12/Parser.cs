@@ -9,7 +9,6 @@ namespace AdventOfCode.Solutions.Y2021.D12
         internal override Node Parse(string input)
         {
             string[] lines = input.Split(new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
-            SetupProgressTracker(lines.Length);
 
             Dictionary<string, Node> nodes = new Dictionary<string, Node>();
 
@@ -39,7 +38,7 @@ namespace AdventOfCode.Solutions.Y2021.D12
                     nodeB.Connections[nodeB.Connections.Length - 1] = nodeA;
                 }
 
-                s_progressTracker.CurrentStep++;
+                
             }
 
             return nodes["start"];

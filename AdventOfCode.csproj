@@ -85,7 +85,6 @@
   <ItemGroup>
     <Compile Include="AdventRunner.cs" />
     <Compile Include="Common\Parser.cs" />
-    <Compile Include="Common\ProgressTracker.cs" />
     <Compile Include="Common\Solution.cs" />
     <Compile Include="Common\Tools.cs" />
     <Compile Include="Solutions\Y2021\D01\Parser.cs" />
@@ -121,6 +120,8 @@
     <Compile Include="Solutions\Y2021\D12\Solution.cs" />
     <Compile Include="Solutions\Y2021\D13\Parser.cs" />
     <Compile Include="Solutions\Y2021\D13\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D14\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D14\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

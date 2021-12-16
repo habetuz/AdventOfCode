@@ -16,18 +16,12 @@ namespace AdventOfCode.Solutions.Y2021.D01
 
             List<int> inputArray = new List<int>();
 
-            s_progressTracker = new ProgressTracker(lines.Length - 1, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             // Parsing
             for (int i = 0; i < lines.Length; i++)
             {
                 int number;
                 int.TryParse(lines[i], out number);
                 inputArray.Add(number);
-                s_progressTracker.CurrentStep = i;
             }
 
             return inputArray.ToArray();

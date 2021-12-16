@@ -14,11 +14,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
         {
             string[] values = input.Split(new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
 
-            s_progressTracker = new ProgressTracker(values.Length, (int progress) =>
-            {
-                s_logger.Log(ProgressTracker.ProgressToString(progress), LogType.Info);
-            });
-
             int[,] output = new int[values[0].Length, values.Length];
 
             for (int y = 0; y < output.GetLength(1); y++)
@@ -27,8 +22,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
                 {
                     output[x, y] = int.Parse(values[y][x].ToString());
                 }
-
-                s_progressTracker.CurrentStep++;
             }
 
             return output;
