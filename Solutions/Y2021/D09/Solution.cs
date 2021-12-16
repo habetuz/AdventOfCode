@@ -78,7 +78,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
             if (
                 point.Item1 -1 >= 0 && 
                 !visited[point.Item1 -1, point.Item2] && 
-                map[point.Item1 - 1, point.Item2] > map[point.Item1, point.Item2] &&
                 map[point.Item1 - 1, point.Item2] < 9)
             {
                 size += GetBasingSize(new Tuple<int, int>(point.Item1 - 1, point.Item2), map, visited);
@@ -86,7 +85,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
             if (
                 point.Item1 + 1 < map.GetLength(0) &&
                 !visited[point.Item1 + 1, point.Item2] &&
-                map[point.Item1 + 1, point.Item2] > map[point.Item1, point.Item2] &&
                 map[point.Item1 + 1, point.Item2] < 9)
             {
                 size += GetBasingSize(new Tuple<int, int>(point.Item1 + 1, point.Item2), map, visited);
@@ -94,7 +92,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
             if (
                 point.Item2 - 1 >= 0 &&
                 !visited[point.Item1, point.Item2 - 1] &&
-                map[point.Item1, point.Item2 - 1] > map[point.Item1, point.Item2] &&
                 map[point.Item1, point.Item2 - 1] < 9)
             {
                 size += GetBasingSize(new Tuple<int, int>(point.Item1, point.Item2 - 1), map, visited);
@@ -102,7 +99,6 @@ namespace AdventOfCode.Solutions.Y2021.D09
             if (
                 point.Item2 + 1 < map.GetLength(1) &&
                 !visited[point.Item1, point.Item2 + 1] &&
-                map[point.Item1, point.Item2 + 1] > map[point.Item1, point.Item2] &&
                 map[point.Item1, point.Item2 + 1] < 9)
             {
                 size += GetBasingSize(new Tuple<int, int>(point.Item1, point.Item2 + 1), map, visited);
