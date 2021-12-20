@@ -130,6 +130,9 @@
     <Compile Include="Solutions\Y2021\D16\Packet.cs" />
     <Compile Include="Solutions\Y2021\D16\Parser.cs" />
     <Compile Include="Solutions\Y2021\D16\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D17\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D17\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D17\Target.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
