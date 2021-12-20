@@ -125,6 +125,11 @@
     <Compile Include="Solutions\Y2021\D15\Node.cs" />
     <Compile Include="Solutions\Y2021\D15\Parser.cs" />
     <Compile Include="Solutions\Y2021\D15\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D16\LiteralValuePacket.cs" />
+    <Compile Include="Solutions\Y2021\D16\OperatorPacket.cs" />
+    <Compile Include="Solutions\Y2021\D16\Packet.cs" />
+    <Compile Include="Solutions\Y2021\D16\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D16\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

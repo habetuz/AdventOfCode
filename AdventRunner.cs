@@ -36,7 +36,7 @@ namespace AdventOfCode
             {
                 s_logger.Log($"Loading input for year {s_year} day {s_day}...", LogType.Info);
                 string input =  File.ReadAllText(filename);
-                input.TrimEnd('\n');
+                input = input.TrimEnd('\n');
                 return input;
             }
 
