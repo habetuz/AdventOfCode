@@ -83,5 +83,15 @@ namespace AdventOfCode.Common
             }
             return Convert.ToInt32(binaryString, 2);
         }
+
+        internal static int Factorial(int num)
+        {
+            int value = 1;
+            for ( ; num > 1; num--)
+            {
+                value *= num;
+            }
+            return value;
+        }
     }
 }

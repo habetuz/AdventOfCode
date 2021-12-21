@@ -133,6 +133,11 @@
     <Compile Include="Solutions\Y2021\D17\Parser.cs" />
     <Compile Include="Solutions\Y2021\D17\Solution.cs" />
     <Compile Include="Solutions\Y2021\D17\Target.cs" />
+    <Compile Include="Solutions\Y2021\D18\Pair.cs" />
+    <Compile Include="Solutions\Y2021\D18\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D18\SnailfishNumber.cs" />
+    <Compile Include="Solutions\Y2021\D18\LiteralNumber.cs" />
+    <Compile Include="Solutions\Y2021\D18\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
