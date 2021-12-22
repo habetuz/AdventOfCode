@@ -14,7 +14,7 @@ namespace AdventOfCode.Common
 
         internal static void Print2D(int[,] array)
         {
-
+            s_logger.Log($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
             for (int y = 0; y < array.GetLength(1); y++)
             {
                 string str = string.Empty;
@@ -29,7 +29,7 @@ namespace AdventOfCode.Common
 
         internal static void Print2D(bool[,] array)
         {
-
+            s_logger.Log($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
             for (int y = 0; y < array.GetLength(1); y++)
             {
                 string str = string.Empty;
@@ -37,6 +37,21 @@ namespace AdventOfCode.Common
                 {
                     if (array[x, y]) str += "#";
                     else             str += ".";
+                }
+
+                s_logger.Log(str + " - " + y);
+            }
+        }
+
+        internal static void Print2D(char[,] array)
+        {
+            s_logger.Log($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
+            for (int y = 0; y < array.GetLength(1); y++)
+            {
+                string str = string.Empty;
+                for (int x = 0; x < array.GetLength(0); x++)
+                {
+                    str += array[x, y];
                 }
 
                 s_logger.Log(str + " - " + y);
