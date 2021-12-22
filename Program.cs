@@ -17,7 +17,6 @@ namespace AdventOfCode
         static void Main(string[] args)
         {
             string input = AdventRunner.GetInput();
-            Stopwatch stopwatch = new Stopwatch();
 
             // Parsing
             Type parserType = AdventRunner.GetParser();
