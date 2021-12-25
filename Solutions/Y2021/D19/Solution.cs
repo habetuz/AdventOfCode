@@ -60,6 +60,26 @@ namespace AdventOfCode.Solutions.Y2021.D19
             return uniqueBeacons.ToString();
         }
 
+        internal override string Puzzle2(Scanner[] input)
+        {
+            int largestDistance = 0;
+            
+            foreach (Scanner fromScanner in input)
+            {
+                foreach (Scanner toScanner in input)
+                {
+                    if (fromScanner == toScanner) continue;
+
+                    int distance = Math.Abs(fromScanner.X - toScanner.X) + Math.Abs(fromScanner.Y - toScanner.Y) + Math.Abs(fromScanner.Z - toScanner.Z);
+
+                    if (distance > largestDistance) largestDistance = distance;
+                }
+            }
+
+            s_logger.Log($"The largest distance is {largestDistance}!", SharpLog.LogType.Info);
+            return largestDistance.ToString();
+        }
+
         private void FillNeighbours(Scanner scanner)
         {
             foreach (Beacon beacon in scanner.Beacons)
@@ -342,26 +362,6 @@ namespace AdventOfCode.Solutions.Y2021.D19
             }
 
             if (zDir[0] == '-') z *= -1;
-        }
-
-        internal override string Puzzle2(Scanner[] input)
-        {
-            int largestDistance = 0;
-            
-            foreach (Scanner fromScanner in input)
-            {
-                foreach (Scanner toScanner in input)
-                {
-                    if (fromScanner == toScanner) continue;
-
-                    int distance = Math.Abs(fromScanner.X - toScanner.X) + Math.Abs(fromScanner.Y - toScanner.Y) + Math.Abs(fromScanner.Z - toScanner.Z);
-
-                    if (distance > largestDistance) largestDistance = distance;
-                }
-            }
-
-            s_logger.Log($"The largest distance is {largestDistance}", SharpLog.LogType.Info);
-            return largestDistance.ToString();
         }
 
         private Beacon[] GetUniqueBeacons(Scanner[] scanners)
