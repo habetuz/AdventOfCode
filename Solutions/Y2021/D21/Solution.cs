@@ -1,10 +1,4 @@
 ﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static AdventOfCode.Solutions.Y2021.D21.Player;
 
 namespace AdventOfCode.Solutions.Y2021.D21
 {
@@ -56,11 +50,7 @@ namespace AdventOfCode.Solutions.Y2021.D21
 
         override internal string Puzzle2((int, int) input)
         {
-            s_logger.LogDebug = true;
-
-            s_logger.Log("3 steps...");
-
-            byte neededScore = 20;
+            byte neededScore = 21;
 
             (long winsPlayer1, long winsPlayer2) = Turn(
                 player: 1,
@@ -71,8 +61,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
                 scorePlayer2: 0,
                 neededScore: neededScore,
                 dimetions: 1);
-
-            s_logger.Log("4 steps...");
 
             (long tmpWinsPlayer1, long tmpWinsPlayer2) = Turn(
                 player: 1,
@@ -87,8 +75,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
             winsPlayer1 += tmpWinsPlayer1;
             winsPlayer2 += tmpWinsPlayer2;
 
-            s_logger.Log("5 steps...");
-
             (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
                 player: 1,
                 steps: 5,
@@ -101,8 +87,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
 
             winsPlayer1 += tmpWinsPlayer1;
             winsPlayer2 += tmpWinsPlayer2;
-
-            s_logger.Log("6 steps...");
 
             (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
                 player: 1,
@@ -117,8 +101,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
             winsPlayer1 += tmpWinsPlayer1;
             winsPlayer2 += tmpWinsPlayer2;
 
-            s_logger.Log("7 steps...");
-
             (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
                 player: 1,
                 steps: 7,
@@ -132,8 +114,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
             winsPlayer1 += tmpWinsPlayer1;
             winsPlayer2 += tmpWinsPlayer2;
 
-            s_logger.Log("8 steps...");
-
             (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
                 player: 1,
                 steps: 8,
@@ -146,8 +126,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
 
             winsPlayer1 += tmpWinsPlayer1;
             winsPlayer2 += tmpWinsPlayer2;
-
-            s_logger.Log("9 steps...");
 
             (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
                 player: 1,
@@ -164,13 +142,11 @@ namespace AdventOfCode.Solutions.Y2021.D21
 
             s_logger.Log($"Player 1 won {winsPlayer1} times, player 2 won {winsPlayer2} times!", SharpLog.LogType.Info);
 
-            s_logger.Log($"            {winsPlayer1 - 444356092776315:D14}                     {winsPlayer2 - 341960390180808:D14}");
-
             if (winsPlayer1 < winsPlayer2) return winsPlayer2.ToString();
             else return winsPlayer1.ToString();
         }
 
-        private (long, long) Turn(byte player, byte steps, byte positionPlayer1, byte positionPlayer2, byte scorePlayer1, byte scorePlayer2, byte neededScore, int dimetions)
+        private (long, long) Turn(byte player, byte steps, byte positionPlayer1, byte positionPlayer2, long scorePlayer1, long scorePlayer2, byte neededScore, long dimetions)
         {
             if (player == 1)
             {

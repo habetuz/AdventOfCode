@@ -1,6 +1,5 @@
 ﻿using SharpLog;
 using System;
-using System.Collections.Generic;
 
 namespace AdventOfCode.Common
 {
