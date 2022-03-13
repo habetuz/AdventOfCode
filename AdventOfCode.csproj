@@ -146,6 +146,7 @@
     <Compile Include="Solutions\Y2021\D20\Solution.cs" />
     <Compile Include="Solutions\Y2021\D21\Parser.cs" />
     <Compile Include="Solutions\Y2021\D21\Player.cs" />
+    <Compile Include="Solutions\Y2021\D21\WrongSolutiuon.cs" />
     <Compile Include="Solutions\Y2021\D21\Solution.cs" />
   </ItemGroup>
   <ItemGroup>

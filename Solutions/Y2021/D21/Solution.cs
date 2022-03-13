@@ -4,15 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static AdventOfCode.Solutions.Y2021.D21.Player;
 
 namespace AdventOfCode.Solutions.Y2021.D21
 {
-    internal class Solution : Solution<(int, int)> 
+    internal class Solution : Solution<(int, int)>
     {
         private bool _winner = false;
-        private int _startingPosition = 0;
-
-        private Dictionary<int, long> _wins = new Dictionary<int, long>();
 
         internal override string Puzzle1((int, int) input)
         {
@@ -51,108 +49,179 @@ namespace AdventOfCode.Solutions.Y2021.D21
             return solution.ToString();
         }
 
-        internal override string Puzzle2((int, int) input)
-        {
-            _wins.Clear();
-            Player player1 = new Player(input.Item1, 21);
-            Player player2 = new Player(input.Item2, 21);
-            player1.WinEvent += PlayerWins;
-            player2.WinEvent += PlayerWins;
-
-            RecursiveDice(player1, player2, true);
-
-            long[] wins = _wins.Values.ToArray();
-
-            Array.Sort(wins);
-
-            s_logger.Log($"The most wins are {wins[0]}!", SharpLog.LogType.Info);
-            return wins[0].ToString();
-        }
-
-        private void PlayerWins(int startingPosition, int dimentions = 1)
+        private void PlayerWins(int none, int none2)
         {
             _winner = true;
-            _startingPosition = startingPosition;
-
-            _wins[startingPosition] = _wins.ContainsKey(startingPosition)? _wins[startingPosition] + dimentions : dimentions;
         }
 
-        private void RecursiveDice(Player player1, Player player2, bool turnPlayer1)
+        override internal string Puzzle2((int, int) input)
         {
-            if (player1.Won || player2.Won) return;
+            s_logger.LogDebug = true;
 
-            if (turnPlayer1)
+            s_logger.Log("3 steps...");
+
+            byte neededScore = 20;
+
+            (long winsPlayer1, long winsPlayer2) = Turn(
+                player: 1,
+                steps: 3,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 1);
+
+            s_logger.Log("4 steps...");
+
+            (long tmpWinsPlayer1, long tmpWinsPlayer2) = Turn(
+                player: 1,
+                steps: 4,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 3);
+
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            s_logger.Log("5 steps...");
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
+                player: 1,
+                steps: 5,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 6);
+
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            s_logger.Log("6 steps...");
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
+                player: 1,
+                steps: 6,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 7);
+
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            s_logger.Log("7 steps...");
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
+                player: 1,
+                steps: 7,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 6);
+
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            s_logger.Log("8 steps...");
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
+                player: 1,
+                steps: 8,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 3);
+
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            s_logger.Log("9 steps...");
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(
+                player: 1,
+                steps: 9,
+                positionPlayer1: (byte)input.Item1,
+                positionPlayer2: (byte)input.Item2,
+                scorePlayer1: 0,
+                scorePlayer2: 0,
+                neededScore: neededScore,
+                dimetions: 1);
+
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            s_logger.Log($"Player 1 won {winsPlayer1} times, player 2 won {winsPlayer2} times!", SharpLog.LogType.Info);
+
+            s_logger.Log($"            {winsPlayer1 - 444356092776315:D14}                     {winsPlayer2 - 341960390180808:D14}");
+
+            if (winsPlayer1 < winsPlayer2) return winsPlayer2.ToString();
+            else return winsPlayer1.ToString();
+        }
+
+        private (long, long) Turn(byte player, byte steps, byte positionPlayer1, byte positionPlayer2, byte scorePlayer1, byte scorePlayer2, byte neededScore, int dimetions)
+        {
+            if (player == 1)
             {
-                Player player1_3 = player1.Clone();
-                Player player1_4 = player1.Clone();
-                Player player1_5 = player1.Clone();
-                Player player1_6 = player1.Clone();
-                Player player1_7 = player1.Clone();
-                Player player1_8 = player1.Clone();
-                Player player1_9 = player1.Clone();
+                positionPlayer1 = (byte)((positionPlayer1 + steps - 1) % 10 + 1);
+                scorePlayer1 += positionPlayer1;
+                if (scorePlayer1 >= neededScore)
+                {
+                    return (dimetions, 0);
+                }
 
-                player1_4.RepresentingDimentions *= 3;
-
-                player1_5.RepresentingDimentions *= 6;
-
-                player1_6.RepresentingDimentions *= 7;
-
-                player1_7.RepresentingDimentions *= 6;
-
-                player1_8.RepresentingDimentions *= 3;
-
-                player1_3.Position += 3;
-                player1_4.Position += 4;
-                player1_5.Position += 5;
-                player1_6.Position += 6;
-                player1_7.Position += 7;
-                player1_8.Position += 8;
-                player1_9.Position += 9;
-
-                RecursiveDice(player1_3, player2, false);
-                RecursiveDice(player1_4, player2, false);
-                RecursiveDice(player1_5, player2, false);
-                RecursiveDice(player1_6, player2, false);
-                RecursiveDice(player1_7, player2, false);
-                RecursiveDice(player1_8, player2, false);
-                RecursiveDice(player1_9, player2, false);
+                player = 0;
             }
             else
             {
-                Player player2_3 = player2.Clone();
-                Player player2_4 = player2.Clone();
-                Player player2_5 = player2.Clone();
-                Player player2_6 = player2.Clone();
-                Player player2_7 = player2.Clone();
-                Player player2_8 = player2.Clone();
-                Player player2_9 = player2.Clone();
+                positionPlayer2 = (byte)((positionPlayer2 + steps - 1) % 10 + 1);
+                scorePlayer2 += positionPlayer2;
+                if (scorePlayer2 >= neededScore)
+                {
+                    return (0, dimetions);
+                }
 
-                player2_4.RepresentingDimentions *= 3;
-
-                player2_5.RepresentingDimentions *= 6;
-
-                player2_6.RepresentingDimentions *= 7;
-
-                player2_7.RepresentingDimentions *= 6;
-
-                player2_8.RepresentingDimentions *= 3;
-
-                player2_3.Position += 3;
-                player2_4.Position += 4;
-                player2_5.Position += 5;
-                player2_6.Position += 6;
-                player2_7.Position += 7;
-                player2_8.Position += 8;
-                player2_9.Position += 9;
-
-                RecursiveDice(player1, player2_3, true);
-                RecursiveDice(player1, player2_4, true);
-                RecursiveDice(player1, player2_5, true);
-                RecursiveDice(player1, player2_6, true);
-                RecursiveDice(player1, player2_7, true);
-                RecursiveDice(player1, player2_8, true);
-                RecursiveDice(player1, player2_9, true);
+                player = 1;
             }
+
+            (long winsPlayer1, long winsPlayer2) = Turn(player, steps: 3, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions);
+
+            (long tmpWinsPlayer1, long tmpWinsPlayer2) = Turn(player, steps: 4, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions * 3);
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(player, 5, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions * 6);
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(player, 6, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions * 7);
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(player, 7, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions * 6);
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(player, 8, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions * 3);
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            (tmpWinsPlayer1, tmpWinsPlayer2) = Turn(player, 9, positionPlayer1, positionPlayer2, scorePlayer1, scorePlayer2, neededScore, dimetions);
+            winsPlayer1 += tmpWinsPlayer1;
+            winsPlayer2 += tmpWinsPlayer2;
+
+            return (winsPlayer1, winsPlayer2);
         }
     }
 }
