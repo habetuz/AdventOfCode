@@ -149,6 +149,8 @@
     <Compile Include="Solutions\Y2021\D21\Solution.cs" />
     <Compile Include="Solutions\Y2021\D22\Parser.cs" />
     <Compile Include="Solutions\Y2021\D22\Solution.cs" />
+    <Compile Include="Solutions\Y2021\D23\Parser.cs" />
+    <Compile Include="Solutions\Y2021\D23\Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
