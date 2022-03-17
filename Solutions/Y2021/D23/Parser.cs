@@ -1,34 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
 using AdventOfCode.Common;
 
 namespace AdventOfCode.Solutions.Y2021.D23
 {
-    internal class Parser : Parser<char[,]>
+    internal class Parser : Parser<(char[,], char[,])>
     {
-        internal override char[,] Parse(string input)
+        internal override (char[,], char[,]) Parse(string input)
         {
-            string[] lines = input.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries);
+            List<string> lines = new List<string>(input.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries));
 
-            char[,] result = new char[lines[0].Length ,lines.Length];
+            char[,] resultA = new char[lines[0].Length ,lines.Count];
+            char[,] resultB = new char[lines[0].Length, lines.Count + 2];
 
-            for (int y = 0; y < lines.Length; y++)
+            for (int y = 0; y < lines.Count; y++)
             {
                 for (int x = 0; x < lines[0].Length; x++)
                 {
                     try
                     {
-                        result[x, y] = lines[y][x];
+                        resultA[x, y] = lines[y][x];
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        result[x, y] = ' ';
+                        resultA[x, y] = ' ';
                     }
                 }
             }
 
-            Tools.Print2D(result);
+            lines.Insert(3, "  #D#B#A#C#");
+            lines.Insert(3, "  #D#C#B#A#");
 
-            return result;
+            for (int y = 0; y < lines.Count; y++)
+            {
+                for (int x = 0; x < lines[0].Length; x++)
+                {
+                    try
+                    {
+                        resultB[x, y] = lines[y][x];
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        resultB[x, y] = ' ';
+                    }
+                }
+            }
+
+            return (resultA, resultB);
         }
     }
 }
