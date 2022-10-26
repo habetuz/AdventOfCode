@@ -28,13 +28,11 @@
             for (int i = 0; i < lines.Length; i++)
             {
                 string[] inputPair = lines[i].Split(' ');
-                int number;
-                if (inputPair.Length == 2 && int.TryParse(inputPair[1], out number))
+                if (inputPair.Length == 2 && int.TryParse(inputPair[1], out int number))
                 {
                     inputArray.Add(new KeyValuePair<Direction, int>(
                         (Direction)Enum.Parse(typeof(Direction), inputPair[0], ignoreCase: true),
-                        number
-                        ));
+                        number));
                 }
             }
 

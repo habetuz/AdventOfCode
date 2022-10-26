@@ -9,7 +9,7 @@
 
     internal class Solution : Solution<Target>
     {
-        internal override string Puzzle1(Target input)
+        internal override (object, string) Puzzle1(Target input)
         {
             int horizontalSpeed = 1;
 
@@ -26,11 +26,10 @@
             int VerticalEndingPosition = this.EndingPosition(verticalSpeed);
 
             // SimulateTrajectory(horizontalSpeed, verticalSpeed, input);
-            SharpLog.Logging.LogDebug($"The ending position is {VerticalEndingPosition}!");
-            return VerticalEndingPosition.ToString();
+            return (VerticalEndingPosition.ToString(), $"The ending position is {VerticalEndingPosition}!");
         }
 
-        internal override string Puzzle2(Target input)
+        internal override (object, string) Puzzle2(Target input)
         {
             int counter = 0;
 
@@ -46,13 +45,13 @@
                     if (this.HitsTarget(horizontalSpeed, verticalSpeed, input))
                     {
                         counter++;
+
                         // SimulateTrajectory(horizontalSpeed, verticalSpeed, input);
                     }
                 }
             }
 
-            SharpLog.Logging.LogDebug($"There are {counter} possible velocity values!");
-            return counter.ToString();
+            return (counter.ToString(), $"There are {counter} possible velocity values!");
         }
 
         private int EndingPosition(int speed)

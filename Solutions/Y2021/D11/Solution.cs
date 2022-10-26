@@ -6,7 +6,7 @@
 
     internal class Solution : Solution<int[,]>
     {
-        internal override string Puzzle1(int[,] input)
+        internal override (object, string) Puzzle1(int[,] input)
         {
             int flashes = 0;
 
@@ -34,11 +34,10 @@
                 ////Tools.Print2D(input);
             }
 
-            SharpLog.Logging.LogDebug($"There were {flashes} flashes after 100 steps!");
-            return flashes.ToString();
+            return (flashes.ToString(), $"There were {flashes} flashes after 100 steps!");
         }
 
-        internal override string Puzzle2(int[,] input)
+        internal override (object, string) Puzzle2(int[,] input)
         {
             int syncStep = 0;
 
@@ -79,8 +78,7 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"The octopuses were in sync on step {syncStep}!");
-            return syncStep.ToString();
+            return (syncStep.ToString(), $"The octopuses were in sync on step {syncStep}!");
         }
 
         private void IncreaseEnergy(int[,] input, int x, int y, ref int flashes)

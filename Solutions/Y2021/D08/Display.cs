@@ -12,29 +12,29 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
     internal class Display
     {
-        internal static readonly Dictionary<short, char[]> s_digitSegments = new Dictionary<short, char[]>()
+        internal static readonly Dictionary<short, char[]> DigitSegments = new Dictionary<short, char[]>()
         {
-            {0, new char[] {'a', 'b', 'c', 'e', 'f', 'g'} },
-            {1, new char[] {'c', 'f'} },
-            {2, new char[] {'a', 'c', 'd', 'e', 'g'} },
-            {3, new char[] {'a', 'c', 'd', 'f', 'g'} },
-            {4, new char[] {'b', 'c', 'd', 'f'} },
-            {5, new char[] {'a', 'b', 'd', 'f', 'g'} },
-            {6, new char[] {'a', 'b', 'd', 'e', 'f', 'g'} },
-            {7, new char[] {'a', 'c', 'f'} },
-            {8, new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {9, new char[] {'a', 'b', 'c', 'd', 'f', 'g' } },
+            { 0, new char[] { 'a', 'b', 'c', 'e', 'f', 'g' } },
+            { 1, new char[] { 'c', 'f' } },
+            { 2, new char[] { 'a', 'c', 'd', 'e', 'g' } },
+            { 3, new char[] { 'a', 'c', 'd', 'f', 'g' } },
+            { 4, new char[] { 'b', 'c', 'd', 'f' } },
+            { 5, new char[] { 'a', 'b', 'd', 'f', 'g' } },
+            { 6, new char[] { 'a', 'b', 'd', 'e', 'f', 'g' } },
+            { 7, new char[] { 'a', 'c', 'f' } },
+            { 8, new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 9, new char[] { 'a', 'b', 'c', 'd', 'f', 'g' } },
         };
 
         internal Dictionary<char, char[]> PossibleWiring = new Dictionary<char, char[]>()
         {
-            {'a', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {'b', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {'c', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {'d', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {'e', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {'f', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {'g', new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
+            { 'a', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 'b', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 'c', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 'd', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 'e', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 'f', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
+            { 'g', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
         };
 
         internal string[] Inputs;
@@ -85,7 +85,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
         internal static short GetDigit(string segments)
         {
-            foreach (KeyValuePair<short, char[]> digit in s_digitSegments)
+            foreach (KeyValuePair<short, char[]> digit in DigitSegments)
             {
                 if (digit.Value.Length == segments.Length &&
                     digit.Value.All(c => { return segments.Contains(c); }))

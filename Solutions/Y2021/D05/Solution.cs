@@ -9,7 +9,7 @@
     {
         private int[,] field;
 
-        internal override string Puzzle1(Tuple<Line[], Point> input)
+        internal override (object, string) Puzzle1(Tuple<Line[], Point> input)
         {
             this.field = new int[input.Item2.X, input.Item2.Y];
 
@@ -37,12 +37,10 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"There are {overlapCounter} overlapping points!");
-
-            return overlapCounter.ToString();
+            return (overlapCounter.ToString(), $"There are {overlapCounter} overlapping points!");
         }
 
-        internal override string Puzzle2(Tuple<Line[], Point> input)
+        internal override (object, string) Puzzle2(Tuple<Line[], Point> input)
         {
             this.field = new int[input.Item2.X, input.Item2.Y];
 
@@ -65,9 +63,7 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"There are {overlapCounter} overlapping points!");
-
-            return overlapCounter.ToString();
+            return (overlapCounter.ToString(), $"There are {overlapCounter} overlapping points!");
         }
     }
 }

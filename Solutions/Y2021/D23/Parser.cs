@@ -8,7 +8,7 @@
     {
         internal override (char[,], char[,]) Parse(string input)
         {
-            List<string> lines = new List<string>(input.Split(new char[] { '\n' }, System.StringSplitOptions.RemoveEmptyEntries));
+            List<string> lines = new List<string>(input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries));
 
             char[,] resultA = new char[lines[0].Length, lines.Count];
             char[,] resultB = new char[lines[0].Length, lines.Count + 2];

@@ -10,31 +10,31 @@
 
     internal class Solution : Solution<string[]>
     {
-        private static readonly Dictionary<char, int> s_wrongCharacterScore = new Dictionary<char, int>()
+        private static readonly Dictionary<char, int> WrongCharacterScore = new Dictionary<char, int>()
         {
-            {')', 3},
-            {']', 57},
-            {'}', 1197},
-            {'>', 25137},
+            { ')', 3 },
+            { ']', 57 },
+            { '}', 1197 },
+            { '>', 25137 },
         };
 
-        private static readonly Dictionary<char, int> s_missingCharacterScore = new Dictionary<char, int>()
+        private static readonly Dictionary<char, int> MissingCharacterScore = new Dictionary<char, int>()
         {
-            {')', 1},
-            {']', 2},
-            {'}', 3},
-            {'>', 4},
+            { ')', 1 },
+            { ']', 2 },
+            { '}', 3 },
+            { '>', 4 },
         };
 
-        private static readonly Dictionary<char, char> s_bracketPairs = new Dictionary<char, char>()
+        private static readonly Dictionary<char, char> BracketPairs = new Dictionary<char, char>()
         {
-            {'(', ')'},
-            {'[', ']'},
-            {'{', '}'},
-            {'<', '>'},
+            { '(', ')' },
+            { '[', ']' },
+            { '{', '}' },
+            { '<', '>' },
         };
 
-        internal override string Puzzle1(string[] input)
+        internal override (object, string) Puzzle1(string[] input)
         {
             int errorScore = 0;
 
@@ -46,18 +46,17 @@
                 }
                 catch (WrongSyntaxExcpetion ex)
                 {
-                    errorScore += s_wrongCharacterScore[ex.Character];
+                    errorScore += WrongCharacterScore[ex.Character];
                 }
                 catch (MissingSyntaxExcpetion)
                 {
                 }
             }
 
-            SharpLog.Logging.LogDebug($"The total syntax error score is {errorScore}!");
-            return errorScore.ToString();
+            return (errorScore.ToString(), $"The total syntax error score is {errorScore}!");
         }
 
-        internal override string Puzzle2(string[] input)
+        internal override (object, string) Puzzle2(string[] input)
         {
             List<long> errorScores = new List<long>();
 
@@ -70,7 +69,7 @@
                     foreach (char ch in missingString)
                     {
                         score *= 5;
-                        score += s_missingCharacterScore[ch];
+                        score += MissingCharacterScore[ch];
                     }
 
                     errorScores.Add(score);
@@ -83,8 +82,7 @@
             errorScores.Sort();
             long middleScore = errorScores[errorScores.Count / 2];
 
-            SharpLog.Logging.LogDebug($"The middle error score is {middleScore}!");
-            return middleScore.ToString();
+            return (middleScore.ToString(), $"The middle error score is {middleScore}!");
         }
 
         private void WrongSystanxAnalysis(string line)
@@ -95,11 +93,11 @@
         private int WrongSyntaxAnalysis(string line, int index)
         {
             char openingBracket = line[index];
-            char closingBracket = s_bracketPairs[openingBracket];
+            char closingBracket = BracketPairs[openingBracket];
 
             for (int i = index + 1; i < line.Length; i++)
             {
-                if (s_bracketPairs.ContainsKey(line[i]))
+                if (BracketPairs.ContainsKey(line[i]))
                 {
                     i = this.WrongSyntaxAnalysis(line, i);
                 }
@@ -130,11 +128,11 @@
         private (string, int) MissingSyntaxAnalysis(string line, string completionString, int index)
         {
             char openingBracket = line[index];
-            char closingBracket = s_bracketPairs[openingBracket];
+            char closingBracket = BracketPairs[openingBracket];
 
             for (int i = index + 1; i < line.Length; i++)
             {
-                if (s_bracketPairs.ContainsKey(line[i]))
+                if (BracketPairs.ContainsKey(line[i]))
                 {
                     (completionString, i) = this.MissingSyntaxAnalysis(line, completionString, i);
                 }
@@ -164,14 +162,16 @@
 
         private class WrongSyntaxExcpetion : SyntaxExcpetion
         {
-            public WrongSyntaxExcpetion(char character) : base(character)
+            public WrongSyntaxExcpetion(char character)
+                : base(character)
             {
             }
         }
 
         private class MissingSyntaxExcpetion : SyntaxExcpetion
         {
-            public MissingSyntaxExcpetion(char character) : base(character)
+            public MissingSyntaxExcpetion(char character)
+                : base(character)
             {
             }
         }

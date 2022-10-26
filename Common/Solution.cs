@@ -9,12 +9,12 @@
 
     internal abstract class Solution<T>
     {
-        internal virtual string Puzzle1(T input)
+        internal virtual (object clipboard, string message) Puzzle1(T input)
         {
             throw new SolutionNotImplementedException();
         }
 
-        internal virtual string Puzzle2(T input)
+        internal virtual (object clipboard, string message) Puzzle2(T input)
         {
             throw new SolutionNotImplementedException();
         }

@@ -10,6 +10,8 @@
             throw new ParserNotImplementedException();
         }
 
-        internal class ParserNotImplementedException : Exception { }
+        internal class ParserNotImplementedException : Exception
+        {
+        }
     }
 }

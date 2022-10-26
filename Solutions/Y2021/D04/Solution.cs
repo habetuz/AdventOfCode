@@ -17,7 +17,7 @@
 
         internal event NewDrawHandler NewDrawEvent;
 
-        internal override string Puzzle1(Tuple<int[], Board[]> input)
+        internal override (object, string) Puzzle1(Tuple<int[], Board[]> input)
         {
             foreach (Board board in input.Item2)
             {
@@ -37,12 +37,10 @@
                 this.drawIndex = i;
             }
 
-            SharpLog.Logging.LogDebug($"The solution is {this.lastCompletion}!");
-
-            return this.lastCompletion.ToString();
+            return (this.lastCompletion.ToString(), $"The solution is {this.lastCompletion}!");
         }
 
-        internal override string Puzzle2(Tuple<int[], Board[]> input)
+        internal override (object, string) Puzzle2(Tuple<int[], Board[]> input)
         {
             for (int i = this.drawIndex + 1; i < input.Item1.Length; i++)
             {
@@ -55,9 +53,7 @@
                 this.NewDrawEvent(this, draw);
             }
 
-            SharpLog.Logging.LogDebug($"The solution is {this.lastCompletion}!");
-
-            return this.lastCompletion.ToString();
+            return (this.lastCompletion.ToString(), $"The solution is {this.lastCompletion}!");
         }
 
         private void BoardCompleted(Board sender, int lastDraw)

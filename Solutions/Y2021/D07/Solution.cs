@@ -9,7 +9,7 @@
 
     internal class Solution : Solution<int[]>
     {
-        internal override string Puzzle1(int[] input)
+        internal override (object, string) Puzzle1(int[] input)
         {
             Array.Sort(input);
 
@@ -22,12 +22,10 @@
                 fuel += Math.Abs(crab - alignPosition);
             }
 
-            SharpLog.Logging.LogDebug($"The crabs need {fuel} fuel!");
-
-            return fuel.ToString();
+            return (fuel.ToString(), $"The crabs need {fuel} fuel!");
         }
 
-        internal override string Puzzle2(int[] input)
+        internal override (object, string) Puzzle2(int[] input)
         {
             int fuelLeft = 0;
             int fuelRight = 0;
@@ -61,9 +59,7 @@
             int fuel = fuelLeft < fuelMiddle ? fuelLeft : fuelMiddle;
             fuel = fuelRight < fuel ? fuelRight : fuel;
 
-            SharpLog.Logging.LogDebug($"The crabs need {fuel} fuel!");
-
-            return fuel.ToString();
+            return (fuel.ToString(), $"The crabs need {fuel} fuel!");
         }
     }
 }

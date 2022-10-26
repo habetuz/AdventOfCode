@@ -15,7 +15,7 @@
 
         private const int MaxSize = 2_000_000_000;
 
-        internal override string Puzzle1((bool, (int, int, int), (int, int, int))[] input)
+        internal override (object, string) Puzzle1((bool, (int, int, int), (int, int, int))[] input)
         {
             bool[,,] reactor = new bool[101, 101, 101];
 
@@ -58,12 +58,10 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"{activeCubes} cubes are active!");
-
-            return activeCubes.ToString();
+            return (activeCubes.ToString(), $"{activeCubes} cubes are active!");
         }
 
-        internal override string Puzzle2((bool, (int, int, int), (int, int, int))[] input)
+        internal override (object, string) Puzzle2((bool, (int, int, int), (int, int, int))[] input)
         {
             long activeCubes = 0;
 
@@ -87,7 +85,7 @@
 
             SharpLog.Logging.LogDebug($"{activeCubes} cubes are active!");
 
-            return activeCubes.ToString();
+            return (activeCubes.ToString(), $"{activeCubes} cubes are active!");
         }
 
         private long UniqueIntersection(((int, int, int), (int, int, int)) intersection, List<((int, int, int), (int, int, int))> toIntersect)

@@ -5,7 +5,7 @@
 
     internal class Solution : Solution<int[]>
     {
-        internal override string Puzzle1(int[] input)
+        internal override (object, string) Puzzle1(int[] input)
         {
             int increaseCounter = 0;
 
@@ -17,11 +17,10 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug(string.Format("The ocean floor increases {0} many times!", increaseCounter));
-            return increaseCounter + string.Empty;
+            return (increaseCounter + string.Empty, string.Format("The ocean floor increases {0} many times!", increaseCounter));
         }
 
-        internal override string Puzzle2(int[] input)
+        internal override (object, string) Puzzle2(int[] input)
         {
             int increaseCounter = 0;
 
@@ -35,8 +34,8 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug(string.Format("The ocean floor increases {0} many times!", increaseCounter));
-            return string.Empty + increaseCounter;
+            Logging.LogDebug(string.Format("The ocean floor increases {0} many times!", increaseCounter));
+            return (increaseCounter + string.Empty, string.Format("The ocean floor increases {0} many times!", increaseCounter));
         }
     }
 }

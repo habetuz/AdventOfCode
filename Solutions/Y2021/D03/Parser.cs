@@ -20,7 +20,7 @@
                 for (int bit = 0; bit < lines[0].Length; bit++)
                 {
                     bits[bit] = lines[i][bit] - '0';
-                    SharpLog.Logging.LogDebug(string.Format("{2}:{3} | From {0} to {1}", lines[i][bit], bits[bit], i, bit));
+                    Logging.LogDebug(string.Format("{2}:{3} | From {0} to {1}", lines[i][bit], bits[bit], i, bit));
                 }
 
                 inputArray.Add(bits);

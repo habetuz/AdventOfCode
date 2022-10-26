@@ -12,7 +12,7 @@
     {
         private readonly List<Tuple<int, int>> lowPoints = new List<Tuple<int, int>>();
 
-        internal override string Puzzle1(int[,] input)
+        internal override (object, string) Puzzle1(int[,] input)
         {
             int riskLevel = 0;
 
@@ -33,11 +33,10 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"The sum of all risk levels is {riskLevel}!");
-            return riskLevel.ToString();
+            return (riskLevel.ToString(), $"The sum of all risk levels is {riskLevel}!");
         }
 
-        internal override string Puzzle2(int[,] input)
+        internal override (object, string) Puzzle2(int[,] input)
         {
             List<int> basinSizes = new List<int>();
 
@@ -49,8 +48,7 @@
             basinSizes.Sort();
             basinSizes.Reverse();
             int solution = basinSizes[0] * basinSizes[1] * basinSizes[2];
-            SharpLog.Logging.LogDebug($"The multiplication of the three largest basins is {solution}!");
-            return solution.ToString();
+            return (solution.ToString(), $"The multiplication of the three largest basins is {solution}!");
         }
 
         private int GetBasinSize(Tuple<int, int> lowPoint, int[,] map)

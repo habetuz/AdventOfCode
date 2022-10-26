@@ -9,7 +9,7 @@ namespace AdventOfCode.Common
     {
         internal static void Print2D(int[,] array)
         {
-            SharpLog.Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
+            Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
             for (int y = 0; y < array.GetLength(1); y++)
             {
                 string str = string.Empty;
@@ -18,13 +18,13 @@ namespace AdventOfCode.Common
                     str += array[x, y];
                 }
 
-                SharpLog.Logging.LogDebug(str + " - " + y);
+                Logging.LogDebug(str + " - " + y);
             }
         }
 
         internal static void Print2D(bool[,] array)
         {
-            SharpLog.Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
+            Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
             for (int y = 0; y < array.GetLength(1); y++)
             {
                 string str = string.Empty;
@@ -40,13 +40,13 @@ namespace AdventOfCode.Common
                     }
                 }
 
-                SharpLog.Logging.LogDebug(str + " - " + y);
+                Logging.LogDebug(str + " - " + y);
             }
         }
 
         internal static void Print2D(char[,] array)
         {
-            SharpLog.Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
+            Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
             for (int y = 0; y < array.GetLength(1); y++)
             {
                 string str = string.Empty;
@@ -55,7 +55,7 @@ namespace AdventOfCode.Common
                     str += array[x, y];
                 }
 
-                SharpLog.Logging.LogDebug(str + " - " + y);
+                Logging.LogDebug(str + " - " + y);
             }
         }
 

@@ -9,7 +9,7 @@
 
     internal class Solution : Solution<((char, int)[], bool[,])>
     {
-        internal override string Puzzle1(((char, int)[], bool[,]) input)
+        internal override (object, string) Puzzle1(((char, int)[], bool[,]) input)
         {
             (char, int) instruction = input.Item1[0];
 
@@ -28,11 +28,10 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"After 1 fold there are {counter} dots left!");
-            return counter.ToString();
+            return (counter.ToString(), $"After 1 fold there are {counter} dots left!");
         }
 
-        internal override string Puzzle2(((char, int)[], bool[,]) input)
+        internal override (object, string) Puzzle2(((char, int)[], bool[,]) input)
         {
             bool[,] paper = input.Item2;
 
@@ -44,7 +43,7 @@
             SharpLog.Logging.LogDebug($"After the folds the following image appears:");
             Tools.Print2D(paper);
 
-            return "See the console log!";
+            return ("", "See console log!");
         }
 
         private bool[,] Fold(bool[,] paper, char axis, int index)

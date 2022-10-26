@@ -55,9 +55,9 @@ namespace AdventOfCode.Solutions.Y2021.D21
             }
         }
 
-        internal event Win WinEvent;
-
         internal delegate void Win(int startingPosition = 1, int dimentions = 1);
+
+        internal event Win WinEvent;
 
         internal Player Clone()
         {

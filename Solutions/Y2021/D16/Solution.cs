@@ -9,20 +9,18 @@
 
     internal class Solution : Solution<Packet>
     {
-        internal override string Puzzle1(Packet input)
+        internal override (object, string) Puzzle1(Packet input)
         {
             int versionSum = this.RecursiveVersionSum(input);
 
-            SharpLog.Logging.LogDebug($"The version sum is {versionSum}!");
-            return versionSum.ToString();
+            return (versionSum.ToString(), $"The version sum is {versionSum}!");
         }
 
-        internal override string Puzzle2(Packet input)
+        internal override (object, string) Puzzle2(Packet input)
         {
             long value = this.RecursiveValueCalculation(input);
 
-            SharpLog.Logging.LogDebug($"The value is {value}!");
-            return value.ToString();
+            return (value.ToString(), $"The value is {value}!");
         }
 
         private int RecursiveVersionSum(Packet packet)

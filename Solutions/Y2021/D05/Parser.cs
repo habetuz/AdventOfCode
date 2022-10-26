@@ -33,13 +33,13 @@
 
                     if (x > maxX)
                     {
-                        SharpLog.Logging.LogDebug($"x: {maxX} -> {x} | line: {line}");
+                        Logging.LogDebug($"x: {maxX} -> {x} | line: {line}");
                         maxX = x;
                     }
 
                     if (y > maxY)
                     {
-                        SharpLog.Logging.LogDebug($"y: {maxY} -> {y} | line: {line}");
+                        Logging.LogDebug($"y: {maxY} -> {y} | line: {line}");
                         maxY = y;
                     }
                 }
@@ -47,7 +47,7 @@
                 parsedLines.Add(new Line(points[0], points[1]));
             }
 
-            SharpLog.Logging.LogDebug($"There are {parsedLines.Count} lines with a dimension of {maxX} times {maxY}.");
+            Logging.LogDebug($"There are {parsedLines.Count} lines with a dimension of {maxX} times {maxY}.");
             return new Tuple<Line[], Point>(parsedLines.ToArray(), new Point
             {
                 X = maxX + 1,

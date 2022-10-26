@@ -9,7 +9,7 @@
 
     internal class Solution : Solution<Node[,]>
     {
-        internal override string Puzzle1(Node[,] input)
+        internal override (object, string) Puzzle1(Node[,] input)
         {
             List<Node> queue = new List<Node>();
 
@@ -57,11 +57,10 @@
 
             SharpLog.Logging.LogDebug(iterationCount);
 
-            SharpLog.Logging.LogDebug($"The the path with the lowest risk level hast the risk level {riskLevel}");
-            return riskLevel.ToString();
+            return (riskLevel.ToString(), $"The the path with the lowest risk level hast the risk level {riskLevel}");
         }
 
-        internal override string Puzzle2(Node[,] input)
+        internal override (object, string) Puzzle2(Node[,] input)
         {
             Node[,] map = new Node[input.GetLength(0) * 5, input.GetLength(1) * 5];
 
@@ -129,8 +128,7 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"The the path with the lowest risk level hast the risk level {pahtRiskLevel}");
-            return pahtRiskLevel.ToString();
+            return (pahtRiskLevel.ToString(), $"The the path with the lowest risk level hast the risk level {pahtRiskLevel}");
         }
 
         private void DiscoverNode(Node origin, Node node, Node[,] map, List<Node> queue)

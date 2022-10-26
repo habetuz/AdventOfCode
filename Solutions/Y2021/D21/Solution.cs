@@ -6,7 +6,7 @@
     {
         private bool winner = false;
 
-        internal override string Puzzle1((int, int) input)
+        internal override (object, string) Puzzle1((int, int) input)
         {
             Player player1 = new Player(input.Item1, 1000);
             Player player2 = new Player(input.Item2, 1000);
@@ -39,11 +39,10 @@
                 solution = player2.Score * player2.RoleCount;
             }
 
-            SharpLog.Logging.LogDebug($"The solution is {solution}!");
-            return solution.ToString();
+            return (solution.ToString(), $"The solution is {solution}!");
         }
 
-        internal override string Puzzle2((int, int) input)
+        internal override (object, string) Puzzle2((int, int) input)
         {
             byte neededScore = 21;
 
@@ -135,15 +134,13 @@
             winsPlayer1 += tmpWinsPlayer1;
             winsPlayer2 += tmpWinsPlayer2;
 
-            SharpLog.Logging.LogDebug($"Player 1 won {winsPlayer1} times, player 2 won {winsPlayer2} times!");
-
             if (winsPlayer1 < winsPlayer2)
             {
-                return winsPlayer2.ToString();
+                return (winsPlayer2.ToString(), $"Player 1 won {winsPlayer1} times, player 2 won {winsPlayer2} times!");
             }
             else
             {
-                return winsPlayer1.ToString();
+                return (winsPlayer1.ToString(), $"Player 1 won {winsPlayer1} times, player 2 won {winsPlayer2} times!");
             }
         }
 

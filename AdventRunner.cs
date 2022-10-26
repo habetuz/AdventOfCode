@@ -6,79 +6,60 @@ namespace AdventOfCode
     using System.Diagnostics;
     using System.IO;
     using System.Net;
-    using System.Text.Json;
     using SharpLog;
 
     internal static class AdventRunner
     {
-        private static readonly string Cookie;
-        private static readonly int Year;
-        private static readonly int Day;
-
-        static AdventRunner()
+        internal static string GetInput(int year, int day, string cookie)
         {
-            if (!File.Exists("settings.json"))
-            {
-                SharpLog.Logging.LogFatal(string.Empty, exception: new FileNotFoundException("Settings file not found! Add a 'settings.json' file!"));
-            }
-
-            string settingsJsonString = File.ReadAllText("settings.json");
-            JsonElement settings = JsonSerializer.Deserialize<JsonElement>(settingsJsonString);
-            Cookie = settings.GetProperty("SessionCookie").GetString();
-            Year = settings.GetProperty("Year").GetInt32();
-            Day = settings.GetProperty("Day").GetInt32();
-        }
-
-        internal static string GetInput()
-        {
-            string filename = $"input/{Year}/day{Day:D2}.txt";
+            string filename = $"input/{year}/day{day:D2}.txt";
             if (File.Exists(filename))
             {
-                SharpLog.Logging.LogTrace($"Loading input for year {Year} day {Day}...");
+                Logging.LogTrace($"Loading input for year {year} day {day}...", "RUNNER");
                 string input = File.ReadAllText(filename);
                 input = input.TrimEnd('\n');
                 return input;
             }
 
-            SharpLog.Logging.LogTrace($"Downloading input for year {Year} day {Day}...");
+            Logging.LogTrace($"Downloading input for year {year} day {day}...", "RUNNER");
 
             using (WebClient client = new WebClient())
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(filename));
-                client.Headers.Add(HttpRequestHeader.Cookie, Cookie);
-                client.DownloadFile($"https://adventofcode.com/{Year}/day/{Day}/input", filename);
+                client.Headers.Add(HttpRequestHeader.Cookie, $"session={cookie}");
+                client.DownloadFile($"https://adventofcode.com/{year}/day/{day}/input", filename);
             }
 
-            return GetInput();
+            return GetInput(year, day, cookie);
         }
 
-        internal static Type GetSolution()
+        internal static Type GetSolution(int year, int day)
         {
             Type type = null;
 
             try
             {
-                type = Type.GetType($"AdventOfCode.Solutions.Y{Year}.D{Day:D2}.Solution", true);
+                type = Type.GetType($"AdventOfCode.Solutions.Y{year}.D{day:D2}.Solution", true);
             }
             catch (Exception ex)
             {
-                SharpLog.Logging.LogFatal("Solution class was not found!", exception: ex);
+                Logging.LogFatal("Solution class was not found!", "RUNNER", exception: ex);
             }
 
             return type;
         }
 
-        internal static Type GetParser()
+        internal static Type GetParser(int year, int day)
         {
             Type type = null;
 
             try
             {
-                type = Type.GetType($"AdventOfCode.Solutions.Y{Year}.D{Day:D2}.Parser", true);
+                type = Type.GetType($"AdventOfCode.Solutions.Y{year}.D{day:D2}.Parser", true);
             }
             catch (Exception ex)
             {
-                SharpLog.Logging.LogFatal("Solution class was not found!", exception: ex);
+                Logging.LogFatal("Parser class was not found!", "RUNNER", exception: ex);
             }
 
             return type;
@@ -93,31 +74,36 @@ namespace AdventOfCode
 
             var solution = solutionType.GetConstructor(new Type[0]).Invoke(null);
             Stopwatch stopwatch = new Stopwatch();
-            string clipboard = string.Empty;
+            object clipboard = string.Empty;
+            string message = string.Empty;
 
             try
             {
-                SharpLog.Logging.LogDebug("Solving puzzle 1...");
+                Logging.LogTrace("Solving puzzle 1...", "RUNNER");
                 stopwatch.Restart();
-                clipboard = (string)solutionType
+                (clipboard, message) = ((object, string))solutionType
                     .GetMethod("Puzzle1", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                     .Invoke(solution, new object[] { parsedInput });
                 stopwatch.Stop();
-                SharpLog.Logging.LogDebug($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.");
+                Logging.LogTrace($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.", "RUNNER");
 
-                SharpLog.Logging.LogDebug("Solving puzzle 2...");
+                Logging.LogInfo(message, "RUNNER");
+
+                Logging.LogTrace("Solving puzzle 2...", "RUNNER");
                 stopwatch.Restart();
-                clipboard = (string)solutionType
+                (clipboard, message) = ((object, string))solutionType
                     .GetMethod("Puzzle2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                     .Invoke(solution, new object[] { parsedInput });
                 stopwatch.Stop();
-                SharpLog.Logging.LogDebug($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.");
+                Logging.LogTrace($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.", "RUNNER");
+
+                Logging.LogInfo(message, "RUNNER");
             }
             catch (Exception exc)
             {
                 if (exc.ToString().Contains("SolutionNotImplementedException"))
                 {
-                    SharpLog.Logging.LogWarning("Solution is not implemented!");
+                    Logging.LogError("Solution is not implemented!", "RUNNER");
                 }
                 else
                 {
@@ -125,12 +111,12 @@ namespace AdventOfCode
                 }
             }
 
-            return clipboard;
+            return clipboard.ToString();
         }
 
         internal static object Parse(Type parserType, string input)
         {
-            SharpLog.Logging.LogDebug("Parsing input...");
+            Logging.LogTrace("Parsing input...", "RUNNER");
 
             try
             {
@@ -140,14 +126,14 @@ namespace AdventOfCode
                     .GetMethod("Parse", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
                     .Invoke(parser, new string[] { input });
                 stopwatch.Stop();
-                SharpLog.Logging.LogDebug($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.");
+                Logging.LogTrace($"Took {stopwatch.ElapsedMilliseconds}ms to excecute.", "RUNNER");
                 return parsedInput;
             }
             catch (Exception exc)
             {
                 if (exc.Message.Contains("ParserNotImplementedException"))
                 {
-                    SharpLog.Logging.LogError("Parser is not implemented!");
+                    Logging.LogFatal("Parser is not implemented!", "RUNNER");
                 }
                 else
                 {

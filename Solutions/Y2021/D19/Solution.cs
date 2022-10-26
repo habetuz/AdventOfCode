@@ -10,7 +10,7 @@
 
     internal class Solution : Solution<Scanner[]>
     {
-        internal override string Puzzle1(Scanner[] input)
+        internal override (object, string) Puzzle1(Scanner[] input)
         {
             // Fill neighbour dictionaries
             foreach (Scanner scanner in input)
@@ -55,12 +55,10 @@
 
             int uniqueBeacons = this.GetUniqueBeacons(input).Length;
 
-            SharpLog.Logging.LogInfo($"There are {uniqueBeacons} unique beacons!");
-
-            return uniqueBeacons.ToString();
+            return (uniqueBeacons.ToString(), $"There are {uniqueBeacons} unique beacons!");
         }
 
-        internal override string Puzzle2(Scanner[] input)
+        internal override (object, string) Puzzle2(Scanner[] input)
         {
             int largestDistance = 0;
             foreach (Scanner fromScanner in input)
@@ -81,8 +79,7 @@
                 }
             }
 
-            SharpLog.Logging.LogInfo($"The largest distance is {largestDistance}!");
-            return largestDistance.ToString();
+            return (largestDistance.ToString(), $"The largest distance is {largestDistance}!");
         }
 
         private void FillNeighbours(Scanner scanner)

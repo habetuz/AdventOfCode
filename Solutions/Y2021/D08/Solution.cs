@@ -11,7 +11,7 @@
 
     internal class Solution : Solution<Display[]>
     {
-        internal override string Puzzle1(Display[] input)
+        internal override (object, string) Puzzle1(Display[] input)
         {
             int uniqueCounter = 0;
 
@@ -20,22 +20,20 @@
                 foreach (string digit in display.Outputs)
                 {
                     if (
-                        digit.Length == Display.s_digitSegments[1].Length ||
-                        digit.Length == Display.s_digitSegments[4].Length ||
-                        digit.Length == Display.s_digitSegments[7].Length ||
-                        digit.Length == Display.s_digitSegments[8].Length)
+                        digit.Length == Display.DigitSegments[1].Length ||
+                        digit.Length == Display.DigitSegments[4].Length ||
+                        digit.Length == Display.DigitSegments[7].Length ||
+                        digit.Length == Display.DigitSegments[8].Length)
                     {
                         uniqueCounter++;
                     }
                 }
             }
 
-            SharpLog.Logging.LogDebug($"There are {uniqueCounter} unique digits in the output!");
-
-            return uniqueCounter.ToString();
+            return (uniqueCounter.ToString(), $"There are {uniqueCounter} unique digits in the output!");
         }
 
-        internal override string Puzzle2(Display[] input)
+        internal override (object, string) Puzzle2(Display[] input)
         {
             int values = 0;
 
@@ -72,9 +70,7 @@
                 values += display.Value;
             }
 
-            SharpLog.Logging.LogDebug($"The displays add up to {values}!");
-
-            return values.ToString();
+            return (values.ToString(), $"The displays add up to {values}!");
         }
 
         /// <summary>
@@ -84,12 +80,12 @@
         {
             foreach (string input in display.Inputs)
             {
-                if (input.Length == Display.s_digitSegments[num].Length)
+                if (input.Length == Display.DigitSegments[num].Length)
                 {
                     foreach (char c in input)
                     {
                         // Intersection of possible wiring of each char and the segments that the unique num has.
-                        display.PossibleWiring[c] = display.PossibleWiring[c].Intersect(Display.s_digitSegments[num]).ToArray();
+                        display.PossibleWiring[c] = display.PossibleWiring[c].Intersect(Display.DigitSegments[num]).ToArray();
                     }
 
                     return;

@@ -21,7 +21,7 @@
                 startValues.Add(int.Parse(value));
             }
 
-            SharpLog.Logging.LogDebug($"There are {startValues.Count} fishes!");
+            Logging.LogDebug($"There are {startValues.Count} fishes!");
 
             return startValues.ToArray();
         }

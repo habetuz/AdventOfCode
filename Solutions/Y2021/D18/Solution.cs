@@ -9,7 +9,7 @@
 
     internal class Solution : Solution<SnailfishNumber[]>
     {
-        internal override string Puzzle1(SnailfishNumber[] input)
+        internal override (object, string) Puzzle1(SnailfishNumber[] input)
         {
             SnailfishNumber number = new Pair();
             ((Pair)number).Left = input[0].Copy();
@@ -26,11 +26,10 @@
             number = ((Pair)number).Left;
 
             int magnitude = this.Magnitude(number);
-            SharpLog.Logging.LogDebug($"The magnitude is {magnitude}!");
-            return magnitude.ToString();
+            return (magnitude.ToString(), $"The magnitude is {magnitude}!");
         }
 
-        internal override string Puzzle2(SnailfishNumber[] input)
+        internal override (object, string) Puzzle2(SnailfishNumber[] input)
         {
             int highestMagnitude = 0;
 
@@ -60,8 +59,7 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"The highest magnitude is {highestMagnitude}!");
-            return highestMagnitude.ToString();
+            return (highestMagnitude.ToString(), $"The highest magnitude is {highestMagnitude}!");
         }
 
         private void Reduce(ref SnailfishNumber number)

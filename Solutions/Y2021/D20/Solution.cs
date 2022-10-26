@@ -9,7 +9,7 @@
 
     internal class Solution : Solution<(string, char[,])>
     {
-        internal override string Puzzle1((string, char[,]) input)
+        internal override (object, string) Puzzle1((string, char[,]) input)
         {
             // Tools.Print2D(input.Item2);
             char[,] image = this.ApplyFilter(input.Item1, input.Item2);
@@ -27,12 +27,10 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"There are {lightCounter} light pixels!");
-
-            return lightCounter.ToString();
+            return (lightCounter.ToString(), $"There are {lightCounter} light pixels!");
         }
 
-        internal override string Puzzle2((string, char[,]) input)
+        internal override (object, string) Puzzle2((string, char[,]) input)
         {
             string filter = input.Item1;
             char[,] image = input.Item2;
@@ -51,9 +49,7 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug($"There are {lightCounter} light pixels!");
-
-            return lightCounter.ToString();
+            return (lightCounter.ToString(), $"There are {lightCounter} light pixels!");
         }
 
         private char[,] ApplyFilter(string filter, char[,] image)

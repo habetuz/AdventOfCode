@@ -9,18 +9,19 @@
 
     internal class Solution : Solution<(Dictionary<string, char>, string)>
     {
-        internal override string Puzzle1((Dictionary<string, char>, string) input)
+        internal override (object, string) Puzzle1((Dictionary<string, char>, string) input)
         {
             long solution = this.Polimerize(input.Item1, input.Item2, 10);
-            SharpLog.Logging.LogDebug($"The solution is {solution}!");
-            return solution.ToString();
+
+            return (solution.ToString(), $"The solution is {solution}!");
         }
 
-        internal override string Puzzle2((Dictionary<string, char>, string) input)
+        internal override (object, string) Puzzle2((Dictionary<string, char>, string) input)
         {
             long solution = this.Polimerize(input.Item1, input.Item2, 40);
             SharpLog.Logging.LogDebug($"The solution is {solution}!");
-            return solution.ToString();
+
+            return (solution.ToString(), $"The solution is {solution}!");
         }
 
         private long Polimerize(Dictionary<string, char> rules, string polymer, int steps)

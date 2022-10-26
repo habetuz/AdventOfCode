@@ -1,25 +1,4 @@
-﻿format: '[$D$] - $La{u}r{7, }$ - $Cs{ -}r{30,-}$> $Fr{20, }$ - $M$$Ep{\n}i{   }$$Sp{\n}$'
+﻿format: '$La{s}$ $La{u}r{7, }$$Tp{ - }r{10, }$ - $Cs{ -}r{43,-}$> $Fr{15, }$ - $M$$Ep{\n}i{   }$$Sp{\n}$'
 tags:
-  GREEN:
-    format: '$m$'
-    outputs:
-      console:
-        colors:
-          info:
-            foreground: green
-  RED:
-    format: '$m$'
-    outputs:
-      console:
-        colors:
-          info:
-            foreground: red
-  YELLOW:
-    format: '$m$'
-    outputs:
-      console:
-        colors:
-          info:
-            foreground: yellow
-    
-  
+  RUNNER:
+    format: '$La{s}$ $La{u}r{7, }$ - $M$$Ep{\n}i{   }$$Sp{\n}$'

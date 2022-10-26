@@ -8,20 +8,18 @@
 
     internal class Solution : Solution<Node>
     {
-        internal override string Puzzle1(Node input)
+        internal override (object, string) Puzzle1(Node input)
         {
             int paths = this.FindAllPaths(input, true);
 
-            SharpLog.Logging.LogDebug($"There are {paths} paths!");
-            return paths.ToString();
+            return (paths.ToString(), $"There are {paths} paths!");
         }
 
-        internal override string Puzzle2(Node input)
+        internal override (object, string) Puzzle2(Node input)
         {
             int paths = this.FindAllPaths(input, false);
 
-            SharpLog.Logging.LogDebug($"There are {paths} paths!");
-            return paths.ToString();
+            return (paths.ToString(), $"There are {paths} paths!");
         }
 
         private int FindAllPaths(Node input, bool visitedTwice)

@@ -9,18 +9,18 @@
     {
         private static readonly Dictionary<char, byte> GoalPos = new Dictionary<char, byte>
         {
-            {'A', 3 },
-            {'B', 5 },
-            {'C', 7 },
-            {'D', 9 },
+            { 'A', 3 },
+            { 'B', 5 },
+            { 'C', 7 },
+            { 'D', 9 },
         };
 
         private static readonly Dictionary<char, ushort> MoveCost = new Dictionary<char, ushort>
         {
-            {'A', 1 },
-            {'B', 10 },
-            {'C', 100 },
-            {'D', 1000 },
+            { 'A', 1 },
+            { 'B', 10 },
+            { 'C', 100 },
+            { 'D', 1000 },
         };
 
         private readonly (byte, byte)[] positions = new (byte, byte)[]
@@ -34,7 +34,7 @@
             (11, 1),
         };
 
-        internal override string Puzzle1((char[,], char[,]) input)
+        internal override (object, string) Puzzle1((char[,], char[,]) input)
         {
             Tools.Print2D(input.Item1);
 
@@ -42,20 +42,16 @@
 
             var neededCost = this.Step(input.Item1, 0, int.MaxValue, new Dictionary<string, int>());
 
-            SharpLog.Logging.LogDebug($"{neededCost} energy is needed to sort the amphipods!");
-
-            return neededCost.ToString();
+            return (neededCost.ToString(), $"{neededCost} energy is needed to sort the amphipods!");
         }
 
-        internal override string Puzzle2((char[,], char[,]) input)
+        internal override (object, string) Puzzle2((char[,], char[,]) input)
         {
             Tools.Print2D(input.Item2);
 
             var neededCost = this.Step(input.Item2, 0, int.MaxValue, new Dictionary<string, int>());
 
-            SharpLog.Logging.LogDebug($"{neededCost} energy is needed to sort the amphipods!");
-
-            return neededCost.ToString();
+            return (neededCost.ToString(), $"{neededCost} energy is needed to sort the amphipods!");
         }
 
         private int Step(char[,] burrow, int score, int bestScore, Dictionary<string, int> discovered)

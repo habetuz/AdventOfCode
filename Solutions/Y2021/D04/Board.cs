@@ -10,6 +10,14 @@ namespace AdventOfCode.Solutions.Y2021.D04
 
     internal class Board
     {
+        private readonly int[,] boardValues;
+        private readonly bool[,] boardChecked = new bool[5, 5];
+
+        internal Board(int[,] boardValues)
+        {
+            this.boardValues = boardValues;
+        }
+
         internal delegate void CompletedHandler(Board sender, int lastDraw);
 
         internal event CompletedHandler CompletedEvent;
@@ -32,14 +40,6 @@ namespace AdventOfCode.Solutions.Y2021.D04
 
                 return value;
             }
-        }
-
-        private readonly int[,] boardValues;
-        private readonly bool[,] boardChecked = new bool[5, 5];
-
-        internal Board(int[,] boardValues)
-        {
-            this.boardValues = boardValues;
         }
 
         internal void AddToDrawEvent(Solution solution)

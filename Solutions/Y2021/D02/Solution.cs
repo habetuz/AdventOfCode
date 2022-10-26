@@ -7,7 +7,7 @@
 
     internal class Solution : Solution<KeyValuePair<Direction, int>[]>
     {
-        internal override string Puzzle1(KeyValuePair<Direction, int>[] input)
+        internal override (object, string) Puzzle1(KeyValuePair<Direction, int>[] input)
         {
             // Solution here
             int posHorizontal = 0;
@@ -22,16 +22,14 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug(string.Format(
+            return (string.Empty + (posHorizontal * posVertical), string.Format(
                 "The submarine has the horizontal position {0} and is at depth {1}. The solution is {2}!",
                 posHorizontal,
                 posVertical,
                 posHorizontal * posVertical));
-
-            return string.Empty + (posHorizontal * posVertical);
         }
 
-        internal override string Puzzle2(KeyValuePair<Direction, int>[] input)
+        internal override (object, string) Puzzle2(KeyValuePair<Direction, int>[] input)
         {
             // Solution here
             int posHorizontal = 0;
@@ -50,13 +48,11 @@
                 }
             }
 
-            SharpLog.Logging.LogDebug(string.Format(
+            return (string.Empty + (posHorizontal * posVertical), string.Format(
                 "The submarine has the horizontal position {0} and is at depth {1}. The solution is {2}!",
                 posHorizontal,
                 posVertical,
                 posHorizontal * posVertical));
-
-            return string.Empty + (posHorizontal * posVertical);
         }
     }
 }

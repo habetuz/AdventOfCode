@@ -12,41 +12,53 @@ namespace AdventOfCode
         [STAThread]
         private static void Main(string[] args)
         {
-            SharpLog.Logging.LogInfo(
-            "         |                                                             \n" +
-            "        -+-                                                            ", "RED");
-            SharpLog.Logging.LogInfo(
-            "         A                                                             \n" +
-            "        /=\\               /\\  /\\    ___  _ __  _ __ __    __        \n" +
-            "      i/ O \\i            /  \\/  \\  / _ \\| '__|| '__|\\ \\  / /     \n" +
-            "      /=====\\           / /\\  /\\ \\|  __/| |   | |    \\ \\/ /      \n" +
-            "      /  i  \\           \\ \\ \\/ / / \\___/|_|   |_|     \\  /       \n" +
-            "    i/ O * O \\i                                       / /             \n" +
-            "    /=========\\        __  __                        /_/    _         \n" +
-            "    /  *   *  \\        \\ \\/ /        /\\  /\\    __ _  ____  | |    \n" +
-            "  i/ O   i   O \\i       \\  /   __   /  \\/  \\  / _` |/ ___\\ |_|    \n" +
-            "  /=============\\       /  \\  |__| / /\\  /\\ \\| (_| |\\___ \\  _   \n" +
-            "  /  O   i   O  \\      /_/\\_\\      \\ \\ \\/ / / \\__,_|\\____/ |_| \n" +
-            "i/ *   O   O   * \\i                                                   \n" +
-            "/=================\\                                                   ", "GREEN");
-            SharpLog.Logging.LogInfo(
-            "       |___|                                                           ", "YELLOW");
+            int year = 0;
+            int day = 0;
+            string cookie = string.Empty;
 
-            string input = AdventRunner.GetInput();
+            /// Args:
+            /// 0: year or day (20XX or XX) or -h/-help/h/help for argument explenation.
+            /// 1: year or day (20XX or XX)
+            /// 2: cookie
+
+            try
+            {
+                if (args[0] == "-h" || args[0] == "-help" || args[0] == "h" || args[0] == "help")
+                {
+                    Logging.LogInfo(
+                        "Usage of the advent of code runner:\n" +
+                        "Run one day:\n" +
+                        ">> AdventOfCode.exe <Year> <Day> <Session Cookie>", "RUNNER");
+
+                    return;
+                }
+
+                year = int.Parse(args[0]);
+                day = int.Parse(args[1]);
+                cookie = args[2];
+            }
+            catch (FormatException e)
+            {
+                Logging.LogFatal("Day or year (argument 0 or 1) are not integers! Use '-h' for help.", "RUNNER", exception: e);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Logging.LogFatal("Not all arguemts are provided! Use '-h' for help.", "RUNNER");
+            }
+
+            string input = AdventRunner.GetInput(year, day, cookie);
 
             // Parsing
-            Type parserType = AdventRunner.GetParser();
+            Type parserType = AdventRunner.GetParser(year, day);
             var parsedInput = AdventRunner.Parse(parserType, input);
 
             // Solution
-            Type solutionType = AdventRunner.GetSolution();
+            Type solutionType = AdventRunner.GetSolution(year, day);
             string clipboard = AdventRunner.Solve(solutionType, parsedInput);
             if (clipboard != null && clipboard.Length != 0)
             {
                 Clipboard.SetText(clipboard);
             }
-
-            Console.ReadLine();
         }
     }
 }

@@ -12,7 +12,7 @@
     {
         private readonly long[] fishCounter = new long[256 + 10];
 
-        internal override string Puzzle1(int[] input)
+        internal override (object, string) Puzzle1(int[] input)
         {
             this.fishCounter[0] = input.Length;
             foreach (int fish in input)
@@ -28,12 +28,10 @@
                 //// SharpLog.Logging.LogDebug($"After {day:D2} days there are {_fishCounter[day]} fish.");
             }
 
-            SharpLog.Logging.LogDebug($"After 80 days there will be {this.fishCounter[80]} laternfish!");
-
-            return this.fishCounter[80].ToString();
+            return (this.fishCounter[80].ToString(), $"After 80 days there will be {this.fishCounter[80]} laternfish!");
         }
 
-        internal override string Puzzle2(int[] input)
+        internal override (object, string) Puzzle2(int[] input)
         {
             for (int day = 81; day <= 256; day++)
             {
@@ -42,9 +40,7 @@
                 this.fishCounter[day] += this.fishCounter[day - 1];
             }
 
-            SharpLog.Logging.LogDebug($"After 256 days there will be {this.fishCounter[256]} laternfish!");
-
-            return this.fishCounter[256].ToString();
+            return (this.fishCounter[80].ToString(), $"After 256 days there will be {this.fishCounter[80]} laternfish!");
         }
     }
 }
