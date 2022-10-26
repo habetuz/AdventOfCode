@@ -1,14 +1,23 @@
-﻿using SharpLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="Node.cs" company="Marvin Fuchs">
 
 namespace AdventOfCode.Solutions.Y2021.D15
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using SharpLog;
+
     internal class Node : IComparable<Node>
     {
+        internal Node(int riskLevel, int x, int y)
+        {
+            this.RiskLevel = riskLevel;
+            this.X = x;
+            this.Y = y;
+        }
+
         internal int RiskLevel { get; }
 
         internal int X { get; }
@@ -18,13 +27,6 @@ namespace AdventOfCode.Solutions.Y2021.D15
         internal int F { get; set; } = 0;
 
         internal bool Discovered { get; set; } = false;
-
-        internal Node(int riskLevel, int x, int y)
-        {
-            RiskLevel = riskLevel;
-            X = x;
-            Y = y;
-        }
 
         public int CompareTo(Node other)
         {

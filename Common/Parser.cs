@@ -1,20 +1,15 @@
-﻿using SharpLog;
-using System;
-
-namespace AdventOfCode.Common
+﻿namespace AdventOfCode.Common
 {
+    using System;
+    using SharpLog;
+
     internal abstract class Parser<T>
     {
-        internal class ParserNotImplementedException : Exception { }
-
-        protected static readonly Logger s_logger = new Logger()
-        {
-            Ident = "Parser",
-        };
-
         internal virtual T Parse(string input)
         {
             throw new ParserNotImplementedException();
         }
+
+        internal class ParserNotImplementedException : Exception { }
     }
 }

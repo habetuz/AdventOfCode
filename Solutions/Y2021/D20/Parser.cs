@@ -1,12 +1,12 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D20
+﻿namespace AdventOfCode.Solutions.Y2021.D20
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Parser : Parser<(string, char[,])>
     {
         internal override (string, char[,]) Parse(string input)

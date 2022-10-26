@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+
+
 
 namespace AdventOfCode.Solutions.Y2021.D08
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     internal class Display
     {
         internal static readonly Dictionary<short, char[]> s_digitSegments = new Dictionary<short, char[]>()
@@ -19,7 +23,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
             {6, new char[] {'a', 'b', 'd', 'e', 'f', 'g'} },
             {7, new char[] {'a', 'c', 'f'} },
             {8, new char[] {'a', 'b', 'c', 'd', 'e', 'f', 'g'} },
-            {9, new char[] {'a', 'b', 'c', 'd', 'f', 'g' } }
+            {9, new char[] {'a', 'b', 'c', 'd', 'f', 'g' } },
         };
 
         internal Dictionary<char, char[]> PossibleWiring = new Dictionary<char, char[]>()
@@ -35,39 +39,42 @@ namespace AdventOfCode.Solutions.Y2021.D08
 
         internal string[] Inputs;
 
-        private string[] _digits;
+        private readonly string[] digits;
 
         internal int Value
         {
             get
             {
                 Dictionary<char, char> wiring = new Dictionary<char, char>();
-                foreach (char c in PossibleWiring.Keys)
+                foreach (char c in this.PossibleWiring.Keys)
                 {
-                    if (PossibleWiring[c].Length > 1) throw new Exception("Wiring is not solved yet!");
+                    if (this.PossibleWiring[c].Length > 1)
+                    {
+                        throw new Exception("Wiring is not solved yet!");
+                    }
 
-                    wiring[c] = PossibleWiring[c][0];
+                    wiring[c] = this.PossibleWiring[c][0];
                 }
+
                 int value = 0;
-                value += GetDigit(Decode(wiring, _digits[0])) * 1000;
-                value += GetDigit(Decode(wiring, _digits[1])) * 100;
-                value += GetDigit(Decode(wiring, _digits[2])) * 10;
-                value += GetDigit(Decode(wiring, _digits[3])) * 1;
+                value += GetDigit(Decode(wiring, this.digits[0])) * 1000;
+                value += GetDigit(Decode(wiring, this.digits[1])) * 100;
+                value += GetDigit(Decode(wiring, this.digits[2])) * 10;
+                value += GetDigit(Decode(wiring, this.digits[3])) * 1;
 
                 return value;
-
             }
         }
 
         internal string[] Outputs
         {
-            get { return _digits; }
+            get { return this.digits; }
         }
 
         internal Display(string[] inputs, string[] digits)
         {
-            Inputs = inputs;
-            _digits = digits;
+            this.Inputs = inputs;
+            this.digits = digits;
         }
 
         internal static bool IsDigit(Dictionary<char, char> wiring, string segments)
@@ -86,6 +93,7 @@ namespace AdventOfCode.Solutions.Y2021.D08
                     return digit.Key;
                 }
             }
+
             return -1;
         }
 

@@ -1,12 +1,12 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D19
+﻿namespace AdventOfCode.Solutions.Y2021.D19
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Parser : Parser<Scanner[]>
     {
         internal override Scanner[] Parse(string input)
@@ -24,17 +24,22 @@ namespace AdventOfCode.Solutions.Y2021.D19
                 }
 
                 string[] coordinates = line.Split(',');
-                Array.Resize(ref scanners.Last().Beacons, scanners.Last().Beacons.Length + 1);
+
+                var beacons = scanners.Last().Beacons;
+
+                Array.Resize(ref beacons, scanners.Last().Beacons.Length + 1);
+
+                scanners.Last().Beacons = beacons;
+
                 scanners.Last().Beacons[scanners.Last().Beacons.Length - 1] = new Beacon()
                 {
                     X = int.Parse(coordinates[0]),
                     Y = int.Parse(coordinates[1]),
-                    Z = int.Parse(coordinates[2])
+                    Z = int.Parse(coordinates[2]),
                 };
             }
 
             return scanners.ToArray();
         }
-
     }
 }

@@ -1,12 +1,12 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D13
+﻿namespace AdventOfCode.Solutions.Y2021.D13
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Solution : Solution<((char, int)[], bool[,])>
     {
         internal override string Puzzle1(((char, int)[], bool[,]) input)
@@ -15,19 +15,21 @@ namespace AdventOfCode.Solutions.Y2021.D13
 
             ////Tools.Print2D(input.Item2);
 
-            bool[,] paper = Fold(input.Item2 , instruction.Item1, instruction.Item2);
+            bool[,] paper = this.Fold(input.Item2, instruction.Item1, instruction.Item2);
             int counter = 0;
 
             ////Tools.Print2D(paper);
 
             foreach (bool item in paper)
             {
-                if (item) counter++;
+                if (item)
+                {
+                    counter++;
+                }
             }
 
-            s_logger.Log($"After 1 fold there are {counter} dots left!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"After 1 fold there are {counter} dots left!");
             return counter.ToString();
-            
         }
 
         internal override string Puzzle2(((char, int)[], bool[,]) input)
@@ -36,20 +38,23 @@ namespace AdventOfCode.Solutions.Y2021.D13
 
             foreach ((char, int) instruction in input.Item1)
             {
-                paper = Fold(paper, instruction.Item1, instruction.Item2);
+                paper = this.Fold(paper, instruction.Item1, instruction.Item2);
             }
-            
-            s_logger.Log($"After the folds the following image appears:", SharpLog.LogType.Info);
+
+            SharpLog.Logging.LogDebug($"After the folds the following image appears:");
             Tools.Print2D(paper);
 
             return "See the console log!";
-
         }
 
         private bool[,] Fold(bool[,] paper, char axis, int index)
         {
-            if (axis == 'x') return FoldX(paper, index);
-            return FoldY(paper, index);
+            if (axis == 'x')
+            {
+                return this.FoldX(paper, index);
+            }
+
+            return this.FoldY(paper, index);
         }
 
         private bool[,] FoldY(bool[,] paper, int index)
@@ -68,12 +73,16 @@ namespace AdventOfCode.Solutions.Y2021.D13
             {
                 for (int x = 0; x < paper.GetLength(0); x++)
                 {
-                    if (paper[x, y]) result[x, 2 * index - y] = true;
+                    if (paper[x, y])
+                    {
+                        result[x, (2 * index) - y] = true;
+                    }
                 }
             }
 
             return result;
         }
+
         private bool[,] FoldX(bool[,] paper, int index)
         {
             bool[,] result = new bool[index, paper.GetLength(1)];
@@ -90,12 +99,14 @@ namespace AdventOfCode.Solutions.Y2021.D13
             {
                 for (int x = index; x < paper.GetLength(0); x++)
                 {
-                    if (paper[x, y]) result[2 * index - x, y] = true;
+                    if (paper[x, y])
+                    {
+                        result[(2 * index) - x, y] = true;
+                    }
                 }
             }
 
             return result;
         }
-
     }
 }

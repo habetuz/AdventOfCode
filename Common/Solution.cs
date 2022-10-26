@@ -1,21 +1,14 @@
-﻿using SharpLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Common
+﻿namespace AdventOfCode.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using SharpLog;
+
     internal abstract class Solution<T>
     {
-        internal class SolutionNotImplementedException : Exception { }
-
-        protected static readonly Logger s_logger = new Logger()
-        {
-            Ident = "Solution",
-        };
-
         internal virtual string Puzzle1(T input)
         {
             throw new SolutionNotImplementedException();
@@ -25,5 +18,7 @@ namespace AdventOfCode.Common
         {
             throw new SolutionNotImplementedException();
         }
+
+        internal class SolutionNotImplementedException : Exception { }
     }
 }

@@ -1,10 +1,10 @@
-﻿using AdventOfCode.Common;
-using SharpLog;
-using System;
-using System.Collections.Generic;
-
-namespace AdventOfCode.Solutions.Y2021.D05
+﻿namespace AdventOfCode.Solutions.Y2021.D05
 {
+    using System;
+    using System.Collections.Generic;
+    using AdventOfCode.Common;
+    using SharpLog;
+
     internal class Parser : Parser<Tuple<Line[], Point>>
     {
         internal override Tuple<Line[], Point> Parse(string input)
@@ -28,17 +28,18 @@ namespace AdventOfCode.Solutions.Y2021.D05
                     points[i] = new Point
                     {
                         X = x,
-                        Y = y
+                        Y = y,
                     };
 
                     if (x > maxX)
                     {
-                        s_logger.Log($"x: {maxX} -> {x} | line: {line}");
+                        SharpLog.Logging.LogDebug($"x: {maxX} -> {x} | line: {line}");
                         maxX = x;
                     }
+
                     if (y > maxY)
                     {
-                        s_logger.Log($"y: {maxY} -> {y} | line: {line}");
+                        SharpLog.Logging.LogDebug($"y: {maxY} -> {y} | line: {line}");
                         maxY = y;
                     }
                 }
@@ -46,11 +47,11 @@ namespace AdventOfCode.Solutions.Y2021.D05
                 parsedLines.Add(new Line(points[0], points[1]));
             }
 
-            s_logger.Log($"There are {parsedLines.Count} lines with a dimension of {maxX} times {maxY}.", LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {parsedLines.Count} lines with a dimension of {maxX} times {maxY}.");
             return new Tuple<Line[], Point>(parsedLines.ToArray(), new Point
             {
-                X = maxX +1,
-                Y = maxY +1
+                X = maxX + 1,
+                Y = maxY + 1,
             });
         }
     }

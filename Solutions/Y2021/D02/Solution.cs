@@ -1,10 +1,10 @@
-﻿using AdventOfCode.Common;
-using SharpLog;
-using System.Collections.Generic;
-using static AdventOfCode.Solutions.Y2021.D02.Parser;
-
-namespace AdventOfCode.Solutions.Y2021.D02
+﻿namespace AdventOfCode.Solutions.Y2021.D02
 {
+    using System.Collections.Generic;
+    using AdventOfCode.Common;
+    using SharpLog;
+    using static AdventOfCode.Solutions.Y2021.D02.Parser;
+
     internal class Solution : Solution<KeyValuePair<Direction, int>[]>
     {
         internal override string Puzzle1(KeyValuePair<Direction, int>[] input)
@@ -22,11 +22,11 @@ namespace AdventOfCode.Solutions.Y2021.D02
                 }
             }
 
-            s_logger.Log(string.Format(
+            SharpLog.Logging.LogDebug(string.Format(
                 "The submarine has the horizontal position {0} and is at depth {1}. The solution is {2}!",
                 posHorizontal,
                 posVertical,
-                posHorizontal * posVertical), LogType.Info);
+                posHorizontal * posVertical));
 
             return string.Empty + (posHorizontal * posVertical);
         }
@@ -50,11 +50,11 @@ namespace AdventOfCode.Solutions.Y2021.D02
                 }
             }
 
-            s_logger.Log(string.Format(
+            SharpLog.Logging.LogDebug(string.Format(
                 "The submarine has the horizontal position {0} and is at depth {1}. The solution is {2}!",
                 posHorizontal,
                 posVertical,
-                posHorizontal * posVertical), LogType.Info);
+                posHorizontal * posVertical));
 
             return string.Empty + (posHorizontal * posVertical);
         }

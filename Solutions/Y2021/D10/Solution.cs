@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdventOfCode.Common;
-using SharpLog;
-
-namespace AdventOfCode.Solutions.Y2021.D10
+﻿namespace AdventOfCode.Solutions.Y2021.D10
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+    using SharpLog;
+
     internal class Solution : Solution<string[]>
     {
         private static readonly Dictionary<char, int> s_wrongCharacterScore = new Dictionary<char, int>()
@@ -42,17 +42,18 @@ namespace AdventOfCode.Solutions.Y2021.D10
             {
                 try
                 {
-                    WrongSystanxAnalysis(line);
+                    this.WrongSystanxAnalysis(line);
                 }
                 catch (WrongSyntaxExcpetion ex)
                 {
                     errorScore += s_wrongCharacterScore[ex.Character];
                 }
-                catch (MissingSyntaxExcpetion) { }
-                
+                catch (MissingSyntaxExcpetion)
+                {
+                }
             }
 
-            s_logger.Log($"The total syntax error score is {errorScore}!", LogType.Info);
+            SharpLog.Logging.LogDebug($"The total syntax error score is {errorScore}!");
             return errorScore.ToString();
         }
 
@@ -64,30 +65,31 @@ namespace AdventOfCode.Solutions.Y2021.D10
             {
                 try
                 {
-                    string missingString = MissingSyntaxAnalysis(line);
+                    string missingString = this.MissingSyntaxAnalysis(line);
                     long score = 0;
                     foreach (char ch in missingString)
                     {
                         score *= 5;
                         score += s_missingCharacterScore[ch];
                     }
+
                     errorScores.Add(score);
                 }
-                catch (WrongSyntaxExcpetion) { }
-                
-                
+                catch (WrongSyntaxExcpetion)
+                {
+                }
             }
 
             errorScores.Sort();
             long middleScore = errorScores[errorScores.Count / 2];
 
-            s_logger.Log($"The middle error score is {middleScore}!", LogType.Info);
+            SharpLog.Logging.LogDebug($"The middle error score is {middleScore}!");
             return middleScore.ToString();
         }
 
         private void WrongSystanxAnalysis(string line)
         {
-            WrongSyntaxAnalysis(line, 0);
+            this.WrongSyntaxAnalysis(line, 0);
         }
 
         private int WrongSyntaxAnalysis(string line, int index)
@@ -99,8 +101,8 @@ namespace AdventOfCode.Solutions.Y2021.D10
             {
                 if (s_bracketPairs.ContainsKey(line[i]))
                 {
-                    i = WrongSyntaxAnalysis(line, i);
-                } 
+                    i = this.WrongSyntaxAnalysis(line, i);
+                }
                 else if (line[i] == closingBracket)
                 {
                     return i;
@@ -119,12 +121,13 @@ namespace AdventOfCode.Solutions.Y2021.D10
             string completionString = string.Empty;
             for (int i = 0; i < line.Length; i++)
             {
-                (completionString, i) = MissingSyntaxAnalysis(line, string.Empty, i);
+                (completionString, i) = this.MissingSyntaxAnalysis(line, string.Empty, i);
             }
+
             return completionString;
         }
 
-        private (string, int) MissingSyntaxAnalysis(string line,string completionString, int index)
+        private (string, int) MissingSyntaxAnalysis(string line, string completionString, int index)
         {
             char openingBracket = line[index];
             char closingBracket = s_bracketPairs[openingBracket];
@@ -133,7 +136,7 @@ namespace AdventOfCode.Solutions.Y2021.D10
             {
                 if (s_bracketPairs.ContainsKey(line[i]))
                 {
-                    (completionString, i) =  MissingSyntaxAnalysis(line, completionString, i);
+                    (completionString, i) = this.MissingSyntaxAnalysis(line, completionString, i);
                 }
                 else if (line[i] == closingBracket)
                 {
@@ -151,12 +154,12 @@ namespace AdventOfCode.Solutions.Y2021.D10
 
         private class SyntaxExcpetion : Exception
         {
-            public char Character { get; }
-
             public SyntaxExcpetion(char character)
             {
-                Character = character;
+                this.Character = character;
             }
+
+            public char Character { get; }
         }
 
         private class WrongSyntaxExcpetion : SyntaxExcpetion

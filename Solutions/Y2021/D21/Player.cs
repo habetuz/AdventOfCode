@@ -1,39 +1,49 @@
-﻿namespace AdventOfCode.Solutions.Y2021.D21
+﻿// <copyright file="Player.cs" company="Marvin Fuchs">
+
+namespace AdventOfCode.Solutions.Y2021.D21
 {
     internal class Player
     {
+        private readonly int neededScore;
+        private int position;
+        private int score;
+
+        internal Player(int startingPosition, int neededScore)
+        {
+            this.position = startingPosition;
+            this.StartingPosition = startingPosition;
+            this.neededScore = neededScore;
+        }
+
         internal int RepresentingDimentions { get; set; } = 1;
 
         internal int RoleCount { get; set; }
 
         internal int StartingPosition { get; set; }
 
-        private int _position;
         internal int Position
         {
             get
             {
-                return _position;
+                return this.position;
             }
+
             set
             {
-                _position = (value - 1) % 10 + 1;
-                _score += Position;
-                if (Won)
+                this.position = ((value - 1) % 10) + 1;
+                this.score += this.Position;
+                if (this.Won)
                 {
-                    WinEvent(StartingPosition, RepresentingDimentions);
+                    this.WinEvent(this.StartingPosition, this.RepresentingDimentions);
                 }
             }
         }
 
-        private int _neededScore;
-
-        private int _score;
         internal int Score
         {
             get
             {
-                return _score;
+                return this.score;
             }
         }
 
@@ -41,15 +51,8 @@
         {
             get
             {
-                return _score >= _neededScore;
+                return this.score >= this.neededScore;
             }
-        }
-
-        internal Player(int startingPosition, int neededScore)
-        {
-            _position = startingPosition;
-            StartingPosition = startingPosition;
-            _neededScore = neededScore;
         }
 
         internal event Win WinEvent;
@@ -58,15 +61,15 @@
 
         internal Player Clone()
         {
-            Player player = new Player(StartingPosition, _neededScore)
+            Player player = new Player(this.StartingPosition, this.neededScore)
             {
-                RoleCount = RoleCount,
-                RepresentingDimentions = RepresentingDimentions,
+                RoleCount = this.RoleCount,
+                RepresentingDimentions = this.RepresentingDimentions,
             };
 
-            player._position = this._position;
-            player._score = this._score;
-            player.WinEvent += WinEvent;
+            player.position = this.position;
+            player.score = this.score;
+            player.WinEvent += this.WinEvent;
 
             return player;
         }

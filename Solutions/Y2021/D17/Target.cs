@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="Target.cs" company="Marvin Fuchs">
 
 namespace AdventOfCode.Solutions.Y2021.D17
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     internal class Target
     {
-        internal int X { get; }
-        internal int Y { get; }
-        internal int Width { get; }
-        internal int Height { get; }
-
         internal Target(int x, int y, int width, int height)
         {
-            X = x;
-            Y = y;
-            Width = width;
-            Height = height;
+            this.X = x;
+            this.Y = y;
+            this.Width = width;
+            this.Height = height;
         }
+
+        internal int X { get; }
+
+        internal int Y { get; }
+
+        internal int Width { get; }
+
+        internal int Height { get; }
     }
 }

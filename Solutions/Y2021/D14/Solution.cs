@@ -1,25 +1,25 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D14
+﻿namespace AdventOfCode.Solutions.Y2021.D14
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Solution : Solution<(Dictionary<string, char>, string)>
     {
         internal override string Puzzle1((Dictionary<string, char>, string) input)
         {
-            long solution = Polimerize(input.Item1, input.Item2, 10);
-            s_logger.Log($"The solution is {solution}!", SharpLog.LogType.Info);
+            long solution = this.Polimerize(input.Item1, input.Item2, 10);
+            SharpLog.Logging.LogDebug($"The solution is {solution}!");
             return solution.ToString();
         }
 
         internal override string Puzzle2((Dictionary<string, char>, string) input)
         {
-            long solution = Polimerize(input.Item1, input.Item2, 40);
-            s_logger.Log($"The solution is {solution}!", SharpLog.LogType.Info);
+            long solution = this.Polimerize(input.Item1, input.Item2, 40);
+            SharpLog.Logging.LogDebug($"The solution is {solution}!");
             return solution.ToString();
         }
 
@@ -38,7 +38,7 @@ namespace AdventOfCode.Solutions.Y2021.D14
                 polymerizationResults[molecule] = (molecule[0].ToString() + rules[molecule], rules[molecule].ToString() + molecule[1]);
             }
 
-            // Setup element counter 
+            // Setup element counter
             foreach (char element in polymer)
             {
                 elementCounter[element]++;

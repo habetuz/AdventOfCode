@@ -1,15 +1,15 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D16
+﻿namespace AdventOfCode.Solutions.Y2021.D16
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Parser : Parser<Packet>
     {
-        private readonly Dictionary<char, string> _hexBinaryPairs = new Dictionary<char, string>()
+        private readonly Dictionary<char, string> hexBinaryPairs = new Dictionary<char, string>()
         {
             {'0', "0000" },
             {'1', "0001" },
@@ -34,9 +34,10 @@ namespace AdventOfCode.Solutions.Y2021.D16
             string binary = string.Empty;
             foreach (char c in input)
             {
-                binary += _hexBinaryPairs[c];
+                binary += this.hexBinaryPairs[c];
             }
-            (Packet packet, int index) = ParsePacket(binary);
+
+            (Packet packet, int index) = this.ParsePacket(binary);
             return packet;
         }
 
@@ -63,15 +64,16 @@ namespace AdventOfCode.Solutions.Y2021.D16
                 {
                     index += 5;
                     valueBinary += binary.Substring(index + 1, 4);
-
-                } while (binary[index] == '1');
+                }
+                while (binary[index] == '1');
 
                 index += 5;
 
                 packet.Value = Convert.ToInt64(valueBinary, 2);
 
                 return (packet, index);
-            } 
+            }
+
             // Operator packet
             else
             {
@@ -82,7 +84,7 @@ namespace AdventOfCode.Solutions.Y2021.D16
                     LengthInSubPackets = binary[index] == '1',
                 };
 
-                packet.Length = packet.LengthInSubPackets? Convert.ToInt16(binary.Substring(index + 1, 11), 2) : Convert.ToInt16(binary.Substring(index + 1, 15), 2);
+                packet.Length = packet.LengthInSubPackets ? Convert.ToInt16(binary.Substring(index + 1, 11), 2) : Convert.ToInt16(binary.Substring(index + 1, 15), 2);
 
                 index += packet.LengthInSubPackets ? 12 : 16;
 
@@ -92,7 +94,7 @@ namespace AdventOfCode.Solutions.Y2021.D16
 
                 while ((packet.LengthInSubPackets && subPackets.Count < packet.Length) || (!packet.LengthInSubPackets && index < packet.Length + subPacketsStartIndex))
                 {
-                    (Packet subPacket, int newIndex) = ParsePacket(binary, index);
+                    (Packet subPacket, int newIndex) = this.ParsePacket(binary, index);
                     subPackets.Add(subPacket);
                     index = newIndex;
                 }

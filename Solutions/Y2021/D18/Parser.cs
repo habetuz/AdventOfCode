@@ -1,12 +1,12 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D18
+﻿namespace AdventOfCode.Solutions.Y2021.D18
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Parser : Parser<SnailfishNumber[]>
     {
         internal override SnailfishNumber[] Parse(string input)
@@ -17,7 +17,7 @@ namespace AdventOfCode.Solutions.Y2021.D18
 
             foreach (string line in lines)
             {
-                snailfishNumbers.Add(RecursiveParsing(line));
+                snailfishNumbers.Add(this.RecursiveParsing(line));
             }
 
             return snailfishNumbers.ToArray();
@@ -25,7 +25,7 @@ namespace AdventOfCode.Solutions.Y2021.D18
 
         private SnailfishNumber RecursiveParsing(string numberString)
         {
-            return RecursiveParsing(numberString, 0).Item1;
+            return this.RecursiveParsing(numberString, 0).Item1;
         }
 
         private (SnailfishNumber, int) RecursiveParsing(string numberString, int index)
@@ -34,8 +34,8 @@ namespace AdventOfCode.Solutions.Y2021.D18
             {
                 index++;
                 Pair number = new Pair();
-                (number.Left, index) = RecursiveParsing(numberString, index);
-                (number.Right, index) = RecursiveParsing(numberString, index + 1);
+                (number.Left, index) = this.RecursiveParsing(numberString, index);
+                (number.Right, index) = this.RecursiveParsing(numberString, index + 1);
 
                 return (number, index + 1);
             }

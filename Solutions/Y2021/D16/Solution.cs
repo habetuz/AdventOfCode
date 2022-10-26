@@ -1,27 +1,27 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D16
+﻿namespace AdventOfCode.Solutions.Y2021.D16
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Solution : Solution<Packet>
     {
         internal override string Puzzle1(Packet input)
         {
-            int versionSum = RecursiveVersionSum(input);
+            int versionSum = this.RecursiveVersionSum(input);
 
-            s_logger.Log($"The version sum is {versionSum}!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"The version sum is {versionSum}!");
             return versionSum.ToString();
         }
 
         internal override string Puzzle2(Packet input)
         {
-            long value = RecursiveValueCalculation(input);
+            long value = this.RecursiveValueCalculation(input);
 
-            s_logger.Log($"The value is {value}!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"The value is {value}!");
             return value.ToString();
         }
 
@@ -34,9 +34,9 @@ namespace AdventOfCode.Solutions.Y2021.D16
 
             int versionSum = packet.Version;
 
-            foreach (Packet subPacket in ((OperatorPacket) packet).SubPackets)
+            foreach (Packet subPacket in ((OperatorPacket)packet).SubPackets)
             {
-                versionSum += RecursiveVersionSum(subPacket);
+                versionSum += this.RecursiveVersionSum(subPacket);
             }
 
             return versionSum;
@@ -52,7 +52,7 @@ namespace AdventOfCode.Solutions.Y2021.D16
                 case 0:
                     foreach (Packet subPacket in ((OperatorPacket)packet).SubPackets)
                     {
-                        value += RecursiveValueCalculation(subPacket);
+                        value += this.RecursiveValueCalculation(subPacket);
                     }
 
                     break;
@@ -60,9 +60,9 @@ namespace AdventOfCode.Solutions.Y2021.D16
                 // Product
                 case 1:
                     value = 1;
-                    foreach (Packet subPacket in ((OperatorPacket) packet).SubPackets)
+                    foreach (Packet subPacket in ((OperatorPacket)packet).SubPackets)
                     {
-                        value *= RecursiveValueCalculation(subPacket);
+                        value *= this.RecursiveValueCalculation(subPacket);
                     }
 
                     break;
@@ -72,8 +72,11 @@ namespace AdventOfCode.Solutions.Y2021.D16
                     value = long.MaxValue;
                     foreach (Packet subPacket in ((OperatorPacket)packet).SubPackets)
                     {
-                        long subPacketValue = RecursiveValueCalculation(subPacket);
-                        if (value > subPacketValue) value = subPacketValue;
+                        long subPacketValue = this.RecursiveValueCalculation(subPacket);
+                        if (value > subPacketValue)
+                        {
+                            value = subPacketValue;
+                        }
                     }
 
                     break;
@@ -82,22 +85,25 @@ namespace AdventOfCode.Solutions.Y2021.D16
                 case 3:
                     foreach (Packet subPacket in ((OperatorPacket)packet).SubPackets)
                     {
-                        long subPacketValue = RecursiveValueCalculation(subPacket);
-                        if (value < subPacketValue) value = subPacketValue;
+                        long subPacketValue = this.RecursiveValueCalculation(subPacket);
+                        if (value < subPacketValue)
+                        {
+                            value = subPacketValue;
+                        }
                     }
 
                     break;
 
                 // Literal Value
                 case 4:
-                    value =  ((LiteralValuePacket) packet).Value;
+                    value = ((LiteralValuePacket)packet).Value;
                     break;
 
                 // Greater than
                 case 5:
-                    value = 
-                        RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[0]) > 
-                        RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[1]) ? 
+                    value =
+                        this.RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[0]) >
+                        this.RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[1]) ?
                         1 : 0;
 
                     break;
@@ -105,8 +111,8 @@ namespace AdventOfCode.Solutions.Y2021.D16
                 // Less than
                 case 6:
                     value =
-                        RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[0]) <
-                        RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[1]) ?
+                        this.RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[0]) <
+                        this.RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[1]) ?
                         1 : 0;
 
                     break;
@@ -114,8 +120,8 @@ namespace AdventOfCode.Solutions.Y2021.D16
                 // Equal to
                 case 7:
                     value =
-                        RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[0]) ==
-                        RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[1]) ?
+                        this.RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[0]) ==
+                        this.RecursiveValueCalculation(((OperatorPacket)packet).SubPackets[1]) ?
                         1 : 0;
 
                     break;

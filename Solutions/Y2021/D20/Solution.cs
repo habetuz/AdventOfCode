@@ -1,32 +1,33 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D20
+﻿namespace AdventOfCode.Solutions.Y2021.D20
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Solution : Solution<(string, char[,])>
     {
         internal override string Puzzle1((string, char[,]) input)
         {
-            //Tools.Print2D(input.Item2);
-            char[,] image = ApplyFilter(input.Item1, input.Item2);
+            // Tools.Print2D(input.Item2);
+            char[,] image = this.ApplyFilter(input.Item1, input.Item2);
 
-            //Tools.Print2D(image);
+            // Tools.Print2D(image);
+            image = this.ApplyFilter(input.Item1, image);
 
-            image = ApplyFilter(input.Item1, image);
-
-            //Tools.Print2D(image);
-
+            // Tools.Print2D(image);
             int lightCounter = 0;
             foreach (char pixel in image)
             {
-                if (pixel == '#') lightCounter++;
+                if (pixel == '#')
+                {
+                    lightCounter++;
+                }
             }
 
-            s_logger.Log($"There are {lightCounter} light pixels!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {lightCounter} light pixels!");
 
             return lightCounter.ToString();
         }
@@ -38,16 +39,19 @@ namespace AdventOfCode.Solutions.Y2021.D20
 
             for (int i = 1; i <= 50; i++)
             {
-                image = ApplyFilter(filter, image);
+                image = this.ApplyFilter(filter, image);
             }
 
             int lightCounter = 0;
             foreach (char pixel in image)
             {
-                if (pixel == '#') lightCounter++;
+                if (pixel == '#')
+                {
+                    lightCounter++;
+                }
             }
 
-            s_logger.Log($"There are {lightCounter} light pixels!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {lightCounter} light pixels!");
 
             return lightCounter.ToString();
         }
@@ -56,7 +60,7 @@ namespace AdventOfCode.Solutions.Y2021.D20
         {
             char[,] output = new char[image.GetLength(0) + 2, image.GetLength(1) + 2];
 
-            char infinityFill = ApplyFilter(filter, image, 1, 1);
+            char infinityFill = this.ApplyFilter(filter, image, 1, 1);
 
             for (int x = 0; x < output.GetLength(0); x++)
             {
@@ -66,11 +70,11 @@ namespace AdventOfCode.Solutions.Y2021.D20
                 }
             }
 
-            for (int x = 2; x < image.GetLength(0) - 2; x ++)
+            for (int x = 2; x < image.GetLength(0) - 2; x++)
             {
                 for (int y = 2; y < image.GetLength(1) - 2; y++)
                 {
-                    output[x + 1, y + 1] = ApplyFilter(filter, image, x, y);
+                    output[x + 1, y + 1] = this.ApplyFilter(filter, image, x, y);
                 }
             }
 

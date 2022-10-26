@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="Board.cs" company="Marvin Fuchs">
 
 namespace AdventOfCode.Solutions.Y2021.D04
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     internal class Board
     {
-        internal event CompletedHandler CompletedEvent;
-
         internal delegate void CompletedHandler(Board sender, int lastDraw);
+
+        internal event CompletedHandler CompletedEvent;
 
         internal int Value
         {
             get
             {
                 int value = 0;
-                for (int x = 0; x < _boardValues.GetLength(0); x++)
+                for (int x = 0; x < this.boardValues.GetLength(0); x++)
                 {
-                    for (int y = 0; y < _boardValues.GetLength(1); y++)
+                    for (int y = 0; y < this.boardValues.GetLength(1); y++)
                     {
-                        if (!_boardChecked[x, y])
+                        if (!this.boardChecked[x, y])
                         {
-                            value += _boardValues[x, y];
+                            value += this.boardValues[x, y];
                         }
                     }
                 }
@@ -32,12 +34,12 @@ namespace AdventOfCode.Solutions.Y2021.D04
             }
         }
 
-        private readonly int[,] _boardValues;
-        private readonly bool[,] _boardChecked = new bool[5, 5];
+        private readonly int[,] boardValues;
+        private readonly bool[,] boardChecked = new bool[5, 5];
 
         internal Board(int[,] boardValues)
         {
-            _boardValues = boardValues;
+            this.boardValues = boardValues;
         }
 
         internal void AddToDrawEvent(Solution solution)
@@ -47,17 +49,17 @@ namespace AdventOfCode.Solutions.Y2021.D04
 
         private void Draw(Solution sender, int draw)
         {
-            for (int x = 0; x < _boardValues.GetLength(0); x++)
+            for (int x = 0; x < this.boardValues.GetLength(0); x++)
             {
-                for (int y = 0; y < _boardValues.GetLength(1); y++)
+                for (int y = 0; y < this.boardValues.GetLength(1); y++)
                 {
-                    if (_boardValues[x, y] == draw)
+                    if (this.boardValues[x, y] == draw)
                     {
-                        _boardChecked[x, y] = true;
-                        if (IsCompleted(x, y))
+                        this.boardChecked[x, y] = true;
+                        if (this.IsCompleted(x, y))
                         {
                             sender.NewDrawEvent -= this.Draw;
-                            CompletedEvent(this, draw);
+                            this.CompletedEvent(this, draw);
                         }
                     }
                 }
@@ -69,10 +71,17 @@ namespace AdventOfCode.Solutions.Y2021.D04
             bool xComplete = true;
             bool yComplete = true;
 
-            for (int i = 0; i < _boardValues.GetLength(0); i++)
+            for (int i = 0; i < this.boardValues.GetLength(0); i++)
             {
-                if (!_boardChecked[x, i]) yComplete = false;
-                if (!_boardChecked[i, y]) xComplete = false;
+                if (!this.boardChecked[x, i])
+                {
+                    yComplete = false;
+                }
+
+                if (!this.boardChecked[i, y])
+                {
+                    xComplete = false;
+                }
             }
 
             return xComplete || yComplete;

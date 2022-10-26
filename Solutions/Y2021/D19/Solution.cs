@@ -1,13 +1,13 @@
-﻿using AdventOfCode.Common;
-using SharpLog.Output;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D19
+﻿namespace AdventOfCode.Solutions.Y2021.D19
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+    using SharpLog;
+
     internal class Solution : Solution<Scanner[]>
     {
         internal override string Puzzle1(Scanner[] input)
@@ -15,7 +15,7 @@ namespace AdventOfCode.Solutions.Y2021.D19
             // Fill neighbour dictionaries
             foreach (Scanner scanner in input)
             {
-                FillNeighbours(scanner);
+                this.FillNeighbours(scanner);
             }
 
             List<Scanner> unresolved = new List<Scanner>(input);
@@ -23,7 +23,7 @@ namespace AdventOfCode.Solutions.Y2021.D19
 
             List<Scanner> resolved = new List<Scanner>()
             {
-                input[0]
+                input[0],
             };
 
             while (unresolved.Count > 0)
@@ -34,15 +34,15 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     for (int j = 0; j < resolved.Count; j++)
                     {
                         Scanner a = resolved[j];
-                        (Beacon, Beacon)[] intersecting = GetIntersecting(a, b);
+                        (Beacon, Beacon)[] intersecting = this.GetIntersecting(a, b);
 
                         if (intersecting.Length < 12)
                         {
                             continue;
                         }
 
-                        AdjustScanner(b, intersecting);
-                        Translate(b, intersecting[0].Item2);
+                        this.AdjustScanner(b, intersecting);
+                        this.Translate(b, intersecting[0].Item2);
                         resolved.Add(b);
                         unresolved.Remove(b);
 
@@ -53,9 +53,9 @@ namespace AdventOfCode.Solutions.Y2021.D19
                 }
             }
 
-            int uniqueBeacons = GetUniqueBeacons(input).Length;
+            int uniqueBeacons = this.GetUniqueBeacons(input).Length;
 
-            s_logger.Log($"There are {uniqueBeacons} unique beacons!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogInfo($"There are {uniqueBeacons} unique beacons!");
 
             return uniqueBeacons.ToString();
         }
@@ -63,20 +63,25 @@ namespace AdventOfCode.Solutions.Y2021.D19
         internal override string Puzzle2(Scanner[] input)
         {
             int largestDistance = 0;
-            
             foreach (Scanner fromScanner in input)
             {
                 foreach (Scanner toScanner in input)
                 {
-                    if (fromScanner == toScanner) continue;
+                    if (fromScanner == toScanner)
+                    {
+                        continue;
+                    }
 
                     int distance = Math.Abs(fromScanner.X - toScanner.X) + Math.Abs(fromScanner.Y - toScanner.Y) + Math.Abs(fromScanner.Z - toScanner.Z);
 
-                    if (distance > largestDistance) largestDistance = distance;
+                    if (distance > largestDistance)
+                    {
+                        largestDistance = distance;
+                    }
                 }
             }
 
-            s_logger.Log($"The largest distance is {largestDistance}!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogInfo($"The largest distance is {largestDistance}!");
             return largestDistance.ToString();
         }
 
@@ -86,7 +91,11 @@ namespace AdventOfCode.Solutions.Y2021.D19
             {
                 foreach (Beacon neighbour in scanner.Beacons)
                 {
-                    if (neighbour == beacon) continue;
+                    if (neighbour == beacon)
+                    {
+                        continue;
+                    }
+
                     double distance = Math.Sqrt(
                             Math.Pow(beacon.X - neighbour.X, 2) +
                             Math.Pow(beacon.Y - neighbour.Y, 2) +
@@ -94,7 +103,10 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     beacon.Neighbours.Add(
                         distance,
                         neighbour);
-                    if (beacon.MaxDistance < distance) beacon.MaxDistance = distance;
+                    if (beacon.MaxDistance < distance)
+                    {
+                        beacon.MaxDistance = distance;
+                    }
                 }
             }
         }
@@ -110,19 +122,25 @@ namespace AdventOfCode.Solutions.Y2021.D19
                 Beacon toRemove = null;
                 foreach (Beacon bBeacon in bBeacons)
                 {
-                    int EqualDistanceCounter = 0;
+                    int equalDistanceCounter = 0;
 
                     foreach (double distanceA in aBeacon.Neighbours.Keys)
                     {
-                        if (distanceA > aBeacon.MaxDistance || distanceA > bBeacon.MaxDistance) continue;
+                        if (distanceA > aBeacon.MaxDistance || distanceA > bBeacon.MaxDistance)
+                        {
+                            continue;
+                        }
 
                         foreach (double distanceB in bBeacon.Neighbours.Keys)
                         {
-                            if (distanceA == distanceB) EqualDistanceCounter++;
+                            if (distanceA == distanceB)
+                            {
+                                equalDistanceCounter++;
+                            }
                         }
                     }
 
-                    if (EqualDistanceCounter >= 11)
+                    if (equalDistanceCounter >= 11)
                     {
                         intersecting.Add((aBeacon, bBeacon));
                         toRemove = bBeacon;
@@ -130,7 +148,10 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     }
                 }
 
-                if (toRemove != null) bBeacons.Remove(toRemove);
+                if (toRemove != null)
+                {
+                    bBeacons.Remove(toRemove);
+                }
             }
 
             return intersecting.ToArray();
@@ -189,12 +210,11 @@ namespace AdventOfCode.Solutions.Y2021.D19
             a2.Y = 0;
             a2.Z = 0;
 
-            //Print(new (Beacon, Beacon)[]
-            //{
+            // Print(new (Beacon, Beacon)[]
+            // {
             //    (a1, a2),
             //    (b1, b2),
-            //});
-
+            // });
             int lengthX1 = Math.Abs(b1.X);
             int lengthY1 = Math.Abs(b1.Y);
             int lengthZ1 = Math.Abs(b1.Z);
@@ -290,11 +310,27 @@ namespace AdventOfCode.Solutions.Y2021.D19
                 beacon.Z -= translateZ;
             }
 
-            Rotate(ref scanner.X, ref scanner.Y, ref scanner.Z, scanner.XDir, scanner.YDir, scanner.ZDir);
+            int x = scanner.X;
+            int y = scanner.Y;
+            int z = scanner.Z;
+
+            this.Rotate(ref x, ref y, ref z, scanner.XDir, scanner.YDir, scanner.ZDir);
+
+            scanner.X = x;
+            scanner.Y = y;
+            scanner.Z = z;
 
             foreach (Beacon beacon in scanner.Beacons)
             {
-                Rotate(ref beacon.X, ref beacon.Y, ref beacon.Z, scanner.XDir, scanner.YDir, scanner.ZDir);
+                x = beacon.X;
+                y = beacon.Y;
+                z = beacon.Z;
+
+                this.Rotate(ref x, ref y, ref z, scanner.XDir, scanner.YDir, scanner.ZDir);
+
+                beacon.X = x;
+                beacon.Y = y;
+                beacon.Z = z;
             }
 
             scanner.X += translateX;
@@ -329,7 +365,10 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     break;
             }
 
-            if (xDir[0] == '-') x *= -1;
+            if (xDir[0] == '-')
+            {
+                x *= -1;
+            }
 
             // Translate Y
             switch (yDir[1])
@@ -345,7 +384,10 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     break;
             }
 
-            if (yDir[0] == '-') y *= -1;
+            if (yDir[0] == '-')
+            {
+                y *= -1;
+            }
 
             // Translate Z
             switch (zDir[1])
@@ -361,7 +403,10 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     break;
             }
 
-            if (zDir[0] == '-') z *= -1;
+            if (zDir[0] == '-')
+            {
+                z *= -1;
+            }
         }
 
         private Beacon[] GetUniqueBeacons(Scanner[] scanners)
@@ -382,7 +427,6 @@ namespace AdventOfCode.Solutions.Y2021.D19
                     {
                         uniqueBeacons.Add(beacon);
                     }
-
                 }
             }
 

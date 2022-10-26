@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using AdventOfCode.Common;
-
-namespace AdventOfCode.Solutions.Y2021.D12
+﻿namespace AdventOfCode.Solutions.Y2021.D12
 {
+    using System;
+    using System.Collections.Generic;
+    using AdventOfCode.Common;
+
     internal class Parser : Parser<Node>
     {
         internal override Node Parse(string input)
         {
-            string[] lines = input.Split(new char[] {'\n'}, StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             Dictionary<string, Node> nodes = new Dictionary<string, Node>();
 
@@ -23,6 +23,7 @@ namespace AdventOfCode.Solutions.Y2021.D12
                     nodeA = new Node(connections[0]);
                     nodes.Add(connections[0], nodeA);
                 }
+
                 if (!nodes.TryGetValue(connections[1], out nodeB))
                 {
                     nodeB = new Node(connections[1]);
@@ -37,8 +38,6 @@ namespace AdventOfCode.Solutions.Y2021.D12
                     Array.Resize(ref nodeB.Connections, nodeB.Connections.Length + 1);
                     nodeB.Connections[nodeB.Connections.Length - 1] = nodeA;
                 }
-
-                
             }
 
             return nodes["start"];

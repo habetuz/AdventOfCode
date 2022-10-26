@@ -1,31 +1,32 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Solutions.Y2021.D17
+﻿namespace AdventOfCode.Solutions.Y2021.D17
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using AdventOfCode.Common;
+
     internal class Solution : Solution<Target>
     {
         internal override string Puzzle1(Target input)
         {
             int horizontalSpeed = 1;
 
-            for (; EndingPosition(horizontalSpeed) <= input.X + input.Width; horizontalSpeed++) ;
+            for (; this.EndingPosition(horizontalSpeed) <= input.X + input.Width; horizontalSpeed++)
+            {
+            }
 
             horizontalSpeed--;
 
             int verticalSpeed = 1;
 
-            verticalSpeed = input.Y * - 1 - 1;
+            verticalSpeed = (input.Y * -1) - 1;
 
-            int VerticalEndingPosition = EndingPosition(verticalSpeed);
+            int VerticalEndingPosition = this.EndingPosition(verticalSpeed);
 
-            //SimulateTrajectory(horizontalSpeed, verticalSpeed, input);
-
-            s_logger.Log($"The ending position is {VerticalEndingPosition}!", SharpLog.LogType.Info);
+            // SimulateTrajectory(horizontalSpeed, verticalSpeed, input);
+            SharpLog.Logging.LogDebug($"The ending position is {VerticalEndingPosition}!");
             return VerticalEndingPosition.ToString();
         }
 
@@ -34,21 +35,23 @@ namespace AdventOfCode.Solutions.Y2021.D17
             int counter = 0;
 
             int minHorizontalSpeed = 0;
-            for (; EndingPosition(minHorizontalSpeed) < input.X; minHorizontalSpeed++) ;
+            for (; this.EndingPosition(minHorizontalSpeed) < input.X; minHorizontalSpeed++)
+            {
+            }
 
-            for (int verticalSpeed = input.Y; verticalSpeed <= input.Y * -1 - 1; verticalSpeed++)
+            for (int verticalSpeed = input.Y; verticalSpeed <= (input.Y * -1) - 1; verticalSpeed++)
             {
                 for (int horizontalSpeed = minHorizontalSpeed; horizontalSpeed <= input.X + input.Width; horizontalSpeed++)
                 {
-                    if (HitsTarget(horizontalSpeed, verticalSpeed, input))
+                    if (this.HitsTarget(horizontalSpeed, verticalSpeed, input))
                     {
                         counter++;
-                        //SimulateTrajectory(horizontalSpeed, verticalSpeed, input);
+                        // SimulateTrajectory(horizontalSpeed, verticalSpeed, input);
                     }
                 }
             }
 
-            s_logger.Log($"There are {counter} possible velocity values!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {counter} possible velocity values!");
             return counter.ToString();
         }
 
@@ -76,7 +79,7 @@ namespace AdventOfCode.Solutions.Y2021.D17
                 verticalSpeed--;
 
                 if (
-                    posX >= target.X && 
+                    posX >= target.X &&
                     posY >= target.Y &&
                     posY <= target.Y + target.Height &&
                     posX <= target.X + target.Width)
@@ -104,7 +107,6 @@ namespace AdventOfCode.Solutions.Y2021.D17
                 horizontalSpeed -= horizontalSpeed > 0 ? 1 : 0;
                 verticalSpeed--;
 
-
                 if (
                     posX >= target.X &&
                     posY >= target.Y &&
@@ -118,20 +120,23 @@ namespace AdventOfCode.Solutions.Y2021.D17
 
             coordinates.RemoveAt(0);
 
-            PrintTrajectory(target, coordinates);
+            this.PrintTrajectory(target, coordinates);
         }
 
         private void PrintTrajectory(Target target, List<(int, int)> coordinates)
         {
-            s_logger.Log($"-------------- Printing trajectory: {coordinates[0].Item1}|{coordinates[0].Item2} --------------");
+            SharpLog.Logging.LogDebug($"-------------- Printing trajectory: {coordinates[0].Item1}|{coordinates[0].Item2} --------------");
 
             int highestY = 0;
-            foreach((int, int) coordinate in coordinates)
+            foreach ((int, int) coordinate in coordinates)
             {
-                if (highestY < coordinate.Item2) highestY = coordinate.Item2;
+                if (highestY < coordinate.Item2)
+                {
+                    highestY = coordinate.Item2;
+                }
             }
 
-            char[][] image = highestY > 0? new char[highestY - target.Y + 1][] : new char[target.Y * -1 + 1][];
+            char[][] image = highestY > 0 ? new char[highestY - target.Y + 1][] : new char[(target.Y * -1) + 1][];
             for (int i = 0; i < image.Length; i++)
             {
                 image[i] = new char[target.X + target.Width + 1];
@@ -162,7 +167,7 @@ namespace AdventOfCode.Solutions.Y2021.D17
 
             foreach (char[] line in image)
             {
-                s_logger.Log(new string(line));
+                SharpLog.Logging.LogDebug(new string(line));
             }
         }
     }

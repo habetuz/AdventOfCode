@@ -1,8 +1,8 @@
-﻿using System;
-using AdventOfCode.Common;
-
-namespace AdventOfCode.Solutions.Y2021.D11
+﻿namespace AdventOfCode.Solutions.Y2021.D11
 {
+    using System;
+    using AdventOfCode.Common;
+
     internal class Parser : Parser<int[,]>
     {
         internal override int[,] Parse(string input)
@@ -15,8 +15,8 @@ namespace AdventOfCode.Solutions.Y2021.D11
                 {
                     result[x, y] = int.Parse(lines[y][x].ToString());
                 }
-                
             }
+
             return result;
         }
     }

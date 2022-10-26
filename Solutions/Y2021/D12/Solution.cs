@@ -1,32 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AdventOfCode.Common;
-using SharpLog;
-
-namespace AdventOfCode.Solutions.Y2021.D12
+﻿namespace AdventOfCode.Solutions.Y2021.D12
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AdventOfCode.Common;
+    using SharpLog;
+
     internal class Solution : Solution<Node>
     {
         internal override string Puzzle1(Node input)
         {
-            int paths = FindAllPaths(input, true);
+            int paths = this.FindAllPaths(input, true);
 
-            s_logger.Log($"There are {paths} paths!", LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {paths} paths!");
             return paths.ToString();
         }
 
         internal override string Puzzle2(Node input)
         {
-            int paths = FindAllPaths(input, false);
+            int paths = this.FindAllPaths(input, false);
 
-            s_logger.Log($"There are {paths} paths!", LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {paths} paths!");
             return paths.ToString();
         }
 
         private int FindAllPaths(Node input, bool visitedTwice)
         {
-            return FindAllPaths(input, new List<Node>(), visitedTwice);
+            return this.FindAllPaths(input, new List<Node>(), visitedTwice);
         }
 
         private int FindAllPaths(Node input, List<Node> visitedSmallNodes, bool visitedTwice)
@@ -36,7 +36,7 @@ namespace AdventOfCode.Solutions.Y2021.D12
                 return 1;
             }
 
-            visitedSmallNodes =  visitedSmallNodes.ToList();
+            visitedSmallNodes = visitedSmallNodes.ToList();
             if (!input.IsBig)
             {
                 visitedSmallNodes.Add(input);
@@ -48,7 +48,7 @@ namespace AdventOfCode.Solutions.Y2021.D12
             {
                 if (node.IsBig || !visitedSmallNodes.Contains(node) || !visitedTwice)
                 {
-                    paths += FindAllPaths(node, visitedSmallNodes, visitedSmallNodes.Contains(node) || visitedTwice);
+                    paths += this.FindAllPaths(node, visitedSmallNodes, visitedSmallNodes.Contains(node) || visitedTwice);
                 }
             }
 

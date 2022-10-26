@@ -1,10 +1,10 @@
-﻿using AdventOfCode.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace AdventOfCode.Solutions.Y2021.D23
+﻿namespace AdventOfCode.Solutions.Y2021.D23
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AdventOfCode.Common;
+
     internal class Solution : Solution<(char[,], char[,])>
     {
         private static readonly Dictionary<char, byte> GoalPos = new Dictionary<char, byte>
@@ -23,7 +23,7 @@ namespace AdventOfCode.Solutions.Y2021.D23
             {'D', 1000 },
         };
 
-        private readonly (byte, byte)[] Positions = new (byte, byte)[]
+        private readonly (byte, byte)[] positions = new (byte, byte)[]
         {
             (1, 1),
             (2, 1),
@@ -36,38 +36,33 @@ namespace AdventOfCode.Solutions.Y2021.D23
 
         internal override string Puzzle1((char[,], char[,]) input)
         {
-            s_logger.LogDebug = true;
-
             Tools.Print2D(input.Item1);
 
             (var solution1, var solution2) = new Parser().Parse("#############\n#...........#\n###A#B#C#D###\n  #A#B#C#D#\n  #########");
 
-            var neededCost = Step(input.Item1, 0, int.MaxValue, new Dictionary<string, int>());
+            var neededCost = this.Step(input.Item1, 0, int.MaxValue, new Dictionary<string, int>());
 
-            s_logger.Log($"{neededCost} energy is needed to sort the amphipods!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"{neededCost} energy is needed to sort the amphipods!");
 
             return neededCost.ToString();
         }
 
         internal override string Puzzle2((char[,], char[,]) input)
         {
-            s_logger.LogDebug = true;
-
             Tools.Print2D(input.Item2);
 
-            var neededCost = Step(input.Item2, 0, int.MaxValue, new Dictionary<string, int>());
+            var neededCost = this.Step(input.Item2, 0, int.MaxValue, new Dictionary<string, int>());
 
-            s_logger.Log($"{neededCost} energy is needed to sort the amphipods!", SharpLog.LogType.Info);
+            SharpLog.Logging.LogDebug($"{neededCost} energy is needed to sort the amphipods!");
 
             return neededCost.ToString();
         }
 
         private int Step(char[,] burrow, int score, int bestScore, Dictionary<string, int> discovered)
         {
-            ///s_logger.Log($"Best score:    {bestScore}");
-            ///s_logger.Log($"Current score: {score}");
-            ///Tools.Print2D(burrow)
-
+            // SharpLog.Logging.LogDebug($"Best score:    {bestScore}");
+            // SharpLog.Logging.LogDebug($"Current score: {score}");
+            // Tools.Print2D(burrow)
             bool isFinished = true;
 
             List<(int, char[,])> valideMoves = new List<(int, char[,])>();
@@ -86,14 +81,20 @@ namespace AdventOfCode.Solutions.Y2021.D23
                     var goalPos = GoalPos[amphipod];
 
                     // Check if amphipod is already at it's goal
-                    if (IsAtGoal((x, y), burrow)) continue;
+                    if (this.IsAtGoal((x, y), burrow))
+                    {
+                        continue;
+                    }
 
                     isFinished = false;
 
                     // Check if amphipod is on the hallway and could walk to its goal
                     if (y == 1)
                     {
-                        if (!IsValideMove(x, goalPos, burrow)) continue;
+                        if (!this.IsValideMove(x, goalPos, burrow))
+                        {
+                            continue;
+                        }
 
                         for (byte i = 2; i < burrow.GetLength(1) - 1; i++)
                         {
@@ -101,17 +102,21 @@ namespace AdventOfCode.Solutions.Y2021.D23
                             {
                                 if (i == burrow.GetLength(1) - 2)
                                 {
-                                    MoveIfPossible((x, y), ((byte, byte))(goalPos, burrow.GetLength(1) - 2), burrow, score, bestScore, valideMoves, discovered);
+                                    this.MoveIfPossible((x, y), ((byte, byte))(goalPos, burrow.GetLength(1) - 2), burrow, score, bestScore, valideMoves, discovered);
                                 }
+
                                 continue;
                             }
                             else if (burrow[goalPos, i] == amphipod &&
-                                IsAtGoal((goalPos, i), burrow))
+                                this.IsAtGoal((goalPos, i), burrow))
                             {
-                                MoveIfPossible((x, y), ((byte, byte))(goalPos, i - 1), burrow, score, bestScore, valideMoves, discovered);
+                                this.MoveIfPossible((x, y), ((byte, byte))(goalPos, i - 1), burrow, score, bestScore, valideMoves, discovered);
                                 break;
                             }
-                            else break;
+                            else
+                            {
+                                break;
+                            }
                         }
 
                         continue;
@@ -122,17 +127,23 @@ namespace AdventOfCode.Solutions.Y2021.D23
 
                     for (byte i = (byte)(y - 1); i > 1; i--)
                     {
-                        if (burrow[x, i] != '.') valide = false;
+                        if (burrow[x, i] != '.')
+                        {
+                            valide = false;
+                        }
                     }
 
-                    if (!valide) continue;
+                    if (!valide)
+                    {
+                        continue;
+                    }
 
-                    foreach (var position in Positions)
+                    foreach (var position in this.positions)
                     {
                         // Check if move is valide
-                        if (position != (x, y) && IsValideMove(x, position.Item1, burrow))
+                        if (position != (x, y) && this.IsValideMove(x, position.Item1, burrow))
                         {
-                            MoveIfPossible((x, y), position, burrow, score, bestScore, valideMoves, discovered);
+                            this.MoveIfPossible((x, y), position, burrow, score, bestScore, valideMoves, discovered);
                         }
                     }
                 }
@@ -140,16 +151,15 @@ namespace AdventOfCode.Solutions.Y2021.D23
 
             if (isFinished)
             {
-                s_logger.Log($"Finished with {score} energy needed!");
+                SharpLog.Logging.LogDebug($"Finished with {score} energy needed!");
 
                 return score;
             }
 
             foreach (var move in valideMoves)
             {
-                //Tools.Print2D(move.Item2);
-
-                var stepScore = Step(move.Item2, move.Item1, bestScore, discovered);
+                // Tools.Print2D(move.Item2);
+                var stepScore = this.Step(move.Item2, move.Item1, bestScore, discovered);
 
                 if (stepScore < bestScore)
                 {
@@ -197,33 +207,27 @@ namespace AdventOfCode.Solutions.Y2021.D23
 
         private void MoveIfPossible((byte, byte) from, (byte, byte) to, char[,] burrow, int score, int bestScore, List<(int, char[,])> valideMoves, Dictionary<string, int> discovered)
         {
-            (var newBurrow, var moveCost) = MoveAmphipod(from, to, burrow);
+            (var newBurrow, var moveCost) = this.MoveAmphipod(from, to, burrow);
 
             /*
             if (!ValidateBurrow(newBurrow))
             {
-                s_logger.Log("Invalide burrow!");
+                SharpLog.Logging.LogDebug("Invalide burrow!");
                 Tools.Print2D(burrow);
                 Tools.Print2D(newBurrow);
             }
             */
 
-            //Tools.Print2D(newBurrow);
-
-            var str = AsString(newBurrow);
-
-            
-            
-            
+            // Tools.Print2D(newBurrow);
+            var str = this.AsString(newBurrow);
 
             if (score + moveCost < bestScore && (!discovered.ContainsKey(str) || score + moveCost < discovered[str]))
             {
-                //if (str == "###    #.#    #.######.BDDA##.######.CCBD##.######.BBAC##.######..ACA##.######D#    ###    ")
-                //{
+                // if (str == "###    #.#    #.######.BDDA##.######.CCBD##.######.BBAC##.######..ACA##.######D#    ###    ")
+                // {
                 //    Tools.Print2D(burrow);
                 //    Tools.Print2D(newBurrow);
-                //}
-
+                // }
                 discovered[str] = score + moveCost;
                 valideMoves.Add((score + moveCost, newBurrow));
             }
@@ -243,7 +247,7 @@ namespace AdventOfCode.Solutions.Y2021.D23
 
         private bool IsFinished(char[,] burrow)
         {
-            string str = AsString(burrow);
+            string str = this.AsString(burrow);
 
             return str == "###  #.#  #.####.AA##.####.BB##.####.CC##.####.DD##.####.#  ###  " ||
                 str == "###    #.#    #.######.AAAA##.######.BBBB##.######.CCCC##.######.DDDD##.######.#    ###    ";

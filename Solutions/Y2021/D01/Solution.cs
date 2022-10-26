@@ -1,8 +1,8 @@
-﻿using AdventOfCode.Common;
-using SharpLog;
-
-namespace AdventOfCode.Solutions.Y2021.D01
+﻿namespace AdventOfCode.Solutions.Y2021.D01
 {
+    using AdventOfCode.Common;
+    using SharpLog;
+
     internal class Solution : Solution<int[]>
     {
         internal override string Puzzle1(int[] input)
@@ -17,7 +17,7 @@ namespace AdventOfCode.Solutions.Y2021.D01
                 }
             }
 
-            s_logger.Log(string.Format("The ocean floor increases {0} many times!", increaseCounter), LogType.Info);
+            SharpLog.Logging.LogDebug(string.Format("The ocean floor increases {0} many times!", increaseCounter));
             return increaseCounter + string.Empty;
         }
 
@@ -33,10 +33,9 @@ namespace AdventOfCode.Solutions.Y2021.D01
                 {
                     increaseCounter++;
                 }
-
             }
 
-            s_logger.Log(string.Format("The ocean floor increases {0} many times!", increaseCounter), LogType.Info);
+            SharpLog.Logging.LogDebug(string.Format("The ocean floor increases {0} many times!", increaseCounter));
             return string.Empty + increaseCounter;
         }
     }

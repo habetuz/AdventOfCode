@@ -1,65 +1,71 @@
-﻿using AdventOfCode.Common;
-using SharpLog;
-using System;
-using static System.Windows.Forms.LinkLabel;
-
-namespace AdventOfCode.Solutions.Y2021.D05
+﻿namespace AdventOfCode.Solutions.Y2021.D05
 {
+    using System;
+    using AdventOfCode.Common;
+    using SharpLog;
+    using static System.Windows.Forms.LinkLabel;
+
     internal class Solution : Solution<Tuple<Line[], Point>>
     {
-        private int[,] _field;
+        private int[,] field;
 
         internal override string Puzzle1(Tuple<Line[], Point> input)
-{
-            _field = new int[input.Item2.X, input.Item2.Y];
+        {
+            this.field = new int[input.Item2.X, input.Item2.Y];
 
             foreach (Line line in input.Item1)
             {
-                
+                if (!line.IsVertical && !line.IsHorizontal)
+                {
+                    continue;
+                }
 
-                if (!line.IsVertical && !line.IsHorizontal) continue;
                 foreach (Point point in line.CoveredPoints)
                 {
-                    _field[point.X, point.Y]++;
+                    this.field[point.X, point.Y]++;
                 }
             }
 
             /// Tools.Print2D(_field);
 
             int overlapCounter = 0;
-            foreach (int i in _field)
+            foreach (int i in this.field)
             {
-                if (i >= 2) overlapCounter++;
+                if (i >= 2)
+                {
+                    overlapCounter++;
+                }
             }
 
-            s_logger.Log($"There are {overlapCounter} overlapping points!", LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {overlapCounter} overlapping points!");
 
             return overlapCounter.ToString();
         }
 
         internal override string Puzzle2(Tuple<Line[], Point> input)
         {
-            _field = new int[input.Item2.X, input.Item2.Y];
+            this.field = new int[input.Item2.X, input.Item2.Y];
 
             foreach (Line line in input.Item1)
             {
-                
-
                 foreach (Point point in line.CoveredPoints)
                 {
-                    _field[point.X, point.Y]++;
+                    this.field[point.X, point.Y]++;
                 }
             }
 
             /// Tools.Print2D(_field);
 
             int overlapCounter = 0;
-            foreach (int i in _field)
+            foreach (int i in this.field)
             {
-                if (i >= 2) overlapCounter++;
+                if (i >= 2)
+                {
+                    overlapCounter++;
+                }
             }
 
-            s_logger.Log($"There are {overlapCounter} overlapping points!", LogType.Info);
+            SharpLog.Logging.LogDebug($"There are {overlapCounter} overlapping points!");
 
             return overlapCounter.ToString();
         }

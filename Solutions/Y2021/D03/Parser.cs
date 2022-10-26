@@ -1,9 +1,9 @@
-﻿using AdventOfCode.Common;
-using SharpLog;
-using System.Collections.Generic;
-
-namespace AdventOfCode.Solutions.Y2021.D03
+﻿namespace AdventOfCode.Solutions.Y2021.D03
 {
+    using System.Collections.Generic;
+    using AdventOfCode.Common;
+    using SharpLog;
+
     internal class Parser : Parser<int[][]>
     {
         internal override int[][] Parse(string input)
@@ -20,7 +20,7 @@ namespace AdventOfCode.Solutions.Y2021.D03
                 for (int bit = 0; bit < lines[0].Length; bit++)
                 {
                     bits[bit] = lines[i][bit] - '0';
-                    s_logger.Log(string.Format("{2}:{3} | From {0} to {1}", lines[i][bit], bits[bit], i, bit));
+                    SharpLog.Logging.LogDebug(string.Format("{2}:{3} | From {0} to {1}", lines[i][bit], bits[bit], i, bit));
                 }
 
                 inputArray.Add(bits);
