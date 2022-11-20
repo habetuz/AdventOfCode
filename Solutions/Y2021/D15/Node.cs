@@ -3,11 +3,6 @@
 namespace AdventOfCode.Solutions.Y2021.D15
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using SharpLog;
 
     internal class Node : IComparable<Node>
     {

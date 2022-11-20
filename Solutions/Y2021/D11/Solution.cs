@@ -1,8 +1,6 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D11
 {
-    using System;
     using AdventOfCode.Common;
-    using SharpLog;
 
     internal class Solution : Solution<int[,]>
     {

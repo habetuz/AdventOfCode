@@ -1,9 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D05
 {
-    using System;
     using AdventOfCode.Common;
-    using SharpLog;
-    using static System.Windows.Forms.LinkLabel;
+    using System;
 
     internal class Solution : Solution<Tuple<Line[], Point>>
     {

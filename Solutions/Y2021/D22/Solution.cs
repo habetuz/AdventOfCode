@@ -1,13 +1,9 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D22
 {
+    using AdventOfCode.Common;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Numerics;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using AdventOfCode.Common;
 
     internal class Solution : Solution<(bool, (int, int, int), (int, int, int))[]>
     {
@@ -82,8 +78,6 @@
                     }
                 }
             }
-
-            SharpLog.Logging.LogDebug($"{activeCubes} cubes are active!");
 
             return (activeCubes.ToString(), $"{activeCubes} cubes are active!");
         }

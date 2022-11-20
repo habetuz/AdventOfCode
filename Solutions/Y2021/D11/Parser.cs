@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D11
 {
-    using System;
     using AdventOfCode.Common;
+    using System;
 
     internal class Parser : Parser<int[,]>
     {

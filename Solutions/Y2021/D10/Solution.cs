@@ -1,12 +1,8 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D10
 {
+    using AdventOfCode.Common;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using AdventOfCode.Common;
-    using SharpLog;
 
     internal class Solution : Solution<string[]>
     {

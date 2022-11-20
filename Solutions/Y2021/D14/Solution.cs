@@ -1,11 +1,8 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D14
 {
-    using System;
+    using AdventOfCode.Common;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using AdventOfCode.Common;
 
     internal class Solution : Solution<(Dictionary<string, char>, string)>
     {

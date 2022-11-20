@@ -1,7 +1,6 @@
 ﻿namespace AdventOfCode.Common
 {
     using System;
-    using SharpLog;
 
     internal abstract class Parser<T>
     {

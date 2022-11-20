@@ -2,61 +2,96 @@
 
 namespace AdventOfCode.Common
 {
-    using System;
     using SharpLog;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     internal class Tools
     {
-        internal static void Print2D(int[,] array)
+        private static Dictionary<string, int> lineNums = new Dictionary<string, int>();
+
+        internal static string Formatt<T>(T[,] array, string spacing = "", bool alignLeft = true)
         {
-            Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
+            var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
+
+            int maxLength = 0;
+            foreach (var item in array)
+            {
+                if (item.ToString().Length > maxLength)
+                {
+                    maxLength = item.ToString().Length;
+                }
+            }
+
             for (int y = 0; y < array.GetLength(1); y++)
             {
-                string str = string.Empty;
+                string line = string.Empty;
                 for (int x = 0; x < array.GetLength(0); x++)
                 {
-                    str += array[x, y];
+                    line += alignLeft ? array[x, y].ToString().PadRight(maxLength) : array[x, y].ToString().PadLeft(maxLength);
+                    line += spacing;
                 }
 
-                Logging.LogDebug(str + " - " + y);
+                output += $"{line} - {y}\n";
             }
+
+            return output;
         }
 
-        internal static void Print2D(bool[,] array)
+        internal static string Formatt(bool[,] array)
         {
-            Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
+            var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
+
             for (int y = 0; y < array.GetLength(1); y++)
             {
-                string str = string.Empty;
+                string line = string.Empty;
                 for (int x = 0; x < array.GetLength(0); x++)
                 {
-                    if (array[x, y])
-                    {
-                        str += "#";
-                    }
-                    else
-                    {
-                        str += ".";
-                    }
+                    line += array[x, y] ? "█" : "░";
                 }
 
-                Logging.LogDebug(str + " - " + y);
+                output += $"{line} - {y}\n";
             }
+
+            return output;
         }
 
-        internal static void Print2D(char[,] array)
+        internal static string Formatt<TKey, TValue>(Dictionary<TKey, TValue> dictionary, bool alignKeyLeft = true, bool alignValueLeft = true)
         {
-            Logging.LogDebug($"----- Printing array with dimentions {array.GetLength(0)}x{array.GetLength(1)} -----");
-            for (int y = 0; y < array.GetLength(1); y++)
+            var output = $">> Dictionary with {dictionary.Count} entries.\n";
+
+            int maxLengthKey = 0;
+            int maxLengthValue = 0;
+            foreach (var item in dictionary)
             {
-                string str = string.Empty;
-                for (int x = 0; x < array.GetLength(0); x++)
+                if (item.Key.ToString().Length > maxLengthKey)
                 {
-                    str += array[x, y];
+                    maxLengthKey = item.Key.ToString().Length;
                 }
 
-                Logging.LogDebug(str + " - " + y);
+                if (item.Value.ToString().Length > maxLengthValue)
+                {
+                    maxLengthValue = item.Value.ToString().Length;
+                }
             }
+
+            output += $"┌{new string('─', maxLengthKey + 2)}┬{new string('─', maxLengthValue + 2)}┐\n";
+
+            var pairs = dictionary.ToArray();
+            for (int i = 0; i < dictionary.Count; i++)
+            {
+                var item = pairs[i];
+                output += $"│ {(alignKeyLeft ? item.Key.ToString().PadRight(maxLengthKey) : item.Key.ToString().PadLeft(maxLengthKey))} | {(alignValueLeft ? item.Value.ToString().PadRight(maxLengthValue) : item.Value.ToString().PadLeft(maxLengthValue))} |\n";
+                if (i < dictionary.Count - 1)
+                {
+                    output += $"├{new string('─', maxLengthKey + 2)}┼{new string('─', maxLengthValue + 2)}┤\n";
+                }
+            }
+
+            output += $"└{new string('─', maxLengthKey + 2)}┴{new string('─', maxLengthValue + 2)}┘\n";
+
+            return output;
         }
 
         internal static int[] InvertBinary(int[] array)
@@ -110,6 +145,92 @@ namespace AdventOfCode.Common
             }
 
             return value;
+        }
+
+        internal static void RegisterLine(string key, string line, string tag = null, bool withSharpLog = true, LogLevel level = LogLevel.Debug)
+        {
+            lineNums[key] = Console.CursorTop;
+            if (!withSharpLog)
+            {
+                Console.WriteLine(line);
+            }
+            else
+            {
+                switch (level)
+                {
+                    case LogLevel.Debug:
+                        Logging.LogDebug(line, tag);
+                        break;
+                    case LogLevel.Trace:
+                        Logging.LogTrace(line, tag);
+                        break;
+                    case LogLevel.Info:
+                        Logging.LogInfo(line, tag);
+                        break;
+                    case LogLevel.Warning:
+                        Logging.LogWarning(line, tag);
+                        break;
+                    case LogLevel.Error:
+                        Logging.LogError(line, tag);
+                        break;
+                    case LogLevel.Fatal:
+                        Logging.LogFatal(line, tag);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        internal static void OverwriteLine(string key, string line, string tag = null, bool withSharpLog = true, LogLevel level = LogLevel.Debug)
+        {
+            if (!lineNums.ContainsKey(key))
+            {
+                return;
+            }
+
+            Console.Out.Flush();
+            var cLeft = Console.CursorLeft;
+            var cTop = Console.CursorTop;
+            Console.CursorTop = lineNums[key];
+            Console.CursorLeft = 0;
+            Console.WriteLine(new string(' ', Console.BufferWidth));
+            Console.Out.Flush();
+            Console.CursorTop = lineNums[key];
+            Console.CursorLeft = 0;
+            if (!withSharpLog)
+            {
+                Console.WriteLine(line);
+            }
+            else
+            {
+                switch (level)
+                {
+                    case LogLevel.Debug:
+                        Logging.LogDebug(line, tag);
+                        break;
+                    case LogLevel.Trace:
+                        Logging.LogTrace(line, tag);
+                        break;
+                    case LogLevel.Info:
+                        Logging.LogInfo(line, tag);
+                        break;
+                    case LogLevel.Warning:
+                        Logging.LogWarning(line, tag);
+                        break;
+                    case LogLevel.Error:
+                        Logging.LogError(line, tag);
+                        break;
+                    case LogLevel.Fatal:
+                        Logging.LogFatal(line, tag);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            Console.CursorLeft = cLeft;
+            Console.CursorTop = cTop;
         }
     }
 }

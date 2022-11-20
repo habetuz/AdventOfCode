@@ -1,8 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D02
 {
-    using System.Collections.Generic;
     using AdventOfCode.Common;
-    using SharpLog;
+    using System.Collections.Generic;
     using static AdventOfCode.Solutions.Y2021.D02.Parser;
 
     internal class Solution : Solution<KeyValuePair<Direction, int>[]>

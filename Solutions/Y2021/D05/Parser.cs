@@ -1,9 +1,9 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D05
 {
-    using System;
-    using System.Collections.Generic;
     using AdventOfCode.Common;
     using SharpLog;
+    using System;
+    using System.Collections.Generic;
 
     internal class Parser : Parser<Tuple<Line[], Point>>
     {

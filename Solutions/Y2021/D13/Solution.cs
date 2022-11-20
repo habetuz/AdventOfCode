@@ -1,11 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D13
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using AdventOfCode.Common;
+    using SharpLog;
 
     internal class Solution : Solution<((char, int)[], bool[,])>
     {
@@ -41,7 +37,7 @@
             }
 
             SharpLog.Logging.LogDebug($"After the folds the following image appears:");
-            Tools.Print2D(paper);
+            Logging.LogInfo(Tools.Formatt(paper));
 
             return ("", "See console log!");
         }

@@ -1,11 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D22
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using AdventOfCode.Common;
+    using System;
 
     internal class Parser : Parser<(bool, (int, int, int), (int, int, int))[]>
     {

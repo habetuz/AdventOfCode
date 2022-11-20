@@ -1,9 +1,9 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D23
 {
+    using AdventOfCode.Common;
+    using SharpLog;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using AdventOfCode.Common;
 
     internal class Solution : Solution<(char[,], char[,])>
     {
@@ -36,7 +36,7 @@
 
         internal override (object, string) Puzzle1((char[,], char[,]) input)
         {
-            Tools.Print2D(input.Item1);
+            Logging.LogDebug(Tools.Formatt(input.Item1));
 
             (var solution1, var solution2) = new Parser().Parse("#############\n#...........#\n###A#B#C#D###\n  #A#B#C#D#\n  #########");
 
@@ -47,7 +47,7 @@
 
         internal override (object, string) Puzzle2((char[,], char[,]) input)
         {
-            Tools.Print2D(input.Item2);
+            Logging.LogDebug(Tools.Formatt(input.Item2));
 
             var neededCost = this.Step(input.Item2, 0, int.MaxValue, new Dictionary<string, int>());
 
