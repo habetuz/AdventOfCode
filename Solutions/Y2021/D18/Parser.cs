@@ -37,9 +37,10 @@
             }
             else
             {
-                LiteralNumber number = new LiteralNumber();
-
-                number.Value = int.Parse(numberString[index].ToString());
+                LiteralNumber number = new LiteralNumber
+                {
+                    Value = int.Parse(numberString[index].ToString())
+                };
                 return (number, index + 1);
             }
         }

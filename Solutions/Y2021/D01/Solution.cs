@@ -2,6 +2,7 @@
 {
     using AdventOfCode.Common;
     using SharpLog;
+    using System.Threading;
 
     internal class Solution : Solution<int[]>
     {
@@ -35,6 +36,7 @@
             }
 
             Logging.LogDebug(string.Format("The ocean floor increases {0} many times!", increaseCounter));
+
             return (increaseCounter + string.Empty, string.Format("The ocean floor increases {0} many times!", increaseCounter));
         }
     }

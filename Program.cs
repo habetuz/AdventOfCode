@@ -5,6 +5,7 @@ namespace AdventOfCode
     using CommandLine;
     using Pastel;
     using SharpLog;
+    using Spectre.Console;
     using System;
     using System.Net.Http;
     using System.Windows.Forms;
@@ -27,14 +28,17 @@ namespace AdventOfCode
 
             [Option('t', "test", HelpText = "Wich test input should be used or -1 if the real input should be used.", Default = -1)]
             public int Test { get; set; }
+
+            [Option("debug", HelpText = "Wether debug logs are activated.")]
+            public bool Debug { get; set; }
         }
 
         [STAThread]
         private static void Main(string[] args)
         {
-            Console.WriteLine();
-
             var options = CommandLine.Parser.Default.ParseArguments<Options>(args).Value;
+
+            SettingsManager.Settings.Levels.Debug.Enabled = options.Debug;
 
             // Create http client
             var handler = new HttpClientHandler()
@@ -53,29 +57,33 @@ namespace AdventOfCode
             {
                 WelcomePrinter.Print(options.Year, options.Day, options.Test, client);
             }
-
-            if (options.Test < 0)
-            {
-                Logging.LogInfo($"Running {options.Year.ToString().Pastel("#ffff66")}{" / ".Pastel("#ffffff")}{options.Day.ToString().Pastel("#ffff66")}", "RUNNER");
-            }
             else
             {
-                Logging.LogInfo($"Running test input {options.Test.ToString().Pastel("#ffff66")}{" - y".Pastel("#ffffff")}{options.Year.ToString().Pastel("#ffff66")}{" / d".Pastel("#ffffff")}{options.Day.ToString().Pastel("#ffff66")}", "RUNNER");
+                var rule = new Rule($"Running [yellow]{options.Year}[/] / [yellow]{options.Day}[/]")
+                {
+                    Style = Style.Parse("green"),
+                    Border = BoxBorder.Double,
+                };
+                AnsiConsole.Write(new Padder(rule).Padding(0, 0, 0, 1));
             }
 
             string input = AdventRunner.GetInput(options.Year, options.Day, options.Test, client);
 
+            bool successfully = true;
+
             // Parsing
             Type parserType = AdventRunner.GetParser(options.Year, options.Day);
-            var parsedInput = AdventRunner.Parse(parserType, input);
+            var parsedInput = AdventRunner.Parse(parserType, input, options.Debug, ref successfully);
 
             // Solution
             Type solutionType = AdventRunner.GetSolution(options.Year, options.Day);
-            string clipboard = AdventRunner.Solve(solutionType, parsedInput);
+            string clipboard = AdventRunner.Solve(solutionType, parsedInput, options.Debug, ref successfully);
             if (clipboard != null && clipboard.Length != 0)
             {
                 Clipboard.SetText(clipboard);
             }
+
+            AdventRunner.PrintResults(successfully);
 
             handler.Dispose();
             client.Dispose();

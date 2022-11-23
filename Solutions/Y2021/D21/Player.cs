@@ -65,10 +65,9 @@ namespace AdventOfCode.Solutions.Y2021.D21
             {
                 RoleCount = this.RoleCount,
                 RepresentingDimentions = this.RepresentingDimentions,
+                position = this.position,
+                score = this.score
             };
-
-            player.position = this.position;
-            player.score = this.score;
             player.WinEvent += this.WinEvent;
 
             return player;

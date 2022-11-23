@@ -1,8 +1,4 @@
-﻿
-
-
-
-namespace AdventOfCode.Solutions.Y2021.D08
+﻿namespace AdventOfCode.Solutions.Y2021.D08
 {
     using System;
     using System.Collections.Generic;

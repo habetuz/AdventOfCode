@@ -1,13 +1,14 @@
 ﻿namespace AdventOfCode
 {
-    using AngleSharp;
-    using AngleSharp.Dom;
-    using Pastel;
-    using SharpLog;
     using System;
+    using System.Diagnostics;
     using System.Drawing;
     using System.Globalization;
     using System.Net.Http;
+    using AngleSharp;
+    using AngleSharp.Dom;
+    using SharpLog;
+    using Spectre.Console;
 
     internal static class WelcomePrinter
     {
@@ -16,6 +17,8 @@
             try
             {
                 // Start to download html (TODO: Check if html has changed)
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
                 var html = client.GetStringAsync($"{year}");
 
                 // Create parser
@@ -24,6 +27,10 @@
 
                 // Parse html
                 var document = context.OpenAsync(req => req.Content(html.Result)).Result;
+
+                stopwatch.Stop();
+
+                stopwatch.Restart();
 
                 // Get username and star count
                 var userStarElement = document.GetElementsByClassName("user");
@@ -36,7 +43,16 @@
                 var user = userStar[0];
                 var star = userStar[1];
 
-                Logging.LogInfo($"Logged in as {user.Pastel("#ffffff")} {star.Pastel("#ffff66")}", "RUNNER");
+                var rule = new Rule($"[green]Logged in as [white]{user}[/] [yellow]{star}[/][/]")
+                {
+                    Style = Style.Parse("green"),
+                    Border = BoxBorder.Double,
+                };
+                AnsiConsole.Write(new Padder(rule).Padding(0, 0, 0, 1));
+                AnsiConsole.Write(new Rule()
+                {
+                    Style = Style.Parse("#0f0f23 on #0f0f23"),
+                });
 
                 for (int d = 1; d <= 25; d++)
                 {
@@ -48,11 +64,11 @@
                     {
                         if (child.ClassName == "calendar-day")
                         {
-                            output += $"{input.Split(d.ToString()[0])[0].Pastel("#666666")}{d} ";
+                            output += $"[#666666]{Markup.Escape(input.Split(d.ToString()[0])[0])}[/][white]{d}[/] ";
                             break;
                         }
 
-                        var color = ParseColor(document.DefaultView.GetComputedStyle(child).GetProperty("color").Value);
+                        var color = HexConverter(ParseColor(document.DefaultView.GetComputedStyle(child).GetProperty("color").Value));
                         var reference = child.TextContent;
 
                         for (int i = 0; ; i++)
@@ -60,8 +76,8 @@
                             var comparison = input.Substring(i, reference.Length);
                             if (comparison == reference)
                             {
-                                output += input.Substring(0, i);
-                                output += reference.Pastel(color);
+                                output += Markup.Escape(input.Substring(0, i));
+                                output += $"[{color}]{Markup.Escape(reference)}[/]";
                                 input = input.Substring(i + reference.Length);
                                 break;
                             }
@@ -70,28 +86,52 @@
 
                     if (line.ClassList.Contains("calendar-complete"))
                     {
-                        output += "* ".Pastel("ffff66");
+                        output += "[#ffff66]* [/]";
                     }
                     else if (line.ClassList.Contains("calendar-verycomplete"))
                     {
-                        output += "**".Pastel("ffff66");
+                        output += "[#ffff66]**[/]";
                     }
                     else
                     {
                         output += "  ";
                     }
 
-                    Console.WriteLine(output.PastelBg("#0f0f23"));
+                    var formattedLine = new Rule($"[on #0f0f23]{output}[/]")
+                    {
+                        Style = Style.Parse("#0f0f23 on #0f0f23"),
+                    };
+                    formattedLine.Centered();
+                    AnsiConsole.Write(formattedLine);
                 }
+
+                AnsiConsole.Write(new Rule()
+                {
+                    Style = Style.Parse("on #0f0f23"),
+                    Border = BoxBorder.None,
+                });
+
+                if (test < 0)
+                {
+                    rule.Title = $"Running [yellow]{year}[/] / [yellow]{day}[/]";
+                }
+                else
+                {
+                    rule.Title = $"Running test input [yellow]{test}[/] of [yellow]{year}[/] / [yellow]{day}[/]";
+                }
+
+                AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 1));
+
+                stopwatch.Stop();
             }
-            catch (AggregateException e)
+            catch (AggregateException)
             {
                 Logging.LogFatal("Server request failed! Possible reasons might be:\n- The provided session cookie is outdated or wrong\n- The provided year is not available\n- You do not have an internet connection\n- The advent of code server is offline", "RUNNER");
             }
         }
 
         // From https://stackoverflow.com/a/40611610/11881711
-        public static Color ParseColor(string cssColor)
+        private static System.Drawing.Color ParseColor(string cssColor)
         {
             cssColor = cssColor.Trim();
 
@@ -99,13 +139,16 @@
             {
                 return ColorTranslator.FromHtml(cssColor);
             }
-            else if (cssColor.StartsWith("rgb")) //rgb or argb
+            else if (cssColor.StartsWith("rgb"))
             {
                 int left = cssColor.IndexOf('(');
                 int right = cssColor.IndexOf(')');
 
                 if (left < 0 || right < 0)
+                {
                     throw new FormatException("rgba format error");
+                }
+
                 string noBrackets = cssColor.Substring(left + 1, right - left - 1);
 
                 string[] parts = noBrackets.Split(',');
@@ -116,15 +159,22 @@
 
                 if (parts.Length == 3)
                 {
-                    return Color.FromArgb(r, g, b);
+                    return System.Drawing.Color.FromArgb(r, g, b);
                 }
                 else if (parts.Length == 4)
                 {
                     float a = float.Parse(parts[3], CultureInfo.InvariantCulture);
-                    return Color.FromArgb((int)(a * 255), r, g, b);
+                    return System.Drawing.Color.FromArgb((int)(a * 255), r, g, b);
                 }
             }
+
             throw new FormatException("Not rgb, rgba or hexa color string");
+        }
+
+        // From https://stackoverflow.com/a/2395708/11881711
+        private static string HexConverter(System.Drawing.Color c)
+        {
+            return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
     }
 }

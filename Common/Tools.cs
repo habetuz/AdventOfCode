@@ -146,91 +146,11 @@ namespace AdventOfCode.Common
 
             return value;
         }
-
-        internal static void RegisterLine(string key, string line, string tag = null, bool withSharpLog = true, LogLevel level = LogLevel.Debug)
+        internal static void RewriteLine()
         {
-            lineNums[key] = Console.CursorTop;
-            if (!withSharpLog)
-            {
-                Console.WriteLine(line);
-            }
-            else
-            {
-                switch (level)
-                {
-                    case LogLevel.Debug:
-                        Logging.LogDebug(line, tag);
-                        break;
-                    case LogLevel.Trace:
-                        Logging.LogTrace(line, tag);
-                        break;
-                    case LogLevel.Info:
-                        Logging.LogInfo(line, tag);
-                        break;
-                    case LogLevel.Warning:
-                        Logging.LogWarning(line, tag);
-                        break;
-                    case LogLevel.Error:
-                        Logging.LogError(line, tag);
-                        break;
-                    case LogLevel.Fatal:
-                        Logging.LogFatal(line, tag);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        internal static void OverwriteLine(string key, string line, string tag = null, bool withSharpLog = true, LogLevel level = LogLevel.Debug)
-        {
-            if (!lineNums.ContainsKey(key))
-            {
-                return;
-            }
-
-            Console.Out.Flush();
-            var cLeft = Console.CursorLeft;
-            var cTop = Console.CursorTop;
-            Console.CursorTop = lineNums[key];
-            Console.CursorLeft = 0;
+            Console.CursorTop -= 1;
             Console.WriteLine(new string(' ', Console.BufferWidth));
-            Console.Out.Flush();
-            Console.CursorTop = lineNums[key];
-            Console.CursorLeft = 0;
-            if (!withSharpLog)
-            {
-                Console.WriteLine(line);
-            }
-            else
-            {
-                switch (level)
-                {
-                    case LogLevel.Debug:
-                        Logging.LogDebug(line, tag);
-                        break;
-                    case LogLevel.Trace:
-                        Logging.LogTrace(line, tag);
-                        break;
-                    case LogLevel.Info:
-                        Logging.LogInfo(line, tag);
-                        break;
-                    case LogLevel.Warning:
-                        Logging.LogWarning(line, tag);
-                        break;
-                    case LogLevel.Error:
-                        Logging.LogError(line, tag);
-                        break;
-                    case LogLevel.Fatal:
-                        Logging.LogFatal(line, tag);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            Console.CursorLeft = cLeft;
-            Console.CursorTop = cTop;
+            Console.CursorTop -= 1;
         }
     }
 }

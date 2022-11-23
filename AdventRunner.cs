@@ -2,22 +2,25 @@
 
 namespace AdventOfCode
 {
-    using AdventOfCode.Common;
-    using Pastel;
-    using SharpLog;
     using System;
-    using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Drawing;
     using System.IO;
     using System.Net.Http;
+    using SharpLog;
+    using Spectre.Console;
 
     internal static class AdventRunner
     {
-        private const byte PAD = 30;
+        private static readonly Table ExecutionTimes = new Table()
+            .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Time[/]" })
+            .AddRow(new string[] { "Parsing", "[red][red]N/A[/][/]" })
+            .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
+            .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
 
-        private static readonly Dictionary<string, string> ExecutionTimes = new Dictionary<string, string>();
-        private static readonly Dictionary<string, string> Solutions = new Dictionary<string, string>();
+        private static readonly Table Solutions = new Table()
+            .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Solution[/]" })
+            .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
+            .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
 
         internal static string GetInput(int year, int day, int test, HttpClient client)
         {
@@ -36,18 +39,18 @@ namespace AdventOfCode
 
             try
             {
-                Tools.RegisterLine("download", $"{$"Downloading input",-PAD} - {"Pending".Pastel(Color.Yellow)}", "RUNNER", level: LogLevel.Trace);
+                AnsiConsole.Status()
+                    .Spinner(Spinner.Known.Dots2)
+                    .Start("[green]Downloading input...[/]", ctx =>
+                    {
+                        var request = client.GetStringAsync($"{year}/day/{day}/input");
 
-                var request = client.GetStringAsync($"{year}/day/{day}/input");
-
-                new FileInfo($"{year}/day{day:D2}.txt").Directory.Create();
-                File.WriteAllText($"{year}/day{day:D2}.txt", request.Result);
-
-                Tools.OverwriteLine("download", $"{$"Downloading input",-PAD} - {"Success".Pastel(Color.SeaGreen)}", "RUNNER", level: LogLevel.Trace);
+                        new FileInfo($"{year}/day{day:D2}.txt").Directory.Create();
+                        File.WriteAllText($"{year}/day{day:D2}.txt", request.Result);
+                    });
             }
             catch (AggregateException e)
             {
-                Tools.OverwriteLine("download", $"{$"Downloading input",-PAD} - {"Failed".Pastel(Color.Red)}", "RUNNER", level: LogLevel.Trace);
                 if (e.InnerException.GetType() == typeof(HttpRequestException))
                 {
                     Logging.LogFatal("Server request failed! Possible reasons might be:\n- The provided day is not available\n- You do not have an internet connection\n- The advent of code server is offline", "RUNNER");
@@ -93,10 +96,8 @@ namespace AdventOfCode
             return type;
         }
 
-        internal static string Solve(Type solutionType, object parsedInput)
+        internal static string Solve(Type solutionType, object parsedInput, bool debugEnabled, ref bool successfully)
         {
-            Tools.RegisterLine("solve", $"{$"Solving puzzles",-PAD} - {"Pending".Pastel(Color.Yellow)}", "RUNNER", level: LogLevel.Trace);
-
             if (parsedInput == null)
             {
                 return null;
@@ -104,94 +105,169 @@ namespace AdventOfCode
 
             var solution = solutionType.GetConstructor(new Type[0]).Invoke(null);
             Stopwatch stopwatch = new Stopwatch();
-            object clipboard = string.Empty;
-            string message = string.Empty;
+            object clipboard = null;
+            string message = null;
+
+            var rule = new Rule
+            {
+                Style = Style.Parse("grey"),
+            };
 
             try
             {
-                Tools.RegisterLine("solve1", $"{$"Solving puzzle 1",-PAD} - {"Pending".Pastel(Color.Yellow)}", "RUNNER", level: LogLevel.Trace);
+                rule.Title = "[grey]Puzzle 1[/]";
+                AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 0));
 
-                stopwatch.Restart();
-                (clipboard, message) = ((object, string))solutionType
-                    .GetMethod("Puzzle1", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    .Invoke(solution, new object[] { parsedInput });
-                stopwatch.Stop();
+                AnsiConsole.Status()
+                    .Spinner(Spinner.Known.Dots2)
+                    .Start("[green]Solving puzzle 1...[/]", ctx =>
+                    {
+                        stopwatch.Restart();
 
-                ExecutionTimes["Solution 1"] = $"{stopwatch.Elapsed:G}";
-                Tools.OverwriteLine("solve1", $"{$"Solving puzzle 1",-PAD} - {"Success".Pastel(Color.SeaGreen)}", "RUNNER", level: LogLevel.Trace);
+                        (clipboard, message) = ((object, string))solutionType
+                            .GetMethod("Puzzle1", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                            .Invoke(solution, new object[] { parsedInput });
 
-                Solutions["Solution 1"] = message;
+                        stopwatch.Stop();
+                        ExecutionTimes.UpdateCell(1, 1, $"{stopwatch.Elapsed:G}");
+                        Solutions.UpdateCell(0, 1, message);
+                    });
 
-                Tools.RegisterLine("solve2", $"{$"Solving puzzle 2",-PAD} - {"Pending".Pastel(Color.Yellow)}", "RUNNER", level: LogLevel.Trace);
-
-                stopwatch.Restart();
-                (clipboard, message) = ((object, string))solutionType
-                    .GetMethod("Puzzle2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    .Invoke(solution, new object[] { parsedInput });
-                stopwatch.Stop();
-
-                ExecutionTimes["Solution 2"] = $"{stopwatch.Elapsed:G}";
-                Tools.OverwriteLine("solve2", $"{$"Solving puzzle 2",-PAD} - {"Success".Pastel(Color.SeaGreen)}", "RUNNER", level: LogLevel.Trace);
-
-                Solutions["Solution 2"] = message;
+                AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Solving puzzle 1[/]");
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Tools.OverwriteLine("solve", $"{$"Solving puzzles",-PAD} - {"Failed".Pastel(Color.Red)}", "RUNNER", level: LogLevel.Trace);
-                Tools.OverwriteLine("solve1", $"{$"Solving puzzle 1",-PAD} - {"Failed".Pastel(Color.Red)}", "RUNNER", level: LogLevel.Trace);
-                Tools.OverwriteLine("solve2", $"{$"Solving puzzle 1",-PAD} - {"Failed".Pastel(Color.Red)}", "RUNNER", level: LogLevel.Trace);
-
-                if (exc.ToString().Contains("SolutionNotImplementedException"))
+                if (ex.ToString().Contains("SolutionNotImplementedException"))
                 {
-                    Logging.LogFatal("Solution is not implemented!", "RUNNER");
+                    Logging.LogError("Solution 1 is not implemented!", "RUNNER");
                 }
                 else
                 {
-                    throw exc;
+                    Logging.LogError("Solution 1 failed!", "RUNNER");
+                    AnsiConsole.WriteException(ex, ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes | ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
                 }
+
+                AnsiConsole.MarkupLine("[red]-[/] [green]Solving puzzle 1[/]");
+                successfully = false;
             }
 
-            Tools.OverwriteLine("solve", $"{$"Solving puzzles",-PAD} - {"Success".Pastel(Color.SeaGreen)}", "RUNNER", level: LogLevel.Trace);
+            try
+            {
+                rule.Title = "[grey]Puzzle 2[/]";
+                AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 0));
 
-            Logging.LogInfo("Execution times:\n" + Tools.Formatt(ExecutionTimes), "RUNNER");
-            Logging.LogInfo("Solutions:\n" + Tools.Formatt(Solutions), "RUNNER");
+                AnsiConsole.Status()
+                    .Spinner(Spinner.Known.Dots2)
+                    .Start("[green]Solving puzzle 2...[/]", ctx =>
+                    {
+                        stopwatch.Restart();
+
+                        (clipboard, message) = ((object, string))solutionType
+                        .GetMethod("Puzzle2", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                        .Invoke(solution, new object[] { parsedInput });
+
+                        stopwatch.Stop();
+
+                        ExecutionTimes.UpdateCell(2, 1, $"{stopwatch.Elapsed:G}");
+
+                        Solutions.UpdateCell(1, 1, message);
+                    });
+
+                AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Solving puzzle 2[/]");
+            }
+            catch (Exception ex)
+            {
+                if (ex.ToString().Contains("SolutionNotImplementedException"))
+                {
+                    Logging.LogError("Solution 2 is not implemented!", "RUNNER");
+                }
+                else
+                {
+                    Logging.LogError("Solution 2 failed!", "RUNNER");
+                    AnsiConsole.WriteException(ex, ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes | ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
+                }
+
+                AnsiConsole.MarkupLine("[red]-[/] [green]Solving puzzle 2[/]");
+                successfully = false;
+            }
 
             return clipboard.ToString();
         }
 
-        internal static object Parse(Type parserType, string input)
+        internal static object Parse(Type parserType, string input, bool debugEnabled, ref bool successfully)
         {
-            Tools.RegisterLine("parse", $"{$"Parsing inputs",-PAD} - {"Pending".Pastel(Color.Yellow)}", "RUNNER", level: LogLevel.Trace);
-
             try
             {
-                var parser = parserType.GetConstructor(new Type[0]).Invoke(null);
-                Stopwatch stopwatch = Stopwatch.StartNew();
-                var parsedInput = parserType
-                    .GetMethod("Parse", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                    .Invoke(parser, new string[] { input });
-                stopwatch.Stop();
+                var rule = new Rule
+                {
+                    Style = Style.Parse("grey"),
+                    Title = "[grey]Parsing[/]",
+                };
+                AnsiConsole.Write(rule);
 
-                ExecutionTimes["Parsing"] = $"{stopwatch.Elapsed:G}";
+                object parsedInput = null;
 
-                Tools.OverwriteLine("parse", $"{$"Parsing inputs",-PAD} - {"Success".Pastel(Color.SeaGreen)}", "RUNNER", level: LogLevel.Trace);
+                AnsiConsole.Status()
+                    .Spinner(Spinner.Known.Dots2)
+                    .Start("[green]Parsing...[/]", ctx =>
+                    {
+                        var parser = parserType.GetConstructor(new Type[0]).Invoke(null);
+                        Stopwatch stopwatch = Stopwatch.StartNew();
+                        parsedInput = parserType
+                            .GetMethod("Parse", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                            .Invoke(parser, new string[] { input });
+                        stopwatch.Stop();
+
+                        ExecutionTimes.UpdateCell(0, 1, $"{stopwatch.Elapsed:G}");
+                    });
+
+                AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Parsing[/]");
 
                 return parsedInput;
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                Tools.OverwriteLine("parse", $"{$"Parsing inputs",-PAD} - {"Failed".Pastel(Color.Red)}", "RUNNER", level: LogLevel.Trace);
-                if (exc.Message.Contains("ParserNotImplementedException"))
+                if (ex.Message.Contains("ParserNotImplementedException"))
                 {
-                    Logging.LogFatal("Parser is not implemented!", "RUNNER");
+                    Logging.LogError("Parser is not implemented!", "RUNNER");
                 }
                 else
                 {
-                    throw exc;
+                    Logging.LogError("Parsing failed!", "RUNNER");
+                    AnsiConsole.WriteException(ex, ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes | ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
                 }
+
+                AnsiConsole.MarkupLine("[red]-[/] [green]Parsing[/]");
+                successfully = false;
             }
 
             return null;
+        }
+
+        internal static void PrintResults(bool successfully)
+        {
+            var appendage = successfully ? "[#00ff00]successfully[/]" : "[red]faulty[/]";
+            var rule = new Rule($"[green]Execution finished[/] {appendage}[green]![/]")
+            {
+                Style = successfully ? Style.Parse("green") : Style.Parse("red"),
+                Border = BoxBorder.Double,
+            };
+
+            AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 0));
+
+            ExecutionTimes.Title = new TableTitle("[[ [green]Execution times[/] ]]");
+            Solutions.Title = new TableTitle("[[ [green]Solutions[/] ]]");
+            ExecutionTimes.Expand = true;
+            Solutions.Expand = true;
+            ExecutionTimes.Border = TableBorder.SimpleHeavy;
+            Solutions.Border = TableBorder.SimpleHeavy;
+
+            var column = new Columns(new Spectre.Console.Rendering.IRenderable[] { 
+                new Padder(ExecutionTimes).PadRight(2),
+                new Padder(Solutions).PadLeft(2),
+            });
+
+            AnsiConsole.Write(column);
         }
     }
 }
