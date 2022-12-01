@@ -6,6 +6,7 @@ namespace AdventOfCode
     using System.Diagnostics;
     using System.IO;
     using System.Net.Http;
+    using CommandLine;
     using SharpLog;
     using Spectre.Console;
 
@@ -21,6 +22,10 @@ namespace AdventOfCode
             .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Solution[/]" })
             .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
             .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
+
+        internal static string ExcpectedPuzzle1 { get; set; }
+
+        internal static string ExcpectedPuzzle2 { get; set; }
 
         internal static string GetInput(int year, int day, int test, HttpClient client)
         {
@@ -118,6 +123,10 @@ namespace AdventOfCode
                 rule.Title = "[grey]Puzzle 1[/]";
                 AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 0));
 
+                bool correct = true;
+                bool isNumber = false;
+                long error = 0;
+
                 AnsiConsole.Status()
                     .Spinner(Spinner.Known.Dots2)
                     .Start("[green]Solving puzzle 1...[/]", ctx =>
@@ -131,9 +140,30 @@ namespace AdventOfCode
                         stopwatch.Stop();
                         ExecutionTimes.UpdateCell(1, 1, $"{stopwatch.Elapsed:G}");
                         Solutions.UpdateCell(0, 1, message);
+
+                        if (ExcpectedPuzzle1 != null)
+                        {
+                            isNumber = long.TryParse(ExcpectedPuzzle1, out var expectedPuzzle1);
+                            if (isNumber)
+                            {
+                                error = long.Parse(clipboard.ToString()) - expectedPuzzle1;
+                                correct = error == 0;
+                            }
+                            else
+                            {
+                                correct = ExcpectedPuzzle1 == clipboard.ToString();
+                            }
+                        }
                     });
 
-                AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Solving puzzle 1[/]");
+                if (correct)
+                {
+                    AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Solving puzzle 1[/]");
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine($"[yellow]-[/] [green]Solving puzzle 1. Correct answer: [#00ff00]{ExcpectedPuzzle1}[/] | Yor answer: [red]{clipboard}[/]{(isNumber ? $" | Difference of [red]{error}[/]" : string.Empty)}[/]");
+                }
             }
             catch (Exception ex)
             {
@@ -147,7 +177,7 @@ namespace AdventOfCode
                     AnsiConsole.WriteException(ex, ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes | ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
                 }
 
-                AnsiConsole.MarkupLine("[red]-[/] [green]Solving puzzle 1[/]");
+                AnsiConsole.MarkupLine("[red]![/] [green]Solving puzzle 1[/]");
                 successfully = false;
             }
 
@@ -155,6 +185,10 @@ namespace AdventOfCode
             {
                 rule.Title = "[grey]Puzzle 2[/]";
                 AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 0));
+
+                bool correct = true;
+                bool isNumber = false;
+                long error = 0;
 
                 AnsiConsole.Status()
                     .Spinner(Spinner.Known.Dots2)
@@ -171,9 +205,30 @@ namespace AdventOfCode
                         ExecutionTimes.UpdateCell(2, 1, $"{stopwatch.Elapsed:G}");
 
                         Solutions.UpdateCell(1, 1, message);
+
+                        if (ExcpectedPuzzle1 != null)
+                        {
+                            isNumber = long.TryParse(ExcpectedPuzzle2, out var expectedPuzzle2);
+                            if (isNumber)
+{
+                                error = long.Parse(clipboard.ToString()) - expectedPuzzle2;
+                                correct = error == 0;
+                            }
+                            else
+                            {
+                                correct = ExcpectedPuzzle1 == clipboard.ToString();
+                            }
+                        }
                     });
 
-                AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Solving puzzle 2[/]");
+                if (correct)
+                {
+                    AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Solving puzzle 2[/]");
+                }
+                else
+                {
+                    AnsiConsole.MarkupLine($"[yellow]-[/] [green]Solving puzzle 2. Correct answer: [#00ff00]{ExcpectedPuzzle2} [/]| Yor answer: [red]{clipboard}[/]{(isNumber ? $" | Difference of [red]{error}[/]" : string.Empty)}[/]");
+                }
             }
             catch (Exception ex)
             {
@@ -187,11 +242,11 @@ namespace AdventOfCode
                     AnsiConsole.WriteException(ex, ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes | ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
                 }
 
-                AnsiConsole.MarkupLine("[red]-[/] [green]Solving puzzle 2[/]");
+                AnsiConsole.MarkupLine("[red]![/] [green]Solving puzzle 2[/]");
                 successfully = false;
             }
 
-            return clipboard.ToString();
+            return clipboard?.ToString();
         }
 
         internal static object Parse(Type parserType, string input, bool debugEnabled, ref bool successfully)
@@ -237,7 +292,7 @@ namespace AdventOfCode
                     AnsiConsole.WriteException(ex, ExceptionFormats.ShortenPaths | ExceptionFormats.ShortenTypes | ExceptionFormats.ShortenMethods | ExceptionFormats.ShowLinks);
                 }
 
-                AnsiConsole.MarkupLine("[red]-[/] [green]Parsing[/]");
+                AnsiConsole.MarkupLine("[red]![/] [green]Parsing[/]");
                 successfully = false;
             }
 
@@ -262,7 +317,7 @@ namespace AdventOfCode
             ExecutionTimes.Border = TableBorder.SimpleHeavy;
             Solutions.Border = TableBorder.SimpleHeavy;
 
-            var column = new Columns(new Spectre.Console.Rendering.IRenderable[] { 
+            var column = new Columns(new Spectre.Console.Rendering.IRenderable[] {
                 new Padder(ExecutionTimes).PadRight(2),
                 new Padder(Solutions).PadLeft(2),
             });

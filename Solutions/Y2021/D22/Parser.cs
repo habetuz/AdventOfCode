@@ -14,7 +14,7 @@
             for (int i = 0; i < instructions.Length; i++)
             {
                 string line = lines[i];
-                bool on = line[1] == 'n' ? true : false;
+                bool on = line[1] == 'n';
 
                 string[] parts = line.Split(new string[] { "=", "..", "," }, StringSplitOptions.None);
 

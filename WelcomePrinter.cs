@@ -17,8 +17,6 @@
             try
             {
                 // Start to download html (TODO: Check if html has changed)
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
                 var html = client.GetStringAsync($"{year}");
 
                 // Create parser
@@ -27,10 +25,6 @@
 
                 // Parse html
                 var document = context.OpenAsync(req => req.Content(html.Result)).Result;
-
-                stopwatch.Stop();
-
-                stopwatch.Restart();
 
                 // Get username and star count
                 var userStarElement = document.GetElementsByClassName("user");
@@ -41,7 +35,7 @@
 
                 var userStar = document.GetElementsByClassName("user")[0].TextContent.Split(' ');
                 var user = userStar[0];
-                var star = userStar[1];
+                var star = userStar.Length > 1 ? userStar[1] : "0";
 
                 var rule = new Rule($"[green]Logged in as [white]{user}[/] [yellow]{star}[/][/]")
                 {
@@ -54,9 +48,8 @@
                     Style = Style.Parse("#0f0f23 on #0f0f23"),
                 });
 
-                for (int d = 1; d <= 25; d++)
+                foreach (var line in document.GetElementsByClassName("calendar")[0].Children)
                 {
-                    var line = document.GetElementsByClassName($"calendar-day{d}")[0];
                     var input = line.TextContent;
                     var output = string.Empty;
 
@@ -64,7 +57,7 @@
                     {
                         if (child.ClassName == "calendar-day")
                         {
-                            output += $"[#666666]{Markup.Escape(input.Split(d.ToString()[0])[0])}[/][white]{d}[/] ";
+                            output += $"[#666666]{Markup.Escape(input.Split(new string[] { child.TextContent }, StringSplitOptions.None)[0])}[/][white]{child.TextContent}[/] ";
                             break;
                         }
 
@@ -121,8 +114,6 @@
                 }
 
                 AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 1));
-
-                stopwatch.Stop();
             }
             catch (AggregateException)
             {

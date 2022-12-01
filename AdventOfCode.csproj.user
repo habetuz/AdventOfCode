@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>-y 2021 -d 1 -c 53616c7465645f5f40de55a56d0920ea2f112a0f6d546914b47246edf0544712282a7a5dc92ada136f7b7ef7afc729735a96445b7fe0990ce0cffba8a5ac3065</StartArguments>
+    <StartArguments>-c 53616c7465645f5f23317e15e1195d3b5c720b3dccebcdde1c1f379b582c8943fc48e96bae2a7357e5a991670bf2fb345b59a04a628d5a425052e69b67972c0c --debug -y 2022 -d 1 -t 1</StartArguments>
     <RemoteDebugEnabled>false</RemoteDebugEnabled>
   </PropertyGroup>
   <PropertyGroup>

@@ -2,7 +2,6 @@
 {
     using AdventOfCode.Common;
     using SharpLog;
-    using System.Threading;
 
     internal class Solution : Solution<int[]>
     {
@@ -18,7 +17,7 @@
                 }
             }
 
-            return (increaseCounter + string.Empty, string.Format("The ocean floor increases {0} many times!", increaseCounter));
+            return (increaseCounter, string.Format("The ocean floor increases {0} many times!", increaseCounter));
         }
 
         internal override (object, string) Puzzle2(int[] input)

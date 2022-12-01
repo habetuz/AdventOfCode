@@ -7,6 +7,7 @@ namespace AdventOfCode
     using SharpLog;
     using Spectre.Console;
     using System;
+    using System.Linq;
     using System.Net.Http;
     using System.Windows.Forms;
 
@@ -52,6 +53,7 @@ namespace AdventOfCode
             };
 
             client.DefaultRequestHeaders.Add("Cookie", $"session={options.Cookie}");
+            client.DefaultRequestHeaders.UserAgent.Add(new System.Net.Http.Headers.ProductInfoHeaderValue("(github.com/habetuz/AdventOfCode by mail@marvin-fuchs.de)"));
 
             if (!options.Fast)
             {
@@ -68,6 +70,19 @@ namespace AdventOfCode
             }
 
             string input = AdventRunner.GetInput(options.Year, options.Day, options.Test, client);
+
+            // Parse input (if it is a test input)
+            if (options.Test >= 0)
+            {
+                string[] lines = input.Split('\n');
+                string[] settings = lines[0].Split(new string[] { " | ", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+                settings[0] = settings[0].Substring(3);
+
+                AdventRunner.ExcpectedPuzzle1 = settings[0] == "-" ? null : settings[0];
+                AdventRunner.ExcpectedPuzzle2 = settings[1] == "-" ? null : settings[1];
+
+                input = string.Join("\n", lines.Skip(1).ToArray());
+            }
 
             bool successfully = true;
 
