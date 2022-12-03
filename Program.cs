@@ -71,11 +71,13 @@ namespace AdventOfCode
 
             string input = AdventRunner.GetInput(options.Year, options.Day, options.Test, client);
 
+            input = input.Replace("\r", string.Empty);
+
             // Parse input (if it is a test input)
             if (options.Test >= 0)
             {
                 string[] lines = input.Split('\n');
-                string[] settings = lines[0].Split(new string[] { " | ", "\r" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] settings = lines[0].Split(new string[] { " | " }, StringSplitOptions.RemoveEmptyEntries);
                 settings[0] = settings[0].Substring(3);
 
                 AdventRunner.ExcpectedPuzzle1 = settings[0] == "-" ? null : settings[0];
