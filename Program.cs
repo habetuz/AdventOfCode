@@ -3,7 +3,6 @@
 namespace AdventOfCode
 {
     using CommandLine;
-    using Pastel;
     using SharpLog;
     using Spectre.Console;
     using System;

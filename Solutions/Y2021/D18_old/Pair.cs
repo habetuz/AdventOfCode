@@ -1,6 +1,6 @@
 ﻿// <copyright file="Pair.cs" company="Marvin Fuchs">
 
-namespace AdventOfCode.Solutions.Y2021.D18
+namespace AdventOfCode.Solutions.Y2021.D18_old
 {
     internal class Pair : SnailfishNumber
     {

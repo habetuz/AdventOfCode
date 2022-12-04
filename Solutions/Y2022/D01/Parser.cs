@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2022.D01
 {
-    using System.Collections.Generic;
     using AdventOfCode.Common;
+    using System.Collections.Generic;
 
     internal class Parser : Parser<uint[][]>
     {
@@ -16,7 +16,7 @@
             for (int i = 0; i < lines.Length; i++)
             {
                 uint calories;
-                if (uint.TryParse(lines[i], out calories)) 
+                if (uint.TryParse(lines[i], out calories))
                 {
                     currentInventory.Add(calories);
                 }

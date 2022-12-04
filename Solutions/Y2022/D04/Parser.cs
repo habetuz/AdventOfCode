@@ -1,6 +1,5 @@
 ﻿namespace AdventOfCode.Solutions.Y2022.D04
 {
-    using System.Collections.Generic;
     using AdventOfCode.Common;
 
     internal class Parser : Parser<((byte, byte), (byte, byte))[]>

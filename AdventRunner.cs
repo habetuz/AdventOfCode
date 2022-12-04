@@ -2,13 +2,12 @@
 
 namespace AdventOfCode
 {
+    using SharpLog;
+    using Spectre.Console;
     using System;
     using System.Diagnostics;
     using System.IO;
     using System.Net.Http;
-    using CommandLine;
-    using SharpLog;
-    using Spectre.Console;
 
     internal static class AdventRunner
     {
@@ -210,7 +209,7 @@ namespace AdventOfCode
                         {
                             isNumber = long.TryParse(ExcpectedPuzzle2, out var expectedPuzzle2);
                             if (isNumber)
-{
+                            {
                                 error = long.Parse(clipboard.ToString()) - expectedPuzzle2;
                                 correct = error == 0;
                             }
