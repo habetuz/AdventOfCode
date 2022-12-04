@@ -50,6 +50,7 @@
 
                 foreach (var line in document.GetElementsByClassName("calendar")[0].Children)
                 {
+                    // TODO: User line.InnerHtml to more reliable parse the image.
                     var input = line.TextContent;
                     var output = string.Empty;
 

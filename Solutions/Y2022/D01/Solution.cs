@@ -48,9 +48,7 @@
 
                         for (int k = j + 1; k < topThree.Length; k++)
                         {
-                            var temp = topThree[k];
-                            topThree[k] = toShift;
-                            toShift = temp;
+                            (toShift, topThree[k]) = (topThree[k], toShift);
                         }
 
                         break;
