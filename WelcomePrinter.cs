@@ -12,7 +12,7 @@
 
     internal static class WelcomePrinter
     {
-        public static void Print(int year, int day, int test, HttpClient client)
+        public static void Print(int year, HttpClient client)
         {
             try
             {
@@ -103,15 +103,6 @@
                     Style = Style.Parse("on #0f0f23"),
                     Border = BoxBorder.None,
                 });
-
-                if (test < 0)
-                {
-                    rule.Title = $"Running [yellow]{year}[/] / [yellow]{day}[/]";
-                }
-                else
-                {
-                    rule.Title = $"Running test input [yellow]{test}[/] of [yellow]{year}[/] / [yellow]{day}[/]";
-                }
 
                 AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 1));
             }

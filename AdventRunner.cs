@@ -12,13 +12,13 @@ namespace AdventOfCode
 
     internal static class AdventRunner
     {
-        private static readonly Table ExecutionTimes = new Table()
+        private static Table ExecutionTimes = new Table()
             .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Time[/]" })
             .AddRow(new string[] { "Parsing", "[red][red]N/A[/][/]" })
             .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
             .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
 
-        private static readonly Table Solutions = new Table()
+        private static Table Solutions = new Table()
             .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Solution[/]" })
             .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
             .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
@@ -79,7 +79,7 @@ namespace AdventOfCode
             }
             catch (Exception ex)
             {
-                Logging.LogFatal("Solution class was not found!", "RUNNER", exception: ex);
+                Logging.LogError("Solution class was not found!", "RUNNER", exception: ex);
             }
 
             return type;
@@ -95,7 +95,7 @@ namespace AdventOfCode
             }
             catch (Exception ex)
             {
-                Logging.LogFatal("Parser class was not found!", "RUNNER", exception: ex);
+                Logging.LogError("Parser class was not found!", "RUNNER", exception: ex);
             }
 
             return type;
@@ -323,6 +323,20 @@ namespace AdventOfCode
             });
 
             AnsiConsole.Write(column);
+
+            ExecutionTimes = new Table()
+                .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Time[/]" })
+                .AddRow(new string[] { "Parsing", "[red][red]N/A[/][/]" })
+                .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
+                .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
+
+            Solutions = new Table()
+                .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Solution[/]" })
+                .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
+                .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
+
+            ExcpectedPuzzle1 = null;
+            ExcpectedPuzzle2 = null;
         }
     }
 }
