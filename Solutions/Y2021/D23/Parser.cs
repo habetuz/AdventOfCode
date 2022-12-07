@@ -1,8 +1,8 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D23
 {
-    using AdventOfCode.Common;
     using System;
     using System.Collections.Generic;
+    using AdventOfCode.Common;
 
     internal class Parser : Parser<(char[,], char[,])>
     {

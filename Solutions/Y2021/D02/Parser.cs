@@ -1,8 +1,8 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D02
 {
-    using AdventOfCode.Common;
     using System;
     using System.Collections.Generic;
+    using AdventOfCode.Common;
     using static AdventOfCode.Solutions.Y2021.D02.Parser;
 
     internal class Parser : Parser<KeyValuePair<Direction, int>[]>

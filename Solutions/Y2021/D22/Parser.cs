@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D22
 {
-    using AdventOfCode.Common;
     using System;
+    using AdventOfCode.Common;
 
     internal class Parser : Parser<(bool, (int, int, int), (int, int, int))[]>
     {

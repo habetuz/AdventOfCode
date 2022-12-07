@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D17
 {
-    using AdventOfCode.Common;
     using System.Collections.Generic;
+    using AdventOfCode.Common;
 
     internal class Solution : Solution<Target>
     {

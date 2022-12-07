@@ -1,9 +1,9 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D19
 {
-    using AdventOfCode.Common;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using AdventOfCode.Common;
 
     internal class Parser : Parser<Scanner[]>
     {

@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D21
 {
-    using AdventOfCode.Common;
     using System.Linq;
+    using AdventOfCode.Common;
 
     internal class Parser : Parser<(int, int)>
     {

@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D17
 {
-    using AdventOfCode.Common;
     using System;
+    using AdventOfCode.Common;
 
     internal class Parser : Parser<Target>
     {

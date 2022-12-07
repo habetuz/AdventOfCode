@@ -1,7 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D18_old
 {
-    using AdventOfCode.Common;
     using System;
+    using AdventOfCode.Common;
 
     internal class Solution : Solution<SnailfishNumber[]>
     {

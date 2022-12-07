@@ -1,9 +1,9 @@
 ﻿namespace AdventOfCode.Solutions.Y2021.D23
 {
-    using AdventOfCode.Common;
-    using SharpLog;
     using System;
     using System.Collections.Generic;
+    using AdventOfCode.Common;
+    using SharpLog;
 
     internal class Solution : Solution<(char[,], char[,])>
     {
