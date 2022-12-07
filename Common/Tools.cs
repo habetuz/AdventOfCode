@@ -56,6 +56,24 @@ namespace AdventOfCode.Common
             return output;
         }
 
+        internal static string Formatt(char[,] array)
+        {
+            var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
+
+            for (int y = 0; y < array.GetLength(1); y++)
+            {
+                string line = string.Empty;
+                for (int x = 0; x < array.GetLength(0); x++)
+                {
+                    line += array[x, y] == '\0' ? ' ' : array[x, y];
+                }
+
+                output += $"{line} - {y}\n";
+            }
+
+            return output;
+        }
+
         internal static string Formatt<TKey, TValue>(Dictionary<TKey, TValue> dictionary, bool alignKeyLeft = true, bool alignValueLeft = true)
         {
             var output = $">> Dictionary with {dictionary.Count} entries.\n";

@@ -2,13 +2,13 @@
 
 namespace AdventOfCode
 {
-    using CommandLine;
-    using SharpLog;
-    using Spectre.Console;
     using System;
     using System.Linq;
     using System.Net.Http;
     using System.Windows.Forms;
+    using CommandLine;
+    using SharpLog;
+    using Spectre.Console;
 
     internal static class Program
     {
@@ -140,8 +140,8 @@ namespace AdventOfCode
                         string[] settings = lines[0].Split(new string[] { " | " }, StringSplitOptions.RemoveEmptyEntries);
                         settings[0] = settings[0].Substring(3);
 
-                        AdventRunner.ExcpectedPuzzle1 = settings[0] == "-" ? null : settings[0];
-                        AdventRunner.ExcpectedPuzzle2 = settings[1] == "-" ? null : settings[1];
+                        AdventRunner.ExcpectedPuzzle1 = settings[0] == "-" ? null : settings[0].Trim();
+                        AdventRunner.ExcpectedPuzzle2 = settings[1] == "-" ? null : settings[1].Trim();
 
                         input = string.Join("\n", lines.Skip(1).ToArray());
                     }

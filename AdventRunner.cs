@@ -2,12 +2,12 @@
 
 namespace AdventOfCode
 {
-    using SharpLog;
-    using Spectre.Console;
     using System;
     using System.Diagnostics;
     using System.IO;
     using System.Net.Http;
+    using SharpLog;
+    using Spectre.Console;
 
     internal static class AdventRunner
     {
@@ -215,7 +215,7 @@ namespace AdventOfCode
                             }
                             else
                             {
-                                correct = ExcpectedPuzzle1 == clipboard.ToString();
+                                correct = ExcpectedPuzzle2 == clipboard.ToString();
                             }
                         }
                     });
