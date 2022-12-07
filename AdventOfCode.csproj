@@ -190,6 +190,8 @@
     <Compile Include="Solutions\Y2021\D24\Instruction.cs" />
     <Compile Include="Solutions\Y2021\D24\Parser.cs" />
     <Compile Include="Solutions\Y2021\D24\Solution.cs" />
+    <Compile Include="Solutions\Y2022\D06\Parser.cs" />
+    <Compile Include="Solutions\Y2022\D06\Solution.cs" />
     <Compile Include="Solutions\Y2022\D05\Parser.cs" />
     <Compile Include="Solutions\Y2022\D05\Solution.cs" />
     <Compile Include="Solutions\Y2022\D04\Parser.cs" />
