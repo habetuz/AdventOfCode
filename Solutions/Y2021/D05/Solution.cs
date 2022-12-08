@@ -24,8 +24,6 @@
                 }
             }
 
-            /// Tools.Print2D(_field);
-
             int overlapCounter = 0;
             foreach (int i in this.field)
             {
