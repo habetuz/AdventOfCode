@@ -174,11 +174,11 @@
                     {
                         Left = new LiteralNumber()
                         {
-                            Value = (int)Math.Floor(((decimal)value / 2)),
+                            Value = (int)Math.Floor((decimal)value / 2),
                         },
                         Right = new LiteralNumber()
                         {
-                            Value = (int)Math.Ceiling(((decimal)value / 2))
+                            Value = (int)Math.Ceiling((decimal)value / 2),
                         },
                     };
 

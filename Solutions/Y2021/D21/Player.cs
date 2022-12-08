@@ -15,6 +15,10 @@ namespace AdventOfCode.Solutions.Y2021.D21
             this.neededScore = neededScore;
         }
 
+        internal delegate void Win(int startingPosition = 1, int dimentions = 1);
+
+        internal event Win WinEvent;
+
         internal int RepresentingDimentions { get; set; } = 1;
 
         internal int RoleCount { get; set; }
@@ -54,10 +58,6 @@ namespace AdventOfCode.Solutions.Y2021.D21
                 return this.score >= this.neededScore;
             }
         }
-
-        internal delegate void Win(int startingPosition = 1, int dimentions = 1);
-
-        internal event Win WinEvent;
 
         internal Player Clone()
         {

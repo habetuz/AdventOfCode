@@ -11,13 +11,13 @@ namespace AdventOfCode
 
     internal static class AdventRunner
     {
-        private static Table ExecutionTimes = new Table()
+        private static Table executionTimes = new Table()
             .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Time[/]" })
             .AddRow(new string[] { "Parsing", "[red][red]N/A[/][/]" })
             .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
             .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
 
-        private static Table Solutions = new Table()
+        private static Table solutions = new Table()
             .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Solution[/]" })
             .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
             .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
@@ -137,8 +137,8 @@ namespace AdventOfCode
                             .Invoke(solution, new object[] { parsedInput });
 
                         stopwatch.Stop();
-                        ExecutionTimes.UpdateCell(1, 1, $"{stopwatch.Elapsed:G}");
-                        Solutions.UpdateCell(0, 1, message);
+                        executionTimes.UpdateCell(1, 1, $"{stopwatch.Elapsed:G}");
+                        solutions.UpdateCell(0, 1, message);
 
                         if (ExcpectedPuzzle1 != null)
                         {
@@ -201,9 +201,9 @@ namespace AdventOfCode
 
                         stopwatch.Stop();
 
-                        ExecutionTimes.UpdateCell(2, 1, $"{stopwatch.Elapsed:G}");
+                        executionTimes.UpdateCell(2, 1, $"{stopwatch.Elapsed:G}");
 
-                        Solutions.UpdateCell(1, 1, message);
+                        solutions.UpdateCell(1, 1, message);
 
                         if (ExcpectedPuzzle1 != null)
                         {
@@ -272,7 +272,7 @@ namespace AdventOfCode
                             .Invoke(parser, new string[] { input });
                         stopwatch.Stop();
 
-                        ExecutionTimes.UpdateCell(0, 1, $"{stopwatch.Elapsed:G}");
+                        executionTimes.UpdateCell(0, 1, $"{stopwatch.Elapsed:G}");
                     });
 
                 AnsiConsole.MarkupLine("[#00ff00]+[/] [green]Parsing[/]");
@@ -309,27 +309,28 @@ namespace AdventOfCode
 
             AnsiConsole.Write(new Padder(rule).Padding(0, 1, 0, 0));
 
-            ExecutionTimes.Title = new TableTitle("[[ [green]Execution times[/] ]]");
-            Solutions.Title = new TableTitle("[[ [green]Solutions[/] ]]");
-            ExecutionTimes.Expand = true;
-            Solutions.Expand = true;
-            ExecutionTimes.Border = TableBorder.SimpleHeavy;
-            Solutions.Border = TableBorder.SimpleHeavy;
+            executionTimes.Title = new TableTitle("[[ [green]Execution times[/] ]]");
+            solutions.Title = new TableTitle("[[ [green]Solutions[/] ]]");
+            executionTimes.Expand = true;
+            solutions.Expand = true;
+            executionTimes.Border = TableBorder.SimpleHeavy;
+            solutions.Border = TableBorder.SimpleHeavy;
 
-            var column = new Columns(new Spectre.Console.Rendering.IRenderable[] {
-                new Padder(ExecutionTimes).PadRight(2),
-                new Padder(Solutions).PadLeft(2),
+            var column = new Columns(new Spectre.Console.Rendering.IRenderable[]
+            {
+                new Padder(executionTimes).PadRight(2),
+                new Padder(solutions).PadLeft(2),
             });
 
             AnsiConsole.Write(column);
 
-            ExecutionTimes = new Table()
+            executionTimes = new Table()
                 .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Time[/]" })
                 .AddRow(new string[] { "Parsing", "[red][red]N/A[/][/]" })
                 .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
                 .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });
 
-            Solutions = new Table()
+            solutions = new Table()
                 .AddColumns(new string[] { "[yellow]Name[/]", "[yellow]Solution[/]" })
                 .AddRow(new string[] { "Solution 1", "[red]N/A[/]" })
                 .AddRow(new string[] { "Solution 2", "[red]N/A[/]" });

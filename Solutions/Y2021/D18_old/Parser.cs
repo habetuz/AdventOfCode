@@ -39,7 +39,7 @@
             {
                 LiteralNumber number = new LiteralNumber
                 {
-                    Value = int.Parse(numberString[index].ToString())
+                    Value = int.Parse(numberString[index].ToString()),
                 };
                 return (number, index + 1);
             }

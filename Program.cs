@@ -12,27 +12,6 @@ namespace AdventOfCode
 
     internal static class Program
     {
-        public class Options
-        {
-            [Option('y', "year", Required = true, HelpText = "The year you want to load. 20XX...20XX for a span of years.")]
-            public string Year { get; set; }
-
-            [Option('d', "day", Required = true, HelpText = "The day you want to load. XX...XX for a span of days.")]
-            public string Day { get; set; }
-
-            [Option('c', "cookie", Required = true, HelpText = "Your session cookie")]
-            public string Cookie { get; set; }
-
-            [Option('f', "fast", HelpText = "Wether speed is the goal (welcome screen will not be printed)")]
-            public bool Fast { get; set; }
-
-            [Option('t', "test", HelpText = "Wich test input should be used or -1 if the real input should be used.", Default = -1)]
-            public int Test { get; set; }
-
-            [Option("debug", HelpText = "Wether debug logs are activated.")]
-            public bool Debug { get; set; }
-        }
-
         [STAThread]
         private static void Main(string[] args)
         {
@@ -57,13 +36,11 @@ namespace AdventOfCode
             string[] years = options.Year.Split(new string[] { "..." }, StringSplitOptions.None);
             string[] days = options.Day.Split(new string[] { "..." }, StringSplitOptions.None);
 
-            int startYear = 0;
-            int startDay = 0;
             int endYear = 0;
             int endDay = 0;
 
             // Parse and valided year(s)
-            if (!int.TryParse(years[0], out startYear))
+            if (!int.TryParse(years[0], out int startYear))
             {
                 Logging.LogFatal($"The format of the year option is not valide! Value should be a number: {years[0]}");
             }
@@ -88,7 +65,7 @@ namespace AdventOfCode
             }
 
             // Parse and validate day(s)
-            if (!int.TryParse(days[0], out startDay))
+            if (!int.TryParse(days[0], out int startDay))
             {
                 Logging.LogFatal($"The format of the year option is not valide! Value should be a number: {days[0]}");
             }
@@ -178,6 +155,27 @@ namespace AdventOfCode
 
             handler.Dispose();
             client.Dispose();
+        }
+
+        public class Options
+        {
+            [Option('y', "year", Required = true, HelpText = "The year you want to load. 20XX...20XX for a span of years.")]
+            public string Year { get; set; }
+
+            [Option('d', "day", Required = true, HelpText = "The day you want to load. XX...XX for a span of days.")]
+            public string Day { get; set; }
+
+            [Option('c', "cookie", Required = true, HelpText = "Your session cookie")]
+            public string Cookie { get; set; }
+
+            [Option('f', "fast", HelpText = "Wether speed is the goal (welcome screen will not be printed)")]
+            public bool Fast { get; set; }
+
+            [Option('t', "test", HelpText = "Wich test input should be used or -1 if the real input should be used.", Default = -1)]
+            public int Test { get; set; }
+
+            [Option("debug", HelpText = "Wether debug logs are activated.")]
+            public bool Debug { get; set; }
         }
     }
 }

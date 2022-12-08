@@ -37,8 +37,7 @@
         internal override (object, string) Puzzle1((char[,], char[,]) input)
         {
             Logging.LogDebug(Tools.Formatt(input.Item1));
-
-            (var solution1, var solution2) = new Parser().Parse("#############\n#...........#\n###A#B#C#D###\n  #A#B#C#D#\n  #########");
+            (_, _) = new Parser().Parse("#############\n#...........#\n###A#B#C#D###\n  #A#B#C#D#\n  #########");
 
             var neededCost = this.Step(input.Item1, 0, int.MaxValue, new Dictionary<string, int>());
 
@@ -160,7 +159,6 @@
                 if (stepScore < bestScore)
                 {
                     bestScore = stepScore;
-                    // Tools.Print2D(move.Item2);
                 }
             }
 
@@ -231,7 +229,7 @@
 
         private string AsString(char[,] burrow)
         {
-            string str = "";
+            string str = string.Empty;
 
             foreach (char c in burrow)
             {
@@ -239,14 +237,6 @@
             }
 
             return str;
-        }
-
-        private bool IsFinished(char[,] burrow)
-        {
-            string str = this.AsString(burrow);
-
-            return str == "###  #.#  #.####.AA##.####.BB##.####.CC##.####.DD##.####.#  ###  " ||
-                str == "###    #.#    #.######.AAAA##.######.BBBB##.######.CCCC##.######.DDDD##.######.#    ###    ";
         }
 
         private bool IsValideMove(byte fromX, byte toX, char[,] burrow)

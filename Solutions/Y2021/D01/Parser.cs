@@ -14,8 +14,7 @@
             // Parsing
             for (int i = 0; i < lines.Length; i++)
             {
-                int number;
-                int.TryParse(lines[i], out number);
+                int.TryParse(lines[i], out int number);
                 inputArray.Add(number);
             }
 

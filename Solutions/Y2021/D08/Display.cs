@@ -20,7 +20,9 @@
             { 9, new char[] { 'a', 'b', 'c', 'd', 'f', 'g' } },
         };
 
-        internal Dictionary<char, char[]> PossibleWiring = new Dictionary<char, char[]>()
+        private readonly string[] digits;
+
+        private Dictionary<char, char[]> possibleWiring = new Dictionary<char, char[]>()
         {
             { 'a', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
             { 'b', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
@@ -31,9 +33,17 @@
             { 'g', new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g' } },
         };
 
-        internal string[] Inputs;
+        private string[] inputs;
 
-        private readonly string[] digits;
+        internal Display(string[] inputs, string[] digits)
+        {
+            this.inputs = inputs;
+            this.digits = digits;
+        }
+
+        internal Dictionary<char, char[]> PossibleWiring { get => this.PossibleWiring; set => this.PossibleWiring = value; }
+
+        internal string[] Inputs { get => this.Inputs; }
 
         internal int Value
         {
@@ -63,12 +73,6 @@
         internal string[] Outputs
         {
             get { return this.digits; }
-        }
-
-        internal Display(string[] inputs, string[] digits)
-        {
-            this.Inputs = inputs;
-            this.digits = digits;
         }
 
         internal static bool IsDigit(Dictionary<char, char> wiring, string segments)

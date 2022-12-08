@@ -14,6 +14,8 @@
             throw new SolutionNotImplementedException();
         }
 
-        internal class SolutionNotImplementedException : Exception { }
+        internal class SolutionNotImplementedException : Exception
+        {
+        }
     }
 }

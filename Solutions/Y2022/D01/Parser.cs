@@ -15,8 +15,7 @@
 
             for (int i = 0; i < lines.Length; i++)
             {
-                uint calories;
-                if (uint.TryParse(lines[i], out calories))
+                if (uint.TryParse(lines[i], out uint calories))
                 {
                     currentInventory.Add(calories);
                 }

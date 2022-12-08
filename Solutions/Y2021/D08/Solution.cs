@@ -222,7 +222,7 @@
         private class WiringEnumerator : IEnumerable<Dictionary<char, char>>
         {
             private readonly Dictionary<char[], char[]> configurations = new Dictionary<char[], char[]>();
-            private readonly Dictionary<char, char> _templateDictionary = new Dictionary<char, char>();
+            private readonly Dictionary<char, char> templateDictionary = new Dictionary<char, char>();
 
             public WiringEnumerator(Dictionary<char, char[]> wiring)
             {
@@ -253,7 +253,7 @@
                     }
                     else if (wiring[i].Length == 1)
                     {
-                        this._templateDictionary.Add(i, wiring[i][0]);
+                        this.templateDictionary.Add(i, wiring[i][0]);
                     }
                 }
             }
@@ -287,7 +287,7 @@
                     }
                     else if (wiring[i].Length == 1)
                     {
-                        this._templateDictionary.Add(i, wiring[i][0]);
+                        this.templateDictionary.Add(i, wiring[i][0]);
                     }
                 }
             }
@@ -301,11 +301,11 @@
                     List<KeyValuePair<char[], char[]>> configurations = this.configurations.ToList();
                     for (int j = 0; j < this.configurations.Count; j++)
                     {
-                        this._templateDictionary[configurations[j].Value[0]] = configurations[j].Key[int.Parse(binaryString[j].ToString())];
-                        this._templateDictionary[configurations[j].Value[1]] = configurations[j].Key[Math.Abs(int.Parse(binaryString[j].ToString()) - 1)];
+                        this.templateDictionary[configurations[j].Value[0]] = configurations[j].Key[int.Parse(binaryString[j].ToString())];
+                        this.templateDictionary[configurations[j].Value[1]] = configurations[j].Key[Math.Abs(int.Parse(binaryString[j].ToString()) - 1)];
                     }
 
-                    yield return this._templateDictionary;
+                    yield return this.templateDictionary;
                 }
             }
 

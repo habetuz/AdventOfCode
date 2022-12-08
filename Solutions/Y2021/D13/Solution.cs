@@ -39,7 +39,7 @@
             SharpLog.Logging.LogDebug($"After the folds the following image appears:");
             Logging.LogInfo(Tools.Formatt(paper));
 
-            return ("", "See console log!");
+            return (string.Empty, "See console log!");
         }
 
         private bool[,] Fold(bool[,] paper, char axis, int index)

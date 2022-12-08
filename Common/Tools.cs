@@ -163,6 +163,7 @@ namespace AdventOfCode.Common
 
             return value;
         }
+
         internal static void RewriteLine()
         {
             Console.CursorTop -= 1;
