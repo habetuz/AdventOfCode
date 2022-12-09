@@ -10,7 +10,7 @@ namespace AdventOfCode.Common
     {
         private static Dictionary<string, int> lineNums = new Dictionary<string, int>();
 
-        internal static string Formatt<T>(T[,] array, string spacing = "", bool alignLeft = true)
+        internal static string Format<T>(T[,] array, string spacing = "", bool alignLeft = true)
         {
             var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
 

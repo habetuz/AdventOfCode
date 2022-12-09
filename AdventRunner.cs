@@ -205,7 +205,7 @@ namespace AdventOfCode
 
                         solutions.UpdateCell(1, 1, message);
 
-                        if (ExcpectedPuzzle1 != null)
+                        if (ExcpectedPuzzle2 != null)
                         {
                             isNumber = long.TryParse(ExcpectedPuzzle2, out var expectedPuzzle2);
                             if (isNumber)
