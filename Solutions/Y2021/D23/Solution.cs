@@ -36,7 +36,7 @@
 
         internal override (object, string) Puzzle1((char[,], char[,]) input)
         {
-            Logging.LogDebug(Tools.Formatt(input.Item1));
+            Logging.LogDebug(Tools.Format(input.Item1));
             (_, _) = new Parser().Parse("#############\n#...........#\n###A#B#C#D###\n  #A#B#C#D#\n  #########");
 
             var neededCost = this.Step(input.Item1, 0, int.MaxValue, new Dictionary<string, int>());
@@ -46,7 +46,7 @@
 
         internal override (object, string) Puzzle2((char[,], char[,]) input)
         {
-            Logging.LogDebug(Tools.Formatt(input.Item2));
+            Logging.LogDebug(Tools.Format(input.Item2));
 
             var neededCost = this.Step(input.Item2, 0, int.MaxValue, new Dictionary<string, int>());
 

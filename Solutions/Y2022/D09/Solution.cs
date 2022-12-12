@@ -8,9 +8,10 @@
     {
         internal override (object clipboard, string message) Puzzle1((char, int)[] input)
         {
-            HashSet<(int, int)> tailTrail = new HashSet<(int, int)>();
-
-            tailTrail.Add((0, 0));
+            HashSet<(int, int)> tailTrail = new HashSet<(int, int)>
+            {
+                (0, 0),
+            };
 
             var head = (0, 0);
             var tail = (0, 0);

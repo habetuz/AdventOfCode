@@ -8,8 +8,6 @@ namespace AdventOfCode.Common
 
     internal class Tools
     {
-        private static Dictionary<string, int> lineNums = new Dictionary<string, int>();
-
         internal static string Format<T>(T[,] array, string spacing = "", bool alignLeft = true)
         {
             var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
@@ -38,7 +36,7 @@ namespace AdventOfCode.Common
             return output;
         }
 
-        internal static string Formatt(bool[,] array)
+        internal static string Format(bool[,] array)
         {
             var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
 
@@ -56,7 +54,7 @@ namespace AdventOfCode.Common
             return output;
         }
 
-        internal static string Formatt(char[,] array)
+        internal static string Format(char[,] array)
         {
             var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
 
@@ -74,7 +72,7 @@ namespace AdventOfCode.Common
             return output;
         }
 
-        internal static string Formatt<TKey, TValue>(Dictionary<TKey, TValue> dictionary, bool alignKeyLeft = true, bool alignValueLeft = true)
+        internal static string Format<TKey, TValue>(Dictionary<TKey, TValue> dictionary, bool alignKeyLeft = true, bool alignValueLeft = true)
         {
             var output = $">> Dictionary with {dictionary.Count} entries.\n";
 

@@ -1,5 +1,4 @@
-﻿
-namespace AdventOfCode.Solutions.Y2022.D07
+﻿namespace AdventOfCode.Solutions.Y2022.D07
 {
     using System.Collections.Generic;
 

@@ -37,7 +37,7 @@
             }
 
             SharpLog.Logging.LogDebug($"After the folds the following image appears:");
-            Logging.LogInfo(Tools.Formatt(paper));
+            Logging.LogInfo(Tools.Format(paper));
 
             return (string.Empty, "See console log!");
         }
