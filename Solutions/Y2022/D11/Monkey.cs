@@ -4,13 +4,14 @@
 
     internal class Monkey
     {
-        private char operation;
-        private int @operator;
-        private int dividend;
-        private int caseTrue;
-        private int caseFalse;
+        private readonly char operation;
+        private readonly int @operator;
+        private readonly int dividend;
+        private readonly int caseTrue;
+        private readonly int caseFalse;
+        private readonly int index;
 
-        internal Monkey(Queue<int> items, char operation, int @operator, int dividend, int caseTrue, int caseFalse)
+        internal Monkey(Queue<int> items, char operation, int @operator, int dividend, int caseTrue, int caseFalse, int index)
         {
             this.Items = items;
             this.operation = operation;
@@ -18,9 +19,13 @@
             this.dividend = dividend;
             this.caseTrue = caseTrue;
             this.caseFalse = caseFalse;
+            this.index = index;
+            this.ItemsCompressed = new Queue<int[]>();
         }
 
         internal Queue<int> Items { get; set; }
+
+        internal Queue<int[]> ItemsCompressed { get; set; }
 
         internal int Dividend { get => this.dividend; }
 
@@ -51,64 +56,30 @@
             }
         }
 
-        internal (int, int) InspectHard(int[] dividends)
+        internal (int[], int) InspectHard()
         {
-            var item = this.Items.Dequeue();
+            var item = this.ItemsCompressed.Dequeue();
 
-            var @operator = this.@operator == -1 ? item : this.@operator;
-
-            if (this.operation == '*')
+            for (int i = 0; i < item.Length; i++)
             {
-                item *= @operator;
-            }
-            else
-            {
-                item += @operator;
-            }
+                var @operator = this.@operator == -1 ? item[i] : this.@operator;
 
-            // My understanding is that the number has to be the lowest that has the same modulo for all dividends.
-            var values = new int[dividends.Length];
-            var multipliers = new int[dividends.Length];
-            for (int i = 0; i < values.Length; i++)
-            {
-                multipliers[i] = 1;
-                values[i] = dividends[i] - (item % dividends[i]);
-            }
-
-            bool correct;
-
-            do
-            {
-                correct = true;
-
-                for (int i = 1; i < dividends.Length; i++)
+                if (this.operation == '*')
                 {
-                    while (values[i] < values[0])
-                    {
-                        multipliers[i]++;
-                        values[i] = (multipliers[i] * dividends[i]) - (item % dividends[i]);
-                    }
-
-                    if (values[i] != values[0])
-                    {
-                        correct = false;
-                    }
+                    item[i] *= @operator;
                 }
-
-                multipliers[0]++;
-                values[0] = (multipliers[0] * dividends[0]) - (item % dividends[0]);
+                else
+                {
+                    item[i] += @operator;
+                }
             }
-            while (!correct);
 
-            item = values[1];
-
-            if (item % this.dividend == 0)
+            if (item[this.index] % this.dividend == 0)
             {
                 return (item, this.caseTrue);
             }
             else
             {
-                item = this.dividend - (item % this.dividend);
                 return (item, this.caseFalse);
             }
         }
@@ -121,7 +92,8 @@
                 this.@operator,
                 this.dividend,
                 this.caseTrue,
-                this.caseFalse);
+                this.caseFalse,
+                this.index);
         }
     }
 }

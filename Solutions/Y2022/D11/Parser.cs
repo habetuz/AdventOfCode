@@ -36,7 +36,8 @@
                     @operator,
                     dividend,
                     caseTrue,
-                    caseFalse);
+                    caseFalse,
+                    i / 6);
             }
 
             return output;

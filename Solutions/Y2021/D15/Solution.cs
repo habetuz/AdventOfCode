@@ -7,11 +7,12 @@
     {
         internal override (object, string) Puzzle1(Node[,] input)
         {
-            List<Node> queue = new List<Node>();
+            List<Node> queue = new List<Node>
+            {
+                input[0, 0],
+            };
 
-            queue.Add(input[0, 0]);
-
-            int riskLevel = 0;
+            int riskLevel;
 
             int iterationCount = 0;
 
@@ -32,22 +33,22 @@
 
                 if (node.X - 1 >= 0)
                 {
-                    this.DiscoverNode(node, input[node.X - 1, node.Y], input, queue);
+                    this.DiscoverNode(node, input[node.X - 1, node.Y], queue);
                 }
 
                 if (node.Y - 1 >= 0)
                 {
-                    this.DiscoverNode(node, input[node.X, node.Y - 1], input, queue);
+                    this.DiscoverNode(node, input[node.X, node.Y - 1], queue);
                 }
 
                 if (node.X + 1 < input.GetLength(0))
                 {
-                    this.DiscoverNode(node, input[node.X + 1, node.Y], input, queue);
+                    this.DiscoverNode(node, input[node.X + 1, node.Y], queue);
                 }
 
                 if (node.Y + 1 < input.GetLength(1))
                 {
-                    this.DiscoverNode(node, input[node.X, node.Y + 1], input, queue);
+                    this.DiscoverNode(node, input[node.X, node.Y + 1], queue);
                 }
             }
 
@@ -81,11 +82,12 @@
                 }
             }
 
-            List<Node> queue = new List<Node>();
+            List<Node> queue = new List<Node>
+            {
+                map[0, 0],
+            };
 
-            queue.Add(map[0, 0]);
-
-            int pahtRiskLevel = 0;
+            int pahtRiskLevel;
 
             while (true)
             {
@@ -105,29 +107,29 @@
 
                 if (node.X - 1 >= 0)
                 {
-                    this.DiscoverNode(node, map[node.X - 1, node.Y], map, queue);
+                    this.DiscoverNode(node, map[node.X - 1, node.Y], queue);
                 }
 
                 if (node.Y - 1 >= 0)
                 {
-                    this.DiscoverNode(node, map[node.X, node.Y - 1], map, queue);
+                    this.DiscoverNode(node, map[node.X, node.Y - 1], queue);
                 }
 
                 if (node.X + 1 < map.GetLength(0))
                 {
-                    this.DiscoverNode(node, map[node.X + 1, node.Y], map, queue);
+                    this.DiscoverNode(node, map[node.X + 1, node.Y], queue);
                 }
 
                 if (node.Y + 1 < map.GetLength(1))
                 {
-                    this.DiscoverNode(node, map[node.X, node.Y + 1], map, queue);
+                    this.DiscoverNode(node, map[node.X, node.Y + 1], queue);
                 }
             }
 
             return (pahtRiskLevel.ToString(), $"The the path with the lowest risk level hast the risk level {pahtRiskLevel}");
         }
 
-        private void DiscoverNode(Node origin, Node node, Node[,] map, List<Node> queue)
+        private void DiscoverNode(Node origin, Node node, List<Node> queue)
         {
             if (node.Discovered)
             {

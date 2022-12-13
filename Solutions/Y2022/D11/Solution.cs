@@ -1,6 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2022.D11
 {
     using System;
+    using System.Linq;
     using AdventOfCode.Common;
 
     internal class Solution : Solution<Monkey[]>
@@ -39,26 +40,34 @@
 
         internal override (object clipboard, string message) Puzzle2(Monkey[] monkeys)
         {
-            int[] inspections = new int[monkeys.Length];
-
-            var dividends = new int[monkeys.Length];
+            ulong[] inspections = new ulong[monkeys.Length];
 
             for (int i = 0; i < monkeys.Length; i++)
             {
-                dividends[i] = monkeys[i].Dividend;
-            }
+                var items = monkeys[i].Items.ToArray();
 
-            Array.Sort(dividends);
-            Array.Reverse(dividends);
+                for (int j = 0; j < items.Length; j++)
+                {
+                    var array = Enumerable.Repeat(items[j], monkeys.Length).ToArray();
+                    monkeys[i].ItemsCompressed.Enqueue(array);
+                }
+            }
 
             for (int i = 0; i < 10000; i++)
             {
                 for (int m = 0; m < monkeys.Length; m++)
                 {
-                    while (monkeys[m].Items.Count > 0)
+                    while (monkeys[m].ItemsCompressed.Count > 0)
                     {
-                        (var item, var to) = monkeys[m].InspectHard(dividends);
-                        monkeys[to].Items.Enqueue(item);
+                        (var item, var to) = monkeys[m].InspectHard();
+
+                        // Compress
+                        for (int j = 0; j < monkeys.Length; j++)
+                        {
+                            item[j] %= monkeys[j].Dividend;
+                        }
+
+                        monkeys[to].ItemsCompressed.Enqueue(item);
 
                         inspections[m]++;
                     }
