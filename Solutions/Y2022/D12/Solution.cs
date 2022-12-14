@@ -1,6 +1,7 @@
 ﻿namespace AdventOfCode.Solutions.Y2022.D12
 {
     using AdventOfCode.Common;
+    using AdventOfCode.Common.PathFinding;
 
     internal class Solution : Solution<(Node[,], Node, Node)>
     {
@@ -68,7 +69,7 @@
 
         internal override (object clipboard, string message) Puzzle2((Node[,], Node, Node) input)
         {
-            (var map, var start, var end) = input;
+            (var map, _, var end) = input;
 
             for (int x = 0; x < map.GetLength(0); x++)
             {

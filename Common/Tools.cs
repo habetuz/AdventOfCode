@@ -2,6 +2,7 @@
 
 namespace AdventOfCode.Common
 {
+    using AdventOfCode.Common.Space;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -36,14 +37,27 @@ namespace AdventOfCode.Common
             return output;
         }
 
-        internal static string Format(bool[,] array)
+        internal static string Format(bool[,] array, Coordinate2D topLeft = default(Coordinate2D), Coordinate2D bottomRight = default(Coordinate2D))
         {
+            int startX = 0;
+            int startY = 0;
+            int endX = array.GetLength(0) - 1;
+            int endY = array.GetLength(1) - 1;
+
+            if (topLeft.X != bottomRight.X && topLeft.Y != bottomRight.Y)
+            {
+                startX = topLeft.X;
+                startY = topLeft.Y;
+                endX = bottomRight.X;
+                endY = bottomRight.Y;
+            }
+
             var output = $">> Array with dimentions {array.GetLength(0)}x{array.GetLength(1)}\n";
 
-            for (int y = 0; y < array.GetLength(1); y++)
+            for (int y = startY; y <= endY; y++)
             {
                 string line = string.Empty;
-                for (int x = 0; x < array.GetLength(0); x++)
+                for (int x = startX; x <= endX; x++)
                 {
                     line += array[x, y] ? "█" : "░";
                 }

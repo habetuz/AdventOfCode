@@ -1,11 +1,7 @@
-﻿namespace AdventOfCode.Common
+﻿namespace AdventOfCode.Common.PathFinding
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     internal class PriorityQueue<T>
         where T : IComparable<T>
@@ -31,7 +27,6 @@
             var item = this.data[this.data.Count - 1];
             this.data.RemoveAt(this.data.Count - 1);
             return item;
-
         }
 
         internal bool IsEmpty()

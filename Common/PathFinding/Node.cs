@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Common
+﻿namespace AdventOfCode.Common.PathFinding
 {
     using System;
 
