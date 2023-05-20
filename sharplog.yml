@@ -1,4 +1,0 @@
-﻿format: '$La{s}$ $La{u}r{7, }$$Tp{ - }r{10, }$ - $Cs{ -}r{43,-}$> $Fr{15, }$ - $M$$Ep{\n}i{   }$$Sp{\n}$'
-tags:
-  RUNNER:
-    format: '$La{s}$ $La{u}r{7, }$ - $M$$Ep{\n}i{   }$$Sp{\n}$'

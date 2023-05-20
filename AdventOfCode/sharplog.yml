@@ -1,0 +1,29 @@
+﻿outputs:
+  - type: AnsiConsoleOutput
+    ansi_error_print: true
+    format:
+    levels:
+      debug:
+        enabled: true
+        format: "[bold gray]$La{s}p{[[}s{]]}$ - [/]$M$$Sp{\nStackTrace: }$"
+        short: "\0"
+      trace:
+        enabled: true
+        format: "[bold white]$La{s}p{[[}s{]]}$ - [/]$M$$Sp{\nStackTrace: }$"
+        short: "\0"
+      info:
+        enabled: true
+        format: "[bold green]$La{s}p{[[}s{]]}$ - [/]$M$$Sp{\nStackTrace: }$"
+        short: "\0"
+      warning:
+        enabled: true
+        format: "[bold yellow]$La{s}p{[[}s{]]}$ - [/]$M$$Sp{\nStackTrace: }$"
+        short: "\0"
+      error:
+        enabled: true
+        format: "[bold red]$La{s}p{[[}s{]]}$ - [/]$M$$Sp{\nStackTrace: }$"
+        short: "\0"
+      fatal:
+        enabled: true
+        format: "[bold white on red]$La{s}p{[[}s{]]}$ - $T$ - $M$[/]$Sp{\nStackTrace: }$"
+        short: "\0"
