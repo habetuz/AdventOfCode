@@ -10,20 +10,17 @@ namespace AdventOfCode
 
         public override int Execute([NotNull] CommandContext context, [NotNull] RunSettings settings)
         {
-            CalendarRange calendarRange = new()
-            {
-                StartDate = settings.StartDate,
-                EndDate = settings.EndDate,
-            };
+
+            var calendarRange = settings.RunRange;
 
             ISolutionSubmitter solutionStatisticsManager = new SolutionStatisticsManager();
-            WebRessourceManager webRessourceManager = new();
-            IInputRetriever inputRetriever = new InputManager(webRessourceManager);
+            WebResourceManager webResourceManager = new();
+            IInputRetriever inputRetriever = new InputManager(webResourceManager);
 
             AnsiConsole.Write(
                 new Rule()
                 {
-                    Title = $"[purple]Running puzzle [yellow]{(settings.StartDate == settings.EndDate ? settings.StartDate.ToString() : "[/]from [yellow]" + settings.StartDate.ToString() + "[/] to [yellow]" + settings.EndDate.ToString())}[/][/]",
+                    Title = $"[purple]Running puzzle [yellow]{(calendarRange.StartDate == calendarRange.EndDate ? calendarRange.StartDate.ToString() : "[/]from [yellow]" + calendarRange.StartDate.ToString() + "[/] to [yellow]" + calendarRange.EndDate.ToString())}[/][/]",
                     Style = "purple",
                 });
 
@@ -51,13 +48,13 @@ namespace AdventOfCode
                 PrintResult(solution, exampleSolution);
             }
 
-            ReadMeGenerator readMeGenerator = new(webRessourceManager);
+            ReadMeGenerator readMeGenerator = new(webResourceManager);
             readMeGenerator.Generate();
 
             return 1;
         }
 
-        private static ISolver<object, object>? GetSolver(CalendarRange.Date date)
+        private static ISolver<object, object>? GetSolver(Date date)
         {
             throw new NotImplementedException();
         }

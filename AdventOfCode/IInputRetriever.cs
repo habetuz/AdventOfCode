@@ -2,7 +2,7 @@ namespace AdventOfCode
 {
     internal interface IInputRetriever
     {
-        public string RetrieveInput(CalendarRange.Date date, uint? example = null);
-        public Solution? RetrieveExampleSolution(CalendarRange.Date date, uint? example);
+        public string RetrieveInput(Date date, uint? example = null);
+        public Solution? RetrieveExampleSolution(Date date, uint? example);
     }
 }

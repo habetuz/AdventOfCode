@@ -7,7 +7,7 @@ namespace AdventOfCode
             throw new NotImplementedException();
         }
 
-        public Solution Retrieve(CalendarRange.Date date)
+        public Solution Retrieve(Date date)
         {
             throw new NotImplementedException();
         }

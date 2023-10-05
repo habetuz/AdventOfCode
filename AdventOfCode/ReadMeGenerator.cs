@@ -2,9 +2,9 @@ namespace AdventOfCode
 {
     internal class ReadMeGenerator
     {
-        private readonly WebRessourceManager webRessourceManager;
+        private readonly WebResourceManager webRessourceManager;
 
-        public ReadMeGenerator(WebRessourceManager webRessourceManager)
+        public ReadMeGenerator(WebResourceManager webRessourceManager)
         {
             this.webRessourceManager = webRessourceManager;
         }

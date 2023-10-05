@@ -2,7 +2,7 @@ namespace AdventOfCode
 {
     public class GenericSolver : ISolver<object, object>
     {
-        public GenericSolver(CalendarRange.Date date)
+        public GenericSolver(Date date)
         {
         }
 

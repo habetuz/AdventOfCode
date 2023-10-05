@@ -2,14 +2,14 @@ namespace AdventOfCode
 {
     public class InputManager : IInputRetriever, IInputSubmitter
     {
-        public InputManager(WebRessourceManager webRessourceManager)
+        public InputManager(WebResourceManager webRessourceManager)
         {
             WebRessourceManager = webRessourceManager;
         }
 
-        public WebRessourceManager WebRessourceManager { get; set; }
+        public WebResourceManager WebRessourceManager { get; set; }
 
-        public Solution? RetrieveExampleSolution(CalendarRange.Date date, uint? example)
+        public Solution? RetrieveExampleSolution(Date date, uint? example)
         {
             if (example is null)
             {
@@ -18,12 +18,12 @@ namespace AdventOfCode
             throw new NotImplementedException();
         }
 
-        public string RetrieveInput(CalendarRange.Date date, uint? test = null)
+        public string RetrieveInput(Date date, uint? test = null)
         {
             throw new NotImplementedException();
         }
 
-        public void TouchInput(CalendarRange.Date date, uint? test)
+        public void TouchInput(Date date, uint? test)
         {
             throw new NotImplementedException();
         }

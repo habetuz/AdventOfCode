@@ -14,16 +14,16 @@ namespace AdventOfCodeTests
                 EndYear = 2015,
             };
 
-            List<CalendarRange.Date> expectedDates = new()
+            List<Date> expectedDates = new()
             {
-                new CalendarRange.Date() { Year = 2015, Day = 01 },
-                new CalendarRange.Date() { Year = 2015, Day = 02 },
-                new CalendarRange.Date() { Year = 2015, Day = 03 },
-                new CalendarRange.Date() { Year = 2015, Day = 04 },
-                new CalendarRange.Date() { Year = 2015, Day = 05 },
+                new Date() { Year = 2015, Day = 01 },
+                new Date() { Year = 2015, Day = 02 },
+                new Date() { Year = 2015, Day = 03 },
+                new Date() { Year = 2015, Day = 04 },
+                new Date() { Year = 2015, Day = 05 },
             };
 
-            List<CalendarRange.Date> actualDates = new();
+            List<Date> actualDates = new();
 
             actualDates.AddRange(calendarRange);
 
@@ -39,12 +39,12 @@ namespace AdventOfCodeTests
 
             expectedDates = new()
             {
-                new CalendarRange.Date() { Year = 2015, Day = 25 },
-                new CalendarRange.Date() { Year = 2016, Day = 01 },
-                new CalendarRange.Date() { Year = 2016, Day = 02 },
-                new CalendarRange.Date() { Year = 2016, Day = 03 },
-                new CalendarRange.Date() { Year = 2016, Day = 04 },
-                new CalendarRange.Date() { Year = 2016, Day = 05 },
+                new Date() { Year = 2015, Day = 25 },
+                new Date() { Year = 2016, Day = 01 },
+                new Date() { Year = 2016, Day = 02 },
+                new Date() { Year = 2016, Day = 03 },
+                new Date() { Year = 2016, Day = 04 },
+                new Date() { Year = 2016, Day = 05 },
             };
 
             actualDates = new();
@@ -73,13 +73,13 @@ namespace AdventOfCodeTests
         [TestMethod]
         public void Date_OperatorEquals()
         {
-            CalendarRange.Date a = new()
+            Date a = new()
             {
                 Year = 2022,
                 Day = 05,
             };
 
-            CalendarRange.Date b = a;
+            Date b = a;
             Assert.AreEqual(a, b);
             Assert.IsTrue(a == b);
 
@@ -96,13 +96,13 @@ namespace AdventOfCodeTests
         [TestMethod]
         public void Date_OperatorLessThan()
         {
-            CalendarRange.Date a = new()
+            Date a = new()
             {
                 Year = 2022,
                 Day = 05,
             };
 
-            CalendarRange.Date b = a;
+            Date b = a;
             b.Day++;
             Assert.IsTrue(a < b);
             Assert.IsFalse(b < a);
@@ -115,13 +115,13 @@ namespace AdventOfCodeTests
         [TestMethod]
         public void Date_OperatorMoreThan()
         {
-            CalendarRange.Date a = new()
+            Date a = new()
             {
                 Year = 2022,
                 Day = 05,
             };
 
-            CalendarRange.Date b = a;
+            Date b = a;
             b.Day++;
             Assert.IsFalse(a > b);
             Assert.IsTrue(b > a);
