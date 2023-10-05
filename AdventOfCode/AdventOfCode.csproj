@@ -8,14 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version=" 0.17.1" />
-    <PackageReference Include="AngleSharp.Css" Version="0.17.0" />
+    <PackageReference Include="Config.Net" Version="5.1.5" />
     <PackageReference Include="MarvinFuchs.Sharplog" Version="3.6.2" />
     <PackageReference Include="Spectre.console" Version="0.47.0" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.47.0" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="sharplog.yml" CopyToOutputDirectory="Always"/>
+    <None Update="sharplog.yml" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>
