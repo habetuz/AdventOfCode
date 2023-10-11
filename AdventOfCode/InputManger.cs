@@ -1,3 +1,5 @@
+using AdventOfCode.Time;
+
 namespace AdventOfCode
 {
     public class InputManager : IInputRetriever, IInputSubmitter

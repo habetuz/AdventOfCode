@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Spectre.Console.Cli;
 
-namespace AdventOfCode
+namespace AdventOfCode.Commands.Settings
 {
     public class SaveCookieSettings : CommandSettings
     {

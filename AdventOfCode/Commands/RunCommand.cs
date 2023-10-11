@@ -2,8 +2,10 @@ using System.Diagnostics.CodeAnalysis;
 using SharpLog;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using AdventOfCode.Commands.Settings;
+using AdventOfCode.Time;
 
-namespace AdventOfCode
+namespace AdventOfCode.Commands
 {
     public class RunCommand : Command<RunSettings>
     {

@@ -1,4 +1,4 @@
-namespace AdventOfCode
+namespace AdventOfCode.Time
 {
     public static class AOCDateTimeUtils
     {

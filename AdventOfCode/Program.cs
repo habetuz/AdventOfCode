@@ -1,7 +1,7 @@
 using AdventOfCode;
+using AdventOfCode.Commands;
 using Spectre.Console.Cli;
 using SharpLog;
-using Config.Net;
 
 CommandApp<RunCommand> app = new();
 Logging.Initialize();
@@ -31,6 +31,9 @@ app.Configure(
         config.AddCommand<SaveCookieCommand>("save-cookie")
             .WithAlias("set-cookie")
             .WithDescription("Save the session cookie for future commands.");
+
+        config.AddCommand<TouchInputCommand>("touch")
+            .WithDescription("Create or edit an example input.");
 #if DEBUG
         config.ValidateExamples();
 #endif

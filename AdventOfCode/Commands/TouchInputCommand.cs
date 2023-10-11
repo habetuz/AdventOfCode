@@ -1,7 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Spectre.Console.Cli;
+using AdventOfCode.Commands.Settings;
 
-namespace AdventOfCode
+namespace AdventOfCode.Commands
 {
     public class TouchInputCommand : Command<TouchInputSettings>
     {

@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace AdventOfCode
+namespace AdventOfCode.Time
 {
     public partial class CalendarRange : IEnumerable<Date>
     {

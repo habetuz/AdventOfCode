@@ -7,5 +7,9 @@
 			"path": "AdventOfCodeTests"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"Ansi"
+		]
+	}
 }

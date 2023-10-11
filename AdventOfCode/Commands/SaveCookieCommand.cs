@@ -2,8 +2,9 @@ using System.Diagnostics.CodeAnalysis;
 using Config.Net;
 using SharpLog;
 using Spectre.Console.Cli;
+using AdventOfCode.Commands.Settings;
 
-namespace AdventOfCode
+namespace AdventOfCode.Commands
 {
     public class SaveCookieCommand : Command<SaveCookieSettings>
     {

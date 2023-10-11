@@ -1,3 +1,5 @@
+using AdventOfCode.Time;
+
 namespace AdventOfCode
 {
     internal class SolutionStatisticsManager : ISolutionSubmitter, ISolutionRetriever

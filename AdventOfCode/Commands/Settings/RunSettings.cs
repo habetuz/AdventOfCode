@@ -1,8 +1,9 @@
 using System.ComponentModel;
 using Spectre.Console;
 using Spectre.Console.Cli;
+using AdventOfCode.Time;
 
-namespace AdventOfCode
+namespace AdventOfCode.Commands.Settings
 {
     public class RunSettings : CommandSettings
     {

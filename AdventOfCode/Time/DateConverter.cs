@@ -1,6 +1,6 @@
 using Spectre.Console;
 
-namespace AdventOfCode
+namespace AdventOfCode.Time
 {
     public static class DateConverter
     {
