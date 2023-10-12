@@ -1,5 +1,6 @@
 using System.Reflection.Metadata.Ecma335;
 using AdventOfCode.Time;
+using SharpLog;
 
 namespace AdventOfCode
 {
@@ -10,6 +11,10 @@ namespace AdventOfCode
         public InputManager(WebResourceManager webResourceManager)
         {
             this.WebResourceManager = webResourceManager;
+            if (!Directory.Exists(INPUT_PATH))
+            {
+                Directory.CreateDirectory(INPUT_PATH);
+            }
         }
 
         public WebResourceManager WebResourceManager { get; set; }
@@ -38,15 +43,33 @@ namespace AdventOfCode
             else
             {
                 string file = this.WebResourceManager.RetrieveResource(date.Year.ToString(), "day", date.Day.ToString(), "input");
-                File.Create(filename);
                 File.WriteAllText(filename, file);
                 return file;
             }
         }
 
-        public void TouchInput(Date date, uint? test)
+        public void TouchInput(Date date, uint? example)
         {
-            throw new NotImplementedException();
+            string filename = INPUT_PATH + $"y{date.Year}.d{date.Day}{(example != null ? ".e" + example : "")}.txt";
+            if (!File.Exists(filename))
+            {
+                if (example != null)
+                {
+                    File.WriteAllText(filename, "<solution1> | <solution2>\n<input>");
+                }
+                else
+                {
+                    string file = this.WebResourceManager.RetrieveResource(date.Year.ToString(), "day", date.Day.ToString(), "input");
+                    File.WriteAllText(filename, file);
+                }
+            }
+
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(Path.GetFullPath(filename))
+            {
+                WorkingDirectory = "/",
+                UseShellExecute = true,
+            });
         }
 
         private (string, string) ParseExample(string example)

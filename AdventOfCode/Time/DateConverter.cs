@@ -10,12 +10,16 @@ namespace AdventOfCode.Time
 
         public static Date SingleDate(string date)
         {
-            throw new NotImplementedException();
+            Date d;
+            SingleDate(date, out d);
+            return d;
         }
 
         public static CalendarRange DateRange(string dateRange)
         {
-            throw new NotImplementedException();
+            CalendarRange r;
+            DateRange(dateRange, out r);
+            return r;
         }
 
         public static ValidationResult SingleDate(string stringDate, out Date date)
@@ -37,7 +41,7 @@ namespace AdventOfCode.Time
 
                 if (!int.TryParse(stringDate, out int number))
                 {
-                    return ValidationResult.Error("[range] is invalid.");
+                    return ValidationResult.Error($"{stringDate} is not a date.");
                 }
 
                 if (stringDate.Length <= 2)
@@ -52,7 +56,7 @@ namespace AdventOfCode.Time
                 }
                 else
                 {
-                    return ValidationResult.Error("[range] is invalid.");
+                    return ValidationResult.Error($"{stringDate} is not a date.");
                 }
             }
             else if (dateParts.Length == 2)
@@ -61,7 +65,7 @@ namespace AdventOfCode.Time
                 string dayString = dateParts[1];
                 if (!int.TryParse(yearString, out int year) || !int.TryParse(dayString, out int day))
                 {
-                    return ValidationResult.Error("[range] is invalid.");
+                    return ValidationResult.Error($"{stringDate} is not a date.");
                 }
 
                 date.Year = yearString.Length <= 2 ? year + 2000 : year;
@@ -69,7 +73,7 @@ namespace AdventOfCode.Time
             }
             else
             {
-                return ValidationResult.Error("[range] is invalid.");
+                return ValidationResult.Error($"{stringDate} is not a date.");
             }
 
             return ValidationResult.Success();
@@ -90,8 +94,8 @@ namespace AdventOfCode.Time
             {
                 endDate = new()
                 {
-                    Year = AOCDateTimeUtils.GetCurrentYear(ref now),
-                    Day = AOCDateTimeUtils.GetCurrentDay(ref now),
+                    Year = AOCDateTimeUtils.GetCurrentYear(now),
+                    Day = AOCDateTimeUtils.GetCurrentDay(now),
                 };
                 dateRange = new()
                 {
@@ -113,13 +117,13 @@ namespace AdventOfCode.Time
 
                 startDate = new()
                 {
-                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(ref now) : date.Year,
+                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : date.Year,
                     Day = date.Day == -1 ? 01 : date.Day,
                 };
 
                 endDate = new()
                 {
-                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(ref now) : date.Year,
+                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : date.Year,
                     Day = date.Day == -1 ? 25 : date.Day,
                 };
             }
@@ -139,13 +143,13 @@ namespace AdventOfCode.Time
 
                 startDate = new()
                 {
-                    Year = startDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(ref now) : startDate.Year,
+                    Year = startDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : startDate.Year,
                     Day = startDate.Day == -1 ? 01 : startDate.Day,
                 };
 
                 endDate = new()
                 {
-                    Year = endDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(ref now) : endDate.Year,
+                    Year = endDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : endDate.Year,
                     Day = endDate.Day == -1 ? 25 : endDate.Day,
                 };
             }
@@ -158,11 +162,11 @@ namespace AdventOfCode.Time
             {
                 return ValidationResult.Error("[range] is invalid. Start date has to be before end date.");
             }
-            else if (startDate.Year < START_YEAR || startDate.Year > AOCDateTimeUtils.GetCurrentYear(ref now))
+            else if (startDate.Year < START_YEAR || startDate.Year > AOCDateTimeUtils.GetCurrentYear(now))
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. Start year has to be between 2015 and {0}.", AOCDateTimeUtils.GetCurrentYear(ref now)));
+                return ValidationResult.Error(string.Format("[range] is invalid. Start year has to be between 2015 and {0}.", AOCDateTimeUtils.GetCurrentYear(now)));
             }
-            else if (startDate.Year == AOCDateTimeUtils.GetCurrentYear(ref now) && startDate.Day > AOCDateTimeUtils.GetCurrentDay(ref now))
+            else if (startDate.Year == AOCDateTimeUtils.GetCurrentYear(now) && startDate.Day > AOCDateTimeUtils.GetCurrentDay(now))
             {
                 return ValidationResult.Error(string.Format("[range] is invalid. Start day has to be before the current day."));
             }
@@ -170,11 +174,11 @@ namespace AdventOfCode.Time
             {
                 return ValidationResult.Error(string.Format("[range] is invalid. End day has to be between 01 and 25."));
             }
-            else if (endDate.Year < START_YEAR || endDate.Year > AOCDateTimeUtils.GetCurrentYear(ref now))
+            else if (endDate.Year < START_YEAR || endDate.Year > AOCDateTimeUtils.GetCurrentYear(now))
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. End year has to be between 2015 and {0}.", AOCDateTimeUtils.GetCurrentYear(ref now)));
+                return ValidationResult.Error(string.Format("[range] is invalid. End year has to be between 2015 and {0}.", AOCDateTimeUtils.GetCurrentYear(now)));
             }
-            else if (endDate.Year == AOCDateTimeUtils.GetCurrentYear(ref now) && endDate.Day > AOCDateTimeUtils.GetCurrentDay(ref now))
+            else if (endDate.Year == AOCDateTimeUtils.GetCurrentYear(now) && endDate.Day > AOCDateTimeUtils.GetCurrentDay(now))
             {
                 return ValidationResult.Error(string.Format("[range] is invalid. End day has to be before the current day."));
             }

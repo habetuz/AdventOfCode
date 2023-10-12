@@ -9,7 +9,6 @@ Logging.Initialize();
 app.Configure(
     config =>
     {
-        config.PropagateExceptions();
         config.AddExample(Array.Empty<string>());
         config.AddExample(new string[] { "2017" });
         config.AddExample(new string[] { "05" });
@@ -36,6 +35,7 @@ app.Configure(
             .WithDescription("Create or edit an example input.");
 #if DEBUG
         config.ValidateExamples();
+        config.PropagateExceptions();
 #endif
     });
 

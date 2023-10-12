@@ -21,7 +21,8 @@ namespace AdventOfCode
                 BaseAddress = new Uri(BASE_URL),
             };
 
-            client.DefaultRequestHeaders.Add("Cookie", $"session=ApplicationSettings.Instance.Cookie");
+            client.DefaultRequestHeaders.Add("Cookie", $"session={ApplicationSettings.Instance.Cookie}");
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("(https://github.com/habetuz/AdventOfCode by mail@marvin-fuchs.de)");
         }
 
         public string RetrieveResource(params string[] uriParts)

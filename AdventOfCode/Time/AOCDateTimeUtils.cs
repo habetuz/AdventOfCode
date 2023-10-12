@@ -2,7 +2,7 @@ namespace AdventOfCode.Time
 {
     public static class AOCDateTimeUtils
     {
-        public static int GetCurrentYear(ref DateTime currentDate)
+        public static int GetCurrentYear(DateTime currentDate)
         {
             int currentYear = currentDate.Year;
 
@@ -16,7 +16,7 @@ namespace AdventOfCode.Time
             }
         }
 
-        public static int GetCurrentDay(ref DateTime currentDate)
+        public static int GetCurrentDay(DateTime currentDate)
         {
             int currentDay = currentDate.Day;
 

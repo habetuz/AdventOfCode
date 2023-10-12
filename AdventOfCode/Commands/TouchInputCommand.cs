@@ -8,7 +8,12 @@ namespace AdventOfCode.Commands
     {
         public override int Execute([NotNull] CommandContext context, [NotNull] TouchInputSettings settings)
         {
-            throw new NotImplementedException();
+            new InputManager(
+                new WebResourceManager())
+                .TouchInput(
+                    settings.Date,
+                    settings.Example);
+            return 0;
         }
     }
 }
