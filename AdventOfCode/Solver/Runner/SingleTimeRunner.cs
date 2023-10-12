@@ -1,4 +1,4 @@
-namespace AdventOfCode
+namespace AdventOfCode.Solver.Runner
 {
     internal class SingleTimeRunner : ISolverRunner
     {

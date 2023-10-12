@@ -1,4 +1,4 @@
-namespace AdventOfCode
+namespace AdventOfCode.Solver.Runner
 {
     public interface ISolverRunner
     {

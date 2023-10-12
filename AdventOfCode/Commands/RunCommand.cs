@@ -4,6 +4,8 @@ using Spectre.Console;
 using Spectre.Console.Cli;
 using AdventOfCode.Commands.Settings;
 using AdventOfCode.Time;
+using AdventOfCode.Solver;
+using AdventOfCode.Solver.Runner;
 
 namespace AdventOfCode.Commands
 {
@@ -38,7 +40,7 @@ namespace AdventOfCode.Commands
                 ISolver<object, object>? solver = GetSolver(date);
                 if (solver is null)
                 {
-                    Logging.LogWarning("Solution is not implemented!", "RUNNER");
+                    Logging.LogError("Solution is not implemented!", "RUNNER");
                     continue;
                 }
 
@@ -58,7 +60,13 @@ namespace AdventOfCode.Commands
 
         private static ISolver<object, object>? GetSolver(Date date)
         {
-            throw new NotImplementedException();
+            Type? solverType = Type.GetType($"AdventOfCode.Solutions.Y{date.Year}.D{date.Day}.Solver");
+            if (solverType == null)
+            {
+                return null;
+            }
+            
+            return (ISolver<object, object>)Activator.CreateInstance(solverType)!;
         }
 
         private static void PrintResult(Solution solution, Solution? exampleSolution)

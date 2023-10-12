@@ -2,14 +2,14 @@ using AdventOfCode.PartSubmitter;
 
 namespace AdventOfCode
 {
-    public class SolutionSubmitter : IPartSubmitter
+    public class ParsedInputSubmitter<TPart1, TPart2> : IPartSubmitter<TPart1, TPart2>
     {
-        public void SubmitPart1(string parsedInput)
+        public void SubmitPart1(TPart1 parsedInput)
         {
             throw new NotImplementedException();
         }
 
-        public void SubmitPart2(string parsedInput)
+        public void SubmitPart2(TPart2 parsedInput)
         {
             throw new NotImplementedException();
         }
