@@ -60,7 +60,7 @@ namespace AdventOfCode.Commands
 
         private static ISolver<object, object>? GetSolver(Date date)
         {
-            Type? solverType = Type.GetType($"AdventOfCode.Solutions.Y{date.Year}.D{date.Day}.Solver");
+            Type? solverType = Type.GetType($"AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2}.Solver");
             if (solverType == null)
             {
                 return null;
