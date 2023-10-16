@@ -30,26 +30,30 @@ namespace AdventOfCode.Commands
 
             foreach (var date in calendarRange)
             {
-                AnsiConsole.Write(
-                    new Rule()
-                    {
-                        Title = "[green]Running puzzle [yellow]" + date.ToString() + "[/][/]",
-                        Style = "green",
-                    });
+                try
+                {
+                    AnsiConsole.Write(
+                                        new Rule()
+                                        {
+                                            Title = "[green]Running puzzle [yellow]" + date.ToString() + "[/][/]",
+                                            Style = "green",
+                                        });
 
-                ISolver<object, object>? solver = GetSolver(date);
-                if (solver is null)
+                    ISolver<object, object> solver = new GenericSolver(date);
+                    string input = inputRetriever.RetrieveInput(date, settings.Example);
+                    Solution? exampleSolution = inputRetriever.RetrieveExampleSolution(date, settings.Example);
+                    ISolverRunner runner = settings.RunTimed ? new TimedSolverRunner(solver, input) : new SingleTimeRunner(solver, input);
+                    Solution solution = runner.Run();
+                    solutionStatisticsManager.Submit(solution);
+                    PrintResult(solution, exampleSolution);
+                }
+                catch (GenericSolver.SolutionNotImplementedException)
                 {
                     Logging.LogError("Solution is not implemented!", "RUNNER");
                     continue;
                 }
 
-                string input = inputRetriever.RetrieveInput(date, settings.Example);
-                Solution? exampleSolution = inputRetriever.RetrieveExampleSolution(date, settings.Example);
-                ISolverRunner runner = settings.RunTimed ? new TimedSolverRunner(solver, input) : new SingleTimeRunner(solver, input);
-                Solution solution = runner.Run();
-                solutionStatisticsManager.Submit(solution);
-                PrintResult(solution, exampleSolution);
+
             }
 
             ReadMeGenerator readMeGenerator = new(webResourceManager);
@@ -65,7 +69,7 @@ namespace AdventOfCode.Commands
             {
                 return null;
             }
-            
+
             return (ISolver<object, object>)Activator.CreateInstance(solverType)!;
         }
 

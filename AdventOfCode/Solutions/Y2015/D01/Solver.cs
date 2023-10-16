@@ -15,4 +15,9 @@ public class Solver : ISolver<string>
     {
         solution.SubmitFull(input);
     }
+
+    void ISolver<string>.Parse<Parts>(string input, IPartSubmitter<Parts> parsedInput)
+    {
+        parsedInput.SubmitFull((Parts)"Test");
+    }
 }
