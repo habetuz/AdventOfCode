@@ -52,6 +52,14 @@ namespace AdventOfCode.Commands
                     Logging.LogError("Solution is not implemented!", "RUNNER");
                     continue;
                 }
+                catch (GenericSolver.ISolverNotImplementedException)
+                {
+                    Logging.LogError("Solution needs to extend ISolver<...>.", "RUNNER");
+                }
+                catch (Exception e)
+                {
+                    Logging.LogError("Solving failed!", "RUNNER", e);
+                }
 
 
             }
@@ -75,7 +83,7 @@ namespace AdventOfCode.Commands
 
         private static void PrintResult(Solution solution, Solution? exampleSolution)
         {
-            throw new NotImplementedException();
+            Logging.LogInfo(solution.Part1!, "RUNNER");
         }
     }
 }

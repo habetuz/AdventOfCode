@@ -1,10 +1,10 @@
-using AdventOfCode.PartSubmitter;
+namespace AdventOfCode.PartSubmitter;
 
-public class ForwardingTypeSubmitter<Parts> : IPartSubmitter<Parts>
+public class ForwardingPartSubmitter<Parts> : IPartSubmitter<Parts>
 {
     private readonly IPartSubmitter<Parts, Parts> toForward;
 
-    public ForwardingTypeSubmitter(IPartSubmitter<Parts, Parts> toForward)
+    public ForwardingPartSubmitter(IPartSubmitter<Parts, Parts> toForward)
     {
         this.toForward = toForward;
     }

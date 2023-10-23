@@ -2,6 +2,7 @@ using AdventOfCode;
 using AdventOfCode.Commands;
 using Spectre.Console.Cli;
 using SharpLog;
+using AdventOfCode.Solutions.Y2015.D01;
 
 CommandApp<RunCommand> app = new();
 Logging.Initialize();

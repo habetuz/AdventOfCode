@@ -6,7 +6,7 @@ namespace AdventOfCode
     {
         public void Submit(Solution solution)
         {
-            throw new NotImplementedException();
+            // TODO: Implement
         }
 
         public Solution Retrieve(Date date)

@@ -11,7 +11,7 @@ namespace AdventOfCode
 
         internal void Generate()
         {
-            throw new NotImplementedException();
+            // TODO: Implement
         }
     }
 }
