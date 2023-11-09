@@ -44,7 +44,7 @@ namespace AdventOfCode.Commands
                     Solution? exampleSolution = inputRetriever.RetrieveExampleSolution(date, settings.Example);
                     ISolverRunner runner = settings.RunTimed ? new TimedSolverRunner(solver, input) : new SingleTimeRunner(solver, input);
                     Solution solution = runner.Run();
-                    solutionStatisticsManager.Submit(solution);
+                    solutionStatisticsManager.Submit(solution, date);
                     PrintResult(solution, exampleSolution);
                 }
                 catch (GenericSolver.SolutionNotImplementedException)
@@ -70,20 +70,9 @@ namespace AdventOfCode.Commands
             return 1;
         }
 
-        private static ISolver<object, object>? GetSolver(Date date)
-        {
-            Type? solverType = Type.GetType($"AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2}.Solver");
-            if (solverType == null)
-            {
-                return null;
-            }
-
-            return (ISolver<object, object>)Activator.CreateInstance(solverType)!;
-        }
-
         private static void PrintResult(Solution solution, Solution? exampleSolution)
         {
-            Logging.LogInfo(solution.Part1!, "RUNNER");
+            Logging.LogInfo(solution.Solution1!, "RUNNER");
         }
     }
 }

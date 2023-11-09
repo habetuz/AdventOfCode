@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="5.1.5" />
     <PackageReference Include="MarvinFuchs.Sharplog" Version="3.6.2" />
+    <PackageReference Include="microsoft.data.sqlite" Version="7.0.13" />
     <PackageReference Include="Spectre.console" Version="0.47.0" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.47.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />

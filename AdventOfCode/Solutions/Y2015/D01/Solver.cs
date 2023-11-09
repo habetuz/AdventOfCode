@@ -6,9 +6,10 @@ namespace AdventOfCode.Solutions.Y2015.D01;
 
 public class Solver : ISolver<string>
 {
-    public void Parse(string input, IPartSubmitter<string> parsedInput)
+
+    public void Parse(string input, IPartSubmitter<string> partSubmitter)
     {
-        parsedInput.SubmitFull("test");
+        partSubmitter.SubmitFull("Test");
     }
 
     public void Solve(string input, IPartSubmitter solution)
