@@ -20,14 +20,14 @@ namespace AdventOfCode
                     var command = connection.CreateCommand();
                     command.CommandText =
                     @$"CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
-                        year INTEGER NOT NULL, 
-                        day INTEGER NOT NULL, 
-                        parse1 INTEGER NOT NULL, 
-                        parse2 INTEGER NOT NULL, 
-                        solve1 INTEGER NOT NULL, 
-                        solve2 INTEGER NOT NULL, 
-                        solution1 TEXT NOT NULL, 
-                        solution2 TEXT NOT NULL)";
+                        year INTEGER NOT NULL KEY, 
+                        day INTEGER NOT NULL KEY, 
+                        parse1 INTEGER, 
+                        parse2 INTEGER, 
+                        solve1 INTEGER, 
+                        solve2 INTEGER, 
+                        solution1 TEXT, 
+                        solution2 TEXT)";
                     command.ExecuteNonQuery();
                 }
                 catch (SqliteException e)
@@ -53,12 +53,12 @@ namespace AdventOfCode
                         VALUES(
                             {date.Year},
                             {date.Day},
-                            ""{(solution.Parse1 == null ? -1 : solution.Parse1.Value.Ticks)}"",
-                            ""{(solution.Parse2 == null ? -1 : solution.Parse2.Value.Ticks)}"",
-                            ""{(solution.Solve1 == null ? -1 : solution.Solve1.Value.Ticks)}"",
-                            ""{(solution.Solve2 == null ? -1 : solution.Solve2.Value.Ticks)}"",
-                            ""{(solution.Solution1 == null ? string.Empty : solution.Solution1)}"",
-                            ""{(solution.Solution2 == null ? string.Empty : solution.Solution2)}"")";
+                            ""{(solution.Parse1 == null ? "null" : solution.Parse1.Value.Ticks)}"",
+                            ""{(solution.Parse2 == null ? "null" : solution.Parse2.Value.Ticks)}"",
+                            ""{(solution.Solve1 == null ? "null" : solution.Solve1.Value.Ticks)}"",
+                            ""{(solution.Solve2 == null ? "null" : solution.Solve2.Value.Ticks)}"",
+                            ""{(solution.Solution1 == null ? "null" : solution.Solution1)}"",
+                            ""{(solution.Solution2 == null ? "null" : solution.Solution2)}"")";
                     command.ExecuteNonQuery();
                     connection.Close();
                 }
@@ -84,18 +84,19 @@ namespace AdventOfCode
                         AND   day  = ${date.Day}";
                     using (SqliteDataReader reader = command.ExecuteReader())
                     {
-                        if (!reader.Read()) 
+                        if (!reader.Read())
                         {
                             return null;
                         }
 
-                        return new Solution() {
-                            Parse1 = new TimeSpan(long.Parse(reader["parse1"].ToString()!)),
-                            Parse2 = new TimeSpan(long.Parse(reader["parse2"].ToString()!)),
-                            Solve1 = new TimeSpan(long.Parse(reader["solve1"].ToString()!)),
-                            Solve2 = new TimeSpan(long.Parse(reader["solve2"].ToString()!)),
-                            Solution1 = reader["solution1"].ToString()!,
-                            Solution2 = reader["solution1"].ToString()!,
+                        return new Solution()
+                        {
+                            Parse1 = reader["parse1"] is not null ? new TimeSpan(long.Parse(reader["parse1"].ToString()!)) : null,
+                            Parse2 = reader["parse2"] is not null ? new TimeSpan(long.Parse(reader["parse2"].ToString()!)) : null,
+                            Solve1 = reader["solve1"] is not null ? new TimeSpan(long.Parse(reader["solve1"].ToString()!)) : null,
+                            Solve2 = reader["solve2"] is not null ? new TimeSpan(long.Parse(reader["solve2"].ToString()!)) : null,
+                            Solution1 = reader["solution1"] is not null ? reader["solution1"].ToString()! : null,
+                            Solution2 = reader["solution2"] is not null ? reader["solution1"].ToString()! : null,
                         };
                     }
                 }
