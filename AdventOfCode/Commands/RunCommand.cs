@@ -44,9 +44,18 @@ namespace AdventOfCode.Commands
                     string input = inputRetriever.RetrieveInput(date, settings.Example);
                     Solution? exampleSolution = inputRetriever.RetrieveExampleSolution(date, settings.Example);
                     ISolverRunner runner = settings.RunTimed ? new TimedSolverRunner(solver, input) : new SingleTimeRunner(solver, input);
-                    Solution solution = runner.Run();
-                    solutionStatisticsManager.Submit(solution, date);
-                    PrintResult(solution, exampleSolution);
+                    Solution? solution = null!;
+                    AnsiConsole.Status()
+                        .SpinnerStyle("orange1")
+                        .Spinner(Spinner.Known.BouncingBall)
+                        .Start("Solving...", ctx =>
+                        {
+                            solution = runner.Run();
+                        });
+
+
+                    solutionStatisticsManager.Submit(solution.Value, date);
+                    PrintResult(solution.Value, exampleSolution);
                 }
                 catch (GenericSolver.SolutionNotImplementedException)
                 {
@@ -118,39 +127,42 @@ namespace AdventOfCode.Commands
 
             if (!exampleSolution.HasValue)
             {
-                AnsiConsole.Write(new Table()
-                {
-                    Title = new TableTitle("Solutions")
-                }
+                AnsiConsole.Write(new Padder(
+                    new Table()
+                    {
+                        Title = new TableTitle("Solutions", "yellow"),
+                        Expand = true,
+                        ShowHeaders = false,
+                        Border = TableBorder.Rounded
+                    }
                     .AddColumn(new TableColumn("Part").LeftAligned())
                     .AddColumn(new TableColumn("Solution").RightAligned())
-                    .HideHeaders()
                     .AddRow("Solution 1", $"[yellow]{solution.Solution1}[/]")
-                    .AddRow("Solution 2", $"[yellow]{solution.Solution2}[/]"));
+                    .AddRow("Solution 2", $"[yellow]{solution.Solution2}[/]"))
+                    .Padding(0, 1));
             }
             else
             {
-                var layout = new Layout("Solutions")
-                    .SplitColumns(
-                        new Layout("Solution 1"),
-                        new Layout("Solution 2")
-                    );
+                var columns = new Columns(
+                    getSolutionMessagePanel("Solution 1", exampleSolution.Value.Solution1, solution.Solution1),
+                    getSolutionMessagePanel("Solution 2", exampleSolution.Value.Solution2, solution.Solution2)
+                );
 
-                setSolutionMessageLayout(layout["Solution 1"], exampleSolution.Value.Solution1, solution.Solution1);
-                setSolutionMessageLayout(layout["Solution 2"], exampleSolution.Value.Solution2, solution.Solution2);
 
-                AnsiConsole.Write(layout);
+
+                AnsiConsole.Write(new Padder(columns).Padding(0, 1));
             }
 
         }
 
-        private static void setSolutionMessageLayout(Layout layout, string? expected, string? actual)
+        private static Panel getSolutionMessagePanel(string name, string? expected, string? actual)
         {
             if (actual is null)
             {
-                layout.Update(
-                    new Markup(":cross_mark: [white on red]MISSING[/]")
-                );
+                return
+                    new Panel(
+                        new Markup(":cross_mark: [white on red]MISSING[/]")
+                    ).Header(name).HeaderAlignment(Justify.Left).Expand();
             }
             else if (int.TryParse(expected, out _) &&
                      int.TryParse(actual, out _))
@@ -162,9 +174,10 @@ namespace AdventOfCode.Commands
 
                 if (diff == 0)
                 {
-                    layout.Update(
-                        new Markup($":check_mark_button: [green]{actual}[/]")
-                    );
+                    return
+                        new Panel(
+                            new Markup($":check_mark_button: [green]{actual}[/]")
+                        ).Header(name).HeaderAlignment(Justify.Left).Expand();
                 }
                 else
                 {
@@ -174,25 +187,30 @@ namespace AdventOfCode.Commands
 
                     var rows = new Rows(
                         new Markup($":cross_mark: Expected: [green]{expected}[/] | Actual: [red]{actual}[/] | Diff: [orange1]{diff}[/]"),
-                        chart
+                        new Padder(chart).Padding(0, 1, 0, 0)
                     );
 
-                    layout.Update(rows);
+                    return
+                        new Panel(
+                            new Padder(rows)
+                        ).Header(name).HeaderAlignment(Justify.Left).Expand();
                 }
             }
             else
             {
                 if (expected == actual)
                 {
-                    layout.Update(
-                        new Markup($":check_mark_button: [green]{actual}[/]")
-                    );
+                    return
+                        new Panel(
+                            new Markup($":check_mark_button: [green]{actual}[/]")
+                        ).Header(name).HeaderAlignment(Justify.Left).Expand();
                 }
                 else
                 {
-                    layout.Update(
-                        new Markup($":cross_mark: Expected: [green]{expected}[/] | Actual: [red]{actual}[/]")
-                    );
+                    return
+                        new Panel(
+                            new Markup($":cross_mark: Expected: [green]{expected}[/] | Actual: [red]{actual}[/]")
+                        ).Header(name).HeaderAlignment(Justify.Left).Expand();
                 }
             }
         }

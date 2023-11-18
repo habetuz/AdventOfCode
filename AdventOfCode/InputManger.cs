@@ -25,7 +25,7 @@ namespace AdventOfCode
             {
                 return null;
             }
-            throw new NotImplementedException();
+            return ParseExample(RetrieveInput(date, example)).Item1;
         }
 
         public string RetrieveInput(Date date, uint? example = null)
@@ -34,7 +34,7 @@ namespace AdventOfCode
             if (File.Exists(filename))
             {
                 string file = File.ReadAllText(filename);
-                return example == null ? file : this.ParseExample(file).Item2;
+                return file;
             }
             else if (example != null)
             {
@@ -72,9 +72,18 @@ namespace AdventOfCode
             });
         }
 
-        private (string, string) ParseExample(string example)
+        private (Solution, string) ParseExample(string example)
         {
-            throw new NotImplementedException();
+            var lines = example.Split('\n');
+            var solution = lines[0].Split('|');
+            return (
+                new Solution()
+                {
+                    Solution1 = solution[0].Trim(),
+                    Solution2 = solution[1].Trim(),
+                },
+                string.Join('\n', lines[1..])
+            );
         }
     }
 }

@@ -20,8 +20,8 @@ namespace AdventOfCode
                     var command = connection.CreateCommand();
                     command.CommandText =
                     @$"CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
-                        year INTEGER NOT NULL KEY, 
-                        day INTEGER NOT NULL KEY, 
+                        year KEY INTEGER NOT NULL, 
+                        day KEY INTEGER NOT NULL, 
                         parse1 INTEGER, 
                         parse2 INTEGER, 
                         solve1 INTEGER, 

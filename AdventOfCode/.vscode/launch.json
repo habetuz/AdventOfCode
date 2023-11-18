@@ -12,9 +12,11 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/bin/Debug/net7.0/AdventOfCode.dll",
             "args": [
-                "2015.01"
+                "2015.01",
+                "-e",
+                "1"
             ],
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/bin/Debug/net7.0/",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false
