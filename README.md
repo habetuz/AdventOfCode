@@ -2,6 +2,8 @@
 
 ## Solutions
 
+> ![INFO]
+> 
 > ❌ -> Not solved yet
 >
 > 🟩 -> `< 00:00,0010`

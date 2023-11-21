@@ -1,4 +1,5 @@
 using System.Collections;
+using YamlDotNet.Serialization.ObjectGraphTraversalStrategies;
 
 namespace AdventOfCode.Time
 {
@@ -6,6 +7,11 @@ namespace AdventOfCode.Time
     {
         private Date startDate;
         private Date endDate;
+
+        public static CalendarRange Full
+        {
+            get => new CalendarRange(Date.First, Date.Last);
+        }
 
         public IEnumerator<Date> GetEnumerator()
         {
@@ -51,6 +57,14 @@ namespace AdventOfCode.Time
         {
             get => endDate.Year;
             init => endDate.Year = value;
+        }
+
+        public CalendarRange() { }
+
+        public CalendarRange(Date start, Date end)
+        {
+            this.startDate = start;
+            this.endDate = end;
         }
 
         public class CalendarRangeEnumerator : IEnumerator<Date>

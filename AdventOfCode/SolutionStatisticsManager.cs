@@ -80,8 +80,8 @@ namespace AdventOfCode
                     command.CommandText =
                     @$"
                     SELECT * FROM {TABLE_NAME}
-                        WHERE year = ${date.Year}
-                        AND   day  = ${date.Day}";
+                        WHERE year = {date.Year}
+                        AND   day  = {date.Day}";
                     using (SqliteDataReader reader = command.ExecuteReader())
                     {
                         if (!reader.Read())
@@ -91,12 +91,12 @@ namespace AdventOfCode
 
                         return new Solution()
                         {
-                            Parse1 = reader["parse1"] is not null ? new TimeSpan(long.Parse(reader["parse1"].ToString()!)) : null,
-                            Parse2 = reader["parse2"] is not null ? new TimeSpan(long.Parse(reader["parse2"].ToString()!)) : null,
-                            Solve1 = reader["solve1"] is not null ? new TimeSpan(long.Parse(reader["solve1"].ToString()!)) : null,
-                            Solve2 = reader["solve2"] is not null ? new TimeSpan(long.Parse(reader["solve2"].ToString()!)) : null,
-                            Solution1 = reader["solution1"] is not null ? reader["solution1"].ToString()! : null,
-                            Solution2 = reader["solution2"] is not null ? reader["solution1"].ToString()! : null,
+                            Parse1 = reader["parse1"] is not "null" ? new TimeSpan(long.Parse(reader["parse1"].ToString()!)) : null,
+                            Parse2 = reader["parse2"] is not "null" ? new TimeSpan(long.Parse(reader["parse2"].ToString()!)) : null,
+                            Solve1 = reader["solve1"] is not "null" ? new TimeSpan(long.Parse(reader["solve1"].ToString()!)) : null,
+                            Solve2 = reader["solve2"] is not "null" ? new TimeSpan(long.Parse(reader["solve2"].ToString()!)) : null,
+                            Solution1 = reader["solution1"] is not "null" ? reader["solution1"].ToString()! : null,
+                            Solution2 = reader["solution2"] is not "null" ? reader["solution1"].ToString()! : null,
                         };
                     }
                 }

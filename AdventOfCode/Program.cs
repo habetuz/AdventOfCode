@@ -3,6 +3,7 @@ using AdventOfCode.Commands;
 using Spectre.Console.Cli;
 using SharpLog;
 using AdventOfCode.Solutions.Y2015.D01;
+using Spectre.Console;
 
 CommandApp<RunCommand> app = new();
 Logging.Initialize();
@@ -46,5 +47,13 @@ try
 }
 catch (Exception error)
 {
-    Logging.LogFatal("Execution failed!", "RUNNER", error);
+    AnsiConsole.Write(new Rule("[red]Exception occurred during execution![/]") { Style = "red", Border = BoxBorder.Heavy });
+    Logging.LogError("Exception:", "RUNNER", error);
+    var innerException = error.InnerException;
+    while (innerException is not null)
+    {
+        Logging.LogError("Inner exception:", "RUNNER", error);
+    }
+
+    Logging.LogFatal("Execution failed!", "RUNNER");
 }

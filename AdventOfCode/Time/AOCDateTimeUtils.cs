@@ -2,11 +2,16 @@ namespace AdventOfCode.Time
 {
     public static class AOCDateTimeUtils
     {
-        public static int GetCurrentYear(DateTime currentDate)
+        public static int GetCurrentYear(DateTime? currentDate = null)
         {
-            int currentYear = currentDate.Year;
+            if (!currentDate.HasValue)
+            {
+                currentDate = DateTime.Now;
+            }
 
-            if (currentDate.Month < 12)
+            int currentYear = currentDate.Value.Year;
+
+            if (currentDate.Value.Month < 12)
             {
                 return (int)(currentYear - 1);
             }
@@ -16,11 +21,16 @@ namespace AdventOfCode.Time
             }
         }
 
-        public static int GetCurrentDay(DateTime currentDate)
+        public static int GetCurrentDay(DateTime? currentDate = null)
         {
-            int currentDay = currentDate.Day;
+            if (!currentDate.HasValue)
+            {
+                currentDate = DateTime.Now;
+            }
 
-            if (currentDate.Month == 12 && currentDay >= 1 && currentDay <= 25)
+            int currentDay = currentDate.Value.Day;
+
+            if (currentDate.Value.Month == 12 && currentDay >= 1 && currentDay <= 25)
             {
                 return (int)currentDay;
             }

@@ -18,7 +18,7 @@ namespace AdventOfCode.Commands
 
             var calendarRange = settings.RunRange;
 
-            ISolutionSubmitter solutionStatisticsManager = new SolutionStatisticsManager();
+            SolutionStatisticsManager solutionStatisticsManager = new SolutionStatisticsManager();
             WebResourceManager webResourceManager = new();
             IInputRetriever inputRetriever = new InputManager(webResourceManager);
 
@@ -43,7 +43,7 @@ namespace AdventOfCode.Commands
                     ISolver<object, object> solver = new GenericSolver(date);
                     string input = inputRetriever.RetrieveInput(date, settings.Example);
                     Solution? exampleSolution = inputRetriever.RetrieveExampleSolution(date, settings.Example);
-                    ISolverRunner runner = settings.RunTimed ? new TimedSolverRunner(solver, input) : new SingleTimeRunner(solver, input);
+                    ISolverRunner runner = settings.RunTimed ? new TimedRunner(solver, input) : new SingleTimeRunner(solver, input);
                     Solution? solution = null!;
                     AnsiConsole.Status()
                         .SpinnerStyle("orange1")
@@ -74,7 +74,7 @@ namespace AdventOfCode.Commands
 
             }
 
-            ReadMeGenerator readMeGenerator = new(webResourceManager);
+            ReadMeGenerator readMeGenerator = new(solutionStatisticsManager);
             readMeGenerator.Generate();
 
             return 1;
