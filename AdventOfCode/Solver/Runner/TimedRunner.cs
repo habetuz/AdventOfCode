@@ -5,7 +5,8 @@ namespace AdventOfCode.Solver.Runner
 {
     public class TimedRunner : ISolverRunner
     {
-        private readonly static TimeSpan MAX_TIME = new TimeSpan(0, 0, 5);
+        private readonly static TimeSpan MaxTime = new TimeSpan(0, 0, 5);
+        private readonly static TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 100);
 
         private readonly ISolver<object, object> solver;
         private readonly string input;
@@ -25,6 +26,8 @@ namespace AdventOfCode.Solver.Runner
 
             Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
+            
         }
     }
 }
