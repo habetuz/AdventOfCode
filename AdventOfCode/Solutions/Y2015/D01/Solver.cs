@@ -4,18 +4,18 @@ using AdventOfCode.PartSubmitter;
 
 namespace AdventOfCode.Solutions.Y2015.D01;
 
-public class Solver : ISolver<string>
+public class Solver : ISolver<string, int>
 {
 
-    public void Parse(string input, IPartSubmitter<string> partSubmitter)
+    public void Parse(string input, IPartSubmitter<string, int> partSubmitter)
     {
         Thread.Sleep(200);
-        partSubmitter.SubmitFull("Test");
+        partSubmitter.SubmitPart1("test");
+        partSubmitter.SubmitPart2(2);
     }
 
-    public void Solve(string input, IPartSubmitter solution)
+    public void Solve(string? input1, int input2, IPartSubmitter partSubmitter)
     {
-        Thread.Sleep(200);
-        solution.SubmitFull(5.ToString());
+        partSubmitter.SubmitFull("3");
     }
 }

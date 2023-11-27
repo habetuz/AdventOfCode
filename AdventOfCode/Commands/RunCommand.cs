@@ -121,7 +121,7 @@ namespace AdventOfCode.Commands
                     executionTime += solution.Solve2.Value;
                 }
 
-                Logging.LogInfo($"Execution time: [yellow]{executionTime:c}", "RUNNER");
+                Logging.LogInfo($"Execution time: [yellow]{executionTime:c}[/]", "RUNNER");
                 AnsiConsole.Write(chart);
             }
 

@@ -6,7 +6,7 @@ namespace AdventOfCode.Solutions.Y2015.D02;
 
 public class Solver : ISolver<object>
 {
-    public void Solve(object input, IPartSubmitter solution)
+    public void Solve(object? input, IPartSubmitter solution)
     {
         throw new NotImplementedException();
     }
