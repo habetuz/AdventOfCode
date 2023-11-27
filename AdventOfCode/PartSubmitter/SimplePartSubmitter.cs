@@ -1,6 +1,6 @@
 using AdventOfCode.PartSubmitter;
 
-public class SimplePartSubmitter : SimplePartSubmitter<string>, IPartSubmitter
+public class SimplePartSubmitter : SimplePartSubmitter<object>, IPartSubmitter
 {
 }
 

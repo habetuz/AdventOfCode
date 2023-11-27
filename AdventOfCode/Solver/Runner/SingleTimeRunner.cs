@@ -21,8 +21,8 @@ namespace AdventOfCode.Solver.Runner
             this.solver.Solve(parsedInputSubmitter.FirstPart, parsedInputSubmitter.SecondPart, solutionSubmitter);
             return new Solution
             {
-                Solution1 = solutionSubmitter.FirstPart,
-                Solution2 = solutionSubmitter.SecondPart,
+                Solution1 = solutionSubmitter.FirstPart.ToString(),
+                Solution2 = solutionSubmitter.SecondPart.ToString(),
             };
         }
     }

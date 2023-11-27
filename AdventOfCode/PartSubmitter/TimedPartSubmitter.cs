@@ -131,4 +131,4 @@ private readonly Stopwatch watch1 = new();
     }
 }
 
-public class TimedPartSubmitter : TimedPartSubmitter<string>, IPartSubmitter { }
+public class TimedPartSubmitter : TimedPartSubmitter<object>, IPartSubmitter { }

@@ -46,8 +46,8 @@ namespace AdventOfCode.Solver.Runner
                 Parse2 = parseSubmitter.Times.Item2,
                 Solve1 = solutionSubmitter.Times.Item1,
                 Solve2 = solutionSubmitter.Times.Item2,
-                Solution1 = solutionSubmitter.Parts.Item1,
-                Solution2 = solutionSubmitter.Parts.Item2,
+                Solution1 = solutionSubmitter.Parts.Item1?.ToString(),
+                Solution2 = solutionSubmitter.Parts.Item2?.ToString(),
             };
         }
     }
