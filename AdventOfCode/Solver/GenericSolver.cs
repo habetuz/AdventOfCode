@@ -18,7 +18,9 @@ public class GenericSolver : ISolver<object, object>
 
     public GenericSolver(Date date)
     {
-        this.solverType = Type.GetType($"AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2}.Solver")!;
+        this.solverType = Type.GetType(
+            $"AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2}.Solver"
+        )!;
         if (this.solverType == null)
         {
             throw new SolutionNotImplementedException();
@@ -28,25 +30,37 @@ public class GenericSolver : ISolver<object, object>
         // Check if type extends ISolver<...>
         Type iSolverType = null!;
         Type[] interfaces = this.solverType.GetInterfaces();
-        if (!interfaces.Any((interfaceType) =>
-        {
-            if (interfaceType.Namespace + "." + interfaceType.Name == typeof(ISolver<object, object>).Namespace + "." + typeof(ISolver<object, object>).Name)
-            {
-                genericParamCount = 2;
-                iSolverType = interfaceType;
-                return true;
-            }
-            else if (interfaceType.Namespace + "." + interfaceType.Name == typeof(ISolver<object>).Namespace + "." + typeof(ISolver<object>).Name)
-            {
-                genericParamCount = 1;
-                iSolverType = interfaceType;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }))
+        if (
+            !interfaces.Any(
+                (interfaceType) =>
+                {
+                    if (
+                        interfaceType.Namespace + "." + interfaceType.Name
+                        == typeof(ISolver<object, object>).Namespace
+                            + "."
+                            + typeof(ISolver<object, object>).Name
+                    )
+                    {
+                        genericParamCount = 2;
+                        iSolverType = interfaceType;
+                        return true;
+                    }
+                    else if (
+                        interfaceType.Namespace + "." + interfaceType.Name
+                        == typeof(ISolver<object>).Namespace + "." + typeof(ISolver<object>).Name
+                    )
+                    {
+                        genericParamCount = 1;
+                        iSolverType = interfaceType;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            )
+        )
         {
             throw new ISolverNotImplementedException();
         }
@@ -59,7 +73,12 @@ public class GenericSolver : ISolver<object, object>
         this.parseMethod = solverType.GetMethod("Parse")!;
         this.solveMethod = solverType.GetMethod("Solve")!;
 
-        this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<object, object, object, object>)
+        this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<
+            object,
+            object,
+            object,
+            object
+        >)
             .GetGenericTypeDefinition()
             .MakeGenericType(
                 typeof(object),
@@ -79,7 +98,10 @@ public class GenericSolver : ISolver<object, object>
     {
         if (this.genericParamCount == 2)
         {
-            this.solveMethod.Invoke(this.solverInstance, new object?[] { input1, input2, solution });
+            this.solveMethod.Invoke(
+                this.solverInstance,
+                new object?[] { input1, input2, solution }
+            );
         }
         else
         {
@@ -87,13 +109,7 @@ public class GenericSolver : ISolver<object, object>
         }
     }
 
-    public class SolutionNotImplementedException : Exception
-    {
+    public class SolutionNotImplementedException : Exception { }
 
-    }
-
-    public class ISolverNotImplementedException : Exception
-    {
-
-    }
+    public class ISolverNotImplementedException : Exception { }
 }

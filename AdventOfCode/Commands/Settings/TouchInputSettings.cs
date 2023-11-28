@@ -1,14 +1,16 @@
 using System.ComponentModel;
-using Spectre.Console;
 using AdventOfCode.Time;
-using Spectre.Console.Cli;
 using SharpLog;
+using Spectre.Console;
+using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands.Settings
 {
     public class TouchInputSettings : CommandSettings
     {
-        [Description("The date of the input you want to create/open. Leave empty for the current date.")]
+        [Description(
+            "The date of the input you want to create/open. Leave empty for the current date."
+        )]
         [CommandArgument(0, "[date]")]
         public string? StringDate { get; init; } = "";
 
@@ -16,7 +18,7 @@ namespace AdventOfCode.Commands.Settings
         [CommandOption("-e|--example")]
         public uint? Example { get; init; }
 
-        public Date Date {get; private set;}
+        public Date Date { get; private set; }
 
         public override ValidationResult Validate()
         {
@@ -32,10 +34,17 @@ namespace AdventOfCode.Commands.Settings
             date.Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(currentTime) : date.Year;
             date.Day = date.Day == -1 ? AOCDateTimeUtils.GetCurrentDay(currentTime) : date.Day;
 
-            if (date.Year > AOCDateTimeUtils.GetCurrentYear(currentTime) ||
-                date.Year < 2015 ||
-                date.Day > (currentTime.Year == AOCDateTimeUtils.GetCurrentYear(currentTime) ? AOCDateTimeUtils.GetCurrentDay(currentTime) : 25) ||
-                date.Day < 1)
+            if (
+                date.Year > AOCDateTimeUtils.GetCurrentYear(currentTime)
+                || date.Year < 2015
+                || date.Day
+                    > (
+                        currentTime.Year == AOCDateTimeUtils.GetCurrentYear(currentTime)
+                            ? AOCDateTimeUtils.GetCurrentDay(currentTime)
+                            : 25
+                    )
+                || date.Day < 1
+            )
             {
                 return ValidationResult.Error("The provided date is out of range.");
             }

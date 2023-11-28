@@ -63,7 +63,9 @@ namespace AdventOfCode.Time
             {
                 string yearString = dateParts[0];
                 string dayString = dateParts[1];
-                if (!int.TryParse(yearString, out int year) || !int.TryParse(dayString, out int day))
+                if (
+                    !int.TryParse(yearString, out int year) || !int.TryParse(dayString, out int day)
+                )
                 {
                     return ValidationResult.Error($"{stringDate} is not a date.");
                 }
@@ -82,11 +84,7 @@ namespace AdventOfCode.Time
         public static ValidationResult DateRange(string stringRange, out CalendarRange dateRange)
         {
             DateTime now = DateTime.Now;
-            Date startDate = new()
-            {
-                Year = START_YEAR,
-                Day = START_DAY,
-            };
+            Date startDate = new() { Year = START_YEAR, Day = START_DAY, };
             Date endDate;
             dateRange = new();
 
@@ -97,11 +95,7 @@ namespace AdventOfCode.Time
                     Year = AOCDateTimeUtils.GetCurrentYear(now),
                     Day = AOCDateTimeUtils.GetCurrentDay(now),
                 };
-                dateRange = new()
-                {
-                    StartDate = startDate,
-                    EndDate = endDate,
-                };
+                dateRange = new() { StartDate = startDate, EndDate = endDate, };
                 return ValidationResult.Success();
             }
 
@@ -143,7 +137,10 @@ namespace AdventOfCode.Time
 
                 startDate = new()
                 {
-                    Year = startDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : startDate.Year,
+                    Year =
+                        startDate.Year == -1
+                            ? AOCDateTimeUtils.GetCurrentYear(now)
+                            : startDate.Year,
                     Day = startDate.Day == -1 ? 01 : startDate.Day,
                 };
 
@@ -160,38 +157,66 @@ namespace AdventOfCode.Time
 
             if (startDate > endDate)
             {
-                return ValidationResult.Error("[range] is invalid. Start date has to be before end date.");
+                return ValidationResult.Error(
+                    "[range] is invalid. Start date has to be before end date."
+                );
             }
-            else if (startDate.Year < START_YEAR || startDate.Year > AOCDateTimeUtils.GetCurrentYear(now))
+            else if (
+                startDate.Year < START_YEAR
+                || startDate.Year > AOCDateTimeUtils.GetCurrentYear(now)
+            )
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. Start year has to be between 2015 and {0}.", AOCDateTimeUtils.GetCurrentYear(now)));
+                return ValidationResult.Error(
+                    string.Format(
+                        "[range] is invalid. Start year has to be between 2015 and {0}.",
+                        AOCDateTimeUtils.GetCurrentYear(now)
+                    )
+                );
             }
-            else if (startDate.Year == AOCDateTimeUtils.GetCurrentYear(now) && startDate.Day > AOCDateTimeUtils.GetCurrentDay(now))
+            else if (
+                startDate.Year == AOCDateTimeUtils.GetCurrentYear(now)
+                && startDate.Day > AOCDateTimeUtils.GetCurrentDay(now)
+            )
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. Start day has to be before the current day."));
+                return ValidationResult.Error(
+                    string.Format("[range] is invalid. Start day has to be before the current day.")
+                );
             }
             else if (endDate.Day < START_DAY || endDate.Day > END_DAY)
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. End day has to be between 01 and 25."));
+                return ValidationResult.Error(
+                    string.Format("[range] is invalid. End day has to be between 01 and 25.")
+                );
             }
-            else if (endDate.Year < START_YEAR || endDate.Year > AOCDateTimeUtils.GetCurrentYear(now))
+            else if (
+                endDate.Year < START_YEAR
+                || endDate.Year > AOCDateTimeUtils.GetCurrentYear(now)
+            )
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. End year has to be between 2015 and {0}.", AOCDateTimeUtils.GetCurrentYear(now)));
+                return ValidationResult.Error(
+                    string.Format(
+                        "[range] is invalid. End year has to be between 2015 and {0}.",
+                        AOCDateTimeUtils.GetCurrentYear(now)
+                    )
+                );
             }
-            else if (endDate.Year == AOCDateTimeUtils.GetCurrentYear(now) && endDate.Day > AOCDateTimeUtils.GetCurrentDay(now))
+            else if (
+                endDate.Year == AOCDateTimeUtils.GetCurrentYear(now)
+                && endDate.Day > AOCDateTimeUtils.GetCurrentDay(now)
+            )
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. End day has to be before the current day."));
+                return ValidationResult.Error(
+                    string.Format("[range] is invalid. End day has to be before the current day.")
+                );
             }
             else if (endDate.Day < START_DAY || endDate.Day > END_DAY)
             {
-                return ValidationResult.Error(string.Format("[range] is invalid. End day has to be between 01 and 25."));
+                return ValidationResult.Error(
+                    string.Format("[range] is invalid. End day has to be between 01 and 25.")
+                );
             }
 
-            dateRange = new()
-            {
-                StartDate = startDate,
-                EndDate = endDate,
-            };
+            dateRange = new() { StartDate = startDate, EndDate = endDate, };
 
             return ValidationResult.Success();
         }

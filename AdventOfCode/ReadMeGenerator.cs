@@ -13,15 +13,15 @@ namespace AdventOfCode
         private const string EMOJI_SLOW_SPEED = "🟧";
         private const string EMOJI_SNAIL_SPEED = "🟥";
 
-        private readonly static Dictionary<TimeSpan, string> speedMap = new() {
-            {new TimeSpan(000010000), EMOJI_LIGHT_SPEED},
-            {new TimeSpan(000100000), EMOJI_SOUND_SPEED},
-            {new TimeSpan(001000000), EMOJI_MODERAD_SPEED},
-            {new TimeSpan(010000000), EMOJI_SLOW_SPEED},
-            {TimeSpan.MaxValue, EMOJI_SNAIL_SPEED},
-
-        };
-
+        private static readonly Dictionary<TimeSpan, string> speedMap =
+            new()
+            {
+                { new TimeSpan(000010000), EMOJI_LIGHT_SPEED },
+                { new TimeSpan(000100000), EMOJI_SOUND_SPEED },
+                { new TimeSpan(001000000), EMOJI_MODERAD_SPEED },
+                { new TimeSpan(010000000), EMOJI_SLOW_SPEED },
+                { TimeSpan.MaxValue, EMOJI_SNAIL_SPEED },
+            };
 
         private readonly ISolutionRetriever solutions;
 
@@ -32,7 +32,8 @@ namespace AdventOfCode
 
         internal void Generate()
         {
-            string markdown = $@"# My AdventOfCode solutions! 🎄
+            string markdown =
+                $@"# My AdventOfCode solutions! 🎄
 
 ## Solutions
 
@@ -51,14 +52,16 @@ namespace AdventOfCode
                 if (date.Year != year)
                 {
                     year = date.Year;
-                    markdown += $@"### {year}
+                    markdown +=
+                        $@"### {year}
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
 ";
                 }
 
-                markdown += $"| [{date.Day:D2}](/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
+                markdown +=
+                    $"| [{date.Day:D2}](/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
 
                 var solution = solutions.Retrieve(date);
                 if (solution.HasValue)
@@ -66,16 +69,18 @@ namespace AdventOfCode
                     var value = solution.Value;
                     var emoji = EMOJI_SNAIL_SPEED;
                     var time = "`N/A`";
-                    if (value.Parse1.HasValue &&
-                        value.Parse2.HasValue &&
-                        value.Solve1.HasValue &&
-                        value.Solve2.HasValue)
+                    if (
+                        value.Parse1.HasValue
+                        && value.Parse2.HasValue
+                        && value.Solve1.HasValue
+                        && value.Solve2.HasValue
+                    )
                     {
                         var timeValue =
-                            value.Parse1.Value +
-                            value.Parse2.Value +
-                            value.Solve1.Value +
-                            value.Solve2.Value;
+                            value.Parse1.Value
+                            + value.Parse2.Value
+                            + value.Solve1.Value
+                            + value.Solve2.Value;
                         time = $"`{timeValue:c}`";
                         emoji = speedMap[timeValue];
                     }
@@ -119,16 +124,11 @@ namespace AdventOfCode
                             leastDifference = difference;
                             best = timeSpan.Key;
                         }
-
                     }
 
                     return this[best];
                 }
-
-                set
-                {
-                    this.dictionary[key] = value;
-                }
+                set { this.dictionary[key] = value; }
             }
 
             public ICollection<TimeSpan> Keys => this.dictionary.Keys;
@@ -181,7 +181,11 @@ namespace AdventOfCode
 
             public bool Remove(KeyValuePair<TimeSpan, TValue> item)
             {
-                if (this.dictionary.TryGetValue(item.Key, out TValue? value) && value is not null && item.Value is not null)
+                if (
+                    this.dictionary.TryGetValue(item.Key, out TValue? value)
+                    && value is not null
+                    && item.Value is not null
+                )
                 {
                     if (item.Value.Equals(value))
                     {

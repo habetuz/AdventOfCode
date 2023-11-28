@@ -11,18 +11,17 @@ namespace AdventOfCode
 
         public WebResourceManager()
         {
-            clientHandler = new()
-            {
-                UseCookies = false,
-            };
+            clientHandler = new() { UseCookies = false, };
 
-            client = new(this.clientHandler)
-            {
-                BaseAddress = new Uri(BASE_URL),
-            };
+            client = new(this.clientHandler) { BaseAddress = new Uri(BASE_URL), };
 
-            client.DefaultRequestHeaders.Add("Cookie", $"session={ApplicationSettings.Instance.Cookie}");
-            client.DefaultRequestHeaders.UserAgent.ParseAdd("(https://github.com/habetuz/AdventOfCode by mail@marvin-fuchs.de)");
+            client
+                .DefaultRequestHeaders
+                .Add("Cookie", $"session={ApplicationSettings.Instance.Cookie}");
+            client
+                .DefaultRequestHeaders
+                .UserAgent
+                .ParseAdd("(https://github.com/habetuz/AdventOfCode by mail@marvin-fuchs.de)");
         }
 
         public string RetrieveResource(params string[] uriParts)
@@ -33,11 +32,17 @@ namespace AdventOfCode
             {
                 if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    Logging.LogFatal("Web request failed because the session cookie is not set or outdated.\nUse [white on black] save-cookie <cookie> [/] to set the session cookie.", "RUNNER");
+                    Logging.LogFatal(
+                        "Web request failed because the session cookie is not set or outdated.\nUse [white on black] save-cookie <cookie> [/] to set the session cookie.",
+                        "RUNNER"
+                    );
                 }
                 else
                 {
-                    Logging.LogFatal($"Web request failed.[/]\n[red]Status code: [/][white]{response.StatusCode}[/]\n[red]Content: [/][white]{response.Content.ReadAsStringAsync().Result}", "RUNNER");
+                    Logging.LogFatal(
+                        $"Web request failed.[/]\n[red]Status code: [/][white]{response.StatusCode}[/]\n[red]Content: [/][white]{response.Content.ReadAsStringAsync().Result}",
+                        "RUNNER"
+                    );
                 }
             }
 

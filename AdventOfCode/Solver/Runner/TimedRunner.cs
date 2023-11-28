@@ -6,8 +6,8 @@ namespace AdventOfCode.Solver.Runner
 {
     public class TimedRunner : ISolverRunner
     {
-        private readonly static TimeSpan MaxTime = new TimeSpan(0, 0, 5);
-        private readonly static TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 100);
+        private static readonly TimeSpan MaxTime = new TimeSpan(0, 0, 5);
+        private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 100);
 
         private readonly ISolver<object, object> solver;
         private readonly string input;
@@ -17,10 +17,13 @@ namespace AdventOfCode.Solver.Runner
             this.solver = solver;
             this.input = input;
         }
+
         public Solution Run()
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ||
-                RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            if (
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
+            )
             {
                 Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2);
                 Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
@@ -38,7 +41,8 @@ namespace AdventOfCode.Solver.Runner
             this.solver.Solve(
                 parseSubmitter.Parts.Item1,
                 parseSubmitter.Parts.Item2,
-                solutionSubmitter);
+                solutionSubmitter
+            );
 
             return new Solution()
             {

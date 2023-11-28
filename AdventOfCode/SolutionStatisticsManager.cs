@@ -9,7 +9,6 @@ namespace AdventOfCode
         private const string DB_NAME = "solutions.sqlite";
         private const string TABLE_NAME = "solutions";
 
-
         public SolutionStatisticsManager()
         {
             using (var connection = new SqliteConnection($"Data Source={DB_NAME}"))
@@ -19,7 +18,7 @@ namespace AdventOfCode
                     connection.Open();
                     var command = connection.CreateCommand();
                     command.CommandText =
-                    @$"CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
+                        @$"CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
                         year KEY INTEGER NOT NULL, 
                         day KEY INTEGER NOT NULL, 
                         parse1 INTEGER, 
@@ -34,8 +33,6 @@ namespace AdventOfCode
                 {
                     Logging.LogFatal("SQLite execution failed!", "RUNNER", e);
                 }
-
-
             }
         }
 
@@ -48,7 +45,7 @@ namespace AdventOfCode
                     connection.Open();
                     var command = connection.CreateCommand();
                     command.CommandText =
-                    @$"
+                        @$"
                     INSERT OR REPLACE INTO {TABLE_NAME} (year, day, parse1, parse2, solve1, solve2, solution1, solution2)
                         VALUES(
                             {date.Year},
@@ -78,7 +75,7 @@ namespace AdventOfCode
                     connection.Open();
                     var command = connection.CreateCommand();
                     command.CommandText =
-                    @$"
+                        @$"
                     SELECT * FROM {TABLE_NAME}
                         WHERE year = {date.Year}
                         AND   day  = {date.Day}";
@@ -91,12 +88,24 @@ namespace AdventOfCode
 
                         return new Solution()
                         {
-                            Parse1 = reader["parse1"] is not "null" ? new TimeSpan(long.Parse(reader["parse1"].ToString()!)) : null,
-                            Parse2 = reader["parse2"] is not "null" ? new TimeSpan(long.Parse(reader["parse2"].ToString()!)) : null,
-                            Solve1 = reader["solve1"] is not "null" ? new TimeSpan(long.Parse(reader["solve1"].ToString()!)) : null,
-                            Solve2 = reader["solve2"] is not "null" ? new TimeSpan(long.Parse(reader["solve2"].ToString()!)) : null,
-                            Solution1 = reader["solution1"] is not "null" ? reader["solution1"].ToString()! : null,
-                            Solution2 = reader["solution2"] is not "null" ? reader["solution1"].ToString()! : null,
+                            Parse1 = reader["parse1"] is not "null"
+                                ? new TimeSpan(long.Parse(reader["parse1"].ToString()!))
+                                : null,
+                            Parse2 = reader["parse2"] is not "null"
+                                ? new TimeSpan(long.Parse(reader["parse2"].ToString()!))
+                                : null,
+                            Solve1 = reader["solve1"] is not "null"
+                                ? new TimeSpan(long.Parse(reader["solve1"].ToString()!))
+                                : null,
+                            Solve2 = reader["solve2"] is not "null"
+                                ? new TimeSpan(long.Parse(reader["solve2"].ToString()!))
+                                : null,
+                            Solution1 = reader["solution1"] is not "null"
+                                ? reader["solution1"].ToString()!
+                                : null,
+                            Solution2 = reader["solution2"] is not "null"
+                                ? reader["solution1"].ToString()!
+                                : null,
                         };
                     }
                 }

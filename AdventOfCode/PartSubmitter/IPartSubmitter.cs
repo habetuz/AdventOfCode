@@ -15,7 +15,5 @@ namespace AdventOfCode.PartSubmitter
         }
     }
 
-    public interface IPartSubmitter : IPartSubmitter<object>
-    {
-    }
+    public interface IPartSubmitter : IPartSubmitter<object> { }
 }

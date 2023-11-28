@@ -14,21 +14,14 @@ public class TimedPartSubmitter<TPart1, TPart2> : IPartSubmitter<TPart1, TPart2>
     private TPart1? part1;
     private TPart2? part2;
 
-
     public (TPart1?, TPart2?) Parts
     {
-        get
-        {
-            return (part1, part2);
-        }
+        get { return (part1, part2); }
     }
 
     public (TimeSpan?, TimeSpan?) Times
     {
-        get
-        {
-            return (time1.HasValue ? time1.Value : null, time2.HasValue ? time2.Value : null);
-        }
+        get { return (time1.HasValue ? time1.Value : null, time2.HasValue ? time2.Value : null); }
     }
 
     public void Start()
@@ -64,15 +57,17 @@ public class TimedPartSubmitter<TPart1, TPart2> : IPartSubmitter<TPart1, TPart2>
     }
 
     public class PartsNotResolvedException : Exception { }
+
     public class AlreadySubmittedException : Exception
     {
-        public AlreadySubmittedException(string message) : base(message) { }
+        public AlreadySubmittedException(string message)
+            : base(message) { }
     }
 }
 
 public class TimedPartSubmitter<TParts> : IPartSubmitter<TParts>
 {
-private readonly Stopwatch watch1 = new();
+    private readonly Stopwatch watch1 = new();
     private readonly Stopwatch watch2 = new();
 
     private TimeSpan? time1;
@@ -81,21 +76,14 @@ private readonly Stopwatch watch1 = new();
     private TParts? part1;
     private TParts? part2;
 
-
     public (TParts?, TParts?) Parts
     {
-        get
-        {
-            return (part1, part2);
-        }
+        get { return (part1, part2); }
     }
 
     public (TimeSpan?, TimeSpan?) Times
     {
-        get
-        {
-            return (time1.HasValue ? time1.Value : null, time2.HasValue ? time2.Value : null);
-        }
+        get { return (time1.HasValue ? time1.Value : null, time2.HasValue ? time2.Value : null); }
     }
 
     public void Start()

@@ -1,12 +1,10 @@
 using AdventOfCode.PartSubmitter;
 
-public class SimplePartSubmitter : SimplePartSubmitter<object>, IPartSubmitter
-{
-}
+public class SimplePartSubmitter : SimplePartSubmitter<object>, IPartSubmitter { }
 
-public class SimplePartSubmitter<Parts> : SimplePartSubmitter<Parts, Parts>, IPartSubmitter<Parts>
-{
-}
+public class SimplePartSubmitter<Parts>
+    : SimplePartSubmitter<Parts, Parts>,
+        IPartSubmitter<Parts> { }
 
 public class SimplePartSubmitter<Part1, Part2> : IPartSubmitter<Part1, Part2>
 {

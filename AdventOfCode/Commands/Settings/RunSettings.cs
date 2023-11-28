@@ -1,7 +1,7 @@
 using System.ComponentModel;
+using AdventOfCode.Time;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using AdventOfCode.Time;
 
 namespace AdventOfCode.Commands.Settings
 {
@@ -23,7 +23,10 @@ namespace AdventOfCode.Commands.Settings
 
         public override ValidationResult Validate()
         {
-            ValidationResult result = DateConverter.DateRange(this.Range, out CalendarRange runRange);
+            ValidationResult result = DateConverter.DateRange(
+                this.Range,
+                out CalendarRange runRange
+            );
             if (!result.Successful)
             {
                 return result;

@@ -15,7 +15,7 @@ namespace AdventOfCode.Time
         public int Year { get; set; }
         public int Day { get; set; }
 
-        public Date() {}
+        public Date() { }
 
         public Date(int year, int day)
         {
@@ -34,10 +34,16 @@ namespace AdventOfCode.Time
         }
 
         public static bool operator ==(Date a, Date b) => a.Year == b.Year && a.Day == b.Day;
+
         public static bool operator !=(Date a, Date b) => !(a == b);
-        public static bool operator <(Date a, Date b) => a.Year <= b.Year && (a.Year < b.Year || a.Day < b.Day);
+
+        public static bool operator <(Date a, Date b) =>
+            a.Year <= b.Year && (a.Year < b.Year || a.Day < b.Day);
+
         public static bool operator >(Date a, Date b) => a != b && !(a < b);
+
         public static bool operator <=(Date a, Date b) => a < b || a == b;
+
         public static bool operator >=(Date a, Date b) => a > b || a == b;
 
         public override readonly int GetHashCode()

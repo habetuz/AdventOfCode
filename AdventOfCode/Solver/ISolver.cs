@@ -10,13 +10,25 @@ namespace AdventOfCode.Solver
 
     public interface ISolver<TPuzzles> : ISolver<TPuzzles, TPuzzles>
     {
-        void ISolver<TPuzzles, TPuzzles>.Parse(string input, IPartSubmitter<TPuzzles, TPuzzles> partSubmitter)
+        void ISolver<TPuzzles, TPuzzles>.Parse(
+            string input,
+            IPartSubmitter<TPuzzles, TPuzzles> partSubmitter
+        )
         {
-            IPartSubmitter<TPuzzles, TPuzzles> tmpPartSubmitter = new ForwardingPartSubmitter<TPuzzles, TPuzzles, TPuzzles, TPuzzles>(partSubmitter);
+            IPartSubmitter<TPuzzles, TPuzzles> tmpPartSubmitter = new ForwardingPartSubmitter<
+                TPuzzles,
+                TPuzzles,
+                TPuzzles,
+                TPuzzles
+            >(partSubmitter);
             this.Parse(input, tmpPartSubmitter);
         }
 
-        void ISolver<TPuzzles, TPuzzles>.Solve(TPuzzles? input1, TPuzzles? input2, IPartSubmitter partSubmitter)
+        void ISolver<TPuzzles, TPuzzles>.Solve(
+            TPuzzles? input1,
+            TPuzzles? input2,
+            IPartSubmitter partSubmitter
+        )
         {
             this.Solve(input1, partSubmitter);
         }

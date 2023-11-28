@@ -1,14 +1,17 @@
 using System.Diagnostics.CodeAnalysis;
+using AdventOfCode.Commands.Settings;
 using Config.Net;
 using SharpLog;
 using Spectre.Console.Cli;
-using AdventOfCode.Commands.Settings;
 
 namespace AdventOfCode.Commands
 {
     public class SaveCookieCommand : Command<SaveCookieSettings>
     {
-        public override int Execute([NotNull] CommandContext context, [NotNull] SaveCookieSettings settings)
+        public override int Execute(
+            [NotNull] CommandContext context,
+            [NotNull] SaveCookieSettings settings
+        )
         {
             ApplicationSettings.Instance.Cookie = settings.Cookie;
 

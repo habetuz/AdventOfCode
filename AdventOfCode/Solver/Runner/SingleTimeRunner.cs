@@ -18,7 +18,11 @@ namespace AdventOfCode.Solver.Runner
             SimplePartSubmitter<object> parsedInputSubmitter = new();
             SimplePartSubmitter solutionSubmitter = new();
             this.solver.Parse(this.input, parsedInputSubmitter);
-            this.solver.Solve(parsedInputSubmitter.FirstPart, parsedInputSubmitter.SecondPart, solutionSubmitter);
+            this.solver.Solve(
+                parsedInputSubmitter.FirstPart,
+                parsedInputSubmitter.SecondPart,
+                solutionSubmitter
+            );
             return new Solution
             {
                 Solution1 = solutionSubmitter.FirstPart.ToString(),

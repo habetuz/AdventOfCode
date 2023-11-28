@@ -11,7 +11,7 @@ namespace AdventOfCode.Commands.Settings
         [CommandArgument(0, "<cookie>")]
         public string Path { get; init; } = null!;
 
-        override public ValidationResult Validate()
+        public override ValidationResult Validate()
         {
             return ValidationResult.Success();
             // TODO: Validate path

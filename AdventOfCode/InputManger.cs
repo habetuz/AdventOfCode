@@ -30,7 +30,9 @@ namespace AdventOfCode
 
         public string RetrieveInput(Date date, uint? example = null)
         {
-            string filename = INPUT_PATH + $"y{date.Year}.d{date.Day}{(example != null ? ".e" + example : "")}.txt";
+            string filename =
+                INPUT_PATH
+                + $"y{date.Year}.d{date.Day}{(example != null ? ".e" + example : "")}.txt";
             if (File.Exists(filename))
             {
                 string file = File.ReadAllText(filename);
@@ -42,7 +44,12 @@ namespace AdventOfCode
             }
             else
             {
-                string file = this.WebResourceManager.RetrieveResource(date.Year.ToString(), "day", date.Day.ToString(), "input");
+                string file = this.WebResourceManager.RetrieveResource(
+                    date.Year.ToString(),
+                    "day",
+                    date.Day.ToString(),
+                    "input"
+                );
                 File.WriteAllText(filename, file);
                 return file;
             }
@@ -50,7 +57,9 @@ namespace AdventOfCode
 
         public void TouchInput(Date date, uint? example)
         {
-            string filename = INPUT_PATH + $"y{date.Year}.d{date.Day}{(example != null ? ".e" + example : "")}.txt";
+            string filename =
+                INPUT_PATH
+                + $"y{date.Year}.d{date.Day}{(example != null ? ".e" + example : "")}.txt";
             if (!File.Exists(filename))
             {
                 if (example != null)
@@ -59,17 +68,26 @@ namespace AdventOfCode
                 }
                 else
                 {
-                    string file = this.WebResourceManager.RetrieveResource(date.Year.ToString(), "day", date.Day.ToString(), "input");
+                    string file = this.WebResourceManager.RetrieveResource(
+                        date.Year.ToString(),
+                        "day",
+                        date.Day.ToString(),
+                        "input"
+                    );
                     File.WriteAllText(filename, file);
                 }
             }
 
-
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(Path.GetFullPath(filename))
-            {
-                WorkingDirectory = "/",
-                UseShellExecute = true,
-            });
+            System
+                .Diagnostics
+                .Process
+                .Start(
+                    new System.Diagnostics.ProcessStartInfo(Path.GetFullPath(filename))
+                    {
+                        WorkingDirectory = "/",
+                        UseShellExecute = true,
+                    }
+                );
         }
 
         private (Solution, string) ParseExample(string example)
@@ -77,11 +95,7 @@ namespace AdventOfCode
             var lines = example.Split('\n');
             var solution = lines[0].Split('|');
             return (
-                new Solution()
-                {
-                    Solution1 = solution[0].Trim(),
-                    Solution2 = solution[1].Trim(),
-                },
+                new Solution() { Solution1 = solution[0].Trim(), Solution2 = solution[1].Trim(), },
                 string.Join('\n', lines[1..])
             );
         }

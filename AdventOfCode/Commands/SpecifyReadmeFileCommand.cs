@@ -1,4 +1,3 @@
-
 using System;
 using System.Diagnostics.CodeAnalysis;
 using AdventOfCode.Commands.Settings;
@@ -8,7 +7,10 @@ namespace AdventOfCode.Commands;
 
 public class SpecifyReadmeFileCommand : Command<SpecifyReadmeFileSettings>
 {
-    public override int Execute([NotNull] CommandContext context, [NotNull] SpecifyReadmeFileSettings settings)
+    public override int Execute(
+        [NotNull] CommandContext context,
+        [NotNull] SpecifyReadmeFileSettings settings
+    )
     {
         ApplicationSettings.Instance.ReadmePath = settings.Path;
 
