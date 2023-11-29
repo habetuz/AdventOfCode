@@ -9,13 +9,14 @@ public class Solver : ISolver<string, int>
 
     public void Parse(string input, IPartSubmitter<string, int> partSubmitter)
     {
-        Thread.Sleep(200);
-        partSubmitter.SubmitPart1("test");
+        Thread.Sleep(1);
         partSubmitter.SubmitPart2(2);
+        partSubmitter.SubmitPart1("test");
     }
 
     public void Solve(string? input1, int input2, IPartSubmitter partSubmitter)
     {
+        Thread.Sleep(1);
         partSubmitter.SubmitFull("3");
     }
 }

@@ -95,27 +95,25 @@ public class TimedPartSubmitter<TParts> : IPartSubmitter<TParts>
     public void SubmitPart1(TParts part)
     {
         this.watch1.Stop();
-        this.watch2.Stop();
         if (this.part1 is not null)
         {
             throw new Exception("Part 1 already is submitted!");
         }
         this.part1 = part;
         this.time1 = watch1.Elapsed;
-        this.watch2.Start();
+        this.watch2.Restart();
     }
 
     public void SubmitPart2(TParts part)
     {
-        this.watch1.Stop();
         this.watch2.Stop();
         if (this.part2 is not null)
         {
             throw new Exception("Part 2 already is submitted!");
         }
         this.part2 = part;
-        this.time2 = watch1.Elapsed;
-        this.watch1.Start();
+        this.time2 = watch2.Elapsed;
+        this.watch1.Restart();
     }
 }
 

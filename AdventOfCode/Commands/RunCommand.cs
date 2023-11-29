@@ -150,7 +150,7 @@ namespace AdventOfCode.Commands
                 }
 
                 Logging.LogInfo($"Execution time: [yellow]{executionTime:c}[/]", "RUNNER");
-                AnsiConsole.Write(chart);
+                AnsiConsole.Write(new Padder(chart).Padding(0, 1, 0, 0));
             }
 
             if (!exampleSolution.HasValue)

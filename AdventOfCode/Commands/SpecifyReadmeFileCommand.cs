@@ -5,11 +5,11 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands;
 
-public class SpecifyReadmeFileCommand : Command<SpecifyReadmeFileSettings>
+public class SpecifyReadmeFileCommand : Command<SetReadmeFileSettings>
 {
     public override int Execute(
         [NotNull] CommandContext context,
-        [NotNull] SpecifyReadmeFileSettings settings
+        [NotNull] SetReadmeFileSettings settings
     )
     {
         ApplicationSettings.Instance.ReadmePath = settings.Path;

@@ -35,6 +35,11 @@ app.Configure(config =>
         .WithDescription("Save the session cookie for future commands.");
 
     config
+        .AddCommand<SaveCookieCommand>("set-readme")
+        .WithAlias("specify-readme")
+        .WithDescription("Sets the path to the README.md file that will be updated when you solve new puzzles.");
+
+    config
         .AddCommand<TouchInputCommand>("touch")
         .WithDescription("Create or edit an example input.");
 #if DEBUG
