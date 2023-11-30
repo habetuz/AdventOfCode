@@ -10,6 +10,8 @@ namespace AdventOfCode.Solver.Runner
         private static readonly TimeSpan MaxTime = new TimeSpan(0, 0, 5);
         private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 100);
 
+        private static readonly int MaxLoopCount = 100;
+
         private readonly ISolver<object, object> solver;
         private readonly string input;
 
@@ -47,6 +49,7 @@ namespace AdventOfCode.Solver.Runner
 
             // Warmup
             var elapsedSum = new TimeSpan();
+            var loopCount = 0;
             (TimeSpan?, TimeSpan?) parseTime = (null, null);
             (object?, object?) parseResult = (null, null);
             do
@@ -77,7 +80,8 @@ namespace AdventOfCode.Solver.Runner
                         "RUNNER"
                     );
                     parseTimes.Add(parseSubmitter.Times);
-                } while (elapsedSum < MaxTime);
+                    loopCount++;
+                } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
 
                 parseTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
                 var item1 = parseTimes[parseTimes.Count / 2].Item1;
@@ -88,6 +92,7 @@ namespace AdventOfCode.Solver.Runner
 
             // Warmup
             elapsedSum = new TimeSpan();
+            loopCount = 0;
             (TimeSpan?, TimeSpan?) solveTime = (null, null);
             (object?, object?) solveResult = (null, null);
             do
@@ -118,7 +123,8 @@ namespace AdventOfCode.Solver.Runner
                         "RUNNER"
                     );
                     solveTimes.Add(solutionSubmitter.Times);
-                } while (elapsedSum < MaxTime);
+                    loopCount++;
+                } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
 
                 solveTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
                 var item1 = solveTimes[solveTimes.Count / 2].Item1;
