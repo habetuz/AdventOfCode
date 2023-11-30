@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using AdventOfCode.PartSubmitter;
 using SharpLog;
+using Spectre.Console;
 
 namespace AdventOfCode.Solver.Runner
 {
@@ -10,7 +11,7 @@ namespace AdventOfCode.Solver.Runner
         private static readonly TimeSpan MaxTime = new TimeSpan(0, 0, 5);
         private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 100);
 
-        private static readonly int MaxLoopCount = 100;
+        private static readonly int MaxLoopCount = 300;
 
         private readonly ISolver<object, object> solver;
         private readonly string input;
@@ -34,114 +35,136 @@ namespace AdventOfCode.Solver.Runner
 
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
-            // TimedPartSubmitter<object> parseSubmitter = new TimedPartSubmitter<object>();
-            // TimedPartSubmitter solutionSubmitter = new();
-
-            // parseSubmitter.Start();
-            // this.solver.Parse(this.input, parseSubmitter);
-
-            // solutionSubmitter.Start();
-            // this.solver.Solve(
-            //     parseSubmitter.Parts.Item1,
-            //     parseSubmitter.Parts.Item2,
-            //     solutionSubmitter
-            // );
-
-            // Warmup
-            var elapsedSum = new TimeSpan();
-            var loopCount = 0;
-            (TimeSpan?, TimeSpan?) parseTime = (null, null);
-            (object?, object?) parseResult = (null, null);
-            do
-            {
-                TimedPartSubmitter<object> parseSubmitter = new TimedPartSubmitter<object>();
-                parseSubmitter.Start();
-                this.solver.Parse(this.input, parseSubmitter);
-                elapsedSum += parseSubmitter.Times.Item1!.Value;
-                elapsedSum += parseSubmitter.Times.Item2!.Value;
-                parseTime = parseSubmitter.Times;
-                parseResult = parseSubmitter.Parts;
-            } while (elapsedSum < WarmupTime);
-
-            // Real run only if it's fast enough
-            if (elapsedSum < MaxTime)
-            {
-                elapsedSum = new TimeSpan();
-                List<(TimeSpan?, TimeSpan?)> parseTimes = new();
-                do
+            Solution solution = new();
+            AnsiConsole
+                .Progress()
+                .HideCompleted(true)
+                .Start(ctx =>
                 {
-                    TimedPartSubmitter<object> parseSubmitter = new TimedPartSubmitter<object>();
-                    parseSubmitter.Start();
-                    this.solver.Parse(this.input, parseSubmitter);
-                    elapsedSum += parseSubmitter.Times.Item1!.Value;
-                    elapsedSum += parseSubmitter.Times.Item2!.Value;
-                    Logging.LogDebug(
-                        $"parse: {elapsedSum} - {parseSubmitter.Times.Item1!.Value + parseSubmitter.Times.Item2!.Value}",
-                        "RUNNER"
+                    // Warmup
+                    ProgressTask warmupParsing = ctx.AddTask(
+                        "Warmup parsing...",
+                        true,
+                        WarmupTime.Ticks
                     );
-                    parseTimes.Add(parseSubmitter.Times);
-                    loopCount++;
-                } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
+                    var elapsedSum = new TimeSpan();
+                    var loopCount = 0;
+                    (TimeSpan?, TimeSpan?) parseTime = (null, null);
+                    (object?, object?) parseResult = (null, null);
+                    do
+                    {
+                        TimedPartSubmitter<object> parseSubmitter =
+                            new TimedPartSubmitter<object>();
+                        parseSubmitter.Start();
+                        this.solver.Parse(this.input, parseSubmitter);
+                        elapsedSum += parseSubmitter.Times.Item1!.Value;
+                        elapsedSum += parseSubmitter.Times.Item2!.Value;
+                        parseTime = parseSubmitter.Times;
+                        parseResult = parseSubmitter.Parts;
+                        warmupParsing.Value = elapsedSum.Ticks;
+                    } while (elapsedSum < WarmupTime);
+                    warmupParsing.StopTask();
 
-                parseTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
-                var item1 = parseTimes[parseTimes.Count / 2].Item1;
-                parseTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
-                var item2 = parseTimes[parseTimes.Count / 2].Item2;
-                parseTime = (item1, item2);
-            }
+                    // Real run only if it's fast enough
+                    if (elapsedSum < MaxTime)
+                    {
+                        ProgressTask parsing = ctx.AddTask("Parsing...");
+                        elapsedSum = new TimeSpan();
+                        List<(TimeSpan?, TimeSpan?)> parseTimes = new();
+                        do
+                        {
+                            TimedPartSubmitter<object> parseSubmitter =
+                                new TimedPartSubmitter<object>();
+                            parseSubmitter.Start();
+                            this.solver.Parse(this.input, parseSubmitter);
+                            elapsedSum += parseSubmitter.Times.Item1!.Value;
+                            elapsedSum += parseSubmitter.Times.Item2!.Value;
+                            parseTimes.Add(parseSubmitter.Times);
+                            loopCount++;
 
-            // Warmup
-            elapsedSum = new TimeSpan();
-            loopCount = 0;
-            (TimeSpan?, TimeSpan?) solveTime = (null, null);
-            (object?, object?) solveResult = (null, null);
-            do
-            {
-                TimedPartSubmitter solutionSubmitter = new();
-                solutionSubmitter.Start();
-                this.solver.Solve(parseResult.Item1, parseResult.Item2, solutionSubmitter);
-                elapsedSum += solutionSubmitter.Times.Item1!.Value;
-                elapsedSum += solutionSubmitter.Times.Item2!.Value;
-                solveTime = solutionSubmitter.Times;
-                solveResult = solutionSubmitter.Parts;
-            } while (elapsedSum < WarmupTime);
+                            var timeProgress = elapsedSum / MaxTime * 100;
+                            var loopProgress = (double)loopCount / MaxLoopCount * 100;
+                            parsing.Value =
+                                timeProgress > loopProgress ? timeProgress : loopProgress;
+                        } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
+                        parsing.StopTask();
 
-            // Real run only if it's fast enough
-            if (elapsedSum < MaxTime)
-            {
-                elapsedSum = new TimeSpan();
-                List<(TimeSpan?, TimeSpan?)> solveTimes = new();
-                do
-                {
-                    TimedPartSubmitter solutionSubmitter = new();
-                    solutionSubmitter.Start();
-                    this.solver.Solve(parseResult.Item1, parseResult.Item2, solutionSubmitter);
-                    elapsedSum += solutionSubmitter.Times.Item1!.Value;
-                    elapsedSum += solutionSubmitter.Times.Item2!.Value;
-                    Logging.LogDebug(
-                        $"solve: {elapsedSum} - {solutionSubmitter.Times.Item1!.Value + solutionSubmitter.Times.Item2!.Value}",
-                        "RUNNER"
+                        parseTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
+                        var item1 = parseTimes[parseTimes.Count / 2].Item1;
+                        parseTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
+                        var item2 = parseTimes[parseTimes.Count / 2].Item2;
+                        parseTime = (item1, item2);
+                    }
+
+                    // Warmup
+                    ProgressTask warmupSolving = ctx.AddTask(
+                        "Warmup solving...",
+                        true,
+                        WarmupTime.Ticks
                     );
-                    solveTimes.Add(solutionSubmitter.Times);
-                    loopCount++;
-                } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
+                    elapsedSum = new TimeSpan();
+                    loopCount = 0;
+                    (TimeSpan?, TimeSpan?) solveTime = (null, null);
+                    (object?, object?) solveResult = (null, null);
+                    do
+                    {
+                        TimedPartSubmitter solutionSubmitter = new();
+                        solutionSubmitter.Start();
+                        this.solver.Solve(parseResult.Item1, parseResult.Item2, solutionSubmitter);
+                        elapsedSum += solutionSubmitter.Times.Item1!.Value;
+                        elapsedSum += solutionSubmitter.Times.Item2!.Value;
+                        solveTime = solutionSubmitter.Times;
+                        solveResult = solutionSubmitter.Parts;
+                        warmupSolving.Value = elapsedSum.Ticks;
+                    } while (elapsedSum < WarmupTime);
+                    warmupSolving.StopTask();
 
-                solveTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
-                var item1 = solveTimes[solveTimes.Count / 2].Item1;
-                solveTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
-                var item2 = solveTimes[solveTimes.Count / 2].Item2;
-                solveTime = (item1, item2);
-            }
+                    // Real run only if it's fast enough
+                    if (elapsedSum < MaxTime)
+                    {
+                        ProgressTask solving = ctx.AddTask("Solving...");
+                        elapsedSum = new TimeSpan();
+                        List<(TimeSpan?, TimeSpan?)> solveTimes = new();
+                        do
+                        {
+                            TimedPartSubmitter solutionSubmitter = new();
+                            solutionSubmitter.Start();
+                            this.solver.Solve(
+                                parseResult.Item1,
+                                parseResult.Item2,
+                                solutionSubmitter
+                            );
+                            elapsedSum += solutionSubmitter.Times.Item1!.Value;
+                            elapsedSum += solutionSubmitter.Times.Item2!.Value;
+                            solveTimes.Add(solutionSubmitter.Times);
+                            loopCount++;
 
-            return new Solution()
-            {
-                Parse1 = parseTime.Item1,
-                Parse2 = parseTime.Item2,
-                Solve1 = solveTime.Item1,
-                Solve2 = solveTime.Item2,
-                Solution1 = solveResult.Item1?.ToString(),
-                Solution2 = solveResult.Item2?.ToString(),
-            };
+                            var timeProgress = elapsedSum / MaxTime * 100;
+                            var loopProgress = (double)loopCount / MaxLoopCount * 100;
+                            solving.Value =
+                                timeProgress > loopProgress ? timeProgress : loopProgress;
+                        } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
+                        solving.StopTask();
+
+                        solveTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
+                        var item1 = solveTimes[solveTimes.Count / 2].Item1;
+                        solveTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
+                        var item2 = solveTimes[solveTimes.Count / 2].Item2;
+                        solveTime = (item1, item2);
+                    }
+
+                    solution = new()
+                    {
+                        Parse1 = parseTime.Item1,
+                        Parse2 = parseTime.Item2,
+                        Solve1 = solveTime.Item1,
+                        Solve2 = solveTime.Item2,
+                        Solution1 = solveResult.Item1?.ToString(),
+                        Solution2 = solveResult.Item2?.ToString(),
+                    };
+                });
+
+            return solution;
         }
     }
 }

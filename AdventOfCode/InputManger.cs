@@ -6,7 +6,7 @@ namespace AdventOfCode
 {
     public class InputManager : IInputRetriever, IInputSubmitter
     {
-        private const string INPUT_PATH = "inputs/";
+        private const string INPUT_PATH = "./inputs/";
 
         public InputManager(WebResourceManager webResourceManager)
         {

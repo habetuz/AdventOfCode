@@ -1,4 +1,6 @@
 using AdventOfCode.PartSubmitter;
+using Spectre.Console;
+using YamlDotNet.Core.Tokens;
 
 namespace AdventOfCode.Solver.Runner
 {
@@ -15,19 +17,32 @@ namespace AdventOfCode.Solver.Runner
 
         public Solution Run()
         {
-            SimplePartSubmitter<object> parsedInputSubmitter = new();
-            SimplePartSubmitter solutionSubmitter = new();
-            this.solver.Parse(this.input, parsedInputSubmitter);
-            this.solver.Solve(
-                parsedInputSubmitter.FirstPart,
-                parsedInputSubmitter.SecondPart,
-                solutionSubmitter
-            );
-            return new Solution
-            {
-                Solution1 = solutionSubmitter.FirstPart.ToString(),
-                Solution2 = solutionSubmitter.SecondPart.ToString(),
-            };
+            AnsiConsole
+                .Status()
+                .SpinnerStyle("orange1")
+                .Spinner(Spinner.Known.BouncingBall)
+                .Start(
+                    "Parsing...",
+                    ctx =>
+                    {
+                        SimplePartSubmitter<object> parsedInputSubmitter = new();
+                        SimplePartSubmitter solutionSubmitter = new();
+                        this.solver.Parse(this.input, parsedInputSubmitter);
+                        ctx.Status = "Solving...";
+                        this.solver.Solve(
+                            parsedInputSubmitter.FirstPart,
+                            parsedInputSubmitter.SecondPart,
+                            solutionSubmitter
+                        );
+                        return new Solution
+                        {
+                            Solution1 = solutionSubmitter.FirstPart.ToString(),
+                            Solution2 = solutionSubmitter.SecondPart.ToString(),
+                        };
+                    }
+                );
+
+            throw new Exception("This should never happen.");
         }
     }
 }

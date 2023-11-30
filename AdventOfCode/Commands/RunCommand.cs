@@ -54,18 +54,8 @@ namespace AdventOfCode.Commands
                         ? new TimedRunner(solver, input)
                         : new SingleTimeRunner(solver, input);
                     Solution? solution = null!;
-                    AnsiConsole
-                        .Status()
-                        .SpinnerStyle("orange1")
-                        .Spinner(Spinner.Known.BouncingBall)
-                        .Start(
-                            "Solving...",
-                            ctx =>
-                            {
-                                solution = runner.Run();
-                            }
-                        );
-
+                    
+                    solution = runner.Run();
                     solutionStatisticsManager.Submit(solution.Value, date);
                     PrintResult(solution.Value, exampleSolution);
                 }
