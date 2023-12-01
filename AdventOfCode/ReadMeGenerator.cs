@@ -13,7 +13,7 @@ namespace AdventOfCode
         private const string EMOJI_SLOW_SPEED = "🟧";
         private const string EMOJI_SNAIL_SPEED = "🟥";
 
-        private static readonly Dictionary<TimeSpan, string> speedMap =
+        private static readonly ClosestTimeSpanDictionary<string> speedMap =
             new()
             {
                 { new TimeSpan(000010000), EMOJI_LIGHT_SPEED },
@@ -126,7 +126,7 @@ namespace AdventOfCode
                         }
                     }
 
-                    return this[best];
+                   return this.dictionary[best];
                 }
                 set { this.dictionary[key] = value; }
             }
@@ -200,7 +200,7 @@ namespace AdventOfCode
 
             public bool TryGetValue(TimeSpan key, [MaybeNullWhen(false)] out TValue value)
             {
-                return TryGetValue(key, out value);
+                return this.dictionary.TryGetValue(key, out value);
             }
 
             IEnumerator IEnumerable.GetEnumerator()

@@ -17,6 +17,7 @@ namespace AdventOfCode.Solver.Runner
 
         public Solution Run()
         {
+            Solution solution = new();
             AnsiConsole
                 .Status()
                 .SpinnerStyle("orange1")
@@ -29,20 +30,32 @@ namespace AdventOfCode.Solver.Runner
                         SimplePartSubmitter solutionSubmitter = new();
                         this.solver.Parse(this.input, parsedInputSubmitter);
                         ctx.Status = "Solving...";
+                        if (
+                            parsedInputSubmitter.FirstPart == null
+                            || parsedInputSubmitter.SecondPart == null
+                        )
+                        {
+                            throw new Exception("Parsing is not complete.");
+                        }
+
                         this.solver.Solve(
                             parsedInputSubmitter.FirstPart,
                             parsedInputSubmitter.SecondPart,
                             solutionSubmitter
                         );
-                        return new Solution
+                        solution = new()
                         {
-                            Solution1 = solutionSubmitter.FirstPart.ToString(),
-                            Solution2 = solutionSubmitter.SecondPart.ToString(),
+                            Solution1 = solutionSubmitter.FirstPart is null
+                                ? null
+                                : solutionSubmitter.FirstPart.ToString(),
+                            Solution2 = solutionSubmitter.SecondPart is null
+                                ? null
+                                : solutionSubmitter.SecondPart.ToString(),
                         };
                     }
                 );
 
-            throw new Exception("This should never happen.");
+            return solution;
         }
     }
 }

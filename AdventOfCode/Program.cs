@@ -1,6 +1,5 @@
 using AdventOfCode;
 using AdventOfCode.Commands;
-using AdventOfCode.Solutions.Y2015.D01;
 using SharpLog;
 using Spectre.Console;
 using Spectre.Console.Cli;

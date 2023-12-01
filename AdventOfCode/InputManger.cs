@@ -19,6 +19,15 @@ namespace AdventOfCode
 
         public WebResourceManager WebResourceManager { get; set; }
 
+        public string? RetrieveExampleInput(Date date, uint? example)
+        {
+            if (example is null)
+            {
+                return null;
+            }
+            return ParseExample(RetrieveInput(date, example)).Item2;
+        }
+
         public Solution? RetrieveExampleSolution(Date date, uint? example)
         {
             if (example is null)

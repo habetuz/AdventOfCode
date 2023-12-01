@@ -27,3 +27,12 @@ public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, R
         this.toForward.SubmitPart2(part);
     }
 }
+
+public class ForwardingPartSubmitter<ForwardTypes, ReceiveTypes>
+    : ForwardingPartSubmitter<ForwardTypes, ForwardTypes, ReceiveTypes, ReceiveTypes>,
+        IPartSubmitter<ReceiveTypes>
+    where ReceiveTypes : ForwardTypes
+{
+    public ForwardingPartSubmitter(IPartSubmitter<ForwardTypes, ForwardTypes> toForward)
+        : base(toForward) { }
+}

@@ -73,19 +73,28 @@ public class GenericSolver : ISolver<object, object>
         this.parseMethod = solverType.GetMethod("Parse")!;
         this.solveMethod = solverType.GetMethod("Solve")!;
 
-        this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<
-            object,
-            object,
-            object,
-            object
-        >)
-            .GetGenericTypeDefinition()
-            .MakeGenericType(
-                typeof(object),
-                typeof(object),
-                this.genericTypes[0],
-                this.genericParamCount == 2 ? this.genericTypes[1] : this.genericTypes[0]
-            );
+        if (genericParamCount == 1)
+        {
+            this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<object, object>)
+                .GetGenericTypeDefinition()
+                .MakeGenericType(typeof(object), this.genericTypes[0]);
+        }
+        else
+        {
+            this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<
+                object,
+                object,
+                object,
+                object
+            >)
+                .GetGenericTypeDefinition()
+                .MakeGenericType(
+                    typeof(object),
+                    typeof(object),
+                    this.genericTypes[0],
+                    this.genericTypes[1]
+                );
+        }
     }
 
     public void Parse(string input, IPartSubmitter<object, object> parsedInput)

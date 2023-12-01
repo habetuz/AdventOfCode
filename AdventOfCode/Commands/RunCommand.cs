@@ -45,7 +45,9 @@ namespace AdventOfCode.Commands
                     );
 
                     ISolver<object, object> solver = new GenericSolver(date);
-                    string input = inputRetriever.RetrieveInput(date, settings.Example);
+                    string input = settings.Example.HasValue
+                        ? inputRetriever.RetrieveExampleInput(date, settings.Example)!
+                        : inputRetriever.RetrieveInput(date, settings.Example)!;
                     Solution? exampleSolution = inputRetriever.RetrieveExampleSolution(
                         date,
                         settings.Example
@@ -54,7 +56,7 @@ namespace AdventOfCode.Commands
                         ? new TimedRunner(solver, input)
                         : new SingleTimeRunner(solver, input);
                     Solution? solution = null!;
-                    
+
                     solution = runner.Run();
                     solutionStatisticsManager.Submit(solution.Value, date);
                     PrintResult(solution.Value, exampleSolution);

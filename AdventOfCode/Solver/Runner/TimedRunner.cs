@@ -96,6 +96,11 @@ namespace AdventOfCode.Solver.Runner
                         parseTime = (item1, item2);
                     }
 
+                    if (parseResult.Item1 is null || parseResult.Item2 is null)
+                    {
+                        throw new Exception("Parsing is not implemented!");
+                    }
+
                     // Warmup
                     ProgressTask warmupSolving = ctx.AddTask(
                         "Warmup solving...",
