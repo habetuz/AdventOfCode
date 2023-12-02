@@ -117,5 +117,24 @@ namespace AdventOfCode
                 }
             }
         }
+
+        public void DropStatistics()
+        {
+            using (var connection = new SqliteConnection("Data Source=solutions.sqlite"))
+            {
+                try
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandText =
+                        @$"DROP TABLE IF EXISTS {TABLE_NAME}";
+                    command.ExecuteNonQuery();
+                }
+                catch (SqliteException e)
+                {
+                    Logging.LogFatal("SQLite execution failed!", "RUNNER", e);
+                }
+            }
+        }
     }
 }

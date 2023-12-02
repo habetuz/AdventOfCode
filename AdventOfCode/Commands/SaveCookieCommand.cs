@@ -14,6 +14,7 @@ namespace AdventOfCode.Commands
         )
         {
             ApplicationSettings.Instance.Cookie = settings.Cookie;
+            new SolutionStatisticsManager().DropStatistics();
 
             return 0;
         }

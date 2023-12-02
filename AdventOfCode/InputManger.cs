@@ -103,8 +103,16 @@ namespace AdventOfCode
         {
             var lines = example.Split('\n');
             var solution = lines[0].Split('|');
+
+            var solution1 = solution[0].Trim();
+            var solution2 = solution[1].Trim();
+
             return (
-                new Solution() { Solution1 = solution[0].Trim(), Solution2 = solution[1].Trim(), },
+                new Solution()
+                {
+                    Solution1 = solution1.Length > 0 ? solution1 : null,
+                    Solution2 = solution2.Length > 0 ? solution2 : null,
+                },
                 string.Join('\n', lines[1..])
             );
         }

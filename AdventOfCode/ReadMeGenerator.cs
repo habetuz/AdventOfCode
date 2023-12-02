@@ -32,27 +32,20 @@ namespace AdventOfCode
 
         internal void Generate()
         {
-            string markdown =
-                $@"# My AdventOfCode solutions! 🎄
-
-## Solutions
-
-> [!NOTE]  
-> ❌ -> Not solved yet<br/>
-> 🟩 -> `< 00:00,0010000`<br/>
-> 🟦 -> `< 00:00,0100000`<br/>
-> 🟨 -> `< 00:00,1000000`<br/>
-> 🟧 -> `< 00:01,0000000`<br/>
-> 🟥 -> `> 00:01,0000000` or not timed.
-";
+            string markdown = "";
 
             int year = 0;
+
+            string yearTable = "";
+
             foreach (var date in CalendarRange.Full)
             {
+
                 if (date.Year != year)
                 {
                     year = date.Year;
-                    markdown +=
+                    markdown = yearTable + markdown;
+                    yearTable =
                         $@"### {year}
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
@@ -60,7 +53,7 @@ namespace AdventOfCode
 ";
                 }
 
-                markdown +=
+                yearTable +=
                     $"| [{date.Day:D2}](AdventOfCode/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
 
                 var solution = solutions.Retrieve(date);
@@ -90,13 +83,29 @@ namespace AdventOfCode
                     var solve1 = value.Solve1.HasValue ? $"`{value.Solve1.Value:c}`" : "`N/A`";
                     var solve2 = value.Solve2.HasValue ? $"`{value.Solve2.Value:c}`" : "`N/A`";
 
-                    markdown += $"{emoji} | {time} | {parse1} | {parse2} | {solve1} | {solve2} |\n";
+                    yearTable += $"{emoji} | {time} | {parse1} | {parse2} | {solve1} | {solve2} |\n";
                 }
                 else
                 {
-                    markdown += $"{EMOJI_UNSOLVED} | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |\n";
+                    yearTable += $"{EMOJI_UNSOLVED} | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |\n";
                 }
             }
+            
+            markdown = yearTable + markdown;
+
+            markdown =
+                $@"# My AdventOfCode solutions! 🎄
+
+## Solutions
+
+> [!NOTE]  
+> ❌ -> Not solved yet<br/>
+> 🟩 -> `< 00:00,0100000`<br/>
+> 🟦 -> `< 00:00,1000000`<br/>
+> 🟨 -> `< 00:01,0000000`<br/>
+> 🟧 -> `< 00:10,0000000`<br/>
+> 🟥 -> `> 00:10,0000000` or not timed.
+" + markdown;
 
             File.WriteAllText("README.md", markdown);
         }
@@ -138,7 +147,7 @@ namespace AdventOfCode
                         }
                     }
 
-                   return this.dictionary[best];
+                    return this.dictionary[best];
                 }
                 set { this.dictionary[key] = value; }
             }

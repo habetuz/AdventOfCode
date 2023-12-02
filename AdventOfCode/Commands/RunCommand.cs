@@ -58,7 +58,8 @@ namespace AdventOfCode.Commands
                     Solution? solution = null!;
 
                     solution = runner.Run();
-                    if (!settings.Example.HasValue) {
+                    if (!settings.Example.HasValue)
+                    {
                         solutionStatisticsManager.Submit(solution.Value, date);
                     }
                     PrintResult(solution.Value, exampleSolution);
@@ -189,9 +190,20 @@ namespace AdventOfCode.Commands
         {
             if (actual is null)
             {
-                return new Panel(new Markup(":cross_mark: [white on red]MISSING[/]"))
+                return new Panel(new Markup(":cross_mark: [white on red]MISSING RESULT[/]"))
                     .Header(name)
                     .HeaderAlignment(Justify.Left)
+                    .Border(BoxBorder.Rounded)
+                    .Expand();
+            }
+            else if (expected is null)
+            {
+                return new Panel(
+                    new Markup(":cross_mark: [white on red]MISSING EXAMPLE SOLUTION[/]")
+                )
+                    .Header(name)
+                    .HeaderAlignment(Justify.Left)
+                    .Border(BoxBorder.Rounded)
                     .Expand();
             }
             else if (int.TryParse(expected, out _) && int.TryParse(actual, out _))
@@ -206,6 +218,7 @@ namespace AdventOfCode.Commands
                     return new Panel(new Markup($":check_mark_button: [green]{actual}[/]"))
                         .Header(name)
                         .HeaderAlignment(Justify.Left)
+                        .Border(BoxBorder.Rounded)
                         .Expand();
                 }
                 else
@@ -224,6 +237,7 @@ namespace AdventOfCode.Commands
                     return new Panel(new Padder(rows))
                         .Header(name)
                         .HeaderAlignment(Justify.Left)
+                        .Border(BoxBorder.Rounded)
                         .Expand();
                 }
             }
@@ -234,6 +248,7 @@ namespace AdventOfCode.Commands
                     return new Panel(new Markup($":check_mark_button: [green]{actual}[/]"))
                         .Header(name)
                         .HeaderAlignment(Justify.Left)
+                        .Border(BoxBorder.Rounded)
                         .Expand();
                 }
                 else
@@ -245,6 +260,7 @@ namespace AdventOfCode.Commands
                     )
                         .Header(name)
                         .HeaderAlignment(Justify.Left)
+                        .Border(BoxBorder.Rounded)
                         .Expand();
                 }
             }
