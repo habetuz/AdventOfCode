@@ -37,7 +37,7 @@ namespace AdventOfCode
 
 ## Solutions
 
-> [!NOTE]  <br/>
+> [!NOTE]  
 > ❌ -> Not solved yet<br/>
 > 🟩 -> `< 00:00,0010000`<br/>
 > 🟦 -> `< 00:00,0100000`<br/>
