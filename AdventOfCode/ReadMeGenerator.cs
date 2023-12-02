@@ -61,7 +61,7 @@ namespace AdventOfCode
                 }
 
                 markdown +=
-                    $"| [{date.Day:D2}](/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
+                    $"| [{date.Day:D2}](AdventOfCode/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
 
                 var solution = solutions.Retrieve(date);
                 if (solution.HasValue)
