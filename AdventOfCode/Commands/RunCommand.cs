@@ -224,8 +224,8 @@ namespace AdventOfCode.Commands
                 else
                 {
                     var chart = new BarChart()
-                        .AddItem("Expected", expectedNum, Color.Red)
-                        .AddItem("Actual", actualNum, Color.Orange1);
+                        .AddItem("Expected", expectedNum, Color.Green)
+                        .AddItem("Actual", actualNum, Color.Red);
 
                     var rows = new Rows(
                         new Markup(
