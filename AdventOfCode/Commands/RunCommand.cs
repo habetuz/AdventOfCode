@@ -80,6 +80,7 @@ namespace AdventOfCode.Commands
 
             ReadMeGenerator readMeGenerator = new(solutionStatisticsManager);
             readMeGenerator.Generate();
+            readMeGenerator.Save();
 
             return 1;
         }

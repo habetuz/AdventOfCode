@@ -28,7 +28,7 @@ namespace AdventOfCode.Time
 
             string[] dateParts = stringDate.Split(".");
 
-            if (stringDate?.Length == 0)
+            if (stringDate.Length == 0)
             {
                 date.Year = -1;
                 date.Day = -1;
@@ -83,7 +83,6 @@ namespace AdventOfCode.Time
 
         public static ValidationResult DateRange(string stringRange, out CalendarRange dateRange)
         {
-            DateTime now = DateTime.Now;
             Date startDate = new() { Year = START_YEAR, Day = START_DAY, };
             Date endDate;
             dateRange = new();
@@ -92,8 +91,8 @@ namespace AdventOfCode.Time
             {
                 endDate = new()
                 {
-                    Year = AOCDateTimeUtils.GetCurrentYear(now),
-                    Day = AOCDateTimeUtils.GetCurrentDay(now),
+                    Year = AOCDateTimeUtils.GetCurrentYear(),
+                    Day = AOCDateTimeUtils.GetCurrentDay(),
                 };
                 dateRange = new() { StartDate = startDate, EndDate = endDate, };
                 return ValidationResult.Success();
@@ -111,14 +110,19 @@ namespace AdventOfCode.Time
 
                 startDate = new()
                 {
-                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : date.Year,
+                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear() : date.Year,
                     Day = date.Day == -1 ? 01 : date.Day,
                 };
 
                 endDate = new()
                 {
-                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : date.Year,
-                    Day = date.Day == -1 ? 25 : date.Day,
+                    Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear() : date.Year,
+                    Day =
+                        date.Day == -1
+                            ? date.Year == -1 || date.Year == AOCDateTimeUtils.GetCurrentYear()
+                                ? AOCDateTimeUtils.GetCurrentDay()
+                                : 25
+                            : date.Day,
                 };
             }
             else if (dateParts.Length == 2)
@@ -138,15 +142,13 @@ namespace AdventOfCode.Time
                 startDate = new()
                 {
                     Year =
-                        startDate.Year == -1
-                            ? AOCDateTimeUtils.GetCurrentYear(now)
-                            : startDate.Year,
+                        startDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear() : startDate.Year,
                     Day = startDate.Day == -1 ? 01 : startDate.Day,
                 };
 
                 endDate = new()
                 {
-                    Year = endDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(now) : endDate.Year,
+                    Year = endDate.Year == -1 ? AOCDateTimeUtils.GetCurrentYear() : endDate.Year,
                     Day = endDate.Day == -1 ? 25 : endDate.Day,
                 };
             }
@@ -163,19 +165,19 @@ namespace AdventOfCode.Time
             }
             else if (
                 startDate.Year < START_YEAR
-                || startDate.Year > AOCDateTimeUtils.GetCurrentYear(now)
+                || startDate.Year > AOCDateTimeUtils.GetCurrentYear()
             )
             {
                 return ValidationResult.Error(
                     string.Format(
                         "[range] is invalid. Start year has to be between 2015 and {0}.",
-                        AOCDateTimeUtils.GetCurrentYear(now)
+                        AOCDateTimeUtils.GetCurrentYear()
                     )
                 );
             }
             else if (
-                startDate.Year == AOCDateTimeUtils.GetCurrentYear(now)
-                && startDate.Day > AOCDateTimeUtils.GetCurrentDay(now)
+                startDate.Year == AOCDateTimeUtils.GetCurrentYear()
+                && startDate.Day > AOCDateTimeUtils.GetCurrentDay()
             )
             {
                 return ValidationResult.Error(
@@ -188,21 +190,18 @@ namespace AdventOfCode.Time
                     string.Format("[range] is invalid. End day has to be between 01 and 25.")
                 );
             }
-            else if (
-                endDate.Year < START_YEAR
-                || endDate.Year > AOCDateTimeUtils.GetCurrentYear(now)
-            )
+            else if (endDate.Year < START_YEAR || endDate.Year > AOCDateTimeUtils.GetCurrentYear())
             {
                 return ValidationResult.Error(
                     string.Format(
                         "[range] is invalid. End year has to be between 2015 and {0}.",
-                        AOCDateTimeUtils.GetCurrentYear(now)
+                        AOCDateTimeUtils.GetCurrentYear()
                     )
                 );
             }
             else if (
-                endDate.Year == AOCDateTimeUtils.GetCurrentYear(now)
-                && endDate.Day > AOCDateTimeUtils.GetCurrentDay(now)
+                endDate.Year == AOCDateTimeUtils.GetCurrentYear()
+                && endDate.Day > AOCDateTimeUtils.GetCurrentDay()
             )
             {
                 return ValidationResult.Error(

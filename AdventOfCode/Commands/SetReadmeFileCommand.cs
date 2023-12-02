@@ -5,7 +5,7 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands;
 
-public class SpecifyReadmeFileCommand : Command<SetReadmeFileSettings>
+public class SetReadmeFileCommand : Command<SetReadmeFileSettings>
 {
     public override int Execute(
         [NotNull] CommandContext context,

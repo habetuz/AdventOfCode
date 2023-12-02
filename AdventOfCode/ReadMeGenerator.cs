@@ -101,6 +101,18 @@ namespace AdventOfCode
             File.WriteAllText("README.md", markdown);
         }
 
+        public void Save()
+        {
+            string sourceFilePath = "README.md";
+            string? destinationFilePath = ApplicationSettings.Instance.ReadmePath;
+            if (destinationFilePath is null)
+            {
+                return;
+            }
+
+            File.Copy(sourceFilePath, destinationFilePath, true);
+        }
+
         private class ClosestTimeSpanDictionary<TValue> : IDictionary<TimeSpan, TValue>
         {
             private Dictionary<TimeSpan, TValue> dictionary = new();
