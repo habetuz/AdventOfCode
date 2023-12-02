@@ -19,14 +19,15 @@ namespace AdventOfCode
                     var command = connection.CreateCommand();
                     command.CommandText =
                         @$"CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
-                        year KEY INTEGER NOT NULL, 
-                        day KEY INTEGER NOT NULL, 
-                        parse1 INTEGER, 
-                        parse2 INTEGER, 
-                        solve1 INTEGER, 
-                        solve2 INTEGER, 
-                        solution1 TEXT, 
-                        solution2 TEXT)";
+                        ""year"" INTEGER NOT NULL, 
+                        ""day"" INTEGER NOT NULL, 
+                        ""parse1"" INTEGER, 
+                        ""parse2"" INTEGER, 
+                        ""solve1"" INTEGER, 
+                        ""solve2"" INTEGER, 
+                        ""solution1"" TEXT, 
+                        ""solution2"" TEXT,
+                        PRIMARY KEY (year, day));";
                     command.ExecuteNonQuery();
                 }
                 catch (SqliteException e)
@@ -46,7 +47,7 @@ namespace AdventOfCode
                     var command = connection.CreateCommand();
                     command.CommandText =
                         @$"
-                    INSERT OR REPLACE INTO {TABLE_NAME} (year, day, parse1, parse2, solve1, solve2, solution1, solution2)
+                    REPLACE INTO {TABLE_NAME} (""year"", ""day"", ""parse1"", ""parse2"", ""solve1"", ""solve2"", ""solution1"", ""solution2"")
                         VALUES(
                             {date.Year},
                             {date.Day},

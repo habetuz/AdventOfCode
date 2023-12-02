@@ -58,7 +58,9 @@ namespace AdventOfCode.Commands
                     Solution? solution = null!;
 
                     solution = runner.Run();
-                    solutionStatisticsManager.Submit(solution.Value, date);
+                    if (!settings.Example.HasValue) {
+                        solutionStatisticsManager.Submit(solution.Value, date);
+                    }
                     PrintResult(solution.Value, exampleSolution);
                 }
                 catch (GenericSolver.SolutionNotImplementedException)

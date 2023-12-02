@@ -7,15 +7,15 @@ namespace AdventOfCode.Commands.Settings
 {
     public class SetReadmeFileSettings : CommandSettings
     {
-        [Description("The path to your README.md file. It will be updated as you solve puzzles.")]
-        [CommandArgument(0, "<path>")]
-        public string Path { get; init; } = null!;
+        [Description("The path to your README.md file. It will be updated as you solve puzzles. Leave empty to remove the set README.md file path.")]
+        [CommandArgument(0, "[path]")]
+        public string? Path { get; init; } = null!;
 
         public override ValidationResult Validate()
         {
             if (string.IsNullOrEmpty(Path))
             {
-                return ValidationResult.Error("Path is required.");
+                return ValidationResult.Success();
             }
 
             if (!System.IO.Path.IsPathFullyQualified(Path))
