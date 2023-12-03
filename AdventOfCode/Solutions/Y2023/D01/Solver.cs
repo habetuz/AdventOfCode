@@ -1,3 +1,4 @@
+using System;
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
 using SharpLog;
@@ -22,12 +23,7 @@ public class Solver : ISolver<string[]>
 
     public void Parse(string input, IPartSubmitter<string[]> partSubmitter)
     {
-        partSubmitter.SubmitFull(
-            input.Split(
-                "\n",
-                StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries
-            )
-        );
+        partSubmitter.SubmitFull(input.Split((char[])['\n'], StringSplitOptions.RemoveEmptyEntries));
     }
 
     public void Solve(string[] input, IPartSubmitter partSubmitter)

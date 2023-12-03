@@ -7,20 +7,26 @@ namespace AdventOfCode
     internal class ReadMeGenerator
     {
         private const string EMOJI_UNSOLVED = "❌";
+
         private const string EMOJI_LIGHT_SPEED = "🟩";
+        private static readonly TimeSpan TIME_LIGHT_SPEED = new TimeSpan(000010000);
         private const string EMOJI_SOUND_SPEED = "🟦";
+        private static readonly TimeSpan TIME_SOUND_SPEED = new TimeSpan(000100000);
         private const string EMOJI_MODERAD_SPEED = "🟨";
+        private static readonly TimeSpan TIME_MODERAT_SPEED = new TimeSpan(001000000);
         private const string EMOJI_SLOW_SPEED = "🟧";
+        private static readonly TimeSpan TIME_SLOW_SPEED = new TimeSpan(010000000);
         private const string EMOJI_SNAIL_SPEED = "🟥";
+        private static readonly TimeSpan TIME_SNAIL_SPEED = TimeSpan.MaxValue;
 
         private static readonly ClosestTimeSpanDictionary<string> speedMap =
             new()
             {
-                { new TimeSpan(000010000), EMOJI_LIGHT_SPEED },
-                { new TimeSpan(000100000), EMOJI_SOUND_SPEED },
-                { new TimeSpan(001000000), EMOJI_MODERAD_SPEED },
-                { new TimeSpan(010000000), EMOJI_SLOW_SPEED },
-                { TimeSpan.MaxValue, EMOJI_SNAIL_SPEED },
+                { TIME_LIGHT_SPEED, EMOJI_LIGHT_SPEED },
+                { TIME_SOUND_SPEED, EMOJI_SOUND_SPEED },
+                { TIME_MODERAT_SPEED, EMOJI_MODERAD_SPEED },
+                { TIME_SLOW_SPEED, EMOJI_SLOW_SPEED },
+                { TIME_SNAIL_SPEED, EMOJI_SNAIL_SPEED },
             };
 
         private readonly ISolutionRetriever solutions;
@@ -40,7 +46,6 @@ namespace AdventOfCode
 
             foreach (var date in CalendarRange.Full)
             {
-
                 if (date.Year != year)
                 {
                     year = date.Year;
@@ -83,14 +88,15 @@ namespace AdventOfCode
                     var solve1 = value.Solve1.HasValue ? $"`{value.Solve1.Value:c}`" : "`N/A`";
                     var solve2 = value.Solve2.HasValue ? $"`{value.Solve2.Value:c}`" : "`N/A`";
 
-                    yearTable += $"{emoji} | {time} | {parse1} | {parse2} | {solve1} | {solve2} |\n";
+                    yearTable +=
+                        $"{emoji} | {time} | {parse1} | {parse2} | {solve1} | {solve2} |\n";
                 }
                 else
                 {
                     yearTable += $"{EMOJI_UNSOLVED} | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |\n";
                 }
             }
-            
+
             markdown = yearTable + markdown;
 
             markdown =
@@ -100,11 +106,11 @@ namespace AdventOfCode
 
 > [!NOTE]  
 > ❌ -> Not solved yet<br/>
-> 🟩 -> `< 00:00,0100000`<br/>
-> 🟦 -> `< 00:00,1000000`<br/>
-> 🟨 -> `< 00:01,0000000`<br/>
-> 🟧 -> `< 00:10,0000000`<br/>
-> 🟥 -> `> 00:10,0000000` or not timed.
+> 🟩 -> `< {TIME_LIGHT_SPEED:c}`<br/>
+> 🟦 -> `< {TIME_SOUND_SPEED:c}`<br/>
+> 🟨 -> `< {TIME_MODERAT_SPEED:c}`<br/>
+> 🟧 -> `< {TIME_SLOW_SPEED:c}`<br/>
+> 🟥 -> `> {TIME_SLOW_SPEED:c}` or not timed.
 " + markdown;
 
             File.WriteAllText("README.md", markdown);
@@ -140,7 +146,7 @@ namespace AdventOfCode
                     foreach (var timeSpan in dictionary)
                     {
                         TimeSpan difference = timeSpan.Key - key;
-                        if (difference < leastDifference)
+                        if (difference >= TimeSpan.Zero && difference < leastDifference)
                         {
                             leastDifference = difference;
                             best = timeSpan.Key;

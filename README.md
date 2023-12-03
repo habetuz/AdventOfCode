@@ -4,17 +4,18 @@
 
 > [!NOTE]  
 > ❌ -> Not solved yet<br/>
-> 🟩 -> `< 00:00,0100000`<br/>
-> 🟦 -> `< 00:00,1000000`<br/>
-> 🟨 -> `< 00:01,0000000`<br/>
-> 🟧 -> `< 00:10,0000000`<br/>
-> 🟥 -> `> 00:10,0000000` or not timed.
+> 🟩 -> `< 00:00:00.0010000`<br/>
+> 🟦 -> `< 00:00:00.0100000`<br/>
+> 🟨 -> `< 00:00:00.1000000`<br/>
+> 🟧 -> `< 00:00:01`<br/>
+> 🟥 -> `> 00:00:01` or not timed.
 ### 2023
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/Solutions/Y2023/D01/Solver.cs) | 🟩 | `00:00:00.0015928` | `00:00:00.0000382` | `00:00:00` | `00:00:00.0015546` | `00:00:00` |
-| [02](AdventOfCode/Solutions/Y2023/D02/Solver.cs) | 🟩 | `00:00:00.0000990` | `00:00:00.0000952` | `00:00:00` | `00:00:00.0000038` | `00:00:00` |
+| [01](AdventOfCode/Solutions/Y2023/D01/Solver.cs) | 🟦 | `00:00:00.0018754` | `00:00:00.0000368` | `00:00:00` | `00:00:00.0018386` | `00:00:00` |
+| [02](AdventOfCode/Solutions/Y2023/D02/Solver.cs) | 🟩 | `00:00:00.0000971` | `00:00:00.0000933` | `00:00:00` | `00:00:00.0000038` | `00:00:00` |
+| [03](AdventOfCode/Solutions/Y2023/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 ### 2022
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
@@ -222,7 +223,7 @@
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/Solutions/Y2015/D01/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [01](AdventOfCode/Solutions/Y2015/D01/Solver.cs) | 🟩 | `00:00:00.0000243` | `00:00:00.0000003` | `00:00:00` | `00:00:00.0000240` | `00:00:00` |
 | [02](AdventOfCode/Solutions/Y2015/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [03](AdventOfCode/Solutions/Y2015/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [04](AdventOfCode/Solutions/Y2015/D04/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
