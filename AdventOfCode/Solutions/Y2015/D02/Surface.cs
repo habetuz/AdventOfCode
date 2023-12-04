@@ -14,8 +14,10 @@ public struct Surface
 
     public uint Area
     {
-        get {
-            if (areaTotal == 0) {
+        get
+        {
+            if (areaTotal == 0)
+            {
                 areaWL = (uint)(Width * Length);
                 areaLH = (uint)(Length * Height);
                 areaHW = (uint)(Height * Width);
@@ -28,16 +30,31 @@ public struct Surface
 
     public uint Slack
     {
-        get {
-            if (Width <= Length) {
-                if (Width <= Height) {
-                    return (uint)(Width * Width);
-                } else {
-                    //return (uint)()
-                }
+        get
+        {
+            if (areaTotal == 0)
+            {
+                areaWL = (uint)(Width * Length);
+                areaLH = (uint)(Length * Height);
+                areaHW = (uint)(Height * Width);
+                areaTotal = 2 * (areaWL + areaLH + areaHW);
             }
 
-            return 0;
+            return Math.Min(areaWL, Math.Min(areaLH, areaHW));
+        }
+    }
+
+    public uint Bow
+    {
+        get
+        {
+            byte[] dimensions = new byte[] { Width, Length, Height };
+            Array.Sort(dimensions);
+            byte smallest1 = dimensions[0];
+            byte smallest2 = dimensions[1];
+            uint ribbon = (uint)(2 * (smallest1 + smallest2));
+            ribbon += (uint)(Width * Length * Height);
+            return ribbon;
         }
     }
 }

@@ -13,10 +13,10 @@
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/Solutions/Y2023/D01/Solver.cs) | 🟩 | `00:00:00.0008518` | `00:00:00.0000160` | `00:00:00` | `00:00:00.0008358` | `00:00:00` |
-| [02](AdventOfCode/Solutions/Y2023/D02/Solver.cs) | 🟩 | `00:00:00.0000984` | `00:00:00.0000920` | `00:00:00` | `00:00:00.0000064` | `00:00:00` |
-| [03](AdventOfCode/Solutions/Y2023/D03/Solver.cs) | 🟩 | `00:00:00.0001919` | `00:00:00.0000284` | `00:00:00` | `00:00:00.0000353` | `00:00:00.0001282` |
-| [04](AdventOfCode/Solutions/Y2023/D04/Solver.cs) | 🟩 | `00:00:00.0005646` | `00:00:00.0005435` | `00:00:00` | `00:00:00.0000211` | `00:00:00` |
+| [01](AdventOfCode/Solutions/Y2023/D01/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [02](AdventOfCode/Solutions/Y2023/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [03](AdventOfCode/Solutions/Y2023/D03/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [04](AdventOfCode/Solutions/Y2023/D04/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 ### 2022
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
@@ -224,9 +224,9 @@
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/Solutions/Y2015/D01/Solver.cs) | 🟩 | `00:00:00.0000170` | `00:00:00.0000002` | `00:00:00` | `00:00:00.0000168` | `00:00:00` |
-| [02](AdventOfCode/Solutions/Y2015/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [03](AdventOfCode/Solutions/Y2015/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [01](AdventOfCode/Solutions/Y2015/D01/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [02](AdventOfCode/Solutions/Y2015/D02/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [03](AdventOfCode/Solutions/Y2015/D03/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [04](AdventOfCode/Solutions/Y2015/D04/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [05](AdventOfCode/Solutions/Y2015/D05/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [06](AdventOfCode/Solutions/Y2015/D06/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |

@@ -23,11 +23,16 @@ public class Solver : ISolver<Surface[]>
     public void Solve(Surface[] input, IPartSubmitter partSubmitter)
     {
         uint squareFeet = 0;
+        uint ribbon = 0;
 
         for (int i = 0; i < input.Length; i++)
         {
             var surface = input[i];
             squareFeet += surface.Area + surface.Slack;
+            ribbon += surface.Bow;
         }
+
+        partSubmitter.SubmitPart1(squareFeet);
+        partSubmitter.SubmitPart2(ribbon);
     }
 }
