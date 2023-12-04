@@ -159,7 +159,7 @@ public class Solver : ISolver<char[,]>
 
                             if (x - startX >= 1)
                             {
-                                toSkip |= Direction.TopRight;
+                                toSkip |= Direction.BottomRight;
                             }
                         }
                         else if (direction == Direction.Top)
@@ -175,10 +175,12 @@ public class Solver : ISolver<char[,]>
                     }
                 );
 
-                if (number1 != -1 && number2 != -1 && valide)
+                if (number1 == -1 || number2 == -1 || !valide)
                 {
-                    sum += (uint)(number1 * number2);
+                    continue;
                 }
+                
+                sum += (uint)(number1 * number2);
             }
         }
 

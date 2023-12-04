@@ -58,7 +58,7 @@ namespace AdventOfCode.Commands
                     Solution? solution = null!;
 
                     solution = runner.Run();
-                    if (!settings.Example.HasValue)
+                    if (!settings.Example.HasValue && solution.Value.Solution1 is not null && solution.Value.Solution2 is not null)
                     {
                         solutionStatisticsManager.Submit(solution.Value, date);
                     }
