@@ -4,7 +4,7 @@ using AdventOfCode.Utils;
 
 namespace AdventOfCode.Solutions.Y2015.D03;
 
-public class Solver: ISolver<string>
+public class Solver : ISolver<string>
 {
     public void Parse(string input, IPartSubmitter<string> partSubmitter)
     {
@@ -15,7 +15,6 @@ public class Solver: ISolver<string>
     {
         var visited = new HashSet<Coordinate>();
         var santa = new Coordinate(0, 0);
-        var roboSanta = new Coordinate(0, 0);
         visited.Add(santa);
 
         for (int i = 0; i < input.Length; i++)
@@ -41,6 +40,9 @@ public class Solver: ISolver<string>
 
         partSubmitter.SubmitPart1(visited.Count);
 
+        santa = new Coordinate(0, 0);
+        var roboSanta = new Coordinate(0, 0);
+
         visited.Clear();
         visited.Add(santa);
         for (int i = 0; i < input.Length; i++)
@@ -63,6 +65,14 @@ public class Solver: ISolver<string>
             }
 
             visited.Add(current);
+            if (i % 2 == 0)
+            {
+                santa = current;
+            }
+            else
+            {
+                roboSanta = current;
+            }
         }
 
         partSubmitter.SubmitPart2(visited.Count);
