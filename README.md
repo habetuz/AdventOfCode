@@ -13,9 +13,10 @@
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/Solutions/Y2023/D01/Solver.cs) | 🟦 | `00:00:00.0018754` | `00:00:00.0000368` | `00:00:00` | `00:00:00.0018386` | `00:00:00` |
-| [02](AdventOfCode/Solutions/Y2023/D02/Solver.cs) | 🟩 | `00:00:00.0000971` | `00:00:00.0000933` | `00:00:00` | `00:00:00.0000038` | `00:00:00` |
-| [03](AdventOfCode/Solutions/Y2023/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [01](AdventOfCode/Solutions/Y2023/D01/Solver.cs) | 🟦 | `00:00:00.0016221` | `00:00:00.0000167` | `00:00:00` | `00:00:00.0016054` | `00:00:00` |
+| [02](AdventOfCode/Solutions/Y2023/D02/Solver.cs) | 🟩 | `00:00:00.0001034` | `00:00:00.0000969` | `00:00:00` | `00:00:00.0000065` | `00:00:00` |
+| [03](AdventOfCode/Solutions/Y2023/D03/Solver.cs) | 🟩 | `00:00:00.0002012` | `00:00:00.0000284` | `00:00:00` | `00:00:00.0000361` | `00:00:00.0001367` |
+| [04](AdventOfCode/Solutions/Y2023/D04/Solver.cs) | 🟩 | `00:00:00.0003315` | `00:00:00.0003103` | `00:00:00` | `00:00:00.0000212` | `00:00:00` |
 ### 2022
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
@@ -223,7 +224,7 @@
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/Solutions/Y2015/D01/Solver.cs) | 🟩 | `00:00:00.0000243` | `00:00:00.0000003` | `00:00:00` | `00:00:00.0000240` | `00:00:00` |
+| [01](AdventOfCode/Solutions/Y2015/D01/Solver.cs) | 🟩 | `00:00:00.0000187` | `00:00:00.0000002` | `00:00:00` | `00:00:00.0000185` | `00:00:00` |
 | [02](AdventOfCode/Solutions/Y2015/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [03](AdventOfCode/Solutions/Y2015/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [04](AdventOfCode/Solutions/Y2015/D04/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
