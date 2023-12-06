@@ -9,9 +9,9 @@ namespace AdventOfCode.Solver.Runner
     public class TimedRunner : ISolverRunner
     {
         private static readonly TimeSpan MaxTime = new TimeSpan(0, 0, 5);
-        private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 100);
+        private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 200);
 
-        private static readonly int MaxLoopCount = 300;
+        private static readonly int MaxLoopCount = 10_000;
 
         private readonly ISolver<object, object> solver;
         private readonly string input;
