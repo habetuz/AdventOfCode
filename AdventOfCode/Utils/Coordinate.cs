@@ -14,6 +14,14 @@ namespace AdventOfCode.Utils
         public static Coordinate operator *(Coordinate a, int b) => new Coordinate(a.X * b, a.Y * b);
         public static Coordinate operator /(Coordinate a, int b) => new Coordinate(a.X / b, a.Y / b);
 
+        public static explicit operator Coordinate((int, int) coordinate) {
+            return new Coordinate(coordinate.Item1, coordinate.Item2);
+        }
+
+        public static implicit operator (int, int)(Coordinate coordinate) {
+            return (coordinate.X, coordinate.Y);
+        }
+
         public static bool operator ==(Coordinate a, Coordinate b) => a.X == b.X && a.Y == b.Y;
         public static bool operator !=(Coordinate a, Coordinate b) => a.X != b.X || a.Y != b.Y;
 

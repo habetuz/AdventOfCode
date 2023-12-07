@@ -1,5 +1,8 @@
 namespace AdventOfCode.Utils;
 
+/// <summary>
+/// Like <see cref="System.Range"/> but with <see cref="long"/> instead of <see cref="int"/>.
+/// </summary>
 public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
 {
     public long Start { get; }
@@ -11,11 +14,21 @@ public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
         End = end;
     }
 
+    /// <summary>
+    /// Checks if a value is contained in the range.
+    /// </summary>
+    /// <param name="value">The value to check.</param>
+    /// <returns>True if the value is contained in the range.</returns>
     public bool InRange(long value)
     {
         return value >= Start && value <= End;
     }
 
+    /// <summary>
+    /// Intersects the range with another range.<br/>
+    /// </summary>
+    /// <param name="other">The other range to intersect with.</param>
+    /// <returns>The intersection of the ranges.</returns>
     public BigRange? Intersect(BigRange other)
     {
         var intersection = new BigRange(Math.Max(Start, other.Start), Math.Min(End, other.End));
@@ -95,6 +108,12 @@ public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
     public static bool operator >(BigRange a, BigRange b)
     {
         return a.Start > b.Start || (a.Start == b.Start && a.End > b.End);
+    }
+
+    public static explicit operator BigRange(Range range) {
+        long start = range.Start.IsFromEnd? long.MaxValue - range.Start.Value : range.Start.Value;
+        long end = range.End.IsFromEnd? long.MaxValue - range.End.Value : range.Start.Value;
+        return new BigRange(start, end);
     }
 
     public override bool Equals(object? obj)
