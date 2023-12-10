@@ -9,9 +9,7 @@ namespace AdventOfCode.Solver.Runner
     public class TimedRunner : ISolverRunner
     {
         private static readonly TimeSpan MaxTime = new TimeSpan(0, 0, 5);
-        private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 200);
-
-        private static readonly int MaxLoopCount = 10_000;
+        private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 500);
 
         private readonly ISolver<object, object> solver;
         private readonly string input;
@@ -42,119 +40,97 @@ namespace AdventOfCode.Solver.Runner
                 .Start(ctx =>
                 {
                     // Warmup
-                    ProgressTask warmupParsing = ctx.AddTask(
-                        "Warmup parsing...",
-                        true,
-                        WarmupTime.Ticks
-                    );
+                    ProgressTask warmup = ctx.AddTask("Warmup...", true, WarmupTime.Ticks);
                     var elapsedSum = new TimeSpan();
-                    var loopCount = 0;
                     (TimeSpan?, TimeSpan?) parseTime = (null, null);
+                    (TimeSpan?, TimeSpan?) solveTime = (null, null);
                     (object?, object?) parseResult = (null, null);
+                    (object?, object?) solveResult = (null, null);
+                    Stopwatch runtime = new();
+                    runtime.Start();
                     do
                     {
                         TimedPartSubmitter<object> parseSubmitter =
                             new TimedPartSubmitter<object>();
+                        TimedPartSubmitter solutionSubmitter = new TimedPartSubmitter();
                         parseSubmitter.Start();
+                        solutionSubmitter.Start();
                         this.solver.Parse(this.input, parseSubmitter);
-                        elapsedSum += parseSubmitter.Times.Item1!.Value;
-                        elapsedSum += parseSubmitter.Times.Item2!.Value;
+
+                        if (
+                            parseSubmitter.Parts.Item1 is null
+                            || parseSubmitter.Parts.Item2 is null
+                        )
+                        {
+                            throw new Exception("Parsing is not fully implemented!");
+                        }
+
+                        this.solver.Solve(
+                            parseSubmitter.Parts.Item1,
+                            parseSubmitter.Parts.Item2,
+                            solutionSubmitter
+                        );
                         parseTime = parseSubmitter.Times;
                         parseResult = parseSubmitter.Parts;
-                        warmupParsing.Value = elapsedSum.Ticks;
-                    } while (elapsedSum < WarmupTime);
-                    warmupParsing.StopTask();
+                        solveTime = solutionSubmitter.Times;
+                        solveResult = solutionSubmitter.Parts;
+                        warmup.Value = runtime.Elapsed.Ticks;
+                    } while (runtime.Elapsed < WarmupTime);
+                    runtime.Stop();
+                    warmup.StopTask();
 
                     // Real run only if it's fast enough
-                    if (elapsedSum < MaxTime)
+                    if (runtime.Elapsed < MaxTime)
                     {
-                        ProgressTask parsing = ctx.AddTask("Parsing...");
+                        ProgressTask run = ctx.AddTask("Running...", true, MaxTime.Ticks);
                         elapsedSum = new TimeSpan();
+                        int loopCount = 0;
                         List<(TimeSpan?, TimeSpan?)> parseTimes = new();
+                        List<(TimeSpan?, TimeSpan?)> solveTimes = new();
+                        runtime.Restart();
                         do
                         {
                             TimedPartSubmitter<object> parseSubmitter =
                                 new TimedPartSubmitter<object>();
+                            TimedPartSubmitter solutionSubmitter = new TimedPartSubmitter();
                             parseSubmitter.Start();
+                            solutionSubmitter.Start();
                             this.solver.Parse(this.input, parseSubmitter);
+
+                            if (
+                                parseSubmitter.Parts.Item1 is null
+                                || parseSubmitter.Parts.Item2 is null
+                            )
+                            {
+                                throw new Exception("Parsing is not fully implemented!");
+                            }
+
+                            this.solver.Solve(
+                                parseSubmitter.Parts.Item1,
+                                parseSubmitter.Parts.Item2,
+                                solutionSubmitter
+                            );
                             elapsedSum += parseSubmitter.Times.Item1!.Value;
                             elapsedSum += parseSubmitter.Times.Item2!.Value;
                             parseTimes.Add(parseSubmitter.Times);
+                            solveTimes.Add(solutionSubmitter.Times);
                             loopCount++;
 
-                            var timeProgress = elapsedSum / MaxTime * 100;
-                            var loopProgress = (double)loopCount / MaxLoopCount * 100;
-                            parsing.Value =
-                                timeProgress > loopProgress ? timeProgress : loopProgress;
-                        } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
-                        parsing.StopTask();
+                            run.Value = runtime.Elapsed.Ticks;
+                        } while (runtime.Elapsed < MaxTime);
+                        run.StopTask();
 
+                        // Calculate median
                         parseTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
                         var item1 = parseTimes[parseTimes.Count / 2].Item1;
                         parseTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
                         var item2 = parseTimes[parseTimes.Count / 2].Item2;
                         parseTime = (item1, item2);
-                    }
-
-                    if (parseResult.Item1 is null || parseResult.Item2 is null)
-                    {
-                        throw new Exception("Parsing is not implemented!");
-                    }
-
-                    // Warmup
-                    ProgressTask warmupSolving = ctx.AddTask(
-                        "Warmup solving...",
-                        true,
-                        WarmupTime.Ticks
-                    );
-                    elapsedSum = new TimeSpan();
-                    loopCount = 0;
-                    (TimeSpan?, TimeSpan?) solveTime = (null, null);
-                    (object?, object?) solveResult = (null, null);
-                    do
-                    {
-                        TimedPartSubmitter solutionSubmitter = new();
-                        solutionSubmitter.Start();
-                        this.solver.Solve(parseResult.Item1, parseResult.Item2, solutionSubmitter);
-                        elapsedSum += solutionSubmitter.Times.Item1!.Value;
-                        elapsedSum += solutionSubmitter.Times.Item2!.Value;
-                        solveTime = solutionSubmitter.Times;
-                        solveResult = solutionSubmitter.Parts;
-                        warmupSolving.Value = elapsedSum.Ticks;
-                    } while (elapsedSum < WarmupTime);
-                    warmupSolving.StopTask();
-
-                    // Real run only if it's fast enough
-                    if (elapsedSum < MaxTime)
-                    {
-                        ProgressTask solving = ctx.AddTask("Solving...");
-                        elapsedSum = new TimeSpan();
-                        List<(TimeSpan?, TimeSpan?)> solveTimes = new();
-                        do
-                        {
-                            TimedPartSubmitter solutionSubmitter = new();
-                            solutionSubmitter.Start();
-                            this.solver.Solve(
-                                parseResult.Item1,
-                                parseResult.Item2,
-                                solutionSubmitter
-                            );
-                            elapsedSum += solutionSubmitter.Times.Item1!.Value;
-                            elapsedSum += solutionSubmitter.Times.Item2!.Value;
-                            solveTimes.Add(solutionSubmitter.Times);
-                            loopCount++;
-
-                            var timeProgress = elapsedSum / MaxTime * 100;
-                            var loopProgress = (double)loopCount / MaxLoopCount * 100;
-                            solving.Value =
-                                timeProgress > loopProgress ? timeProgress : loopProgress;
-                        } while (elapsedSum < MaxTime && loopCount < MaxLoopCount);
-                        solving.StopTask();
 
                         solveTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
-                        var item1 = solveTimes[solveTimes.Count / 2].Item1;
+                        item1 = solveTimes[solveTimes.Count / 2].Item1;
                         solveTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
-                        var item2 = solveTimes[solveTimes.Count / 2].Item2;
+                        item2 = solveTimes[solveTimes.Count / 2].Item2;
                         solveTime = (item1, item2);
                     }
 

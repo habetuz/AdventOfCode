@@ -4,13 +4,13 @@ namespace AdventOfCode.Utils;
 public enum Direction
 {
     None = 0,
-    TopLeft = 1,
-    Top = 2,
-    TopRight = 4,
+    UpLeft = 1,
+    Up = 2,
+    UpRight = 4,
     Left = 8,
     Right = 16,
-    BottomLeft = 32,
-    Bottom = 64,
-    BottomRight = 128,
-    All = 255,
+    DownLeft = 32,
+    Down = 64,
+    DownRight = 128,
+    All = UpLeft | Up | UpRight | Left | Right | DownLeft | Down | DownRight,
 }

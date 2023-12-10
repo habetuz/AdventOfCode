@@ -144,31 +144,31 @@ public class Solver : ISolver<char[,]>
 
                         Direction toSkip = Direction.None;
 
-                        if (direction == Direction.TopLeft)
+                        if (direction == Direction.UpLeft)
                         {
-                            toSkip |= Direction.Top;
+                            toSkip |= Direction.Up;
 
                             if (x - startX >= 1)
                             {
-                                toSkip |= Direction.TopRight;
+                                toSkip |= Direction.UpRight;
                             }
                         }
-                        else if (direction == Direction.BottomLeft)
+                        else if (direction == Direction.DownLeft)
                         {
-                            toSkip |= Direction.Bottom;
+                            toSkip |= Direction.Down;
 
                             if (x - startX >= 1)
                             {
-                                toSkip |= Direction.BottomRight;
+                                toSkip |= Direction.DownRight;
                             }
                         }
-                        else if (direction == Direction.Top)
+                        else if (direction == Direction.Up)
                         {
-                            toSkip |= Direction.TopRight;
+                            toSkip |= Direction.UpRight;
                         }
-                        else if (direction == Direction.Bottom)
+                        else if (direction == Direction.Down)
                         {
-                            toSkip |= Direction.BottomRight;
+                            toSkip |= Direction.DownRight;
                         }
 
                         return toSkip;

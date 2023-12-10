@@ -21,6 +21,21 @@ public static class Array2D
         return array;
     }
 
+    public static T[,] FromString<T>(string input, ConvertCallback<T> callback)
+    {
+        var lines = input.Split((char[])['\n'], StringSplitOptions.RemoveEmptyEntries);
+        var array = new T[lines[0].Length, lines.Length];
+        for (int y = 0; y < lines.Length; y++)
+        {
+            for (int x = 0; x < lines[y].Length; x++)
+            {
+                array[x, y] = callback(lines[y][x], x, y);
+            }
+        }
+        return array;
+    }
+
+    public delegate T ConvertCallback<T>(char c, int x, int y);
 
     /// <summary>
     /// Iterates around a coordinate in a 2D array.
@@ -37,21 +52,27 @@ public static class Array2D
     /// 4x5
     /// 678
     /// </example>
-    public static void IterateAroundCoordinate<T>(T[,] array, int x, int y, IterateAroundCoordinateCallback<T> callback, Direction toSkip = Direction.None)
+    public static void IterateAroundCoordinate<T>(
+        T[,] array,
+        int x,
+        int y,
+        IterateAroundCoordinateCallback<T> callback,
+        Direction toSkip = Direction.None
+    )
     {
-        if (!toSkip.HasFlag(Direction.TopLeft) && x - 1 >= 0 && y - 1 >= 0)
+        if (!toSkip.HasFlag(Direction.UpLeft) && x - 1 >= 0 && y - 1 >= 0)
         {
-            toSkip |= callback(array, x - 1, y - 1, Direction.TopLeft);
+            toSkip |= callback(array, x - 1, y - 1, Direction.UpLeft);
         }
 
-        if (!toSkip.HasFlag(Direction.Top) && y - 1 >= 0)
+        if (!toSkip.HasFlag(Direction.Up) && y - 1 >= 0)
         {
-            toSkip |= callback(array, x, y - 1, Direction.Top);
+            toSkip |= callback(array, x, y - 1, Direction.Up);
         }
 
-        if (!toSkip.HasFlag(Direction.TopRight) && x + 1 < array.GetLength(0) && y - 1 >= 0)
+        if (!toSkip.HasFlag(Direction.UpRight) && x + 1 < array.GetLength(0) && y - 1 >= 0)
         {
-            toSkip |= callback(array, x + 1, y - 1, Direction.TopRight);
+            toSkip |= callback(array, x + 1, y - 1, Direction.UpRight);
         }
 
         if (!toSkip.HasFlag(Direction.Left) && x - 1 >= 0)
@@ -64,22 +85,26 @@ public static class Array2D
             toSkip |= callback(array, x + 1, y, Direction.Right);
         }
 
-        if (!toSkip.HasFlag(Direction.BottomLeft) && x - 1 >= 0 && y + 1 < array.GetLength(1))
+        if (!toSkip.HasFlag(Direction.DownLeft) && x - 1 >= 0 && y + 1 < array.GetLength(1))
         {
-            toSkip |= callback(array, x - 1, y + 1, Direction.BottomLeft);
+            toSkip |= callback(array, x - 1, y + 1, Direction.DownLeft);
         }
 
-        if (!toSkip.HasFlag(Direction.Bottom) && y + 1 < array.GetLength(1))
+        if (!toSkip.HasFlag(Direction.Down) && y + 1 < array.GetLength(1))
         {
-            toSkip |= callback(array, x, y + 1, Direction.Bottom);
+            toSkip |= callback(array, x, y + 1, Direction.Down);
         }
 
-        if (!toSkip.HasFlag(Direction.BottomRight) && x + 1 < array.GetLength(0) && y + 1 < array.GetLength(1))
+        if (
+            !toSkip.HasFlag(Direction.DownRight)
+            && x + 1 < array.GetLength(0)
+            && y + 1 < array.GetLength(1)
+        )
         {
-            toSkip |= callback(array, x + 1, y + 1, Direction.BottomRight);
+            toSkip |= callback(array, x + 1, y + 1, Direction.DownRight);
         }
     }
-    
+
     /// <summary>
     /// Callback for <see cref="IterateAroundCoordinate"/>.
     /// </summary>
@@ -88,5 +113,10 @@ public static class Array2D
     /// <param name="x">The x coordinate to iterate around.</param>
     /// <param name="y">The y coordinate to iterate around.</param>
     /// <returns>The directions to skip.</returns>
-    public delegate Direction IterateAroundCoordinateCallback<T>(T[,] array, int x, int y, Direction direction);
+    public delegate Direction IterateAroundCoordinateCallback<T>(
+        T[,] array,
+        int x,
+        int y,
+        Direction direction
+    );
 }
