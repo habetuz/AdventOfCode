@@ -1,3 +1,5 @@
+using SharpLog;
+
 namespace AdventOfCode.Utils;
 
 public static class Array2D
@@ -21,7 +23,7 @@ public static class Array2D
         return array;
     }
 
-    public static T[,] FromString<T>(string input, ConvertCallback<T> callback)
+    public static T[,] FromString<T>(string input, ConvertCallback<char, T> callback)
     {
         var lines = input.Split((char[])['\n'], StringSplitOptions.RemoveEmptyEntries);
         var array = new T[lines[0].Length, lines.Length];
@@ -35,7 +37,7 @@ public static class Array2D
         return array;
     }
 
-    public delegate T ConvertCallback<T>(char c, int x, int y);
+    public delegate TTo ConvertCallback<TFrom, TTo>(TFrom from, int x, int y);
 
     /// <summary>
     /// Iterates around a coordinate in a 2D array.
@@ -119,4 +121,18 @@ public static class Array2D
         int y,
         Direction direction
     );
+
+    public static void Print<T>(T[,] array, ConvertCallback<T, string> convertCallback)
+    {
+        Logging.LogInfo($"Array size: {array.GetLength(0)}x{array.GetLength(1)}");
+
+        for (int y = 0; y < array.GetLength(1); y++)
+        {
+            for (int x = 0; x < array.GetLength(0); x++)
+            {
+                Console.Write(convertCallback(array[x, y], x, y));
+            }
+            Console.WriteLine();
+        }
+    }
 }

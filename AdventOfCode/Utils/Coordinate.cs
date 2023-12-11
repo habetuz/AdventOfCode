@@ -15,8 +15,13 @@ namespace AdventOfCode.Utils
         public static Coordinate operator -(Coordinate a, Coordinate b) =>
             new Coordinate(a.X - b.X, a.Y - b.Y);
 
+        public static Coordinate operator -(Coordinate a, int b) =>
+            new Coordinate(a.X - b, a.Y - b);
+
         public static Coordinate operator *(Coordinate a, int b) =>
             new Coordinate(a.X * b, a.Y * b);
+
+        public static Coordinate operator *(int a, Coordinate b) => b * a;
 
         public static Coordinate operator /(Coordinate a, int b) =>
             new Coordinate(a.X / b, a.Y / b);
@@ -123,5 +128,10 @@ namespace AdventOfCode.Utils
         public override int GetHashCode() => HashCode.Combine(X, Y);
 
         public override string ToString() => $"({X}, {Y})";
+
+        internal uint ManhattanDistance(Coordinate coordinate)
+        {
+            return (uint)(Math.Abs(X - coordinate.X) + Math.Abs(Y - coordinate.Y));
+        }
     }
 }
