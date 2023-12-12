@@ -17,7 +17,7 @@ public class Solver : ISolver<Surface[]>
             surfaces[i].Length = byte.Parse(dimensions[2]);
         }
 
-        partSubmitter.SubmitFull(surfaces);
+        partSubmitter.Submit(surfaces);
     }
 
     public void Solve(Surface[] input, IPartSubmitter partSubmitter)

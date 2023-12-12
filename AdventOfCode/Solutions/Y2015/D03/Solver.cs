@@ -8,7 +8,7 @@ public class Solver : ISolver<string>
 {
     public void Parse(string input, IPartSubmitter<string> partSubmitter)
     {
-        partSubmitter.SubmitFull(input);
+        partSubmitter.Submit(input);
     }
 
     public void Solve(string input, IPartSubmitter partSubmitter)

@@ -48,7 +48,7 @@ public class Solver : ISolver<Game[]>
             games[i].Subsets = subsets;
         }
 
-        partSubmitter.SubmitFull(games);
+        partSubmitter.Submit(games);
     }
 
     public void Solve(Game[] input, IPartSubmitter partSubmitter)

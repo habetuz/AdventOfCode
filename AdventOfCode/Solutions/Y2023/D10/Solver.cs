@@ -49,7 +49,7 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
             Direction.UpLeft | Direction.UpRight | Direction.DownRight | Direction.DownLeft
         );
 
-        partSubmitter.SubmitFull((map, start));
+        partSubmitter.Submit((map, start));
     }
 
     public void Solve((Direction[,], Coordinate) input, IPartSubmitter partSubmitter)

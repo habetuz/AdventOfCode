@@ -8,7 +8,7 @@ namespace AdventOfCode.PartSubmitter
 
     public interface IPartSubmitter<in TParts> : IPartSubmitter<TParts, TParts>
     {
-        public void SubmitFull(TParts parts)
+        public void Submit(TParts parts)
         {
             this.SubmitPart1(parts);
             this.SubmitPart2(parts);

@@ -16,7 +16,7 @@ public class Solver : ISolver<History[]>
             l => new History(l)
         ).ToArray();
 
-        partSubmitter.SubmitFull(histories);
+        partSubmitter.Submit(histories);
     }
 
     public void Solve(History[] input, IPartSubmitter partSubmitter)

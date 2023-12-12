@@ -27,7 +27,7 @@ public class Solver : ISolver<Game[]>
             games[i] = new Game(winningNumbers, numbers);
         }
 
-        partSubmitter.SubmitFull(games);
+        partSubmitter.Submit(games);
     }
 
     public void Solve(Game[] input, IPartSubmitter partSubmitter)

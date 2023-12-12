@@ -9,7 +9,7 @@ public class Solver : ISolver<char[,]>
 {
     public void Parse(string input, IPartSubmitter<char[,]> partSubmitter)
     {
-        partSubmitter.SubmitFull(Utils.Array2D.FromString(input));
+        partSubmitter.Submit(Utils.Array2D.FromString(input));
     }
 
     public void Solve(char[,] input, IPartSubmitter partSubmitter)

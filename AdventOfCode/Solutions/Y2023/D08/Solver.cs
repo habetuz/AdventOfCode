@@ -45,7 +45,7 @@ public class Solver : ISolver<Input>
             nodes[i].Right = right;
         }
 
-        partSubmitter.SubmitFull(new Input(directionSequence, nodes));
+        partSubmitter.Submit(new Input(directionSequence, nodes));
     }
 
     public void Solve(Input input, IPartSubmitter partSubmitter)
