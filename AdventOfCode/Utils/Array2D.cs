@@ -135,4 +135,30 @@ public static class Array2D
             Console.WriteLine();
         }
     }
+
+    public static bool IsEqual<T>(T[,] array1, T[,] array2)
+    {
+        if (array1.GetLength(0) != array2.GetLength(0))
+        {
+            return false;
+        }
+
+        if (array1.GetLength(1) != array2.GetLength(1))
+        {
+            return false;
+        }
+
+        for (int y = 0; y < array1.GetLength(1); y++)
+        {
+            for (int x = 0; x < array1.GetLength(0); x++)
+            {
+                if (!array1[x, y]!.Equals(array2[x, y]))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
