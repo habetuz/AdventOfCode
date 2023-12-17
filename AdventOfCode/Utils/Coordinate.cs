@@ -63,6 +63,43 @@ namespace AdventOfCode.Utils
             return a;
         }
 
+        public static Coordinate operator -(Coordinate a, Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.UpLeft:
+                    a.X--;
+                    a.Y--;
+                    break;
+                case Direction.Up:
+                    a.Y++;
+                    break;
+                case Direction.UpRight:
+                    a.X--;
+                    a.Y++;
+                    break;
+                case Direction.Right:
+                    a.X--;
+                    break;
+                case Direction.DownRight:
+                    a.X--;
+                    a.Y--;
+                    break;
+                case Direction.Down:
+                    a.Y--;
+                    break;
+                case Direction.DownLeft:
+                    a.X++;
+                    a.Y--;
+                    break;
+                case Direction.Left:
+                    a.X++;
+                    break;
+            }
+
+            return a;
+        }
+
         public static explicit operator Coordinate((int, int) coordinate)
         {
             return new Coordinate(coordinate.Item1, coordinate.Item2);

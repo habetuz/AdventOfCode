@@ -1,4 +1,5 @@
 using SharpLog;
+using Spectre.Console;
 
 namespace AdventOfCode.Utils;
 
@@ -128,11 +129,12 @@ public static class Array2D
 
         for (int y = 0; y < array.GetLength(1); y++)
         {
+            string line = "";
             for (int x = 0; x < array.GetLength(0); x++)
             {
-                Console.Write(convertCallback(array[x, y], x, y));
+                line += convertCallback(array[x, y], x, y);
             }
-            Console.WriteLine();
+            AnsiConsole.MarkupLine(line);
         }
     }
 
