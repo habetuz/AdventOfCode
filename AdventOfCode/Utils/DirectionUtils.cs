@@ -64,4 +64,110 @@ public static class DirectionUtils
 
         return inverted;
     }
+
+    public static Direction Rotate90Right(this Direction direction)
+    {
+        if (direction.HasFlag(Direction.All) || direction == 0)
+        {
+            return direction;
+        }
+
+        var rotated = Direction.None;
+
+        if (direction.HasFlag(Direction.UpLeft))
+        {
+            rotated |= Direction.UpRight;
+        }
+
+        if (direction.HasFlag(Direction.Up))
+        {
+            rotated |= Direction.Right;
+        }
+
+        if (direction.HasFlag(Direction.UpRight))
+        {
+            rotated |= Direction.DownRight;
+        }
+
+        if (direction.HasFlag(Direction.Right))
+        {
+            rotated |= Direction.Down;
+        }
+
+        if (direction.HasFlag(Direction.DownRight))
+        {
+            rotated |= Direction.DownLeft;
+        }
+
+        if (direction.HasFlag(Direction.Down))
+        {
+            rotated |= Direction.Left;
+        }
+
+        if (direction.HasFlag(Direction.DownLeft))
+        {
+            rotated |= Direction.UpLeft;
+        }
+
+        if (direction.HasFlag(Direction.Left))
+        {
+            rotated |= Direction.Up;
+        }
+
+        return rotated;
+    }
+
+    public static Direction Rotate90Left(this Direction direction)
+    {
+        if (direction.HasFlag(Direction.All) || direction == 0)
+        {
+            return direction;
+        }
+
+        var rotated = Direction.None;
+
+        if (direction.HasFlag(Direction.UpLeft))
+        {
+            rotated |= Direction.DownLeft;
+        }
+
+        if (direction.HasFlag(Direction.Up))
+        {
+            rotated |= Direction.Left;
+        }
+
+        if (direction.HasFlag(Direction.UpRight))
+        {
+            rotated |= Direction.UpLeft;
+        }
+
+        if (direction.HasFlag(Direction.Right))
+        {
+            rotated |= Direction.Up;
+        }
+
+        if (direction.HasFlag(Direction.DownRight))
+        {
+            rotated |= Direction.UpRight;
+        }
+
+        if (direction.HasFlag(Direction.Down))
+        {
+            rotated |= Direction.Right;
+        }
+
+        if (direction.HasFlag(Direction.DownLeft))
+        {
+            rotated |= Direction.DownRight;
+        }
+
+        if (direction.HasFlag(Direction.Left))
+        {
+            rotated |= Direction.Down;
+        }
+
+        return rotated;
+    }
 }
+
+
