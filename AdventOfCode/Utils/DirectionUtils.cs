@@ -168,6 +168,37 @@ public static class DirectionUtils
 
         return rotated;
     }
+
+    public static Coordinate ToCoordinate(this Direction direction) {
+        return direction switch
+        {
+            Direction.UpLeft => new Coordinate(-1, -1),
+            Direction.Up => new Coordinate(0, -1),
+            Direction.UpRight => new Coordinate(1, -1),
+            Direction.Right => new Coordinate(1, 0),
+            Direction.DownRight => new Coordinate(1, 1),
+            Direction.Down => new Coordinate(0, 1),
+            Direction.DownLeft => new Coordinate(-1, 1),
+            Direction.Left => new Coordinate(-1, 0),
+            _ => new Coordinate(0, 0),
+        };
+    }
+
+    public static char ToChar(this Direction direction)
+    {
+        return direction switch
+        {
+            Direction.UpLeft => '↖',
+            Direction.Up => '↑',
+            Direction.UpRight => '↗',
+            Direction.Right => '→',
+            Direction.DownRight => '↘',
+            Direction.Down => '↓',
+            Direction.DownLeft => '↙',
+            Direction.Left => '←',
+            _ => ' ',
+        };
+    }
 }
 
 

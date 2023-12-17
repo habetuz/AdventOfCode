@@ -138,6 +138,23 @@ public static class Array2D
         }
     }
 
+    public static void Print(uint sizeX, uint sizeY, PrintCallback printCallback)
+    {
+        Logging.LogInfo($"Array size: {sizeX}x{sizeY}");
+
+        for (int y = 0; y < sizeY; y++)
+        {
+            string line = "";
+            for (int x = 0; x < sizeX; x++)
+            {
+                line += printCallback(x, y);
+            }
+            AnsiConsole.MarkupLine(line);
+        }
+    }
+
+    public delegate string PrintCallback(int x, int y);
+
     public static bool IsEqual<T>(T[,] array1, T[,] array2)
     {
         if (array1.GetLength(0) != array2.GetLength(0))
