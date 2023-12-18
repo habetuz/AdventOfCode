@@ -7,128 +7,91 @@ namespace AdventOfCode.Solutions.Y2023.D18;
 
 public class Solver : ISolver<Line[], Line[]>
 {
-    public void Parse(string input, IPartSubmitter<Instruction[]> partSubmitter)
+    public void Parse(string input, IPartSubmitter<Line[], Line[]> partSubmitter)
     {
-        var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-
-        var instructions = lines
+        var lines = input
+            .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
+            .Select((line) => line.Split(' '));
+        var instructions1 = lines
             .Select(
                 (line) =>
                 {
-                    var split = line.Split(' ');
-                    return new Instruction()
+                    var direction = line[0][0] switch
                     {
-                        Direction = split[0] switch
-                        {
-                            "U" => Direction.Up,
-                            "R" => Direction.Right,
-                            "D" => Direction.Down,
-                            "L" => Direction.Left,
-                            _ => throw new Exception("Invalid direction")
-                        },
-                        Length = byte.Parse(split[1]),
-                        Color = split[2][2..^2]
+                        'U' => Direction.Up,
+                        'D' => Direction.Down,
+                        'L' => Direction.Left,
+                        'R' => Direction.Right,
+                        _ => throw new Exception("Invalid direction")
                     };
+                    var length = byte.Parse(line[1]);
+                    return new Instruction { Direction = direction, Length = length };
                 }
             )
             .ToArray();
 
-        partSubmitter.Submit(instructions);
+        partSubmitter.SubmitPart1(LinkInstructions(instructions1));
+
+        var instructions2 = lines.Select(
+            (line) =>
+            {
+                var hexString = line[2][2..^1];
+                var length = int.Parse(
+                    hexString[0..5],
+                    System.Globalization.NumberStyles.HexNumber
+                );
+                var direction = hexString[5] switch
+                {
+                    '0' => Direction.Right,
+                    '1' => Direction.Down,
+                    '2' => Direction.Left,
+                    '3' => Direction.Up,
+                    _ => throw new Exception("Invalid direction")
+                };
+
+                return new Instruction { Direction = direction, Length = length };
+            }
+        ).ToArray();
+
+        partSubmitter.SubmitPart2(LinkInstructions(instructions2));
     }
 
-    public void Solve(Instruction[] input, IPartSubmitter partSubmitter)
+    private Line[] LinkInstructions(Instruction[] instructions)
     {
-        Coordinate digger = new Coordinate(0, 0);
-        Queue<Coordinate> coordinates = new Queue<Coordinate>(10000);
-
-        int maxX = 0;
-        int maxY = 0;
-        int minX = 0;
-        int minY = 0;
-
-        foreach (Instruction instruction in input)
+        Line[] lines = new Line[instructions.Length];
+        Coordinate current = new Coordinate(0, 0);
+        for (int i = 0; i < instructions.Length; i++)
         {
-            for (int i = 0; i < instruction.Length; i++)
-            {
-                coordinates.Enqueue(digger);
-                digger += instruction.Direction;
-
-                if (digger.X > maxX)
-                {
-                    maxX = digger.X;
-                }
-                else if (digger.X < minX)
-                {
-                    minX = digger.X;
-                }
-                else if (digger.Y > maxY)
-                {
-                    maxY = digger.Y;
-                }
-                else if (digger.Y < minY)
-                {
-                    minY = digger.Y;
-                }
-            }
+            var instruction = instructions[i];
+            Coordinate next = current + (instruction.Direction.ToCoordinate() * instruction.Length);
+            lines[i] = new Line(current, next);
+            current = next;
         }
 
-        bool[,] lagoon = new bool[maxX - minX + 1, maxY - minY + 1];
-
-        while (coordinates.Count > 0)
-        {
-            var coordinate = coordinates.Dequeue();
-            lagoon[coordinate.X - minX, coordinate.Y - minY] = true;
-        }
-
-        //Array2D.Print(lagoon, (value, x, y) => value ? "#" : ".");
-        FloodFill(lagoon);
-
-        var lagoonSize = (from bool value in lagoon where value select value).Count();
-
-        partSubmitter.SubmitPart1(lagoonSize);
+        return lines;
     }
 
-    public void FloodFill(bool[,] lagoon)
+    public void Solve(Line[] input1, Line[] input2, IPartSubmitter partSubmitter)
     {
-        Queue<Coordinate> queue = new Queue<Coordinate>();
-        queue.Enqueue(FindStart(lagoon));
-
-        while (queue.Count > 0)
-        {
-            var coordinate = queue.Dequeue();
-
-            if (lagoon[coordinate.X, coordinate.Y])
-            {
-                continue;
-            }
-
-            lagoon[coordinate.X, coordinate.Y] = true;
-
-            queue.Enqueue(coordinate + Direction.Up);
-            queue.Enqueue(coordinate + Direction.Right);
-            queue.Enqueue(coordinate + Direction.Down);
-            queue.Enqueue(coordinate + Direction.Left);
-        }
+        partSubmitter.SubmitPart1(GetArea(input1));
+        partSubmitter.SubmitPart2(GetArea(input2));
     }
 
-    private Coordinate FindStart(bool[,] lagoon)
+    private long GetArea(Line[] lines)
     {
-        for (int x = 1; x < lagoon.GetLength(0); x++)
-        {
-            for (int y = 0; y < lagoon.GetLength(1); y++)
-            {
-                if (lagoon[x, y])
-                {
-                    if (y < lagoon.GetLength(1) - 1 && !lagoon[x, y + 1])
-                    {
-                        return new Coordinate(x, y + 1);
-                    }
+        // Implementation of the shoelace formula modified with picks theorem
+        long interior = 0;
+        ulong boundary = 0;
 
-                    break;
-                }
-            }
+        foreach (var line in lines)
+        {
+            interior += checked(line.Start.X * line.End.Y) - checked(line.End.X * line.Start.Y);
+            boundary += line.ManhattanLength;
         }
 
-        throw new Exception("No start found");
+        interior/=2;
+        interior = Math.Abs(interior);
+
+        return interior + ((long)boundary / 2) + 1;
     }
 }

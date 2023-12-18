@@ -206,12 +206,12 @@ namespace AdventOfCode.Commands
                     .Border(BoxBorder.Rounded)
                     .Expand();
             }
-            else if (int.TryParse(expected, out _) && int.TryParse(actual, out _))
+            else if (long.TryParse(expected, out _) && long.TryParse(actual, out _))
             {
-                int expectedNum = int.Parse(expected);
-                int actualNum = int.Parse(actual);
+                long expectedNum = long.Parse(expected);
+                long actualNum = long.Parse(actual);
 
-                int diff = actualNum - expectedNum;
+                long diff = actualNum - expectedNum;
 
                 if (diff == 0)
                 {

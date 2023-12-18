@@ -1,11 +1,14 @@
+using System.Diagnostics;
+
 namespace AdventOfCode.Utils;
 
+[DebuggerDisplay("({Start}, {End})")]
 public struct Line
 {
     public Coordinate Start { get; set; }
     public Coordinate End { get; set; }
 
-    public uint ManhattanLength => (uint)Start.ManhattanDistance(End);
+    public ulong ManhattanLength => Start.ManhattanDistance(End);
 
     public Line(Coordinate start, Coordinate end) => (Start, End) = (start, end);
 

@@ -4,10 +4,10 @@ namespace AdventOfCode.Utils
 {
     public struct Coordinate
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public long X { get; set; }
+        public long Y { get; set; }
 
-        public Coordinate(int x, int y) => (X, Y) = (x, y);
+        public Coordinate(long x, long y) => (X, Y) = (x, y);
 
         public static Coordinate operator +(Coordinate a, Coordinate b) =>
             new Coordinate(a.X + b.X, a.Y + b.Y);
@@ -15,15 +15,15 @@ namespace AdventOfCode.Utils
         public static Coordinate operator -(Coordinate a, Coordinate b) =>
             new Coordinate(a.X - b.X, a.Y - b.Y);
 
-        public static Coordinate operator -(Coordinate a, int b) =>
+        public static Coordinate operator -(Coordinate a, long b) =>
             new Coordinate(a.X - b, a.Y - b);
 
-        public static Coordinate operator *(Coordinate a, int b) =>
+        public static Coordinate operator *(Coordinate a, long b) =>
             new Coordinate(a.X * b, a.Y * b);
 
-        public static Coordinate operator *(int a, Coordinate b) => b * a;
+        public static Coordinate operator *(long a, Coordinate b) => b * a;
 
-        public static Coordinate operator /(Coordinate a, int b) =>
+        public static Coordinate operator /(Coordinate a, long b) =>
             new Coordinate(a.X / b, a.Y / b);
 
         public static Coordinate operator +(Coordinate a, Direction direction)
@@ -150,7 +150,7 @@ namespace AdventOfCode.Utils
             return Direction.None;
         }
 
-        public static implicit operator (int, int)(Coordinate coordinate)
+        public static implicit operator (long, long)(Coordinate coordinate)
         {
             return (coordinate.X, coordinate.Y);
         }
@@ -166,9 +166,9 @@ namespace AdventOfCode.Utils
 
         public override string ToString() => $"({X}, {Y})";
 
-        internal uint ManhattanDistance(Coordinate coordinate)
+        internal ulong ManhattanDistance(Coordinate coordinate)
         {
-            return (uint)(Math.Abs(X - coordinate.X) + Math.Abs(Y - coordinate.Y));
+            return (ulong)(Math.Abs(X - coordinate.X) + Math.Abs(Y - coordinate.Y));
         }
     }
 }

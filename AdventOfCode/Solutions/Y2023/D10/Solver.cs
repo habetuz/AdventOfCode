@@ -35,8 +35,8 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
 
         Array2D.IterateAroundCoordinate(
             map,
-            start.X,
-            start.Y,
+            (int)start.X,
+            (int)start.Y,
             (array, x, y, direction) =>
             {
                 if ((direction & map[x, y].Invert()) != 0)
