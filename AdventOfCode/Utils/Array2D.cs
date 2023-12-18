@@ -180,4 +180,18 @@ public static class Array2D
 
         return true;
     }
+
+    public static void Copy<T>(T[,] source, T[,] destination)
+    {
+        int xLength = Math.Min(source.GetLength(0), destination.GetLength(0));
+        int yLength = Math.Min(source.GetLength(1), destination.GetLength(1));
+
+        for (int y = 0; y < yLength; y++)
+        {
+            for (int x = 0; x < xLength; x++)
+            {
+                destination[x, y] = source[x, y];
+            }
+        }
+    }
 }

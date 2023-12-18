@@ -5,6 +5,8 @@ using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2023.D17;
 
+// TODO: Optimize by reducing the amount of links between nodes
+// Example: If a node has 3 straights left, it should only be linked to nodes with 2 straights left.
 public class Solver : ISolver<Node[,,,], Node[,,,]>
 {
     public void Parse(string input, IPartSubmitter<Node[,,,], Node[,,,]> partSubmitter)
