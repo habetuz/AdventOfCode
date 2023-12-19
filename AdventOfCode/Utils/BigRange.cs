@@ -8,6 +8,11 @@ public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
     public long Start { get; }
     public long End { get; }
 
+    public long Count
+    {
+        get => Math.Abs(Start - End) + 1;
+    }
+
     public BigRange(long start, long end)
     {
         Start = start;
@@ -19,7 +24,7 @@ public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
     /// </summary>
     /// <param name="value">The value to check.</param>
     /// <returns>True if the value is contained in the range.</returns>
-    public bool InRange(long value)
+    public bool Contains(long value)
     {
         return value >= Start && value <= End;
     }
@@ -110,9 +115,10 @@ public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
         return a.Start > b.Start || (a.Start == b.Start && a.End > b.End);
     }
 
-    public static explicit operator BigRange(Range range) {
-        long start = range.Start.IsFromEnd? long.MaxValue - range.Start.Value : range.Start.Value;
-        long end = range.End.IsFromEnd? long.MaxValue - range.End.Value : range.Start.Value;
+    public static explicit operator BigRange(Range range)
+    {
+        long start = range.Start.IsFromEnd ? long.MaxValue - range.Start.Value : range.Start.Value;
+        long end = range.End.IsFromEnd ? long.MaxValue - range.End.Value : range.Start.Value;
         return new BigRange(start, end);
     }
 

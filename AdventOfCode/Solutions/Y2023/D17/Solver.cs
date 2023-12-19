@@ -7,6 +7,7 @@ namespace AdventOfCode.Solutions.Y2023.D17;
 
 // TODO: Optimize by reducing the amount of links between nodes
 // Example: If a node has 3 straights left, it should only be linked to nodes with 2 straights left.
+// FIXME: This solution currently produces the wrong solutions for puzzle 2.
 public class Solver : ISolver<Node[,,,], Node[,,,]>
 {
     public void Parse(string input, IPartSubmitter<Node[,,,], Node[,,,]> partSubmitter)
@@ -101,38 +102,53 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
                                 continue;
                             }
 
-                            for (
-                                int delta = minStraight;
-                                delta
-                                    <= (
-                                        node.Direction == direction
-                                            ? availableStraights
-                                            : maxStraight
-                                    );
-                                delta++
-                            )
+                            if (node.Direction == direction)
                             {
-                                Coordinate deltaPosition = direction.ToCoordinate() * delta;
+                                if (availableStraights == 0)
+                                {
+                                    continue;
+                                }
 
+                                // We are going straight
+                                Coordinate offset = direction.ToCoordinate() * minStraight;
                                 if (
-                                    x + deltaPosition.X < 0
-                                    || x + deltaPosition.X >= nodes.GetLength(0)
-                                    || y + deltaPosition.Y < 0
-                                    || y + deltaPosition.Y >= nodes.GetLength(1)
+                                    x + offset.X < 0
+                                    || x + offset.X >= nodes.GetLength(0)
+                                    || y + offset.Y < 0
+                                    || y + offset.Y >= nodes.GetLength(1)
                                 )
                                 {
-                                    break;
+                                    continue;
                                 }
 
                                 children.Add(
                                     nodes[
-                                        x + deltaPosition.X,
-                                        y + deltaPosition.Y,
-                                        (
-                                            node.Direction == direction
-                                                ? availableStraights
-                                                : maxStraight
-                                        ) - delta,
+                                        x + offset.X,
+                                        y + offset.Y,
+                                        availableStraights - 1,
+                                        DirectionIndex(direction)
+                                    ]
+                                );
+                            }
+                            else
+                            {
+                                // We are turning
+                                Coordinate offset = direction.ToCoordinate() * minStraight;
+                                if (
+                                    x + offset.X < 0
+                                    || x + offset.X >= nodes.GetLength(0)
+                                    || y + offset.Y < 0
+                                    || y + offset.Y >= nodes.GetLength(1)
+                                )
+                                {
+                                    continue;
+                                }
+
+                                children.Add(
+                                    nodes[
+                                        x + offset.X,
+                                        y + offset.Y,
+                                        maxStraight - minStraight,
                                         DirectionIndex(direction)
                                     ]
                                 );
@@ -192,7 +208,6 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
         HashSet<Node> closedList = new HashSet<Node>();
         Coordinate goal = new Coordinate(nodes.GetLength(0) - 1, nodes.GetLength(1) - 1);
         Node start = nodes[0, 0, 2, 0];
-        //start.G = start.Cost;
         start.H = (int)start.Position.ManhattanDistance(goal);
         Node goalNode = null!;
 

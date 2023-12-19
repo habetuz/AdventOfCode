@@ -56,7 +56,7 @@ public class Solver : ISolver<Almanac, AlmanacWithRange>
             {
                 foreach (var (range, offset) in map)
                 {
-                    if (range.InRange(result))
+                    if (range.Contains(result))
                     {
                         result += offset;
                         break;
