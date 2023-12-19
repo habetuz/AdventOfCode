@@ -58,11 +58,23 @@ namespace AdventOfCode.Commands
                     Solution? solution = null!;
 
                     solution = runner.Run();
-                    if (!settings.Example.HasValue && solution.Value.Solution1 is not null && solution.Value.Solution2 is not null)
+                    if (
+                        !settings.Example.HasValue
+                        && solution.Value.Solution1 is not null
+                        && solution.Value.Solution2 is not null
+                    )
                     {
-                        solutionStatisticsManager.Submit(solution.Value, date);
+                        solutionStatisticsManager.SubmitTimes(solution.Value, date);
                     }
-                    PrintResult(solution.Value, exampleSolution);
+
+                    if (!settings.Example.HasValue)
+                    {
+                        PrintResult(solution.Value, solutionStatisticsManager.Retrieve(date)!.Value);
+                    }
+                    else
+                    {
+                        PrintResult(solution.Value, exampleSolution!.Value);
+                    }
                 }
                 catch (GenericSolver.SolutionNotImplementedException)
                 {
@@ -86,7 +98,7 @@ namespace AdventOfCode.Commands
             return 1;
         }
 
-        private static void PrintResult(Solution solution, Solution? exampleSolution)
+        private static void PrintResult(Solution solution, Solution expectedSolution)
         {
             Logging.LogInfo("Finished execution!", "RUNNER");
 
@@ -149,7 +161,7 @@ namespace AdventOfCode.Commands
                 AnsiConsole.Write(new Padder(chart).Padding(0, 1, 0, 0));
             }
 
-            if (!exampleSolution.HasValue)
+            if (expectedSolution.Solution1 is null && expectedSolution.Solution2 is null)
             {
                 AnsiConsole.Write(
                     new Padder(
@@ -172,12 +184,12 @@ namespace AdventOfCode.Commands
                 var columns = new Columns(
                     getSolutionMessagePanel(
                         "Solution 1",
-                        exampleSolution.Value.Solution1,
+                        expectedSolution.Solution1,
                         solution.Solution1
                     ),
                     getSolutionMessagePanel(
                         "Solution 2",
-                        exampleSolution.Value.Solution2,
+                        expectedSolution.Solution2,
                         solution.Solution2
                     )
                 );
@@ -199,7 +211,9 @@ namespace AdventOfCode.Commands
             else if (expected is null)
             {
                 return new Panel(
-                    new Markup(":cross_mark: [white on red]MISSING EXAMPLE SOLUTION[/]")
+                    new Markup(
+                        $":warning: [yellow]MISSING SOLUTION[/]. Result: [yellow]{actual}[/]"
+                    )
                 )
                     .Header(name)
                     .HeaderAlignment(Justify.Left)

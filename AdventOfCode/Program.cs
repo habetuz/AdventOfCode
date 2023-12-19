@@ -10,23 +10,23 @@ Logging.Initialize();
 app.Configure(config =>
 {
     config.AddExample(Array.Empty<string>());
-    config.AddExample(new string[] { "2017" });
-    config.AddExample(new string[] { "05" });
-    config.AddExample(new string[] { "2017.05" });
-    config.AddExample(new string[] { "05...10" });
-    config.AddExample(new string[] { "17.05..." });
-    config.AddExample(new string[] { "...14" });
+    config.AddExample(["2017"]);
+    config.AddExample(["05"]);
+    config.AddExample(["2017.05"]);
+    config.AddExample(["05...10"]);
+    config.AddExample(["17.05..."]);
+    config.AddExample(["...14"]);
 
     config
         .AddCommand<RunCommand>("run")
         .WithDescription("Run the puzzles specified in the range.")
         .WithExample(Array.Empty<string>())
-        .WithExample(new string[] { "run", "2017" })
-        .WithExample(new string[] { "run", "05" })
-        .WithExample(new string[] { "run", "2017.05" })
-        .WithExample(new string[] { "run", "05...10" })
-        .WithExample(new string[] { "run", "17.05..." })
-        .WithExample(new string[] { "run", "...14" });
+        .WithExample(["run", "2017"])
+        .WithExample(["run", "05"])
+        .WithExample(["run", "2017.05"])
+        .WithExample(["run", "05...10"])
+        .WithExample(["run", "17.05..."])
+        .WithExample(["run", "...14"]);
 
     config
         .AddCommand<SaveCookieCommand>("save-cookie")
@@ -36,11 +36,17 @@ app.Configure(config =>
     config
         .AddCommand<SetReadmeFileCommand>("set-readme")
         .WithAlias("specify-readme")
-        .WithDescription("Sets the path to the README.md file that will be updated when you solve new puzzles.");
+        .WithDescription(
+            "Sets the path to the README.md file that will be updated when you solve new puzzles."
+        );
 
     config
         .AddCommand<TouchInputCommand>("touch")
         .WithDescription("Create or edit an example input.");
+
+    config
+        .AddCommand<SubmitCommand>("submit")
+        .WithDescription("Submit a solution to test against in the future.");
 #if DEBUG
     config.ValidateExamples();
     config.PropagateExceptions();

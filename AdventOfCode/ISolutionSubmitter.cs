@@ -4,6 +4,6 @@ namespace AdventOfCode
 {
     internal interface ISolutionSubmitter
     {
-        public void Submit(Solution solution, Date date);
+        public void SubmitTimes(Solution solution, Date date);
     }
 }

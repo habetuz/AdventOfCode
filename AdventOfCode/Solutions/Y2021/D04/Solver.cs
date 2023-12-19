@@ -70,6 +70,8 @@ public class Solver : ISolver<Tuple<int[], Board[]>>
 
         partSubmitter.SubmitPart1(this.lastCompletion);
 
+        this.lastCompletion = -1;
+
         for (int i = this.drawIndex + 1; i < input.Item1.Length; i++)
         {
             int draw = input.Item1[i];

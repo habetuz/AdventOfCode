@@ -16,14 +16,14 @@ namespace AdventOfCode.Commands.Settings
         [Description(
             "The solution for puzzle one."
         )]
-        [CommandArgument(1, "[solution 1]")]
-        public string? Solution1 { get; init; } = "";
+        [CommandArgument(1, "<solution 1>")]
+        public string? Solution1 { get; init; }
 
         [Description(
             "The solution for puzzle two."
         )]
-        [CommandArgument(1, "[solution 1]")]
-        public string? Solution2 { get; init; } = "";
+        [CommandArgument(1, "[solution 2]")]
+        public string? Solution2 { get; init; }
 
         public Date Date { get; private set; }
 
