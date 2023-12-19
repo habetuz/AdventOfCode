@@ -110,7 +110,7 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
                                 }
 
                                 // We are going straight
-                                Coordinate offset = direction.ToCoordinate() * minStraight;
+                                Coordinate offset = direction.ToCoordinate();
                                 if (
                                     x + offset.X < 0
                                     || x + offset.X >= nodes.GetLength(0)
@@ -168,28 +168,6 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
     {
         partSubmitter.SubmitPart1(FindPath(input1));
         partSubmitter.SubmitPart2(FindPath(input2));
-        // // PrintPath(goalNode);
-        // Direction[,] path = new Direction[nodes.GetLength(0), nodes.GetLength(1)];
-        // Node? currentPathNode = goalNode;
-        // while (currentPathNode != null)
-        // {
-        //     path[currentPathNode.Position.X, currentPathNode.Position.Y] =
-        //         currentPathNode.Direction;
-        //     currentPathNode = currentPathNode.Parent;
-        // }
-
-        // Array2D.Print(
-        //     path,
-        //     (direction, x, y) =>
-        //         direction switch
-        //         {
-        //             Direction.Up => "↑",
-        //             Direction.Right => "→",
-        //             Direction.Down => "↓",
-        //             Direction.Left => "←",
-        //             _ => ".",
-        //         }
-        // );
     }
 
     private int FindPath(Node[,,,] nodes)
@@ -228,6 +206,30 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
             if (current.Position == goal)
             {
                 goalNode = current;
+
+                // // PrintPath(goalNode);
+                // Direction[,] path = new Direction[nodes.GetLength(0), nodes.GetLength(1)];
+                // Node? currentPathNode = goalNode;
+                // while (currentPathNode != null)
+                // {
+                //     path[currentPathNode.Position.X, currentPathNode.Position.Y] =
+                //         currentPathNode.Direction;
+                //     currentPathNode = currentPathNode.Parent;
+                // }
+
+                // Array2D.Print(
+                //     path,
+                //     (direction, x, y) =>
+                //         direction switch
+                //         {
+                //             Direction.Up => "↑",
+                //             Direction.Right => "→",
+                //             Direction.Down => "↓",
+                //             Direction.Left => "←",
+                //             _ => ".",
+                //         }
+                // );
+
                 return current.G;
             }
 
