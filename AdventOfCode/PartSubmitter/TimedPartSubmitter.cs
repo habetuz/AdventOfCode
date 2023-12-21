@@ -24,6 +24,10 @@ public class TimedPartSubmitter<TPart1, TPart2> : IPartSubmitter<TPart1, TPart2>
         get { return (time1.HasValue ? time1.Value : null, time2.HasValue ? time2.Value : null); }
     }
 
+    public bool IsPart1Complete => part1 is not null;
+
+    public bool IsPart2Complete => part2 is not null;
+
     public void Start()
     {
         this.watch1.Start();
@@ -85,6 +89,10 @@ public class TimedPartSubmitter<TParts> : IPartSubmitter<TParts>
     {
         get { return (time1.HasValue ? time1.Value : null, time2.HasValue ? time2.Value : null); }
     }
+
+    public bool IsPart1Complete => part1 is not null;
+
+    public bool IsPart2Complete => part2 is not null;
 
     public void Start()
     {

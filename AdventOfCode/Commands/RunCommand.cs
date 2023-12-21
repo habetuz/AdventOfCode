@@ -69,11 +69,11 @@ namespace AdventOfCode.Commands
 
                     if (!settings.Example.HasValue)
                     {
-                        PrintResult(solution.Value, solutionStatisticsManager.Retrieve(date)!.Value);
+                        PrintResult(solution.Value, solutionStatisticsManager.Retrieve(date));
                     }
                     else
                     {
-                        PrintResult(solution.Value, exampleSolution!.Value);
+                        PrintResult(solution.Value, exampleSolution);
                     }
                 }
                 catch (GenericSolver.SolutionNotImplementedException)
@@ -98,7 +98,7 @@ namespace AdventOfCode.Commands
             return 1;
         }
 
-        private static void PrintResult(Solution solution, Solution expectedSolution)
+        private static void PrintResult(Solution solution, Solution? expectedSolution)
         {
             Logging.LogInfo("Finished execution!", "RUNNER");
 
@@ -161,7 +161,7 @@ namespace AdventOfCode.Commands
                 AnsiConsole.Write(new Padder(chart).Padding(0, 1, 0, 0));
             }
 
-            if (expectedSolution.Solution1 is null && expectedSolution.Solution2 is null)
+            if (expectedSolution is null || (expectedSolution.Value.Solution1 is null && expectedSolution.Value.Solution2 is null))
             {
                 AnsiConsole.Write(
                     new Padder(
@@ -184,12 +184,12 @@ namespace AdventOfCode.Commands
                 var columns = new Columns(
                     getSolutionMessagePanel(
                         "Solution 1",
-                        expectedSolution.Solution1,
+                        expectedSolution?.Solution1,
                         solution.Solution1
                     ),
                     getSolutionMessagePanel(
                         "Solution 2",
-                        expectedSolution.Solution2,
+                        expectedSolution?.Solution2,
                         solution.Solution2
                     )
                 );

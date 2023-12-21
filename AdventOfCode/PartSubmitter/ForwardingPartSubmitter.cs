@@ -12,6 +12,10 @@ public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, R
         set => toForward = value;
     }
 
+    public bool IsPart1Complete => toForward.IsPart1Complete;
+
+    public bool IsPart2Complete => toForward.IsPart2Complete;
+
     public ForwardingPartSubmitter(IPartSubmitter<ForwardType1, ForwardType2> toForward)
     {
         this.toForward = toForward;
