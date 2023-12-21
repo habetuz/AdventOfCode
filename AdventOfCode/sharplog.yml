@@ -27,3 +27,9 @@
         enabled: true
         format: "[bold white on red]$La{s}p{[[}s{]]}$ - $T$ - $M$[/]$Sp{\nStackTrace: }$"
         short: "\0"
+tags:
+  FILE:
+    format: "$M$"
+    outputs: 
+      - type: FileOutput
+        path: ".log"

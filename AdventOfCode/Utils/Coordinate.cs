@@ -170,5 +170,13 @@ namespace AdventOfCode.Utils
         {
             return (ulong)(Math.Abs(X - coordinate.X) + Math.Abs(Y - coordinate.Y));
         }
+
+        internal IEnumerable<Coordinate> GetNeighbors(params Direction[] directions)
+        {
+            foreach (var direction in directions)
+            {
+                yield return this + direction;
+            }
+        }
     }
 }

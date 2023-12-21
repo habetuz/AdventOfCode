@@ -56,6 +56,7 @@ app.Configure(config =>
 try
 {
     app.Run(args);
+    Logging.Dispose();
 }
 catch (Exception error)
 {
