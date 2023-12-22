@@ -166,12 +166,12 @@ namespace AdventOfCode.Utils
 
         public override string ToString() => $"({X}, {Y})";
 
-        internal ulong ManhattanDistance(Coordinate coordinate)
+        public ulong ManhattanDistance(Coordinate coordinate)
         {
             return (ulong)(Math.Abs(X - coordinate.X) + Math.Abs(Y - coordinate.Y));
         }
 
-        internal IEnumerable<Coordinate> GetNeighbors(params Direction[] directions)
+        public IEnumerable<Coordinate> GetNeighbors(params Direction[] directions)
         {
             foreach (var direction in directions)
             {

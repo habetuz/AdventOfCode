@@ -34,6 +34,7 @@
 | [19](AdventOfCode/Solutions/Y2023/D19/Solver.cs) | 🟩 | `00:00:00.0005814` | `00:00:00.0002673` | `00:00:00` | `00:00:00.0002775` | `00:00:00.0000366` |
 | [20](AdventOfCode/Solutions/Y2023/D20/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [21](AdventOfCode/Solutions/Y2023/D21/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [22](AdventOfCode/Solutions/Y2023/D22/Solver.cs) | 🟨 | `00:00:00.0634815` | `00:00:00.0004685` | `00:00:00` | `00:00:00.0630130` | `00:00:00` |
 ### 2022
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |

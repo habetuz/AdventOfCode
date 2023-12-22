@@ -33,3 +33,7 @@ tags:
     outputs: 
       - type: FileOutput
         path: ".log"
+  SHARPLOG_INTERNAL:
+    levels:
+      info:
+        enabled: false
