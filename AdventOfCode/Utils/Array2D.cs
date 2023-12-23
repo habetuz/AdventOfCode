@@ -141,6 +141,7 @@ public static class Array2D
     public static void Print(uint sizeX, uint sizeY, PrintCallback printCallback)
     {
         Logging.LogInfo($"Array size: {sizeX}x{sizeY}");
+        string str = "";
 
         for (int y = 0; y < sizeY; y++)
         {
@@ -149,8 +150,11 @@ public static class Array2D
             {
                 line += printCallback(x, y);
             }
-            AnsiConsole.MarkupLine(line);
+
+            str += line + "\n";
         }
+
+        AnsiConsole.Markup(str);
     }
 
     public delegate string PrintCallback(int x, int y);
