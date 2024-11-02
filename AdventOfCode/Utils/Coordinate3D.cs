@@ -12,12 +12,13 @@ public struct Coordinate3D
     public Coordinate3D(long x, long y, long z) => (X, Y, Z) = (x, y, z);
 
     public static Coordinate3D operator +(Coordinate3D a, Coordinate3D b) =>
-        new Coordinate3D(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+        new(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
 
     public static Coordinate3D operator -(Coordinate3D a, Coordinate3D b) =>
-        new Coordinate3D(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+        new(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
 
     public static Coordinate3D operator +(Coordinate3D a, Direction3D b) => a + b.ToCoordinate();
+
     public static Coordinate3D operator -(Coordinate3D a, Direction3D b) => a - b.ToCoordinate();
 
     public static bool operator ==(Coordinate3D a, Coordinate3D b)

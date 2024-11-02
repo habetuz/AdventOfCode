@@ -10,21 +10,18 @@ namespace AdventOfCode.Utils
         public Coordinate(long x, long y) => (X, Y) = (x, y);
 
         public static Coordinate operator +(Coordinate a, Coordinate b) =>
-            new Coordinate(a.X + b.X, a.Y + b.Y);
+            new(a.X + b.X, a.Y + b.Y);
 
         public static Coordinate operator -(Coordinate a, Coordinate b) =>
-            new Coordinate(a.X - b.X, a.Y - b.Y);
+            new(a.X - b.X, a.Y - b.Y);
 
-        public static Coordinate operator -(Coordinate a, long b) =>
-            new Coordinate(a.X - b, a.Y - b);
+        public static Coordinate operator -(Coordinate a, long b) => new(a.X - b, a.Y - b);
 
-        public static Coordinate operator *(Coordinate a, long b) =>
-            new Coordinate(a.X * b, a.Y * b);
+        public static Coordinate operator *(Coordinate a, long b) => new(a.X * b, a.Y * b);
 
         public static Coordinate operator *(long a, Coordinate b) => b * a;
 
-        public static Coordinate operator /(Coordinate a, long b) =>
-            new Coordinate(a.X / b, a.Y / b);
+        public static Coordinate operator /(Coordinate a, long b) => new(a.X / b, a.Y / b);
 
         public static Coordinate operator +(Coordinate a, Direction direction)
         {

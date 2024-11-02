@@ -9,13 +9,13 @@ namespace AdventOfCode
         private const string EMOJI_UNSOLVED = "❌";
 
         private const string EMOJI_LIGHT_SPEED = "🟩";
-        private static readonly TimeSpan TIME_LIGHT_SPEED = new TimeSpan(000010000);
+        private static readonly TimeSpan TIME_LIGHT_SPEED = new(000010000);
         private const string EMOJI_SOUND_SPEED = "🟦";
-        private static readonly TimeSpan TIME_SOUND_SPEED = new TimeSpan(000100000);
+        private static readonly TimeSpan TIME_SOUND_SPEED = new(000100000);
         private const string EMOJI_MODERAD_SPEED = "🟨";
-        private static readonly TimeSpan TIME_MODERAT_SPEED = new TimeSpan(001000000);
+        private static readonly TimeSpan TIME_MODERAT_SPEED = new(001000000);
         private const string EMOJI_SLOW_SPEED = "🟧";
-        private static readonly TimeSpan TIME_SLOW_SPEED = new TimeSpan(010000000);
+        private static readonly TimeSpan TIME_SLOW_SPEED = new(010000000);
         private const string EMOJI_SNAIL_SPEED = "🟥";
         private static readonly TimeSpan TIME_SNAIL_SPEED = TimeSpan.MaxValue;
 
@@ -130,13 +130,13 @@ namespace AdventOfCode
 
         private class ClosestTimeSpanDictionary<TValue> : IDictionary<TimeSpan, TValue>
         {
-            private Dictionary<TimeSpan, TValue> dictionary = new();
+            private Dictionary<TimeSpan, TValue> dictionary = [];
 
             public TValue this[TimeSpan key]
             {
                 get
                 {
-                    if (this.TryGetValue(key, out TValue? value))
+                    if (TryGetValue(key, out TValue? value))
                     {
                         return value;
                     }
@@ -153,42 +153,42 @@ namespace AdventOfCode
                         }
                     }
 
-                    return this.dictionary[best];
+                    return dictionary[best];
                 }
-                set { this.dictionary[key] = value; }
+                set { dictionary[key] = value; }
             }
 
-            public ICollection<TimeSpan> Keys => this.dictionary.Keys;
+            public ICollection<TimeSpan> Keys => dictionary.Keys;
 
-            public ICollection<TValue> Values => this.dictionary.Values;
+            public ICollection<TValue> Values => dictionary.Values;
 
-            public int Count => this.dictionary.Count;
+            public int Count => dictionary.Count;
 
             public bool IsReadOnly => false;
 
             public void Add(TimeSpan key, TValue value)
             {
-                this.dictionary.Add(key, value);
+                dictionary.Add(key, value);
             }
 
             public void Add(KeyValuePair<TimeSpan, TValue> item)
             {
-                this.dictionary.Add(item.Key, item.Value);
+                dictionary.Add(item.Key, item.Value);
             }
 
             public void Clear()
             {
-                this.dictionary.Clear();
+                dictionary.Clear();
             }
 
             public bool Contains(KeyValuePair<TimeSpan, TValue> item)
             {
-                return this.dictionary.Contains(item);
+                return dictionary.Contains(item);
             }
 
             public bool ContainsKey(TimeSpan key)
             {
-                return this.dictionary.ContainsKey(key);
+                return dictionary.ContainsKey(key);
             }
 
             public void CopyTo(KeyValuePair<TimeSpan, TValue>[] array, int arrayIndex)
@@ -198,41 +198,41 @@ namespace AdventOfCode
 
             public IEnumerator<KeyValuePair<TimeSpan, TValue>> GetEnumerator()
             {
-                return this.dictionary.GetEnumerator();
+                return dictionary.GetEnumerator();
             }
 
             public bool Remove(TimeSpan key)
             {
-                return this.dictionary.Remove(key);
+                return dictionary.Remove(key);
             }
 
             public bool Remove(KeyValuePair<TimeSpan, TValue> item)
             {
                 if (
-                    this.dictionary.TryGetValue(item.Key, out TValue? value)
+                    dictionary.TryGetValue(item.Key, out TValue? value)
                     && value is not null
                     && item.Value is not null
                 )
                 {
                     if (item.Value.Equals(value))
                     {
-                        return this.dictionary.Remove(item.Key);
+                        return dictionary.Remove(item.Key);
                     }
 
                     return false;
                 }
 
-                return this.dictionary.Remove(item.Key);
+                return dictionary.Remove(item.Key);
             }
 
             public bool TryGetValue(TimeSpan key, [MaybeNullWhen(false)] out TValue value)
             {
-                return this.dictionary.TryGetValue(key, out value);
+                return dictionary.TryGetValue(key, out value);
             }
 
             IEnumerator IEnumerable.GetEnumerator()
             {
-                return this.dictionary.GetEnumerator();
+                return dictionary.GetEnumerator();
             }
         }
     }

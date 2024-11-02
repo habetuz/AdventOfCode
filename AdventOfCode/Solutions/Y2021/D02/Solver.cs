@@ -11,7 +11,7 @@ public class Solver : ISolver<KeyValuePair<Direction, int>[]>
         string[] lines = input.Split('\n');
 
         // Parsing to KeyValuePair
-        List<KeyValuePair<Direction, int>> inputArray = new List<KeyValuePair<Direction, int>>();
+        List<KeyValuePair<Direction, int>> inputArray = [];
         for (int i = 0; i < lines.Length; i++)
         {
             string[] inputPair = lines[i].Split(' ');

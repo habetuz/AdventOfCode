@@ -9,8 +9,8 @@ public class Solver : ISolver<bool[][,]>
     public void Parse(string input, IPartSubmitter<bool[][,]> partSubmitter)
     {
         var blocks = input.Split("\n\n", StringSplitOptions.RemoveEmptyEntries);
-        var parsedBlocks = blocks.Select(
-            block => Array2D.FromString<bool>(block, (c, x, y) => c == '#')
+        var parsedBlocks = blocks.Select(block =>
+            Array2D.FromString<bool>(block, (c, x, y) => c == '#')
         );
         partSubmitter.Submit(parsedBlocks.ToArray());
     }

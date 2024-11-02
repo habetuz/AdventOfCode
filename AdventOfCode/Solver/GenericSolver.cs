@@ -18,10 +18,8 @@ public class GenericSolver : ISolver<object, object>
 
     public GenericSolver(Date date)
     {
-        this.solverType = Type.GetType(
-            $"AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2}.Solver"
-        )!;
-        if (this.solverType == null)
+        solverType = Type.GetType($"AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2}.Solver")!;
+        if (solverType == null)
         {
             throw new SolutionNotImplementedException();
         }
@@ -29,7 +27,7 @@ public class GenericSolver : ISolver<object, object>
         int genericParamCount = 0;
         // Check if type extends ISolver<...>
         Type iSolverType = null!;
-        Type[] interfaces = this.solverType.GetInterfaces();
+        Type[] interfaces = solverType.GetInterfaces();
         if (
             !interfaces.Any(
                 (interfaceType) =>
@@ -65,56 +63,48 @@ public class GenericSolver : ISolver<object, object>
             throw new ISolverNotImplementedException();
         }
 
-        this.solverInstance = Activator.CreateInstance(this.solverType)!;
+        solverInstance = Activator.CreateInstance(solverType)!;
 
-        this.genericTypes = iSolverType.GenericTypeArguments;
+        genericTypes = iSolverType.GenericTypeArguments;
         this.genericParamCount = genericParamCount;
 
-        this.parseMethod = solverType.GetMethod("Parse")!;
-        this.solveMethod = solverType.GetMethod("Solve")!;
+        parseMethod = solverType.GetMethod("Parse")!;
+        solveMethod = solverType.GetMethod("Solve")!;
 
         if (genericParamCount == 1)
         {
-            this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<object, object>)
+            forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<object, object>)
                 .GetGenericTypeDefinition()
-                .MakeGenericType(typeof(object), this.genericTypes[0]);
+                .MakeGenericType(typeof(object), genericTypes[0]);
         }
         else
         {
-            this.forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<
+            forwardingPartSubmitterType = typeof(ForwardingPartSubmitter<
                 object,
                 object,
                 object,
                 object
             >)
                 .GetGenericTypeDefinition()
-                .MakeGenericType(
-                    typeof(object),
-                    typeof(object),
-                    this.genericTypes[0],
-                    this.genericTypes[1]
-                );
+                .MakeGenericType(typeof(object), typeof(object), genericTypes[0], genericTypes[1]);
         }
     }
 
     public void Parse(string input, IPartSubmitter<object, object> parsedInput)
     {
-        var forwarder = Activator.CreateInstance(this.forwardingPartSubmitterType, parsedInput)!;
-        this.parseMethod.Invoke(this.solverInstance, new object[] { input, forwarder });
+        var forwarder = Activator.CreateInstance(forwardingPartSubmitterType, parsedInput)!;
+        parseMethod.Invoke(solverInstance, new object[] { input, forwarder });
     }
 
     public void Solve(object? input1, object? input2, IPartSubmitter solution)
     {
-        if (this.genericParamCount == 2)
+        if (genericParamCount == 2)
         {
-            this.solveMethod.Invoke(
-                this.solverInstance,
-                new object?[] { input1, input2, solution }
-            );
+            solveMethod.Invoke(solverInstance, new object?[] { input1, input2, solution });
         }
         else
         {
-            this.solveMethod.Invoke(this.solverInstance, new object?[] { input1, solution });
+            solveMethod.Invoke(solverInstance, new object?[] { input1, solution });
         }
     }
 

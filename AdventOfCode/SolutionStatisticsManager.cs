@@ -184,7 +184,7 @@ namespace AdventOfCode
                             Solve1 = solve1,
                             Solve2 = solve2,
                             Solution1 = solution1,
-                            Solution2 = solution2
+                            Solution2 = solution2,
                         };
                     }
                 }

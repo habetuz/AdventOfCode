@@ -90,7 +90,7 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
                     for (int i = 0; i < 4; i++)
                     {
                         var node = nodes[x, y, availableStraights, i];
-                        List<Node> children = new List<Node>();
+                        List<Node> children = [];
                         foreach (
                             Direction direction in (
                                 Direction.Up | Direction.Right | Direction.Down | Direction.Left
@@ -182,9 +182,9 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
             }
         }
 
-        PriorityQueue<Node, int> openList = new PriorityQueue<Node, int>();
-        HashSet<Node> closedList = new HashSet<Node>();
-        Coordinate goal = new Coordinate(nodes.GetLength(0) - 1, nodes.GetLength(1) - 1);
+        PriorityQueue<Node, int> openList = new();
+        HashSet<Node> closedList = [];
+        Coordinate goal = new(nodes.GetLength(0) - 1, nodes.GetLength(1) - 1);
         Node start = nodes[0, 0, 2, 0];
         start.H = (int)start.Position.ManhattanDistance(goal);
         Node goalNode = null!;
@@ -200,7 +200,7 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
             if (current.H < lowestH)
             {
                 lowestH = current.H;
-                Logging.LogDebug(lowestH);
+                // Logging.LogDebug(lowestH);
             }
 
             if (current.Position == goal)

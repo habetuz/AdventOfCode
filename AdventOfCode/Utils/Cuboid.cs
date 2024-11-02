@@ -45,7 +45,7 @@ public class Cuboid
 
     public Cuboid Move(Coordinate3D by)
     {
-        this.Position += by;
+        Position += by;
         return this;
     }
 

@@ -83,7 +83,7 @@ namespace AdventOfCode.Time
 
         public static ValidationResult DateRange(string stringRange, out CalendarRange dateRange)
         {
-            Date startDate = new() { Year = START_YEAR, Day = START_DAY, };
+            Date startDate = new() { Year = START_YEAR, Day = START_DAY };
             Date endDate;
             dateRange = new();
 
@@ -94,7 +94,7 @@ namespace AdventOfCode.Time
                     Year = AOCDateTimeUtils.GetCurrentYear(),
                     Day = AOCDateTimeUtils.GetCurrentDay(),
                 };
-                dateRange = new() { StartDate = startDate, EndDate = endDate, };
+                dateRange = new() { StartDate = startDate, EndDate = endDate };
                 return ValidationResult.Success();
             }
 
@@ -215,7 +215,7 @@ namespace AdventOfCode.Time
                 );
             }
 
-            dateRange = new() { StartDate = startDate, EndDate = endDate, };
+            dateRange = new() { StartDate = startDate, EndDate = endDate };
 
             return ValidationResult.Success();
         }

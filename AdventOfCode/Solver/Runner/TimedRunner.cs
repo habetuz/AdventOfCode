@@ -8,8 +8,8 @@ namespace AdventOfCode.Solver.Runner
 {
     public class TimedRunner : ISolverRunner
     {
-        private static readonly TimeSpan MaxTime = new TimeSpan(0, 0, 5);
-        private static readonly TimeSpan WarmupTime = new TimeSpan(0, 0, 0, 0, 500);
+        private static readonly TimeSpan MaxTime = new(0, 0, 5);
+        private static readonly TimeSpan WarmupTime = new(0, 0, 0, 0, 500);
 
         private readonly ISolver<object, object> solver;
         private readonly string input;
@@ -50,12 +50,11 @@ namespace AdventOfCode.Solver.Runner
                     runtime.Start();
                     do
                     {
-                        TimedPartSubmitter<object> parseSubmitter =
-                            new TimedPartSubmitter<object>();
-                        TimedPartSubmitter solutionSubmitter = new TimedPartSubmitter();
+                        TimedPartSubmitter<object> parseSubmitter = new();
+                        TimedPartSubmitter solutionSubmitter = new();
                         parseSubmitter.Start();
                         solutionSubmitter.Start();
-                        this.solver.Parse(this.input, parseSubmitter);
+                        solver.Parse(input, parseSubmitter);
 
                         if (
                             parseSubmitter.Parts.Item1 is null
@@ -65,7 +64,7 @@ namespace AdventOfCode.Solver.Runner
                             throw new Exception("Parsing is not fully implemented!");
                         }
 
-                        this.solver.Solve(
+                        solver.Solve(
                             parseSubmitter.Parts.Item1,
                             parseSubmitter.Parts.Item2,
                             solutionSubmitter
@@ -85,17 +84,16 @@ namespace AdventOfCode.Solver.Runner
                         ProgressTask run = ctx.AddTask("Running...", true, MaxTime.Ticks);
                         elapsedSum = new TimeSpan();
                         int loopCount = 0;
-                        List<(TimeSpan?, TimeSpan?)> parseTimes = new();
-                        List<(TimeSpan?, TimeSpan?)> solveTimes = new();
+                        List<(TimeSpan?, TimeSpan?)> parseTimes = [];
+                        List<(TimeSpan?, TimeSpan?)> solveTimes = [];
                         runtime.Restart();
                         do
                         {
-                            TimedPartSubmitter<object> parseSubmitter =
-                                new TimedPartSubmitter<object>();
-                            TimedPartSubmitter solutionSubmitter = new TimedPartSubmitter();
+                            TimedPartSubmitter<object> parseSubmitter = new();
+                            TimedPartSubmitter solutionSubmitter = new();
                             parseSubmitter.Start();
                             solutionSubmitter.Start();
-                            this.solver.Parse(this.input, parseSubmitter);
+                            solver.Parse(input, parseSubmitter);
 
                             if (
                                 parseSubmitter.Parts.Item1 is null
@@ -105,7 +103,7 @@ namespace AdventOfCode.Solver.Runner
                                 throw new Exception("Parsing is not fully implemented!");
                             }
 
-                            this.solver.Solve(
+                            solver.Solve(
                                 parseSubmitter.Parts.Item1,
                                 parseSubmitter.Parts.Item2,
                                 solutionSubmitter

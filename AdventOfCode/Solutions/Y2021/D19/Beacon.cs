@@ -6,8 +6,8 @@ public class Beacon
 {
     public Beacon()
     {
-        this.Neighbors = new Dictionary<double, Beacon>();
-        this.MaxDistance = 0;
+        Neighbors = [];
+        MaxDistance = 0;
     }
 
     public int X { get; set; }
@@ -24,9 +24,9 @@ public class Beacon
     {
         return new Beacon
         {
-            X = this.X,
-            Y = this.Y,
-            Z = this.Z,
+            X = X,
+            Y = Y,
+            Z = Z,
         };
     }
 }

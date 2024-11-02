@@ -12,7 +12,7 @@ public class Solver : ISolver<Coordinate[], Coordinate[]>
         var lines = input.Split('\n', StringSplitOptions.RemoveEmptyEntries);
         byte[] shiftX = new byte[lines[0].Length];
         byte[] shiftY = new byte[lines.Length];
-        List<Coordinate> galaxies = new List<Coordinate>();
+        List<Coordinate> galaxies = [];
 
         // Scan vertically
         byte currentShift = 0;
@@ -66,7 +66,8 @@ public class Solver : ISolver<Coordinate[], Coordinate[]>
             galaxies
                 .Select(
                     (galaxy) =>
-                        galaxy + ((1_000_000 - 1) * new Coordinate(shiftX[galaxy.X], shiftY[galaxy.Y]))
+                        galaxy
+                        + ((1_000_000 - 1) * new Coordinate(shiftX[galaxy.X], shiftY[galaxy.Y]))
                 )
                 .ToArray()
         );

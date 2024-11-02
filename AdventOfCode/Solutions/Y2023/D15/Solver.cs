@@ -27,8 +27,8 @@ public class Solver : ISolver<string[], Instruction[]>
                             Data = new Data
                             {
                                 Label = parts[0],
-                                Strength = parts.Length > 1 ? byte.Parse(parts[1]) : (byte)0
-                            }
+                                Strength = parts.Length > 1 ? byte.Parse(parts[1]) : (byte)0,
+                            },
                         };
                     }
                 )
@@ -49,7 +49,7 @@ public class Solver : ISolver<string[], Instruction[]>
 
             if (box is null)
             {
-                boxes[Hash(instruction.Data.Label)] = new List<Data>() { instruction.Data };
+                boxes[Hash(instruction.Data.Label)] = [instruction.Data];
 
                 continue;
             }

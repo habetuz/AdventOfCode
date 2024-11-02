@@ -41,10 +41,11 @@ public class Solver : ISolver<char[,]>
             }
 
             discovered = new Direction[input.GetLength(0), input.GetLength(1)];
-            new Beam() { Coordinate = new Coordinate(x, input.GetLength(1) - 1 + 1), Direction = Direction.Up }.Shoot(
-                input,
-                discovered
-            );
+            new Beam()
+            {
+                Coordinate = new Coordinate(x, input.GetLength(1) - 1 + 1),
+                Direction = Direction.Up,
+            }.Shoot(input, discovered);
             energized = discovered.Cast<Direction>().Count(d => d != Direction.None);
 
             if (energized > max)
@@ -68,10 +69,11 @@ public class Solver : ISolver<char[,]>
             }
 
             discovered = new Direction[input.GetLength(0), input.GetLength(1)];
-            new Beam() { Coordinate = new Coordinate(input.GetLength(0) - 1 + 1, y), Direction = Direction.Left }.Shoot(
-                input,
-                discovered
-            );
+            new Beam()
+            {
+                Coordinate = new Coordinate(input.GetLength(0) - 1 + 1, y),
+                Direction = Direction.Left,
+            }.Shoot(input, discovered);
             energized = discovered.Cast<Direction>().Count(d => d != Direction.None);
 
             if (energized > max)

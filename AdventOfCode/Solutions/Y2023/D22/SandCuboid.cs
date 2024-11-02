@@ -12,8 +12,8 @@ public class SandCuboid : Cuboid
     public SandCuboid(Coordinate3D position, long xLength, long yLength, long zLength)
         : base(position, xLength, yLength, zLength) { }
 
-    public HashSet<SandCuboid> SupportedBy { get; } = new();
-    public HashSet<SandCuboid> Supporting { get; } = new();
+    public HashSet<SandCuboid> SupportedBy { get; } = [];
+    public HashSet<SandCuboid> Supporting { get; } = [];
 
     public int RemoveSupport()
     {

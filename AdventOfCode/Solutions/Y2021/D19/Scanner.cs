@@ -12,17 +12,45 @@ public class Scanner
     private string yDir = "+Y";
     private string zDir = "+Z";
 
-    public Beacon[] Beacons { get => this.beacons; set => this.beacons = value; }
+    public Beacon[] Beacons
+    {
+        get => beacons;
+        set => beacons = value;
+    }
 
-    public int X { get => this.x; set => this.x = value; }
+    public int X
+    {
+        get => x;
+        set => x = value;
+    }
 
-    public int Y { get => this.y; set => this.y = value; }
+    public int Y
+    {
+        get => y;
+        set => y = value;
+    }
 
-    public int Z { get => this.z; set => this.z = value; }
+    public int Z
+    {
+        get => z;
+        set => z = value;
+    }
 
-    public string XDir { get => this.xDir; set => this.xDir = value; }
+    public string XDir
+    {
+        get => xDir;
+        set => xDir = value;
+    }
 
-    public string YDir { get => this.yDir; set => this.yDir = value; }
+    public string YDir
+    {
+        get => yDir;
+        set => yDir = value;
+    }
 
-    public string ZDir { get => this.zDir; set => this.zDir = value; }
+    public string ZDir
+    {
+        get => zDir;
+        set => zDir = value;
+    }
 }

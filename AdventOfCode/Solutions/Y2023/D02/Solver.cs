@@ -42,7 +42,8 @@ public class Solver : ISolver<Game[]>
                             subsets[k].Blue = number;
                             break;
                     }
-                };
+                }
+                ;
             }
 
             games[i].Subsets = subsets;

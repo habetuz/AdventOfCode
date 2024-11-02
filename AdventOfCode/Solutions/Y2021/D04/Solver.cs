@@ -23,7 +23,7 @@ public class Solver : ISolver<Tuple<int[], Board[]>>
             draws[i] = int.Parse(drawsString[i]);
         }
 
-        List<Board> boards = new List<Board>();
+        List<Board> boards = [];
 
         for (int boardIndex = 2; boardIndex < lines.Length; boardIndex += 6)
         {
@@ -31,10 +31,8 @@ public class Solver : ISolver<Tuple<int[], Board[]>>
 
             for (int y = 0; y < 5; y++)
             {
-                string[] line = lines[boardIndex + y].Split(
-                    new char[] { ' ' },
-                    StringSplitOptions.RemoveEmptyEntries
-                );
+                string[] line = lines[boardIndex + y]
+                    .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
                 for (int x = 0; x < 5; x++)
                 {
@@ -53,41 +51,41 @@ public class Solver : ISolver<Tuple<int[], Board[]>>
         foreach (Board board in input.Item2)
         {
             board.AddToDrawEvent(this);
-            board.CompletedEvent += this.BoardCompleted;
+            board.CompletedEvent += BoardCompleted;
         }
 
         for (int i = 0; i < input.Item1.Length; i++)
         {
             int draw = input.Item1[i];
-            if (this.lastCompletion != -1)
+            if (lastCompletion != -1)
             {
                 break;
             }
 
-            this.NewDrawEvent!(this, draw);
-            this.drawIndex = i;
+            NewDrawEvent!(this, draw);
+            drawIndex = i;
         }
 
-        partSubmitter.SubmitPart1(this.lastCompletion);
+        partSubmitter.SubmitPart1(lastCompletion);
 
-        this.lastCompletion = -1;
+        lastCompletion = -1;
 
-        for (int i = this.drawIndex + 1; i < input.Item1.Length; i++)
+        for (int i = drawIndex + 1; i < input.Item1.Length; i++)
         {
             int draw = input.Item1[i];
-            if (this.NewDrawEvent == null)
+            if (NewDrawEvent == null)
             {
                 break;
             }
 
-            this.NewDrawEvent(this, draw);
+            NewDrawEvent(this, draw);
         }
 
-        partSubmitter.SubmitPart2(this.lastCompletion);
+        partSubmitter.SubmitPart2(lastCompletion);
     }
 
     private void BoardCompleted(Board sender, int lastDraw)
     {
-        this.lastCompletion = lastDraw * sender.Value;
+        lastCompletion = lastDraw * sender.Value;
     }
 }

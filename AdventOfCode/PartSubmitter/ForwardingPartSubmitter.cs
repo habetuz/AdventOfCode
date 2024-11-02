@@ -23,12 +23,12 @@ public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, R
 
     public void SubmitPart1(ReceiveType1 part)
     {
-        this.toForward.SubmitPart1(part);
+        toForward.SubmitPart1(part);
     }
 
     public void SubmitPart2(ReceiveType2 part)
     {
-        this.toForward.SubmitPart2(part);
+        toForward.SubmitPart2(part);
     }
 }
 

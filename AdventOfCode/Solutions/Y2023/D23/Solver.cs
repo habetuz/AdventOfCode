@@ -13,8 +13,8 @@ public class Solver : ISolver<Graph, Graph>
         char[,] map = Array2D.FromString(input);
         Node?[,] nodes1 = new Node?[map.GetLength(0), map.GetLength(1)];
         Node?[,] nodes2 = new Node?[map.GetLength(0), map.GetLength(1)];
-        Graph graph1 = new Graph();
-        Graph graph2 = new Graph();
+        Graph graph1 = new();
+        Graph graph2 = new();
         graph1.Map = map;
         graph2.Map = map;
 
@@ -139,15 +139,14 @@ public class Solver : ISolver<Graph, Graph>
 
         // Remove nodes with only one or two neighbors
         var intersections2 = graph2
-            .Nodes
-            .Where((node) => node.Neighbors.Count > 2)
+            .Nodes.Where((node) => node.Neighbors.Count > 2)
             .Append(graph2.Start)
             .Append(graph2.End);
 
         foreach (var node in intersections2)
         {
             var neighbors = node.Neighbors;
-            HashSet<(int distance, Node node)> newNeighbors = new();
+            HashSet<(int distance, Node node)> newNeighbors = [];
             foreach (var (distance, neighbor) in neighbors)
             {
                 var prePosition = node;
@@ -156,9 +155,7 @@ public class Solver : ISolver<Graph, Graph>
 
                 do
                 {
-                    var next = position
-                        .Neighbors
-                        .First((neighbor) => neighbor.node != prePosition);
+                    var next = position.Neighbors.First((neighbor) => neighbor.node != prePosition);
                     distanceSum += next.distance;
                     prePosition = position;
                     position = next.node;

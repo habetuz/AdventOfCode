@@ -7,7 +7,9 @@ namespace AdventOfCode.Commands.Settings
 {
     public class SetReadmeFileSettings : CommandSettings
     {
-        [Description("The path to your README.md file. It will be updated as you solve puzzles. Leave empty to remove the set README.md file path.")]
+        [Description(
+            "The path to your README.md file. It will be updated as you solve puzzles. Leave empty to remove the set README.md file path."
+        )]
         [CommandArgument(0, "[path]")]
         public string? Path { get; init; } = null!;
 

@@ -7,7 +7,10 @@ public class Solver : ISolver<HandPart1[], HandPart2[]>
 {
     public void Parse(string input, IPartSubmitter<HandPart1[], HandPart2[]> partSubmitter)
     {
-        string[][] lines = input.Split('\n', StringSplitOptions.RemoveEmptyEntries).Select(l => l.Split(' ')).ToArray();
+        string[][] lines = input
+            .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+            .Select(l => l.Split(' '))
+            .ToArray();
         HandPart1[] handsPart1 = new HandPart1[lines.Length];
         HandPart2[] handsPart2 = new HandPart2[lines.Length];
 
@@ -32,7 +35,7 @@ public class Solver : ISolver<HandPart1[], HandPart2[]>
                     'Q' => CardPart1.Queen,
                     'K' => CardPart1.King,
                     'A' => CardPart1.Ace,
-                    _ => throw new Exception("Invalid card")
+                    _ => throw new Exception("Invalid card"),
                 };
 
                 cardsPart2[j] = lines[i][0][j] switch
@@ -50,7 +53,7 @@ public class Solver : ISolver<HandPart1[], HandPart2[]>
                     'Q' => CardPart2.Queen,
                     'K' => CardPart2.King,
                     'A' => CardPart2.Ace,
-                    _ => throw new Exception("Invalid card")
+                    _ => throw new Exception("Invalid card"),
                 };
             }
 
@@ -70,8 +73,8 @@ public class Solver : ISolver<HandPart1[], HandPart2[]>
         uint totalWinningsPart2 = 0;
         for (uint i = 0; i < input1.Length; i++)
         {
-            totalWinningsPart1 += input1[i].Bid * (i+1);
-            totalWinningsPart2 += input2[i].Bid * (i+1);
+            totalWinningsPart1 += input1[i].Bid * (i + 1);
+            totalWinningsPart2 += input2[i].Bid * (i + 1);
         }
 
         partSubmitter.SubmitPart1(totalWinningsPart1);

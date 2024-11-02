@@ -32,7 +32,7 @@ public class Solver : ISolver<(IWorkflow In, Part[] Parts)>
         )
         {
             { "R", new RejectWorkflow() },
-            { "A", new AcceptWorkflow() }
+            { "A", new AcceptWorkflow() },
         };
 
         // Link workflows
@@ -123,17 +123,15 @@ public class Solver : ISolver<(IWorkflow In, Part[] Parts)>
         partSubmitter.SubmitPart1(total);
 
         partSubmitter.SubmitPart2(
-            input
-                .In
-                .Process(
-                    new RangeParts()
-                    {
-                        X = new BigRange(MIN_VALUE, MAX_VALUE),
-                        M = new BigRange(MIN_VALUE, MAX_VALUE),
-                        A = new BigRange(MIN_VALUE, MAX_VALUE),
-                        S = new BigRange(MIN_VALUE, MAX_VALUE)
-                    }
-                )
+            input.In.Process(
+                new RangeParts()
+                {
+                    X = new BigRange(MIN_VALUE, MAX_VALUE),
+                    M = new BigRange(MIN_VALUE, MAX_VALUE),
+                    A = new BigRange(MIN_VALUE, MAX_VALUE),
+                    S = new BigRange(MIN_VALUE, MAX_VALUE),
+                }
+            )
         );
     }
 }

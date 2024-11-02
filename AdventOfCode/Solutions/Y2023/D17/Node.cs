@@ -25,7 +25,7 @@ public class Node : IComparable<Node>
 
     public int CompareTo(Node? other)
     {
-        return this.F.CompareTo(other?.F);
+        return F.CompareTo(other?.F);
     }
 
     public void Expand(
@@ -36,7 +36,7 @@ public class Node : IComparable<Node>
     )
     {
         closedList.Add(this);
-        foreach (var child in this.Children)
+        foreach (var child in Children)
         {
             if (closedList.Contains(child))
             {
@@ -44,7 +44,7 @@ public class Node : IComparable<Node>
             }
 
             // Sum up costs between parent and child
-            int tentativeG = this.G;
+            int tentativeG = G;
             for (int delta = (int)Position.ManhattanDistance(child.Position); delta > 0; delta--)
             {
                 Coordinate coordinate = Position + child.Direction.ToCoordinate() * delta;
@@ -71,6 +71,6 @@ public class Node : IComparable<Node>
 
     public override int GetHashCode()
     {
-        return this.Position.GetHashCode();
+        return Position.GetHashCode();
     }
 }

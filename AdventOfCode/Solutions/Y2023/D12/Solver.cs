@@ -37,7 +37,7 @@ public class Solver : ISolver<Line[], Line[]>
         long combinations = input1.Sum(
             (line) =>
             {
-                Dictionary<State, long> cache = new();
+                Dictionary<State, long> cache = [];
                 var arrangements = GetArrangements(
                     new State { CurrentChar = line.Data[0] },
                     line,
@@ -52,7 +52,7 @@ public class Solver : ISolver<Line[], Line[]>
         combinations = input2.Sum(
             (line) =>
             {
-                Dictionary<State, long> cache = new();
+                Dictionary<State, long> cache = [];
                 var arrangements = GetArrangements(
                     new State { CurrentChar = line.Data[0] },
                     line,

@@ -19,7 +19,7 @@ namespace AdventOfCode.Commands
         {
             var calendarRange = settings.RunRange;
 
-            SolutionStatisticsManager solutionStatisticsManager = new SolutionStatisticsManager();
+            SolutionStatisticsManager solutionStatisticsManager = new();
             WebResourceManager webResourceManager = new();
             IInputRetriever inputRetriever = new InputManager(webResourceManager);
 
@@ -161,7 +161,13 @@ namespace AdventOfCode.Commands
                 AnsiConsole.Write(new Padder(chart).Padding(0, 1, 0, 0));
             }
 
-            if (expectedSolution is null || (expectedSolution.Value.Solution1 is null && expectedSolution.Value.Solution2 is null))
+            if (
+                expectedSolution is null
+                || (
+                    expectedSolution.Value.Solution1 is null
+                    && expectedSolution.Value.Solution2 is null
+                )
+            )
             {
                 AnsiConsole.Write(
                     new Padder(
@@ -170,7 +176,7 @@ namespace AdventOfCode.Commands
                             Title = new TableTitle("Solutions", "yellow"),
                             Expand = true,
                             ShowHeaders = false,
-                            Border = TableBorder.Rounded
+                            Border = TableBorder.Rounded,
                         }
                             .AddColumn(new TableColumn("Part").LeftAligned())
                             .AddColumn(new TableColumn("Solution").RightAligned())

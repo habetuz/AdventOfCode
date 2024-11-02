@@ -10,7 +10,7 @@ namespace AdventOfCode.Time
 
         public static CalendarRange Full
         {
-            get => new CalendarRange(Date.First, Date.Last);
+            get => new(Date.First, Date.Last);
         }
 
         public IEnumerator<Date> GetEnumerator()
@@ -63,8 +63,8 @@ namespace AdventOfCode.Time
 
         public CalendarRange(Date start, Date end)
         {
-            this.startDate = start;
-            this.endDate = end;
+            startDate = start;
+            endDate = end;
         }
 
         public class CalendarRangeEnumerator : IEnumerator<Date>
@@ -78,29 +78,29 @@ namespace AdventOfCode.Time
                 this.startDate = startDate;
                 this.endDate = endDate;
                 this.startDate.Day--;
-                this.current = this.startDate;
+                current = this.startDate;
             }
 
-            public Date Current => this.current;
-            object IEnumerator.Current => this.current;
+            public Date Current => current;
+            object IEnumerator.Current => current;
 
             public void Dispose() => GC.SuppressFinalize(this);
 
             public bool MoveNext()
             {
-                this.current.Day++;
-                if (this.current.Day > 25)
+                current.Day++;
+                if (current.Day > 25)
                 {
-                    this.current.Day = 1;
-                    this.current.Year++;
+                    current.Day = 1;
+                    current.Year++;
                 }
 
-                return this.current <= this.endDate;
+                return current <= endDate;
             }
 
             public void Reset()
             {
-                this.current = this.startDate;
+                current = startDate;
             }
         }
     }

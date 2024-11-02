@@ -10,7 +10,10 @@ public class Orchestrator
 
     private bool rxReceivedLow;
 
-    public bool RxReceivedLow { get => rxReceivedLow; }
+    public bool RxReceivedLow
+    {
+        get => rxReceivedLow;
+    }
 
     public Orchestrator(IModule[] modules)
     {
@@ -20,20 +23,20 @@ public class Orchestrator
         {
             if (module.Name == "broadcaster")
             {
-                this.broadcastModule = (BroadcastModule)module;
+                broadcastModule = (BroadcastModule)module;
             }
             else if (module.Name == "rx")
             {
-                this.rxModule = module;
+                rxModule = module;
             }
         }
 
-        if (this.broadcastModule == null)
+        if (broadcastModule == null)
         {
             throw new Exception("No broadcast module found");
         }
 
-        if (this.rxModule == null)
+        if (rxModule == null)
         {
             throw new Exception("No rx module found");
         }
@@ -42,7 +45,7 @@ public class Orchestrator
     public (uint high, uint low) Process(bool buttonPulse)
     {
         Queue<(bool pulse, IModule target, IModule sender)> queue = new();
-        queue.Enqueue((buttonPulse, this.broadcastModule, null!));
+        queue.Enqueue((buttonPulse, broadcastModule, null!));
 
         (uint high, uint low) = (0, 0);
 
@@ -58,9 +61,9 @@ public class Orchestrator
             {
                 low++;
 
-                if (target == this.rxModule)
+                if (target == rxModule)
                 {
-                    this.rxReceivedLow = true;
+                    rxReceivedLow = true;
                 }
             }
 
@@ -78,7 +81,7 @@ public class Orchestrator
     public string GetState()
     {
         var state = "";
-        foreach (var module in this.modules)
+        foreach (var module in modules)
         {
             state += module.GetState();
         }

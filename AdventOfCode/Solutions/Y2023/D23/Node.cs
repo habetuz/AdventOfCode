@@ -12,5 +12,5 @@ public class Node
 
     public int DistanceFromGoal { get; set; }
 
-    public HashSet<(int distance, Node node)> Neighbors { get; set; } = new();
+    public HashSet<(int distance, Node node)> Neighbors { get; set; } = [];
 }

@@ -86,7 +86,7 @@ public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
         return
         [
             new BigRange(a.Start, intersection.Value.Start - 1),
-            new BigRange(intersection.Value.End + 1, a.End)
+            new BigRange(intersection.Value.End + 1, a.End),
         ];
     }
 

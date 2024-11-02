@@ -21,7 +21,7 @@ public struct Line
     public override int GetHashCode() => HashCode.Combine(Start, End);
 
     public static implicit operator Line((Coordinate, Coordinate) tuple) =>
-        new Line(tuple.Item1, tuple.Item2);
+        new(tuple.Item1, tuple.Item2);
 
     public static implicit operator (Coordinate, Coordinate)(Line line) => (line.Start, line.End);
 }

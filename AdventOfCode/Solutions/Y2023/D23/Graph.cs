@@ -2,12 +2,12 @@ namespace AdventOfCode.Solutions.Y2023.D23;
 
 public class Graph
 {
-    public HashSet<Node> Nodes { get; set; } = new();
+    public HashSet<Node> Nodes { get; set; } = [];
 
     public Node Start { get; set; } = null!;
     public Node End { get; set; } = null!;
 
-    public char[,] Map {get; set;} = null!;
+    public char[,] Map { get; set; } = null!;
 
     public void AddNode(Node node)
     {

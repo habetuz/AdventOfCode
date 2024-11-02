@@ -4,5 +4,5 @@ public struct Race
 {
     public long Duration { get; set; }
 
-    public long RecordDistance { get; set; } 
+    public long RecordDistance { get; set; }
 }

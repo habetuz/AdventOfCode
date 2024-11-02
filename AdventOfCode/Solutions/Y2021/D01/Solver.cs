@@ -9,7 +9,7 @@ public class Solver : ISolver<int[]>
     {
         string[] lines = input.Split('\n');
 
-        List<int> inputArray = new List<int>();
+        List<int> inputArray = [];
 
         // Parsing
         for (int i = 0; i < lines.Length; i++)

@@ -20,7 +20,7 @@ public class History : IEnumerable<int>, ICloneable
 
         if (!subHistoryArray.All(num => num == 0))
         {
-            this.subHistory = new History(subHistoryArray);
+            subHistory = new History(subHistoryArray);
         }
     }
 
@@ -37,7 +37,6 @@ public class History : IEnumerable<int>, ICloneable
         else
         {
             history[^1] = history[^2];
-            
         }
 
         return history[^1];

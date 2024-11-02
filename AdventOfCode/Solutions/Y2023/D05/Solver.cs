@@ -14,7 +14,7 @@ public class Solver : ISolver<Almanac, AlmanacWithRange>
 
         var almanacWithRange = new AlmanacWithRange
         {
-            Maps = new LinkedList<Dictionary<BigRange, long>>()
+            Maps = new LinkedList<Dictionary<BigRange, long>>(),
         };
 
         var seeds = blocks[0][7..].Split(' ');

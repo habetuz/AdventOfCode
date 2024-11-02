@@ -18,7 +18,7 @@ public class Solver : ISolver<string[]>
         "six",
         "seven",
         "eight",
-        "nine"
+        "nine",
     };
 
     public void Parse(string input, IPartSubmitter<string[]> partSubmitter)

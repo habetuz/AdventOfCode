@@ -8,7 +8,7 @@ public class ConjunctionModule : IModule
     public string Name { get; set; } = "&";
     public IModule[] Outputs { get; set; } = [];
 
-    private Dictionary<IModule, bool> states = new();
+    private Dictionary<IModule, bool> states = [];
 
     public char GetState()
     {

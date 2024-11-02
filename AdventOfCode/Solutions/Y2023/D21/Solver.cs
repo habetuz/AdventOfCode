@@ -20,8 +20,8 @@ public class Solver
     )
     {
         var map = Array2D.FromString(input);
-        HashSet<Coordinate> rocks = new();
-        HashSet<Coordinate> positions = new();
+        HashSet<Coordinate> rocks = [];
+        HashSet<Coordinate> positions = [];
         for (int y = 0; y < map.GetLength(1); y++)
         {
             for (int x = 0; x < map.GetLength(0); x++)

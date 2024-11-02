@@ -22,10 +22,10 @@ public class FlipFlopModule : IModule
 
         if (!pulse)
         {
-            this.state = !this.state;
+            state = !state;
 
             return Outputs
-                .Select(output => (pulse: this.state, target: output, sender: (IModule)this))
+                .Select(output => (pulse: state, target: output, sender: (IModule)this))
                 .ToArray();
         }
 

@@ -214,7 +214,7 @@ public struct HandPart2 : IComparable<HandPart2>
                     0 => 5, // Three of a kind
                     1 => 7, // Four of a kind
                     3 => 7, // Four of a kind
-                    _ => throw new Exception("Invalid number of jokers")
+                    _ => throw new Exception("Invalid number of jokers"),
                 };
                 return value;
             }
@@ -228,7 +228,7 @@ public struct HandPart2 : IComparable<HandPart2>
                     0 => 4, // Two pair
                     1 => 6, // Full House
                     2 => 7, // Four of a kind
-                    _ => throw new Exception("Invalid number of jokers")
+                    _ => throw new Exception("Invalid number of jokers"),
                 };
                 return value;
             }
@@ -242,7 +242,7 @@ public struct HandPart2 : IComparable<HandPart2>
                     0 => 3, // One pair
                     1 => 5, // Three of a kind
                     2 => 5, // Three of a kind
-                    _ => throw new Exception("Invalid number of jokers")
+                    _ => throw new Exception("Invalid number of jokers"),
                 };
                 return value;
             }

@@ -45,9 +45,9 @@ public class Hiker
             return Distance;
         }
 
-        var notVisitedNeighbors = Position
-            .Neighbors
-            .Where((neighbor) => !Visited.Contains(neighbor.node));
+        var notVisitedNeighbors = Position.Neighbors.Where(
+            (neighbor) => !Visited.Contains(neighbor.node)
+        );
 
         if (!notVisitedNeighbors.Any())
         {

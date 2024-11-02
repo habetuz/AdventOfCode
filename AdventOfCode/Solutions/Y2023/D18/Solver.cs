@@ -22,7 +22,7 @@ public class Solver : ISolver<Line[], Line[]>
                         'D' => Direction.Down,
                         'L' => Direction.Left,
                         'R' => Direction.Right,
-                        _ => throw new Exception("Invalid direction")
+                        _ => throw new Exception("Invalid direction"),
                     };
                     var length = byte.Parse(line[1]);
                     return new Instruction { Direction = direction, Length = length };
@@ -32,26 +32,28 @@ public class Solver : ISolver<Line[], Line[]>
 
         partSubmitter.SubmitPart1(LinkInstructions(instructions1));
 
-        var instructions2 = lines.Select(
-            (line) =>
-            {
-                var hexString = line[2][2..^1];
-                var length = int.Parse(
-                    hexString[0..5],
-                    System.Globalization.NumberStyles.HexNumber
-                );
-                var direction = hexString[5] switch
+        var instructions2 = lines
+            .Select(
+                (line) =>
                 {
-                    '0' => Direction.Right,
-                    '1' => Direction.Down,
-                    '2' => Direction.Left,
-                    '3' => Direction.Up,
-                    _ => throw new Exception("Invalid direction")
-                };
+                    var hexString = line[2][2..^1];
+                    var length = int.Parse(
+                        hexString[0..5],
+                        System.Globalization.NumberStyles.HexNumber
+                    );
+                    var direction = hexString[5] switch
+                    {
+                        '0' => Direction.Right,
+                        '1' => Direction.Down,
+                        '2' => Direction.Left,
+                        '3' => Direction.Up,
+                        _ => throw new Exception("Invalid direction"),
+                    };
 
-                return new Instruction { Direction = direction, Length = length };
-            }
-        ).ToArray();
+                    return new Instruction { Direction = direction, Length = length };
+                }
+            )
+            .ToArray();
 
         partSubmitter.SubmitPart2(LinkInstructions(instructions2));
     }
@@ -59,7 +61,7 @@ public class Solver : ISolver<Line[], Line[]>
     private Line[] LinkInstructions(Instruction[] instructions)
     {
         Line[] lines = new Line[instructions.Length];
-        Coordinate current = new Coordinate(0, 0);
+        Coordinate current = new(0, 0);
         for (int i = 0; i < instructions.Length; i++)
         {
             var instruction = instructions[i];
@@ -89,7 +91,7 @@ public class Solver : ISolver<Line[], Line[]>
             boundary += line.ManhattanLength;
         }
 
-        interior/=2;
+        interior /= 2;
         interior = Math.Abs(interior);
 
         return interior + ((long)boundary / 2) + 1;

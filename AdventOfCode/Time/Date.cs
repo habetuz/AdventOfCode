@@ -4,12 +4,12 @@ namespace AdventOfCode.Time
     {
         public static Date First
         {
-            get => new Date(2015, 01);
+            get => new(2015, 01);
         }
 
         public static Date Last
         {
-            get => new Date(AOCDateTimeUtils.GetCurrentYear(), AOCDateTimeUtils.GetCurrentDay());
+            get => new(AOCDateTimeUtils.GetCurrentYear(), AOCDateTimeUtils.GetCurrentDay());
         }
 
         public int Year { get; set; }
@@ -19,8 +19,8 @@ namespace AdventOfCode.Time
 
         public Date(int year, int day)
         {
-            this.Year = year;
-            this.Day = day;
+            Year = year;
+            Day = day;
         }
 
         public override readonly bool Equals(object? obj)
@@ -48,12 +48,12 @@ namespace AdventOfCode.Time
 
         public override readonly int GetHashCode()
         {
-            return (int)(this.Year + (this.Day * 100));
+            return (int)(Year + (Day * 100));
         }
 
         public override readonly string ToString()
         {
-            return string.Format("{0:D2}.{1:D2}", this.Year, this.Day);
+            return string.Format("{0:D2}.{1:D2}", Year, Day);
         }
     }
 }

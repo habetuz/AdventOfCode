@@ -57,10 +57,11 @@ public class Beam
                     {
                         break;
                     }
-                    new Beam { Coordinate = Coordinate, Direction = Direction.Rotate90Left() }.Shoot(
-                        input,
-                        discovered
-                    );
+                    new Beam
+                    {
+                        Coordinate = Coordinate,
+                        Direction = Direction.Rotate90Left(),
+                    }.Shoot(input, discovered);
                     Direction = Direction.Rotate90Right();
                     break;
                 case '|':
@@ -68,10 +69,11 @@ public class Beam
                     {
                         break;
                     }
-                    new Beam { Coordinate = Coordinate, Direction = Direction.Rotate90Left() }.Shoot(
-                        input,
-                        discovered
-                    );
+                    new Beam
+                    {
+                        Coordinate = Coordinate,
+                        Direction = Direction.Rotate90Left(),
+                    }.Shoot(input, discovered);
                     Direction = Direction.Rotate90Right();
                     break;
             }

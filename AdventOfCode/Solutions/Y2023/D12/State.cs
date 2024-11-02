@@ -33,7 +33,8 @@ public struct State
 
     public override bool Equals([NotNullWhen(true)] object? obj)
     {
-        if (obj is State) {
+        if (obj is State)
+        {
             return this == (State)obj;
         }
 

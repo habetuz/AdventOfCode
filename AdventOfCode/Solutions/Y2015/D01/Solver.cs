@@ -15,17 +15,20 @@ public class Solver : ISolver<string>
         int floor = 0;
         int firstInBasement = -1;
 
-        for(int i = 0; i < input.Length; i++) {
-            if (firstInBasement == -1 && floor < 0) {
+        for (int i = 0; i < input.Length; i++)
+        {
+            if (firstInBasement == -1 && floor < 0)
+            {
                 firstInBasement = i;
             }
 
-            switch(input[i]) {
+            switch (input[i])
+            {
                 case '(':
-                    floor ++;
+                    floor++;
                     break;
                 case ')':
-                    floor --;
+                    floor--;
                     break;
             }
         }

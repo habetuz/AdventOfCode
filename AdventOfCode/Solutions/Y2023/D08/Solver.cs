@@ -19,14 +19,14 @@ public class Solver : ISolver<Input>
             {
                 'L' => Direction.Left,
                 'R' => Direction.Right,
-                _ => throw new Exception("Invalid direction")
+                _ => throw new Exception("Invalid direction"),
             };
         }
 
         lines = lines[1..];
         string[][] nodesSerialized = lines
-            .Select(
-                l => l.Split([" = (", ", ", ")"], StringSplitOptions.RemoveEmptyEntries).ToArray()
+            .Select(l =>
+                l.Split([" = (", ", ", ")"], StringSplitOptions.RemoveEmptyEntries).ToArray()
             )
             .ToArray();
 
@@ -63,8 +63,7 @@ public class Solver : ISolver<Input>
         partSubmitter.SubmitPart1(steps);
 
         BiNode<string>[] positions = input
-            .Nodes
-            .Where((node) => node.Value.EndsWith('A'))
+            .Nodes.Where((node) => node.Value.EndsWith('A'))
             .ToArray();
         var stepsPerPosition = new int[positions.Length];
 

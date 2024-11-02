@@ -10,7 +10,7 @@ namespace AdventOfCode
 
         public InputManager(WebResourceManager webResourceManager)
         {
-            this.WebResourceManager = webResourceManager;
+            WebResourceManager = webResourceManager;
             if (!Directory.Exists(INPUT_PATH))
             {
                 Directory.CreateDirectory(INPUT_PATH);
@@ -53,7 +53,7 @@ namespace AdventOfCode
             }
             else
             {
-                string file = this.WebResourceManager.RetrieveResource(
+                string file = WebResourceManager.RetrieveResource(
                     date.Year.ToString(),
                     "day",
                     date.Day.ToString(),
@@ -77,7 +77,7 @@ namespace AdventOfCode
                 }
                 else
                 {
-                    string file = this.WebResourceManager.RetrieveResource(
+                    string file = WebResourceManager.RetrieveResource(
                         date.Year.ToString(),
                         "day",
                         date.Day.ToString(),
@@ -87,16 +87,13 @@ namespace AdventOfCode
                 }
             }
 
-            System
-                .Diagnostics
-                .Process
-                .Start(
-                    new System.Diagnostics.ProcessStartInfo(Path.GetFullPath(filename))
-                    {
-                        WorkingDirectory = "/",
-                        UseShellExecute = true,
-                    }
-                );
+            System.Diagnostics.Process.Start(
+                new System.Diagnostics.ProcessStartInfo(Path.GetFullPath(filename))
+                {
+                    WorkingDirectory = "/",
+                    UseShellExecute = true,
+                }
+            );
         }
 
         private (Solution, string) ParseExample(string example)

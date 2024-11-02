@@ -11,7 +11,7 @@ public class Solver : ISolver<int[][]>
         string[] lines = input.Split('\n');
 
         // Parsing to integer
-        List<int[]> inputArray = new List<int[]>();
+        List<int[]> inputArray = [];
         for (int i = 0; i < lines.Length - 1; i++)
         {
             int[] bits = new int[lines[0].Length];
@@ -57,10 +57,10 @@ public class Solver : ISolver<int[][]>
 
         partSubmitter.SubmitPart1(gammaRateDec * epsilonRateDec);
 
-        int[] oxygenRate = this.RecursiveFilter(input, filterForMostCommon: true, 0);
+        int[] oxygenRate = RecursiveFilter(input, filterForMostCommon: true, 0);
         int oxygenRateDec = BinaryIntArrayToDecInt(oxygenRate);
 
-        int[] co2Rate = this.RecursiveFilter(input, filterForMostCommon: false, 0);
+        int[] co2Rate = RecursiveFilter(input, filterForMostCommon: false, 0);
         int co2RateDec = BinaryIntArrayToDecInt(co2Rate);
 
         partSubmitter.SubmitPart2(oxygenRateDec * co2RateDec);
@@ -73,8 +73,8 @@ public class Solver : ISolver<int[][]>
             return input[0];
         }
 
-        List<int[]> list1 = new List<int[]>();
-        List<int[]> list0 = new List<int[]>();
+        List<int[]> list1 = [];
+        List<int[]> list0 = [];
 
         for (int y = 0; y < input.Length; y++)
         {
@@ -95,7 +95,7 @@ public class Solver : ISolver<int[][]>
                 return list1[0];
             }
 
-            return this.RecursiveFilter(list1.ToArray(), filterForMostCommon, x + 1);
+            return RecursiveFilter(list1.ToArray(), filterForMostCommon, x + 1);
         }
         else
         {
@@ -104,7 +104,7 @@ public class Solver : ISolver<int[][]>
                 return list0[0];
             }
 
-            return this.RecursiveFilter(list0.ToArray(), filterForMostCommon, x + 1);
+            return RecursiveFilter(list0.ToArray(), filterForMostCommon, x + 1);
         }
     }
 

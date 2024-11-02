@@ -28,7 +28,7 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
                     'F' => Direction.Down | Direction.Right,
                     '.' => Direction.None,
                     'S' => Direction.None,
-                    _ => throw new InvalidDataException("Char not supported")
+                    _ => throw new InvalidDataException("Char not supported"),
                 };
             }
         );
@@ -68,7 +68,10 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
                 var next = position + direction;
                 if (next != previous)
                 {
-                    if (position - previous == Direction.Up || position - previous == Direction.Down)
+                    if (
+                        position - previous == Direction.Up
+                        || position - previous == Direction.Down
+                    )
                     {
                         pipeMap[position.X, position.Y] = position - previous;
                     }

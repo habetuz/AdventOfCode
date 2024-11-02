@@ -21,7 +21,7 @@ namespace AdventOfCode.Solver
                 TPuzzles,
                 TPuzzles
             >(partSubmitter);
-            this.Parse(input, tmpPartSubmitter);
+            Parse(input, tmpPartSubmitter);
         }
 
         void ISolver<TPuzzles, TPuzzles>.Solve(
@@ -30,7 +30,7 @@ namespace AdventOfCode.Solver
             IPartSubmitter partSubmitter
         )
         {
-            this.Solve(input1, partSubmitter);
+            Solve(input1, partSubmitter);
         }
 
         public void Parse(string input, IPartSubmitter<TPuzzles> partSubmitter);

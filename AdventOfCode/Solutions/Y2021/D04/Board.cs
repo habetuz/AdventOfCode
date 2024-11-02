@@ -19,13 +19,13 @@ public class Board
         get
         {
             int value = 0;
-            for (int x = 0; x < this.boardValues.GetLength(0); x++)
+            for (int x = 0; x < boardValues.GetLength(0); x++)
             {
-                for (int y = 0; y < this.boardValues.GetLength(1); y++)
+                for (int y = 0; y < boardValues.GetLength(1); y++)
                 {
-                    if (!this.boardChecked[x, y])
+                    if (!boardChecked[x, y])
                     {
-                        value += this.boardValues[x, y];
+                        value += boardValues[x, y];
                     }
                 }
             }
@@ -36,22 +36,22 @@ public class Board
 
     internal void AddToDrawEvent(Solver solution)
     {
-        solution.NewDrawEvent += this.Draw;
+        solution.NewDrawEvent += Draw;
     }
 
     private void Draw(Solver sender, int draw)
     {
-        for (int x = 0; x < this.boardValues.GetLength(0); x++)
+        for (int x = 0; x < boardValues.GetLength(0); x++)
         {
-            for (int y = 0; y < this.boardValues.GetLength(1); y++)
+            for (int y = 0; y < boardValues.GetLength(1); y++)
             {
-                if (this.boardValues[x, y] == draw)
+                if (boardValues[x, y] == draw)
                 {
-                    this.boardChecked[x, y] = true;
-                    if (this.IsCompleted(x, y))
+                    boardChecked[x, y] = true;
+                    if (IsCompleted(x, y))
                     {
-                        sender.NewDrawEvent -= this.Draw;
-                        this.CompletedEvent!(this, draw);
+                        sender.NewDrawEvent -= Draw;
+                        CompletedEvent!(this, draw);
                     }
                 }
             }
@@ -63,14 +63,14 @@ public class Board
         bool xComplete = true;
         bool yComplete = true;
 
-        for (int i = 0; i < this.boardValues.GetLength(0); i++)
+        for (int i = 0; i < boardValues.GetLength(0); i++)
         {
-            if (!this.boardChecked[x, i])
+            if (!boardChecked[x, i])
             {
                 yComplete = false;
             }
 
-            if (!this.boardChecked[i, y])
+            if (!boardChecked[i, y])
             {
                 xComplete = false;
             }

@@ -23,16 +23,13 @@ namespace AdventOfCode.Commands.Settings
 
         public override ValidationResult Validate()
         {
-            ValidationResult result = DateConverter.DateRange(
-                this.Range,
-                out CalendarRange runRange
-            );
+            ValidationResult result = DateConverter.DateRange(Range, out CalendarRange runRange);
             if (!result.Successful)
             {
                 return result;
             }
 
-            this.RunRange = runRange;
+            RunRange = runRange;
             return ValidationResult.Success();
         }
     }

@@ -17,11 +17,11 @@ public class SimplePartSubmitter<Part1, Part2> : IPartSubmitter<Part1, Part2>
 
     public void SubmitPart1(Part1 part)
     {
-        this.FirstPart = part;
+        FirstPart = part;
     }
 
     public void SubmitPart2(Part2 part)
     {
-        this.SecondPart = part;
+        SecondPart = part;
     }
 }

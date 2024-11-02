@@ -28,7 +28,7 @@ namespace AdventOfCode.Solver.Runner
                     {
                         SimplePartSubmitter<object> parsedInputSubmitter = new();
                         SimplePartSubmitter solutionSubmitter = new();
-                        this.solver.Parse(this.input, parsedInputSubmitter);
+                        solver.Parse(input, parsedInputSubmitter);
                         ctx.Status = "Solving...";
                         if (
                             parsedInputSubmitter.FirstPart == null
@@ -38,7 +38,7 @@ namespace AdventOfCode.Solver.Runner
                             throw new Exception("Parsing is not complete.");
                         }
 
-                        this.solver.Solve(
+                        solver.Solve(
                             parsedInputSubmitter.FirstPart,
                             parsedInputSubmitter.SecondPart,
                             solutionSubmitter

@@ -23,7 +23,7 @@ namespace AdventOfCode.Commands.Settings
         public override ValidationResult Validate()
         {
             Date date;
-            var result = DateConverter.SingleDate(this.StringDate!, out date);
+            var result = DateConverter.SingleDate(StringDate!, out date);
             if (!result.Successful)
             {
                 return result;
@@ -49,7 +49,7 @@ namespace AdventOfCode.Commands.Settings
                 return ValidationResult.Error("The provided date is out of range.");
             }
 
-            this.Date = date;
+            Date = date;
             return ValidationResult.Success();
         }
     }

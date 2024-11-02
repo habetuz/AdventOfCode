@@ -179,7 +179,7 @@ public class Solver : ISolver<char[,]>
                 {
                     continue;
                 }
-                
+
                 sum += (uint)(number1 * number2);
             }
         }

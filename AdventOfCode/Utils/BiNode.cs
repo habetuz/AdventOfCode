@@ -21,6 +21,6 @@ public class BiNode<T>
         {
             Direction.Left => Left,
             Direction.Right => Right,
-            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(direction), direction, null),
         };
 }

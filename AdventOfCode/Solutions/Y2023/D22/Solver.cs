@@ -38,7 +38,7 @@ public class Solver : ISolver<SandCuboid[]>
         Array.Sort(input, (a, b) => (short)a[Direction3D.Bottom] - (short)b[Direction3D.Bottom]);
 
         // Settle sand cubes
-        Dictionary<short, List<SandCuboid>> collisionReferences = new();
+        Dictionary<short, List<SandCuboid>> collisionReferences = [];
 
         foreach (var cuboid in input)
         {
@@ -48,7 +48,7 @@ public class Solver : ISolver<SandCuboid[]>
             }
             else
             {
-                collisionReferences[(short)cuboid[Direction3D.Top]] =  [cuboid];
+                collisionReferences[(short)cuboid[Direction3D.Top]] = [cuboid];
             }
         }
 
@@ -63,9 +63,8 @@ public class Solver : ISolver<SandCuboid[]>
                 cuboid[Direction3D.Bottom] >= 1
                 && (
                     !collisionReferences.ContainsKey((short)cuboid[Direction3D.Bottom])
-                    || !collisionReferences[(short)cuboid[Direction3D.Bottom]].Any(
-                        (toCheck) => cuboid.Intersects(toCheck)
-                    )
+                    || !collisionReferences[(short)cuboid[Direction3D.Bottom]]
+                        .Any((toCheck) => cuboid.Intersects(toCheck))
                 )
             );
 

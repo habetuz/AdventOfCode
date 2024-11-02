@@ -9,7 +9,7 @@ public class Solver : ISolver<Scanner[]>
     {
         string[] lines = input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-        List<Scanner> scanners = new List<Scanner>();
+        List<Scanner> scanners = [];
 
         foreach (string line in lines)
         {
@@ -43,13 +43,13 @@ public class Solver : ISolver<Scanner[]>
         // Fill neighbor dictionaries
         foreach (Scanner scanner in input)
         {
-            this.FillNeighbors(scanner);
+            FillNeighbors(scanner);
         }
 
-        List<Scanner> unresolved = new List<Scanner>(input);
+        List<Scanner> unresolved = new(input);
         unresolved.Remove(input[0]);
 
-        List<Scanner> resolved = new List<Scanner>() { input[0], };
+        List<Scanner> resolved = [input[0]];
 
         while (unresolved.Count > 0)
         {
@@ -59,15 +59,15 @@ public class Solver : ISolver<Scanner[]>
                 for (int j = 0; j < resolved.Count; j++)
                 {
                     Scanner a = resolved[j];
-                    (Beacon, Beacon)[] intersecting = this.GetIntersecting(a, b);
+                    (Beacon, Beacon)[] intersecting = GetIntersecting(a, b);
 
                     if (intersecting.Length < 12)
                     {
                         continue;
                     }
 
-                    this.AdjustScanner(b, intersecting);
-                    this.Translate(b, intersecting[0].Item2);
+                    AdjustScanner(b, intersecting);
+                    Translate(b, intersecting[0].Item2);
                     resolved.Add(b);
                     unresolved.Remove(b);
 
@@ -78,7 +78,7 @@ public class Solver : ISolver<Scanner[]>
             }
         }
 
-        int uniqueBeacons = this.GetUniqueBeacons(input).Length;
+        int uniqueBeacons = GetUniqueBeacons(input).Length;
 
         partSubmitter.SubmitPart1(uniqueBeacons);
 
@@ -134,7 +134,7 @@ public class Solver : ISolver<Scanner[]>
 
     private (Beacon, Beacon)[] GetIntersecting(Scanner a, Scanner b)
     {
-        List<(Beacon, Beacon)> intersecting = new List<(Beacon, Beacon)>();
+        List<(Beacon, Beacon)> intersecting = [];
 
         List<Beacon> bBeacons = b.Beacons.ToList();
 
@@ -336,7 +336,7 @@ public class Solver : ISolver<Scanner[]>
         int y = scanner.Y;
         int z = scanner.Z;
 
-        this.Rotate(ref x, ref y, ref z, scanner.XDir, scanner.YDir, scanner.ZDir);
+        Rotate(ref x, ref y, ref z, scanner.XDir, scanner.YDir, scanner.ZDir);
 
         scanner.X = x;
         scanner.Y = y;
@@ -348,7 +348,7 @@ public class Solver : ISolver<Scanner[]>
             y = beacon.Y;
             z = beacon.Z;
 
-            this.Rotate(ref x, ref y, ref z, scanner.XDir, scanner.YDir, scanner.ZDir);
+            Rotate(ref x, ref y, ref z, scanner.XDir, scanner.YDir, scanner.ZDir);
 
             beacon.X = x;
             beacon.Y = y;
@@ -433,7 +433,7 @@ public class Solver : ISolver<Scanner[]>
 
     private Beacon[] GetUniqueBeacons(Scanner[] scanners)
     {
-        List<Beacon> uniqueBeacons = new List<Beacon>();
+        List<Beacon> uniqueBeacons = [];
 
         foreach (Scanner scanner in scanners)
         {

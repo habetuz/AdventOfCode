@@ -17,7 +17,7 @@ public enum CardPart1
     Jack,
     Queen,
     King,
-    Ace
+    Ace,
 }
 
 /// <summary>
@@ -37,5 +37,5 @@ public enum CardPart2
     Ten,
     Queen,
     King,
-    Ace
+    Ace,
 }

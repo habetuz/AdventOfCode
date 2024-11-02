@@ -23,7 +23,7 @@ public class Solver : ISolver<char[,]>
         Shift(input, Direction.Down);
         Shift(input, Direction.Right);
 
-        Dictionary<int, (int first, int second)> memory = new();
+        Dictionary<int, (int first, int second)> memory = [];
 
         // Go to ready state
         for (int i = 1; i < 999_999_999; i++)

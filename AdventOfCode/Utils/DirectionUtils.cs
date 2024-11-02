@@ -169,7 +169,8 @@ public static class DirectionUtils
         return rotated;
     }
 
-    public static Coordinate ToCoordinate(this Direction direction) {
+    public static Coordinate ToCoordinate(this Direction direction)
+    {
         return direction switch
         {
             Direction.UpLeft => new Coordinate(-1, -1),
@@ -200,5 +201,3 @@ public static class DirectionUtils
         };
     }
 }
-
-

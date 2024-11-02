@@ -35,14 +35,11 @@ namespace AdventOfCode.Commands
             }
 
             solutionStatisticsManager.SubmitSolutions(
-                new Solution { Solution1 = settings.Solution1, Solution2 = settings.Solution2, },
+                new Solution { Solution1 = settings.Solution1, Solution2 = settings.Solution2 },
                 settings.Date
             );
 
-            Logging.LogInfo(
-                    $"Submitted solutions for [yellow]{settings.Date}[/].",
-                    "RUNNER"
-                );
+            Logging.LogInfo($"Submitted solutions for [yellow]{settings.Date}[/].", "RUNNER");
 
             return 0;
         }

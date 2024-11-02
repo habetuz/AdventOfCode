@@ -4,9 +4,9 @@ public struct Game
 {
     public Game(byte[] winningNumbers, byte[] numbers)
     {
-        this.WinningNumbers = winningNumbers;
-        this.Numbers = numbers;
-        this.Instances = 1;
+        WinningNumbers = winningNumbers;
+        Numbers = numbers;
+        Instances = 1;
     }
 
     public byte[] WinningNumbers { get; init; }

@@ -64,7 +64,7 @@ catch (Exception error)
         new Rule("[red]Exception occurred during execution![/]")
         {
             Style = "red",
-            Border = BoxBorder.Heavy
+            Border = BoxBorder.Heavy,
         }
     );
     Logging.LogError("Exception:", "RUNNER", error);
