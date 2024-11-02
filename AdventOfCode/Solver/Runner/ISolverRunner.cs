@@ -1,7 +1,7 @@
 namespace AdventOfCode.Solver.Runner
 {
-    public interface ISolverRunner
-    {
-        public Solution Run();
-    }
+  public interface ISolverRunner
+  {
+    public Solution Run();
+  }
 }

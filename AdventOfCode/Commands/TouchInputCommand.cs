@@ -4,15 +4,15 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands
 {
-    public class TouchInputCommand : Command<TouchInputSettings>
+  public class TouchInputCommand : Command<TouchInputSettings>
+  {
+    public override int Execute(
+      [NotNull] CommandContext context,
+      [NotNull] TouchInputSettings settings
+    )
     {
-        public override int Execute(
-            [NotNull] CommandContext context,
-            [NotNull] TouchInputSettings settings
-        )
-        {
-            new InputManager(new WebResourceManager()).TouchInput(settings.Date, settings.Example);
-            return 0;
-        }
+      new InputManager(new WebResourceManager()).TouchInput(settings.Date, settings.Example);
+      return 0;
     }
+  }
 }

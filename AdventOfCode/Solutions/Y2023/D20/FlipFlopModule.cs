@@ -5,30 +5,30 @@ namespace AdventOfCode.Solutions.Y2023.D20;
 [DebuggerDisplay("%{Name} | {GetState()}")]
 public class FlipFlopModule : IModule
 {
-    private bool state;
+  private bool state;
 
-    public string Name { get; set; } = "%";
+  public string Name { get; set; } = "%";
 
-    public IModule[] Outputs { get; set; } = [];
+  public IModule[] Outputs { get; set; } = [];
 
-    public char GetState()
+  public char GetState()
+  {
+    return state ? '1' : '0';
+  }
+
+  public (bool pulse, IModule target, IModule sender)[] Process(bool pulse, IModule? caller)
+  {
+    (uint high, uint low) = pulse ? ((uint)1, (uint)0) : (0, 1);
+
+    if (!pulse)
     {
-        return state ? '1' : '0';
+      state = !state;
+
+      return Outputs
+        .Select(output => (pulse: state, target: output, sender: (IModule)this))
+        .ToArray();
     }
 
-    public (bool pulse, IModule target, IModule sender)[] Process(bool pulse, IModule? caller)
-    {
-        (uint high, uint low) = pulse ? ((uint)1, (uint)0) : (0, 1);
-
-        if (!pulse)
-        {
-            state = !state;
-
-            return Outputs
-                .Select(output => (pulse: state, target: output, sender: (IModule)this))
-                .ToArray();
-        }
-
-        return [];
-    }
+    return [];
+  }
 }

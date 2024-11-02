@@ -5,19 +5,19 @@ namespace AdventOfCode.Solutions.Y2023.D07;
 /// </summary>
 public enum CardPart1
 {
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight,
-    Nine,
-    Ten,
-    Jack,
-    Queen,
-    King,
-    Ace,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Seven,
+  Eight,
+  Nine,
+  Ten,
+  Jack,
+  Queen,
+  King,
+  Ace,
 }
 
 /// <summary>
@@ -25,17 +25,17 @@ public enum CardPart1
 /// </summary>
 public enum CardPart2
 {
-    Joker,
-    Two,
-    Three,
-    Four,
-    Five,
-    Six,
-    Seven,
-    Eight,
-    Nine,
-    Ten,
-    Queen,
-    King,
-    Ace,
+  Joker,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Seven,
+  Eight,
+  Nine,
+  Ten,
+  Queen,
+  King,
+  Ace,
 }

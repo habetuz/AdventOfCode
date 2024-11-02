@@ -4,45 +4,45 @@ namespace AdventOfCode.Solutions.Y2023.D22;
 
 public class SandCuboid : Cuboid
 {
-    private int removedSupports = 0;
+  private int removedSupports = 0;
 
-    public SandCuboid(Coordinate3D a, Coordinate3D b)
-        : base(a, b) { }
+  public SandCuboid(Coordinate3D a, Coordinate3D b)
+    : base(a, b) { }
 
-    public SandCuboid(Coordinate3D position, long xLength, long yLength, long zLength)
-        : base(position, xLength, yLength, zLength) { }
+  public SandCuboid(Coordinate3D position, long xLength, long yLength, long zLength)
+    : base(position, xLength, yLength, zLength) { }
 
-    public HashSet<SandCuboid> SupportedBy { get; } = [];
-    public HashSet<SandCuboid> Supporting { get; } = [];
+  public HashSet<SandCuboid> SupportedBy { get; } = [];
+  public HashSet<SandCuboid> Supporting { get; } = [];
 
-    public int RemoveSupport()
+  public int RemoveSupport()
+  {
+    removedSupports++;
+    if (removedSupports == SupportedBy.Count)
     {
-        removedSupports++;
-        if (removedSupports == SupportedBy.Count)
-        {
-            return RemoveSelf() + 1;
-        }
-
-        return 0;
+      return RemoveSelf() + 1;
     }
 
-    public int RemoveSelf()
-    {
-        int fallCount = 0;
-        foreach (var cuboid in Supporting)
-        {
-            fallCount += cuboid.RemoveSupport();
-        }
+    return 0;
+  }
 
-        return fallCount;
+  public int RemoveSelf()
+  {
+    int fallCount = 0;
+    foreach (var cuboid in Supporting)
+    {
+      fallCount += cuboid.RemoveSupport();
     }
 
-    public void Reset()
+    return fallCount;
+  }
+
+  public void Reset()
+  {
+    removedSupports = 0;
+    foreach (var cuboid in Supporting)
     {
-        removedSupports = 0;
-        foreach (var cuboid in Supporting)
-        {
-            cuboid.Reset();
-        }
+      cuboid.Reset();
     }
+  }
 }

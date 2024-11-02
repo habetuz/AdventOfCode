@@ -7,13 +7,13 @@ namespace AdventOfCode.Commands;
 
 public class SetReadmeFileCommand : Command<SetReadmeFileSettings>
 {
-    public override int Execute(
-        [NotNull] CommandContext context,
-        [NotNull] SetReadmeFileSettings settings
-    )
-    {
-        ApplicationSettings.Instance.ReadmePath = settings.Path;
+  public override int Execute(
+    [NotNull] CommandContext context,
+    [NotNull] SetReadmeFileSettings settings
+  )
+  {
+    ApplicationSettings.Instance.ReadmePath = settings.Path;
 
-        return 0;
-    }
+    return 0;
+  }
 }

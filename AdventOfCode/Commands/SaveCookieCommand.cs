@@ -6,17 +6,17 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands
 {
-    public class SaveCookieCommand : Command<SaveCookieSettings>
+  public class SaveCookieCommand : Command<SaveCookieSettings>
+  {
+    public override int Execute(
+      [NotNull] CommandContext context,
+      [NotNull] SaveCookieSettings settings
+    )
     {
-        public override int Execute(
-            [NotNull] CommandContext context,
-            [NotNull] SaveCookieSettings settings
-        )
-        {
-            ApplicationSettings.Instance.Cookie = settings.Cookie;
-            new SolutionStatisticsManager().DropStatistics();
+      ApplicationSettings.Instance.Cookie = settings.Cookie;
+      new SolutionStatisticsManager().DropStatistics();
 
-            return 0;
-        }
+      return 0;
     }
+  }
 }

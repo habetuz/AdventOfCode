@@ -5,97 +5,94 @@ namespace AdventOfCode.Solutions.Y2023.D15;
 
 public class Solver : ISolver<string[], Instruction[]>
 {
-    public void Parse(string input, IPartSubmitter<string[], Instruction[]> partSubmitter)
+  public void Parse(string input, IPartSubmitter<string[], Instruction[]> partSubmitter)
+  {
+    partSubmitter.SubmitPart1(
+      input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+    );
+
+    partSubmitter.SubmitPart2(
+      input
+        .Split(',')
+        .Select(
+          (value, index) =>
+          {
+            var parts = value.Split((char[])['-', '='], StringSplitOptions.RemoveEmptyEntries);
+            return new Instruction
+            {
+              Operation = parts.Length > 1 ? true : false,
+              Data = new Data
+              {
+                Label = parts[0],
+                Strength = parts.Length > 1 ? byte.Parse(parts[1]) : (byte)0,
+              },
+            };
+          }
+        )
+        .ToArray()
+    );
+  }
+
+  public void Solve(string[] input1, Instruction[] input2, IPartSubmitter partSubmitter)
+  {
+    int hashes = input1.Sum(part => Hash(part));
+    partSubmitter.SubmitPart1(hashes);
+
+    List<Data>[] boxes = new List<Data>[256];
+
+    foreach (Instruction instruction in input2)
     {
-        partSubmitter.SubmitPart1(
-            input.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-        );
+      var box = boxes[Hash(instruction.Data.Label)];
 
-        partSubmitter.SubmitPart2(
-            input
-                .Split(',')
-                .Select(
-                    (value, index) =>
-                    {
-                        var parts = value.Split(
-                            (char[])['-', '='],
-                            StringSplitOptions.RemoveEmptyEntries
-                        );
-                        return new Instruction
-                        {
-                            Operation = parts.Length > 1 ? true : false,
-                            Data = new Data
-                            {
-                                Label = parts[0],
-                                Strength = parts.Length > 1 ? byte.Parse(parts[1]) : (byte)0,
-                            },
-                        };
-                    }
-                )
-                .ToArray()
-        );
-    }
+      if (box is null)
+      {
+        boxes[Hash(instruction.Data.Label)] = [instruction.Data];
 
-    public void Solve(string[] input1, Instruction[] input2, IPartSubmitter partSubmitter)
-    {
-        int hashes = input1.Sum(part => Hash(part));
-        partSubmitter.SubmitPart1(hashes);
+        continue;
+      }
 
-        List<Data>[] boxes = new List<Data>[256];
-
-        foreach (Instruction instruction in input2)
+      var indexOf = box.IndexOf(instruction.Data);
+      if (indexOf == -1)
+      {
+        if (instruction.Operation)
         {
-            var box = boxes[Hash(instruction.Data.Label)];
-
-            if (box is null)
-            {
-                boxes[Hash(instruction.Data.Label)] = [instruction.Data];
-
-                continue;
-            }
-
-            var indexOf = box.IndexOf(instruction.Data);
-            if (indexOf == -1)
-            {
-                if (instruction.Operation)
-                {
-                    box.Add(instruction.Data);
-                }
-            }
-            else
-            {
-                if (instruction.Operation)
-                {
-                    box[indexOf] = instruction.Data;
-                }
-                else
-                {
-                    box.RemoveAt(indexOf);
-                }
-            }
+          box.Add(instruction.Data);
         }
-
-        long focusingPower = 0;
-
-        for (int b = 0; b < boxes.Length; b++)
+      }
+      else
+      {
+        if (instruction.Operation)
         {
-            var box = boxes[b];
-            if (box is null)
-            {
-                continue;
-            }
-
-            for (int i = 0; i < box.Count; i++)
-            {
-                focusingPower += (b + 1) * box[i].Strength * (i + 1);
-            }
+          box[indexOf] = instruction.Data;
         }
-
-        partSubmitter.SubmitPart2(focusingPower);
+        else
+        {
+          box.RemoveAt(indexOf);
+        }
+      }
     }
 
-    private byte Hash(string input)
+    long focusingPower = 0;
+
+    for (int b = 0; b < boxes.Length; b++)
     {
-        return (byte)input.Aggregate(0, (hash, value) => (hash + value) * 17 % 256);
+      var box = boxes[b];
+      if (box is null)
+      {
+        continue;
+      }
+
+      for (int i = 0; i < box.Count; i++)
+      {
+        focusingPower += (b + 1) * box[i].Strength * (i + 1);
+      }
     }
+
+    partSubmitter.SubmitPart2(focusingPower);
+  }
+
+  private byte Hash(string input)
+  {
+    return (byte)input.Aggregate(0, (hash, value) => (hash + value) * 17 % 256);
+  }
 }
