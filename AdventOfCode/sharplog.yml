@@ -30,7 +30,7 @@
 tags:
   FILE:
     format: "$M$"
-    outputs: 
+    outputs:
       - type: FileOutput
         path: ".log"
   SHARPLOG_INTERNAL:
