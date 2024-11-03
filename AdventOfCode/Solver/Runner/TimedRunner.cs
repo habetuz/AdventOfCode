@@ -115,9 +115,15 @@ namespace AdventOfCode.Solver.Runner
             var item2 = parseTimes[parseTimes.Count / 2].Item2;
             parseTime = (item1, item2);
 
-            solveTimes.Sort((a, b) => a.Item1!.Value.CompareTo(b.Item1!.Value));
+            solveTimes.Sort(
+              (a, b) =>
+                a.Item1 != null && b.Item1 != null ? a.Item1!.Value.CompareTo(b.Item1!.Value) : 0
+            );
             item1 = solveTimes[solveTimes.Count / 2].Item1;
-            solveTimes.Sort((a, b) => a.Item2!.Value.CompareTo(b.Item2!.Value));
+            solveTimes.Sort(
+              (a, b) =>
+                a.Item2 != null && b.Item2 != null ? a.Item2!.Value.CompareTo(b.Item2!.Value) : 0
+            );
             item2 = solveTimes[solveTimes.Count / 2].Item2;
             solveTime = (item1, item2);
           }

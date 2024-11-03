@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="sharplog.yml" CopyToOutputDirectory="Always" />
+    <None Update="settings.json" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>

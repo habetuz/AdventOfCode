@@ -52,25 +52,25 @@ namespace AdventOfCode.Commands
           ISolverRunner runner = settings.RunTimed
             ? new TimedRunner(solver, input)
             : new SingleTimeRunner(solver, input);
-          Solution? solution = null!;
 
-          solution = runner.Run();
+          Solution solution = runner.Run();
+
           if (
             !settings.Example.HasValue
-            && solution.Value.Solution1 is not null
-            && solution.Value.Solution2 is not null
+            && solution.Solution1 is not null
+            && solution.Solution2 is not null
           )
           {
-            solutionStatisticsManager.SubmitTimes(solution.Value, date);
+            solutionStatisticsManager.SubmitTimes(solution, date);
           }
 
           if (!settings.Example.HasValue)
           {
-            PrintResult(solution.Value, solutionStatisticsManager.Retrieve(date));
+            PrintResult(solution, solutionStatisticsManager.Retrieve(date));
           }
           else
           {
-            PrintResult(solution.Value, exampleSolution);
+            PrintResult(solution, exampleSolution);
           }
         }
         catch (GenericSolver.SolutionNotImplementedException)
@@ -80,7 +80,7 @@ namespace AdventOfCode.Commands
         }
         catch (GenericSolver.ISolverNotImplementedException)
         {
-          Logging.LogError("Solution needs to extend ISolver<...>.", "RUNNER");
+          Logging.LogError("Solution needs to implement ISolver<...>.", "RUNNER");
         }
         catch (Exception e)
         {
