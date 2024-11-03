@@ -48,7 +48,7 @@ public struct Surface
   {
     get
     {
-      byte[] dimensions = new byte[] { Width, Length, Height };
+      byte[] dimensions = [Width, Length, Height];
       Array.Sort(dimensions);
       byte smallest1 = dimensions[0];
       byte smallest2 = dimensions[1];

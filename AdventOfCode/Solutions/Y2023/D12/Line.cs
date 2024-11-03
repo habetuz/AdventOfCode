@@ -1,13 +1,7 @@
 namespace AdventOfCode.Solutions.Y2023.D12;
 
-public struct Line
+public struct Line(string data, byte[] groups)
 {
-  public string Data { get; }
-  public byte[] Groups { get; }
-
-  public Line(string data, byte[] groups)
-  {
-    Data = data;
-    Groups = groups;
-  }
+  public string Data { get; } = data;
+  public byte[] Groups { get; } = groups;
 }

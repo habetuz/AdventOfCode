@@ -1,16 +1,9 @@
 namespace AdventOfCode.Solutions.Y2023.D04;
 
-public struct Game
+public struct Game(byte[] winningNumbers, byte[] numbers)
 {
-  public Game(byte[] winningNumbers, byte[] numbers)
-  {
-    WinningNumbers = winningNumbers;
-    Numbers = numbers;
-    Instances = 1;
-  }
+  public byte[] WinningNumbers { get; init; } = winningNumbers;
+  public byte[] Numbers { get; init; } = numbers;
 
-  public byte[] WinningNumbers { get; init; }
-  public byte[] Numbers { get; init; }
-
-  public uint Instances { get; set; }
+  public uint Instances { get; set; } = 1;
 }

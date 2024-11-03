@@ -7,8 +7,8 @@ namespace AdventOfCode.Solutions.Y2023.D01;
 
 public class Solver : ISolver<string[]>
 {
-  private static string[] numbers = new string[]
-  {
+  private static string[] numbers =
+  [
     "zero",
     "one",
     "two",
@@ -19,7 +19,7 @@ public class Solver : ISolver<string[]>
     "seven",
     "eight",
     "nine",
-  };
+  ];
 
   public void Parse(string input, IPartSubmitter<string[]> partSubmitter)
   {

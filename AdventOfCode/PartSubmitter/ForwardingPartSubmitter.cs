@@ -1,11 +1,12 @@
 namespace AdventOfCode.PartSubmitter;
 
-public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, ReceiveType2>
-  : IPartSubmitter<ReceiveType1, ReceiveType2>
+public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, ReceiveType2>(
+  IPartSubmitter<ForwardType1, ForwardType2> toForward
+) : IPartSubmitter<ReceiveType1, ReceiveType2>
   where ReceiveType1 : ForwardType1
   where ReceiveType2 : ForwardType2
 {
-  private IPartSubmitter<ForwardType1, ForwardType2> toForward;
+  private IPartSubmitter<ForwardType1, ForwardType2> toForward = toForward;
 
   public IPartSubmitter<ForwardType1, ForwardType2> ToForward
   {
@@ -15,11 +16,6 @@ public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, R
   public bool IsPart1Complete => toForward.IsPart1Complete;
 
   public bool IsPart2Complete => toForward.IsPart2Complete;
-
-  public ForwardingPartSubmitter(IPartSubmitter<ForwardType1, ForwardType2> toForward)
-  {
-    this.toForward = toForward;
-  }
 
   public void SubmitPart1(ReceiveType1 part)
   {
@@ -32,11 +28,9 @@ public class ForwardingPartSubmitter<ForwardType1, ForwardType2, ReceiveType1, R
   }
 }
 
-public class ForwardingPartSubmitter<ForwardTypes, ReceiveTypes>
-  : ForwardingPartSubmitter<ForwardTypes, ForwardTypes, ReceiveTypes, ReceiveTypes>,
+public class ForwardingPartSubmitter<ForwardTypes, ReceiveTypes>(
+  IPartSubmitter<ForwardTypes, ForwardTypes> toForward
+)
+  : ForwardingPartSubmitter<ForwardTypes, ForwardTypes, ReceiveTypes, ReceiveTypes>(toForward),
     IPartSubmitter<ReceiveTypes>
-  where ReceiveTypes : ForwardTypes
-{
-  public ForwardingPartSubmitter(IPartSubmitter<ForwardTypes, ForwardTypes> toForward)
-    : base(toForward) { }
-}
+  where ReceiveTypes : ForwardTypes { }

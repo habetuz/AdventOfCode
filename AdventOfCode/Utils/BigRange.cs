@@ -3,20 +3,14 @@ namespace AdventOfCode.Utils;
 /// <summary>
 /// Like <see cref="System.Range"/> but with <see cref="long"/> instead of <see cref="int"/>.
 /// </summary>
-public struct BigRange : IComparable<BigRange>, IEquatable<BigRange>
+public struct BigRange(long start, long end) : IComparable<BigRange>, IEquatable<BigRange>
 {
-  public long Start { get; }
-  public long End { get; }
+  public long Start { get; } = start;
+  public long End { get; } = end;
 
   public long Count
   {
     get => Math.Abs(Start - End) + 1;
-  }
-
-  public BigRange(long start, long end)
-  {
-    Start = start;
-    End = end;
   }
 
   /// <summary>

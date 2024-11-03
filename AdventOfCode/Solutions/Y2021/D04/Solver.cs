@@ -31,8 +31,7 @@ public class Solver : ISolver<Tuple<int[], Board[]>>
 
       for (int y = 0; y < 5; y++)
       {
-        string[] line = lines[boardIndex + y]
-          .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] line = lines[boardIndex + y].Split([' '], StringSplitOptions.RemoveEmptyEntries);
 
         for (int x = 0; x < 5; x++)
         {

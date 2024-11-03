@@ -88,18 +88,18 @@ public class GenericSolver : ISolver<object, object>
   public void Parse(string input, IPartSubmitter<object, object> parsedInput)
   {
     var forwarder = Activator.CreateInstance(forwardingPartSubmitterType, parsedInput)!;
-    parseMethod.Invoke(solverInstance, new object[] { input, forwarder });
+    parseMethod.Invoke(solverInstance, [input.Trim(), forwarder]);
   }
 
   public void Solve(object? input1, object? input2, IPartSubmitter solution)
   {
     if (genericParamCount == 2)
     {
-      solveMethod.Invoke(solverInstance, new object?[] { input1, input2, solution });
+      solveMethod.Invoke(solverInstance, [input1, input2, solution]);
     }
     else
     {
-      solveMethod.Invoke(solverInstance, new object?[] { input1, solution });
+      solveMethod.Invoke(solverInstance, [input1, solution]);
     }
   }
 

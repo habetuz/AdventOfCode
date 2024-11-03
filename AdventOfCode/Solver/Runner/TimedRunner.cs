@@ -6,19 +6,13 @@ using Spectre.Console;
 
 namespace AdventOfCode.Solver.Runner
 {
-  public class TimedRunner : ISolverRunner
+  public class TimedRunner(ISolver<object, object> solver, string input) : ISolverRunner
   {
     private static readonly TimeSpan MaxTime = new(0, 0, 5);
     private static readonly TimeSpan WarmupTime = new(0, 0, 0, 0, 500);
 
-    private readonly ISolver<object, object> solver;
-    private readonly string input;
-
-    public TimedRunner(ISolver<object, object> solver, string input)
-    {
-      this.solver = solver;
-      this.input = input;
-    }
+    private readonly ISolver<object, object> solver = solver;
+    private readonly string input = input;
 
     public Solution Run()
     {

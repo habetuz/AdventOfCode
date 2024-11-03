@@ -4,16 +4,10 @@ using YamlDotNet.Core.Tokens;
 
 namespace AdventOfCode.Solver.Runner
 {
-  internal class SingleTimeRunner : ISolverRunner
+  internal class SingleTimeRunner(ISolver<object, object> solver, string input) : ISolverRunner
   {
-    private readonly ISolver<object, object> solver;
-    private readonly string input;
-
-    public SingleTimeRunner(ISolver<object, object> solver, string input)
-    {
-      this.solver = solver;
-      this.input = input;
-    }
+    private readonly ISolver<object, object> solver = solver;
+    private readonly string input = input;
 
     public Solution Run()
     {

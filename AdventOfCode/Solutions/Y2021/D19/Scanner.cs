@@ -2,7 +2,7 @@
 
 public class Scanner
 {
-  private Beacon[] beacons = new Beacon[0];
+  private Beacon[] beacons = [];
 
   private int x = 0;
   private int y = 0;

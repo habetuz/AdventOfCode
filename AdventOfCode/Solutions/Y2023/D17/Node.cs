@@ -9,7 +9,7 @@ namespace AdventOfCode.Solutions.Y2023.D17;
 public class Node : IComparable<Node>
 {
   public Node Parent { get; set; } = null!;
-  public Node[] Children { get; set; } = new Node[0];
+  public Node[] Children { get; set; } = [];
 
   public Direction Direction { get; set; }
 

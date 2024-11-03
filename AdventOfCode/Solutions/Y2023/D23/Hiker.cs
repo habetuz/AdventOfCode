@@ -5,19 +5,12 @@ using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2023.D23;
 
-public class Hiker
+public class Hiker(HashSet<Node> visited, Node position, int distance = 0)
 {
-  public Hiker(HashSet<Node> visited, Node position, int distance = 0)
-  {
-    Visited = visited;
-    Position = position;
-    Distance = distance;
-  }
+  public HashSet<Node> Visited { get; set; } = visited;
+  public Node Position { get; set; } = position;
 
-  public HashSet<Node> Visited { get; set; }
-  public Node Position { get; set; }
-
-  public int Distance { get; set; }
+  public int Distance { get; set; } = distance;
 
   public int Walk(Node goal, char[,] map)
   {

@@ -62,11 +62,7 @@ public class TimedPartSubmitter<TPart1, TPart2> : IPartSubmitter<TPart1, TPart2>
 
   public class PartsNotResolvedException : Exception { }
 
-  public class AlreadySubmittedException : Exception
-  {
-    public AlreadySubmittedException(string message)
-      : base(message) { }
-  }
+  public class AlreadySubmittedException(string message) : Exception(message) { }
 }
 
 public class TimedPartSubmitter<TParts> : IPartSubmitter<TParts>

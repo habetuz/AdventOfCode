@@ -6,31 +6,25 @@ namespace AdventOfCode.Solutions.Y2023.D07;
 /// <summary>
 /// Represents a hand of cards in a card game.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="HandPart1"/> struct.
+/// </remarks>
+/// <param name="cards">The cards in the hand.</param>
+/// <param name="bid">The bid associated with the hand.</param>
 [DebuggerDisplay("Value = {Value}, Bid = {Bid}")]
-public struct HandPart1 : IComparable<HandPart1>
+public struct HandPart1(CardPart1[] cards, uint bid) : IComparable<HandPart1>
 {
   private int value = -1;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="HandPart1"/> struct.
-  /// </summary>
-  /// <param name="cards">The cards in the hand.</param>
-  /// <param name="bid">The bid associated with the hand.</param>
-  public HandPart1(CardPart1[] cards, uint bid)
-  {
-    Cards = cards;
-    Bid = bid;
-  }
-
-  /// <summary>
   /// Gets the cards in the hand.
   /// </summary>
-  public CardPart1[] Cards { get; }
+  public CardPart1[] Cards { get; } = cards;
 
   /// <summary>
   /// Gets the bid associated with the hand.
   /// </summary>
-  public uint Bid { get; }
+  public uint Bid { get; } = bid;
 
   /// <summary>
   /// Compares the current instance with another <see cref="HandPart1"/> and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other <see cref="HandPart1"/>.
@@ -121,31 +115,25 @@ public struct HandPart1 : IComparable<HandPart1>
 /// <summary>
 /// Represents a hand of cards in a card game.
 /// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="HandPart2"/> struct.
+/// </remarks>
+/// <param name="cards">The cards in the hand.</param>
+/// <param name="bid">The bid associated with the hand.</param>
 [DebuggerDisplay("Value = {Value}, Bid = {Bid}")]
-public struct HandPart2 : IComparable<HandPart2>
+public struct HandPart2(CardPart2[] cards, uint bid) : IComparable<HandPart2>
 {
   private int value = -1;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="HandPart2"/> struct.
-  /// </summary>
-  /// <param name="cards">The cards in the hand.</param>
-  /// <param name="bid">The bid associated with the hand.</param>
-  public HandPart2(CardPart2[] cards, uint bid)
-  {
-    Cards = cards;
-    Bid = bid;
-  }
-
-  /// <summary>
   /// Gets the cards in the hand.
   /// </summary>
-  public CardPart2[] Cards { get; }
+  public CardPart2[] Cards { get; } = cards;
 
   /// <summary>
   /// Gets the bid associated with the hand.
   /// </summary>
-  public uint Bid { get; }
+  public uint Bid { get; } = bid;
 
   /// <summary>
   /// Compares the current instance with another <see cref="HandPart2"/> and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other <see cref="HandPart1"/>.

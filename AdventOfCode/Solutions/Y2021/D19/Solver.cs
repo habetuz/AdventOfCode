@@ -7,7 +7,7 @@ public class Solver : ISolver<Scanner[]>
 {
   public void Parse(string input, IPartSubmitter<Scanner[]> partSubmitter)
   {
-    string[] lines = input.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+    string[] lines = input.Split(['\n'], StringSplitOptions.RemoveEmptyEntries);
 
     List<Scanner> scanners = [];
 

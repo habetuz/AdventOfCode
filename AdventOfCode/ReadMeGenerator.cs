@@ -4,7 +4,7 @@ using AdventOfCode.Time;
 
 namespace AdventOfCode
 {
-  internal class ReadMeGenerator
+  internal class ReadMeGenerator(ISolutionRetriever solutions)
   {
     private const string EMOJI_UNSOLVED = "❌";
 
@@ -29,12 +29,7 @@ namespace AdventOfCode
         { TIME_SNAIL_SPEED, EMOJI_SNAIL_SPEED },
       };
 
-    private readonly ISolutionRetriever solutions;
-
-    public ReadMeGenerator(ISolutionRetriever solutions)
-    {
-      this.solutions = solutions;
-    }
+    private readonly ISolutionRetriever solutions = solutions;
 
     internal void Generate()
     {
