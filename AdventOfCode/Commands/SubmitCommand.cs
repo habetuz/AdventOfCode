@@ -1,12 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using AdventOfCode.Commands.Settings;
-using Config.Net;
 using SharpLog;
 using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands
 {
-  public class SubmitCommand : Command<SubmitSettings>
+    public class SubmitCommand : Command<SubmitSettings>
   {
     public override int Execute([NotNull] CommandContext context, [NotNull] SubmitSettings settings)
     {

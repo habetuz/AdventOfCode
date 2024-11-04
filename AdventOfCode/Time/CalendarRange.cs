@@ -1,9 +1,8 @@
 using System.Collections;
-using YamlDotNet.Serialization.ObjectGraphTraversalStrategies;
 
 namespace AdventOfCode.Time
 {
-  public partial class CalendarRange : IEnumerable<Date>
+    public partial class CalendarRange : IEnumerable<Date>
   {
     private Date startDate;
     private Date endDate;

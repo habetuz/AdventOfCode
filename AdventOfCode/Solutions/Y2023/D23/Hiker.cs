@@ -1,8 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-using System.Timers;
-using AdventOfCode.Utils;
-using SharpLog;
-
 namespace AdventOfCode.Solutions.Y2023.D23;
 
 public class Hiker(HashSet<Node> visited, Node position, int distance = 0)

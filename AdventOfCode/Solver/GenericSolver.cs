@@ -1,7 +1,6 @@
 using System.Reflection;
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Time;
-using SharpLog;
 
 namespace AdventOfCode.Solver;
 

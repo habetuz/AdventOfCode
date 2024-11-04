@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using AdventOfCode.PartSubmitter;
 
 namespace AdventOfCode.PartSubmitter;
 

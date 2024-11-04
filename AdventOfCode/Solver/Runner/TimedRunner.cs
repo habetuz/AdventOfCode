@@ -1,12 +1,11 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using AdventOfCode.PartSubmitter;
-using SharpLog;
 using Spectre.Console;
 
 namespace AdventOfCode.Solver.Runner
 {
-  public class TimedRunner(ISolver<object, object> solver, string input) : ISolverRunner
+    public class TimedRunner(ISolver<object, object> solver, string input) : ISolverRunner
   {
     private static readonly TimeSpan MaxTime = new(0, 0, 5);
     private static readonly TimeSpan WarmupTime = new(0, 0, 0, 0, 500);

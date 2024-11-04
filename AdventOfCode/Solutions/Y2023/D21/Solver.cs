@@ -1,8 +1,6 @@
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
 using AdventOfCode.Utils;
-using MathNet.Numerics;
-using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2023.D21;
 

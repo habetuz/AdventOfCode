@@ -1,4 +1,3 @@
-using AdventOfCode;
 using AdventOfCode.Commands;
 using SharpLog;
 using Spectre.Console;

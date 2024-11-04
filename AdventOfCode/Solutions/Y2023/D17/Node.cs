@@ -1,6 +1,4 @@
 using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Serialization;
 using AdventOfCode.Utils;
 
 namespace AdventOfCode.Solutions.Y2023.D17;

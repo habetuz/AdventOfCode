@@ -1,7 +1,5 @@
-using System;
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
-using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2023.D01;
 

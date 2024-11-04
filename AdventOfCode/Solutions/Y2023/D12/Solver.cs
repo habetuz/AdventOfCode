@@ -1,9 +1,5 @@
-using System.Linq;
-using System.Linq.Expressions;
-using System.Net.Sockets;
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
-using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2023.D12;
 

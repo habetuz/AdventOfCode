@@ -1,10 +1,9 @@
-using System.ComponentModel;
 using Config.Net;
 using SharpLog;
 
 namespace AdventOfCode
 {
-  public static class ApplicationSettings
+    public static class ApplicationSettings
   {
     static ApplicationSettings()
     {

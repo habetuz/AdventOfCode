@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.Marshalling;
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
 

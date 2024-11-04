@@ -2,15 +2,13 @@ using System.Diagnostics.CodeAnalysis;
 using AdventOfCode.Commands.Settings;
 using AdventOfCode.Solver;
 using AdventOfCode.Solver.Runner;
-using AdventOfCode.Time;
 using SharpLog;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using YamlDotNet.Core;
 
 namespace AdventOfCode.Commands
 {
-  public class RunCommand : Command<RunSettings>
+    public class RunCommand : Command<RunSettings>
   {
     public override int Execute([NotNull] CommandContext context, [NotNull] RunSettings settings)
     {

@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
 using AdventOfCode.Commands.Settings;
 using Spectre.Console.Cli;

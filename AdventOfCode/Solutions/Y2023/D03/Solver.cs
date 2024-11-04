@@ -1,7 +1,6 @@
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
 using AdventOfCode.Utils;
-using Castle.Components.DictionaryAdapter.Xml;
 
 namespace AdventOfCode.Solutions.Y2023.D03;
 

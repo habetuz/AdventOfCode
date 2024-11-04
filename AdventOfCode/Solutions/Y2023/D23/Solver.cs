@@ -1,8 +1,6 @@
-using System.ComponentModel.DataAnnotations;
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
 using AdventOfCode.Utils;
-using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2023.D23;
 

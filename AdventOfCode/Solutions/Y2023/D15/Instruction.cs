@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace AdventOfCode.Solutions.Y2023.D15;
 
 public struct Instruction
