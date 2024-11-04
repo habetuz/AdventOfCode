@@ -1,6 +1,6 @@
 namespace AdventOfCode.Utils
 {
-    public struct Coordinate
+  public struct Coordinate
   {
     public long X { get; set; }
     public long Y { get; set; }

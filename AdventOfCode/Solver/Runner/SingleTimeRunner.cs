@@ -2,7 +2,7 @@ using Spectre.Console;
 
 namespace AdventOfCode.Solver.Runner
 {
-    internal class SingleTimeRunner(ISolver<object, object> solver, string input) : ISolverRunner
+  internal class SingleTimeRunner(ISolver<object, object> solver, string input) : ISolverRunner
   {
     private readonly ISolver<object, object> solver = solver;
     private readonly string input = input;

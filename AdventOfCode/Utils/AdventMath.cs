@@ -2,7 +2,7 @@ namespace AdventOfCode.Utils;
 
 public static class AdventMath
 {
-  public static long lcm(int[] elements)
+  public static long LeastCommonMultiplier(int[] elements)
   {
     long lcmOfArrayElements = 1;
     int divisor = 2;
@@ -16,14 +16,7 @@ public static class AdventMath
         // lcm_of_array_elements (n1, n2, ... 0) = 0.
         // For negative number we convert into
         // positive and calculate lcm_of_array_elements.
-        if (elements[i] == 0)
-        {
-          return 0;
-        }
-        else if (elements[i] < 0)
-        {
-          elements[i] = elements[i] * (-1);
-        }
+        elements[i] *= Math.Sign(elements[i]);
         if (elements[i] == 1)
         {
           counter++;
@@ -35,7 +28,7 @@ public static class AdventMath
         if (elements[i] % divisor == 0)
         {
           divisible = true;
-          elements[i] = elements[i] / divisor;
+          elements[i] /= divisor;
         }
       }
 
@@ -46,7 +39,7 @@ public static class AdventMath
       // else increment divisor
       if (divisible)
       {
-        lcmOfArrayElements = lcmOfArrayElements * divisor;
+        lcmOfArrayElements *= divisor;
       }
       else
       {

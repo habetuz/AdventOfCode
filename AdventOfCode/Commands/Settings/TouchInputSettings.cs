@@ -5,7 +5,7 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands.Settings
 {
-    public class TouchInputSettings : CommandSettings
+  public class TouchInputSettings : CommandSettings
   {
     [Description(
       "The date of the input you want to create/open. Leave empty for the current date."

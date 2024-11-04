@@ -1,6 +1,5 @@
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver;
-using SharpLog;
 
 namespace AdventOfCode.Solutions.Y2015.D05;
 

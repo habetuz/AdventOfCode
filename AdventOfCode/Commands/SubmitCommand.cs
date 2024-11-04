@@ -5,7 +5,7 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands
 {
-    public class SubmitCommand : Command<SubmitSettings>
+  public class SubmitCommand : Command<SubmitSettings>
   {
     public override int Execute([NotNull] CommandContext context, [NotNull] SubmitSettings settings)
     {

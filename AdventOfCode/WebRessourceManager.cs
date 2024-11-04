@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace AdventOfCode
 {
-    public class WebResourceManager
+  public class WebResourceManager
   {
     private const string BASE_URL = "https://adventofcode.com/";
     private HttpClientHandler clientHandler;

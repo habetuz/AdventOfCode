@@ -1,6 +1,6 @@
 namespace AdventOfCode
 {
-    public struct Solution
+  public struct Solution
   {
     public string? Solution1 { get; set; }
     public string? Solution2 { get; set; }

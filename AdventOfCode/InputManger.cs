@@ -2,7 +2,7 @@ using AdventOfCode.Time;
 
 namespace AdventOfCode
 {
-    public class InputManager : IInputRetriever, IInputSubmitter
+  public class InputManager : IInputRetriever, IInputSubmitter
   {
     private const string INPUT_PATH = "./inputs/";
 

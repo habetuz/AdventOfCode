@@ -77,6 +77,6 @@ public class Solver : ISolver<Input>
       stepsPerPosition[i] = steps;
     }
 
-    partSubmitter.SubmitPart2(AdventMath.lcm(stepsPerPosition));
+    partSubmitter.SubmitPart2(AdventMath.LeastCommonMultiplier(stepsPerPosition));
   }
 }

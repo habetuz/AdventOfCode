@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace AdventOfCode.Time
 {
-    public partial class CalendarRange : IEnumerable<Date>
+  public partial class CalendarRange : IEnumerable<Date>
   {
     private Date startDate;
     private Date endDate;

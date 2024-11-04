@@ -8,7 +8,7 @@ using Spectre.Console.Cli;
 
 namespace AdventOfCode.Commands
 {
-    public class RunCommand : Command<RunSettings>
+  public class RunCommand : Command<RunSettings>
   {
     public override int Execute([NotNull] CommandContext context, [NotNull] RunSettings settings)
     {
