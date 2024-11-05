@@ -8,6 +8,16 @@ namespace AdventOfCode.Commands.Settings;
 
 public class InitSettings : CommandSettings
 {
+  private readonly Dictionary<string, Func<Date, string>> generators =
+    new()
+    {
+      { "none", DefaultSolverGenerator },
+      { "custom-grid", CustomGridSplittingSolverGenerator },
+      { "grid", GridSplittingSolverGenerator },
+      { "lines", LineSplittingSolverGenerator },
+      { "unmodified", UnmodifingSolverGenerator },
+    };
+
   [Description("The date you want to initialize. Leave empty for the current date.")]
   [CommandArgument(0, "[date]")]
   public string StringDate { get; init; } = "";
@@ -16,6 +26,14 @@ public class InitSettings : CommandSettings
   [CommandOption("-f|--force")]
   public bool Force { get; init; }
 
+  [Description(
+    "The type of solver you want to create. Choose from 'none', 'custom-grid', 'grid', 'lines', 'unmodified'."
+  )]
+  [CommandOption("-s|--solver")]
+  [DefaultValue("none")]
+  public string SolverName { get; init; } = null!;
+
+  public Func<Date, string> Generator { get; private set; } = null!;
 
   public Date Date { get; private set; }
 
@@ -52,6 +70,115 @@ public class InitSettings : CommandSettings
       );
     }
 
+    if (generators.TryGetValue(SolverName, out var generator))
+    {
+      Generator = generator;
+    }
+    else
+    {
+      return ValidationResult.Error($"Solver {SolverName} does not exist!");
+    }
+
     return ValidationResult.Success();
+  }
+
+  private static string DefaultSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : ISolver<string> 
+      {{
+        public void Parse(string input, IPartSubmitter<string> partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+
+        public void Solve(string input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
+  }
+
+  private static string CustomGridSplittingSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver.Templates;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : CustomGridSplittingSolver<TYPE> 
+      {{
+        public override TYPE Convert(char value, int x, int y)
+        {{
+          throw new NotImplementedException();
+        }}
+
+        public override void Solve(TYPE[,] input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
+  }
+
+  private static string GridSplittingSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver.Templates;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : GridSplittingSolver 
+      {{
+        public override void Solve(char[,] input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
+  }
+
+  private static string LineSplittingSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver.Templates;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : LineSplittingSolver 
+      {{
+        public override void Solve(string[] input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
+  }
+
+  private static string UnmodifingSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver.Templates;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : UnmodifingSolver 
+      {{
+        public override void Solve(string input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
   }
 }

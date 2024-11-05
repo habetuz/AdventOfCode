@@ -9,26 +9,7 @@ public class InitCommand : Command<InitSettings>
 {
   public override int Execute(CommandContext context, InitSettings settings)
   {
-    string file =
-      @$"
-      using AdventOfCode.PartSubmitter;
-      using AdventOfCode.Solver;
-
-      namespace AdventOfCode.Solutions.Y{settings.Date.Year}.D{settings.Date.Day:D2};
-      
-      public class Solver : ISolver<string> 
-      {{
-        public void Parse(string input, IPartSubmitter<string> partSubmitter)
-        {{
-          throw new NotImplementedException();
-        }}
-
-        public void Solve(string input, IPartSubmitter partSubmitter)
-        {{
-          throw new NotImplementedException();
-        }}
-      }}
-    ";
+    string file = settings.Generator(settings.Date);
 
     var options = new CodeFormatterOptions() { IndentSize = 2 };
 
@@ -38,7 +19,7 @@ public class InitCommand : Command<InitSettings>
     {
       foreach (var error in result.CompilationErrors)
       {
-        Logging.LogError(error.GetMessage(), "RUNNER");
+        Logging.LogError(error.ToString(), "RUNNER");
       }
 
       throw new Exception("Formatting the generated code failed unexpectedly!");
