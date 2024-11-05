@@ -14,6 +14,7 @@ public class InitSettings : CommandSettings
       { "none", DefaultSolverGenerator },
       { "custom-grid", CustomGridSplittingSolverGenerator },
       { "grid", GridSplittingSolverGenerator },
+      { "custom-lines", CustomLineSplittingSolverGenerator },
       { "lines", LineSplittingSolverGenerator },
       { "unmodified", UnmodifingSolverGenerator },
     };
@@ -139,6 +140,29 @@ public class InitSettings : CommandSettings
       public class Solver : GridSplittingSolver 
       {{
         public override void Solve(char[,] input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
+  }
+
+  private static string CustomLineSplittingSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver.Templates;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : CustomLineSplittingSolver<TYPE> 
+      {{
+        public override TYPE Convert(string value)
+        {{
+          throw new NotImplementedException();
+        }}
+
+        public override void Solve(TYPE[] input, IPartSubmitter partSubmitter)
         {{
           throw new NotImplementedException();
         }}

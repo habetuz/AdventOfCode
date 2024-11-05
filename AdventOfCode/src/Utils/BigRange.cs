@@ -8,7 +8,7 @@ public struct BigRange(long start, long end) : IComparable<BigRange>, IEquatable
   public long Start { get; } = start;
   public long End { get; } = end;
 
-  public long Count
+  public readonly long Count
   {
     get => Math.Abs(Start - End) + 1;
   }
@@ -18,7 +18,7 @@ public struct BigRange(long start, long end) : IComparable<BigRange>, IEquatable
   /// </summary>
   /// <param name="value">The value to check.</param>
   /// <returns>True if the value is contained in the range.</returns>
-  public bool Contains(long value)
+  public readonly bool Contains(long value)
   {
     return value >= Start && value <= End;
   }
@@ -28,7 +28,7 @@ public struct BigRange(long start, long end) : IComparable<BigRange>, IEquatable
   /// </summary>
   /// <param name="other">The other range to intersect with.</param>
   /// <returns>The intersection of the ranges.</returns>
-  public BigRange? Intersect(BigRange other)
+  public readonly BigRange? Intersect(BigRange other)
   {
     var intersection = new BigRange(Math.Max(Start, other.Start), Math.Min(End, other.End));
     if (intersection.Start > intersection.End)
@@ -116,22 +116,22 @@ public struct BigRange(long start, long end) : IComparable<BigRange>, IEquatable
     return new BigRange(start, end);
   }
 
-  public override bool Equals(object? obj)
+  public override readonly bool Equals(object? obj)
   {
     return obj is BigRange range && range == this;
   }
 
-  public override int GetHashCode()
+  public override readonly int GetHashCode()
   {
     return HashCode.Combine(Start, End);
   }
 
-  public override string ToString()
+  public override readonly string ToString()
   {
     return $"{Start}..{End}";
   }
 
-  public int CompareTo(BigRange other)
+  public readonly int CompareTo(BigRange other)
   {
     if (this < other)
     {
@@ -146,7 +146,7 @@ public struct BigRange(long start, long end) : IComparable<BigRange>, IEquatable
     return 0;
   }
 
-  public bool Equals(BigRange other)
+  public readonly bool Equals(BigRange other)
   {
     return this == other;
   }

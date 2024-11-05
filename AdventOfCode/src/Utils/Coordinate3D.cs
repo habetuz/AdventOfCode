@@ -31,12 +31,12 @@ public struct Coordinate3D
     return !(a == b);
   }
 
-  public override bool Equals(object? obj)
+  public override readonly bool Equals(object? obj)
   {
     return obj is Coordinate3D other && this == other;
   }
 
-  public override int GetHashCode()
+  public override readonly int GetHashCode()
   {
     return HashCode.Combine(X, Y, Z);
   }

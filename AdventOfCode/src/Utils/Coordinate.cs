@@ -93,10 +93,13 @@ namespace AdventOfCode.Utils
       return a;
     }
 
-    public static explicit operator Coordinate((int, int) coordinate)
+    public static implicit operator Coordinate((int, int) coordinate)
     {
       return new Coordinate(coordinate.Item1, coordinate.Item2);
     }
+
+    public static implicit operator Coordinate((long, long) coordinate) =>
+      new(coordinate.Item1, coordinate.Item2);
 
     public static implicit operator Direction(Coordinate coordinate)
     {
@@ -152,18 +155,18 @@ namespace AdventOfCode.Utils
 
     public static bool operator !=(Coordinate a, Coordinate b) => a.X != b.X || a.Y != b.Y;
 
-    public override bool Equals(object? obj) => obj is Coordinate coordinate && this == coordinate;
+    public override readonly bool Equals(object? obj) => obj is Coordinate coordinate && this == coordinate;
 
-    public override int GetHashCode() => HashCode.Combine(X, Y);
+    public override readonly int GetHashCode() => HashCode.Combine(X, Y);
 
-    public override string ToString() => $"({X}, {Y})";
+    public override readonly string ToString() => $"({X}, {Y})";
 
-    public ulong ManhattanDistance(Coordinate coordinate)
+    public readonly ulong ManhattanDistance(Coordinate coordinate)
     {
       return (ulong)(Math.Abs(X - coordinate.X) + Math.Abs(Y - coordinate.Y));
     }
 
-    public IEnumerable<Coordinate> GetNeighbors(params Direction[] directions)
+    public readonly IEnumerable<Coordinate> GetNeighbors(params Direction[] directions)
     {
       foreach (var direction in directions)
       {

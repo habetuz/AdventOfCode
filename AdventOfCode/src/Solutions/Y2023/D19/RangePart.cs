@@ -8,14 +8,14 @@ public struct RangeParts
   public BigRange M { get; set; }
   public BigRange A { get; set; }
   public BigRange S { get; set; }
-  public long Combinations
+  public readonly long Combinations
   {
     get => X.Count * M.Count * A.Count * S.Count;
   }
 
   public BigRange this[Category category]
   {
-    get
+        readonly get
     {
       return category switch
       {

@@ -44,7 +44,7 @@ public struct Surface
     }
   }
 
-  public uint Bow
+  public readonly uint Bow
   {
     get
     {

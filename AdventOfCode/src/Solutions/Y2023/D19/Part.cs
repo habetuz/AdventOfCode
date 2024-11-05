@@ -7,14 +7,14 @@ public struct Part
   public int A { get; set; }
   public int S { get; set; }
 
-  public int Value
+  public readonly int Value
   {
     get => X + M + A + S;
   }
 
   public int this[Category category]
   {
-    get
+        readonly get
     {
       return category switch
       {

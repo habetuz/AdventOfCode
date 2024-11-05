@@ -13,7 +13,7 @@ public struct State
   public byte DamagedCounter { get; set; }
   public char CurrentChar { get; set; }
 
-  public override int GetHashCode()
+  public override readonly int GetHashCode()
   {
     return HashCode.Combine(GroupPointer, DataPointer, DamagedCounter, CurrentChar);
   }
@@ -31,7 +31,7 @@ public struct State
     return !(a == b);
   }
 
-  public override bool Equals([NotNullWhen(true)] object? obj)
+  public override readonly bool Equals([NotNullWhen(true)] object? obj)
   {
     if (obj is State)
     {

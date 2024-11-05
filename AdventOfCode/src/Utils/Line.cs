@@ -8,7 +8,7 @@ public struct Line
   public Coordinate Start { get; set; }
   public Coordinate End { get; set; }
 
-  public ulong ManhattanLength => Start.ManhattanDistance(End);
+  public readonly ulong ManhattanLength => Start.ManhattanDistance(End);
 
   public Line(Coordinate start, Coordinate end) => (Start, End) = (start, end);
 
@@ -16,9 +16,9 @@ public struct Line
 
   public static bool operator !=(Line a, Line b) => !(a == b);
 
-  public override bool Equals(object? obj) => obj is Line line && this == line;
+  public override readonly bool Equals(object? obj) => obj is Line line && this == line;
 
-  public override int GetHashCode() => HashCode.Combine(Start, End);
+  public override readonly int GetHashCode() => HashCode.Combine(Start, End);
 
   public static implicit operator Line((Coordinate, Coordinate) tuple) =>
     new(tuple.Item1, tuple.Item2);
