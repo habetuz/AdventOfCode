@@ -9,7 +9,7 @@ public class TouchInputSettings : CommandSettings
 {
   [Description("The date of the input you want to create/open. Leave empty for the current date.")]
   [CommandArgument(0, "[date]")]
-  public string? StringDate { get; init; } = "";
+  public string StringDate { get; init; } = "";
 
   [Description("The number of the example you want to create/open.")]
   [CommandOption("-e|--example")]

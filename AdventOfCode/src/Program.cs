@@ -44,6 +44,10 @@ app.Configure(config =>
   config
     .AddCommand<SubmitCommand>("submit")
     .WithDescription("Submit a solution to test against in the future.");
+
+  config
+    .AddCommand<InitCommand>("init")
+    .WithDescription("Initialize a solution for a specified date.");
 #if DEBUG
   config.ValidateExamples();
   config.PropagateExceptions();

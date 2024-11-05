@@ -9,7 +9,7 @@ public class SubmitSettings : CommandSettings
 {
   [Description("The date of the input you want to submit as solution.")]
   [CommandArgument(0, "<date>")]
-  public string? StringDate { get; init; } = "";
+  public string StringDate { get; init; } = "";
 
   [Description("The solution for puzzle one.")]
   [CommandArgument(1, "<solution 1>")]
