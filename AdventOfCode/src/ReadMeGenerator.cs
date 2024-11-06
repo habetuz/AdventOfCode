@@ -54,7 +54,7 @@ internal class ReadMeGenerator(ISolutionRetriever solutions)
       }
 
       yearTable +=
-        $"| [{date.Day:D2}](AdventOfCode/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
+        $"| [{date.Day:D2}](AdventOfCode/src/Solutions/Y{date.Year}/D{date.Day:D2}/Solver.cs) | ";
 
       var solution = solutions.Retrieve(date);
       if (solution.HasValue)
