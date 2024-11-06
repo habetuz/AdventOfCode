@@ -3,13 +3,13 @@ using AdventOfCode.Solver;
 
 namespace AdventOfCode.Solutions.Y2023.D12;
 
-public class Solver : ISolver<Line[], Line[]>
+public class Solver : ISolver<DataLine[], DataLine[]>
 {
-  public void Parse(string input, IPartSubmitter<Line[], Line[]> partSubmitter)
+  public void Parse(string input, IPartSubmitter<DataLine[], DataLine[]> partSubmitter)
   {
     var lines = input.Split('\n', StringSplitOptions.RemoveEmptyEntries);
-    var result1 = new Line[lines.Length];
-    var result2 = new Line[lines.Length];
+    var result1 = new DataLine[lines.Length];
+    var result2 = new DataLine[lines.Length];
     for (var i = 0; i < lines.Length; i++)
     {
       var line = lines[i];
@@ -17,8 +17,8 @@ public class Solver : ISolver<Line[], Line[]>
       var data = parts[0];
       var bytes = parts[1].Split(',').Select((x) => byte.Parse(x)).ToArray();
 
-      result1[i] = new Line(data, bytes);
-      result2[i] = new Line(
+      result1[i] = new DataLine(data, bytes);
+      result2[i] = new DataLine(
         string.Join('?', Enumerable.Repeat(data, 5)),
         Enumerable.Repeat(bytes, 5).Aggregate((x, y) => x.Concat(y).ToArray())
       );
@@ -28,7 +28,7 @@ public class Solver : ISolver<Line[], Line[]>
     partSubmitter.SubmitPart2(result2);
   }
 
-  public void Solve(Line[] input1, Line[] input2, IPartSubmitter partSubmitter)
+  public void Solve(DataLine[] input1, DataLine[] input2, IPartSubmitter partSubmitter)
   {
     long combinations = input1.Sum(
       (line) =>
@@ -53,7 +53,7 @@ public class Solver : ISolver<Line[], Line[]>
     partSubmitter.SubmitPart2(combinations);
   }
 
-  private long GetArrangements(State state, Line line, Dictionary<State, long> cache)
+  private long GetArrangements(State state, DataLine line, Dictionary<State, long> cache)
   {
     switch (state.CurrentChar)
     {

@@ -42,7 +42,7 @@ public class Solver : CustomLineSplittingSolver<Instruction>
 
     foreach (Instruction instruction in input)
     {
-      foreach (var coordinate in instruction.Area.Iterate())
+      foreach (var coordinate in instruction.Area.Points())
       {
         lightsOnOff[coordinate.X, coordinate.Y] = instruction.Type switch
         {

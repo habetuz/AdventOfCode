@@ -14,7 +14,7 @@ public struct Part
 
   public int this[Category category]
   {
-        readonly get
+    readonly get
     {
       return category switch
       {

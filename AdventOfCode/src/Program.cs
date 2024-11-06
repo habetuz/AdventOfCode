@@ -48,6 +48,11 @@ app.Configure(config =>
   config
     .AddCommand<InitCommand>("init")
     .WithDescription("Initialize a solution for a specified date.");
+
+  config
+    .AddCommand<ResetStatisticsCommand>("reset-statistics")
+    .WithAlias("drop-statistics")
+    .WithDescription("Resets the execution statistics and submitted solutions.");
 #if DEBUG
   config.ValidateExamples();
   config.PropagateExceptions();

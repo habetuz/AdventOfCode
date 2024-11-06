@@ -123,7 +123,7 @@ public static class Array2D
     Direction direction
   );
 
-  public static void Print<T>(int v, T[,] array, ConvertCallback<T, string> convertCallback)
+  public static void Print<T>(T[,] array, ConvertCallback<T, string> convertCallback)
   {
     Logging.LogInfo($"Array size: {array.GetLength(0)}x{array.GetLength(1)}");
 

@@ -18,9 +18,12 @@ public struct Rectangle
 
   public override readonly int GetHashCode() => HashCode.Combine(A, B);
 
-   public readonly IEnumerable<Coordinate> Iterate() {
-    for (long y = A.Y; y <= B.Y; y++) {
-      for (long x = A.X; x <= B.X; x++) {
+  public readonly IEnumerable<Coordinate> Points()
+  {
+    for (long y = A.Y; y <= B.Y; y++)
+    {
+      for (long x = A.X; x <= B.X; x++)
+      {
         yield return (x, y);
       }
     }

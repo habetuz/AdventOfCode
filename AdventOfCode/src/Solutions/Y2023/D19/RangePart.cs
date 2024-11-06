@@ -15,7 +15,7 @@ public struct RangeParts
 
   public BigRange this[Category category]
   {
-        readonly get
+    readonly get
     {
       return category switch
       {

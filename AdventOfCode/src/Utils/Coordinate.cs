@@ -155,7 +155,8 @@ namespace AdventOfCode.Utils
 
     public static bool operator !=(Coordinate a, Coordinate b) => a.X != b.X || a.Y != b.Y;
 
-    public override readonly bool Equals(object? obj) => obj is Coordinate coordinate && this == coordinate;
+    public override readonly bool Equals(object? obj) =>
+      obj is Coordinate coordinate && this == coordinate;
 
     public override readonly int GetHashCode() => HashCode.Combine(X, Y);
 

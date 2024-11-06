@@ -12,8 +12,6 @@ public class SaveCookieCommand : Command<SaveCookieSettings>
   )
   {
     ApplicationSettings.Instance.Cookie = settings.Cookie;
-    new SolutionStatisticsManager().DropStatistics();
-
     return 0;
   }
 }
