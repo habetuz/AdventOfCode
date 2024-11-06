@@ -250,7 +250,7 @@
 | [03](AdventOfCode/Solutions/Y2015/D03/Solver.cs) | 🟩 | `00:00:00.0003572` | `00:00:00.0000002` | `00:00:00` | `00:00:00.0001714` | `00:00:00.0001856` |
 | [04](AdventOfCode/Solutions/Y2015/D04/Solver.cs) | 🟥 | `00:00:01.0974659` | `00:00:00.0000375` | `00:00:00` | `00:00:00.0332022` | `00:00:01.0642262` |
 | [05](AdventOfCode/Solutions/Y2015/D05/Solver.cs) | 🟩 | `00:00:00.0006450` | `00:00:00.0000102` | `00:00:00` | `00:00:00.0002263` | `00:00:00.0004085` |
-| [06](AdventOfCode/Solutions/Y2015/D06/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [06](AdventOfCode/Solutions/Y2015/D06/Solver.cs) | 🟨 | `00:00:00.0892966` | `00:00:00.0003712` | `00:00:00.0000001` | `00:00:00.0881780` | `00:00:00.0007473` |
 | [07](AdventOfCode/Solutions/Y2015/D07/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [08](AdventOfCode/Solutions/Y2015/D08/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [09](AdventOfCode/Solutions/Y2015/D09/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
