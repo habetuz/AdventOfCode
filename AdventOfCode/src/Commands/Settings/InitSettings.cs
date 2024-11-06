@@ -17,6 +17,7 @@ public class InitSettings : CommandSettings
       { "custom-lines", CustomLineSplittingSolverGenerator },
       { "lines", LineSplittingSolverGenerator },
       { "unmodified", UnmodifingSolverGenerator },
+      { "numbers", NumbersSolverGenerator },
     };
 
   [Description("The date you want to initialize. Leave empty for the current date.")]
@@ -199,6 +200,24 @@ public class InitSettings : CommandSettings
       public class Solver : UnmodifingSolver 
       {{
         public override void Solve(string input, IPartSubmitter partSubmitter)
+        {{
+          throw new NotImplementedException();
+        }}
+      }}
+    ";
+  }
+
+  private static string NumbersSolverGenerator(Date date)
+  {
+    return @$"
+      using AdventOfCode.PartSubmitter;
+      using AdventOfCode.Solver.Templates;
+
+      namespace AdventOfCode.Solutions.Y{date.Year}.D{date.Day:D2};
+      
+      public class Solver : NumbersSolver 
+      {{
+        public override void Solve(int[] input, IPartSubmitter partSubmitter)
         {{
           throw new NotImplementedException();
         }}
