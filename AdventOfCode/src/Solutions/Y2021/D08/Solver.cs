@@ -1,6 +1,5 @@
 using AdventOfCode.PartSubmitter;
 using AdventOfCode.Solver.Templates;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace AdventOfCode.Solutions.Y2021.D08;
 
@@ -129,7 +128,9 @@ public class Solver : CustomLineSplittingSolver<Display>
     int sum = 0;
     for (int i = 0; i < display.Digits.Length; i++)
     {
-      sum += numbers[new string([.. display.Digits[i].Order()])] * ((int)Math.Pow(10, display.Digits.Length - i - 1));
+      sum +=
+        numbers[new string([.. display.Digits[i].Order()])]
+        * ((int)Math.Pow(10, display.Digits.Length - i - 1));
     }
 
     return sum;

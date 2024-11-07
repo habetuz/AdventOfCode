@@ -52,17 +52,18 @@ public class Solver : ISolver<Orchestrator>
         .Select(
           (output) =>
           {
-            if (!modules.ContainsKey(output))
+            if (!modules.TryGetValue(output, out IModule? value))
             {
-              modules[output] = new BroadcastModule() { Name = output };
+              value = new BroadcastModule() { Name = output };
+              modules[output] = value;
             }
 
-            if (modules[output] is ConjunctionModule conjunctionModule)
+            if (value is ConjunctionModule conjunctionModule)
             {
               conjunctionModule.AddInput(module);
             }
 
-            return modules[output];
+            return value;
           }
         )
         .ToArray();

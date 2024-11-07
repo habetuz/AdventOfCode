@@ -101,7 +101,7 @@ internal class ReadMeGenerator(ISolutionRetriever solutions)
 > 🟦 -> `< {TIME_SOUND_SPEED:c}`<br/>
 > 🟨 -> `< {TIME_MODERAT_SPEED:c}`<br/>
 > 🟧 -> `< {TIME_SLOW_SPEED:c}`<br/>
-> 🟥 -> `> {TIME_SLOW_SPEED:c}` or not timed.
+> 🟥 -> `> {TIME_SLOW_SPEED:c}` or only partially solved.
 " + markdown;
 
     File.WriteAllText("README.md", markdown);

@@ -8,7 +8,7 @@
 > 🟦 -> `< 00:00:00.0100000`<br/>
 > 🟨 -> `< 00:00:00.1000000`<br/>
 > 🟧 -> `< 00:00:01`<br/>
-> 🟥 -> `> 00:00:01` or not timed.
+> 🟥 -> `> 00:00:01` or only partially solved.
 ### 2023
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
@@ -71,25 +71,25 @@
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
-| [01](AdventOfCode/src/Solutions/Y2021/D01/Solver.cs) | 🟩 | `00:00:00.0000619` | `00:00:00.0000295` | `00:00:00` | `00:00:00.0000307` | `00:00:00.0000017` |
-| [02](AdventOfCode/src/Solutions/Y2021/D02/Solver.cs) | 🟩 | `00:00:00.0001979` | `00:00:00.0000972` | `00:00:00` | `00:00:00.0000992` | `00:00:00.0000015` |
-| [03](AdventOfCode/src/Solutions/Y2021/D03/Solver.cs) | 🟩 | `00:00:00.0000773` | `00:00:00.0000246` | `00:00:00` | `00:00:00.0000308` | `00:00:00.0000219` |
-| [04](AdventOfCode/src/Solutions/Y2021/D04/Solver.cs) | 🟦 | `00:00:00.0092990` | `00:00:00.0000676` | `00:00:00` | `00:00:00.0000723` | `00:00:00.0091591` |
-| [05](AdventOfCode/src/Solutions/Y2021/D05/Solver.cs) | 🟦 | `00:00:00.0037802` | `00:00:00.0000759` | `00:00:00` | `00:00:00.0027360` | `00:00:00.0009683` |
-| [06](AdventOfCode/src/Solutions/Y2021/D06/Solver.cs) | 🟩 | `00:00:00.0000081` | `00:00:00.0000037` | `00:00:00` | `00:00:00.0000041` | `00:00:00.0000003` |
-| [07](AdventOfCode/src/Solutions/Y2021/D07/Solver.cs) | 🟩 | `00:00:00.0004083` | `00:00:00.0000155` | `00:00:00` | `00:00:00.0000225` | `00:00:00.0003703` |
-| [08](AdventOfCode/src/Solutions/Y2021/D08/Solver.cs) | 🟩 | `00:00:00.0007175` | `00:00:00.0000580` | `00:00:00` | `00:00:00.0000691` | `00:00:00.0005904` |
-| [09](AdventOfCode/src/Solutions/Y2021/D09/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [10](AdventOfCode/src/Solutions/Y2021/D10/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [11](AdventOfCode/src/Solutions/Y2021/D11/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [12](AdventOfCode/src/Solutions/Y2021/D12/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [13](AdventOfCode/src/Solutions/Y2021/D13/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [14](AdventOfCode/src/Solutions/Y2021/D14/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [15](AdventOfCode/src/Solutions/Y2021/D15/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [16](AdventOfCode/src/Solutions/Y2021/D16/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [01](AdventOfCode/src/Solutions/Y2021/D01/Solver.cs) | 🟩 | `00:00:00.0000599` | `00:00:00.0000285` | `00:00:00` | `00:00:00.0000297` | `00:00:00.0000017` |
+| [02](AdventOfCode/src/Solutions/Y2021/D02/Solver.cs) | 🟩 | `00:00:00.0001935` | `00:00:00.0000950` | `00:00:00` | `00:00:00.0000969` | `00:00:00.0000016` |
+| [03](AdventOfCode/src/Solutions/Y2021/D03/Solver.cs) | 🟩 | `00:00:00.0000782` | `00:00:00.0000242` | `00:00:00` | `00:00:00.0000304` | `00:00:00.0000236` |
+| [04](AdventOfCode/src/Solutions/Y2021/D04/Solver.cs) | 🟦 | `00:00:00.0095423` | `00:00:00.0000652` | `00:00:00` | `00:00:00.0000701` | `00:00:00.0094070` |
+| [05](AdventOfCode/src/Solutions/Y2021/D05/Solver.cs) | 🟦 | `00:00:00.0037444` | `00:00:00.0000762` | `00:00:00` | `00:00:00.0028601` | `00:00:00.0008081` |
+| [06](AdventOfCode/src/Solutions/Y2021/D06/Solver.cs) | 🟩 | `00:00:00.0000082` | `00:00:00.0000037` | `00:00:00` | `00:00:00.0000042` | `00:00:00.0000003` |
+| [07](AdventOfCode/src/Solutions/Y2021/D07/Solver.cs) | 🟩 | `00:00:00.0004094` | `00:00:00.0000160` | `00:00:00` | `00:00:00.0000230` | `00:00:00.0003704` |
+| [08](AdventOfCode/src/Solutions/Y2021/D08/Solver.cs) | 🟩 | `00:00:00.0007252` | `00:00:00.0000588` | `00:00:00` | `00:00:00.0000696` | `00:00:00.0005968` |
+| [09](AdventOfCode/src/Solutions/Y2021/D09/Solver.cs) | 🟩 | `00:00:00.0001849` | `00:00:00.0000149` | `00:00:00` | `00:00:00.0000578` | `00:00:00.0001122` |
+| [10](AdventOfCode/src/Solutions/Y2021/D10/Solver.cs) | 🟦 | `00:00:00.0031203` | `00:00:00.0000051` | `00:00:00` | `00:00:00.0021717` | `00:00:00.0009435` |
+| [11](AdventOfCode/src/Solutions/Y2021/D11/Solver.cs) | 🟩 | `00:00:00.0003023` | `00:00:00.0000005` | `00:00:00` | `00:00:00.0000681` | `00:00:00.0002337` |
+| [12](AdventOfCode/src/Solutions/Y2021/D12/Solver.cs) | 🟨 | `00:00:00.0376373` | `00:00:00.0000155` | `00:00:00` | `00:00:00.0010723` | `00:00:00.0365495` |
+| [13](AdventOfCode/src/Solutions/Y2021/D13/Solver.cs) | 🟦 | `00:00:00.0041327` | `00:00:00.0001243` | `00:00:00` | `00:00:00.0017647` | `00:00:00.0022437` |
+| [14](AdventOfCode/src/Solutions/Y2021/D14/Solver.cs) | 🟩 | `00:00:00.0008330` | `00:00:00.0000064` | `00:00:00` | `00:00:00.0001752` | `00:00:00.0006514` |
+| [15](AdventOfCode/src/Solutions/Y2021/D15/Solver.cs) | 🟧 | `00:00:00.6052669` | `00:00:00.0001725` | `00:00:00` | `00:00:00.0056196` | `00:00:00.5994748` |
+| [16](AdventOfCode/src/Solutions/Y2021/D16/Solver.cs) | 🟩 | `00:00:00.0009358` | `00:00:00.0004673` | `00:00:00` | `00:00:00.0004679` | `00:00:00.0000006` |
 | [17](AdventOfCode/src/Solutions/Y2021/D17/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [18](AdventOfCode/src/Solutions/Y2021/D18/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [19](AdventOfCode/src/Solutions/Y2021/D19/Solver.cs) | 🟧 | `00:00:00.8973558` | `00:00:00.0002185` | `00:00:00` | `00:00:00.8971267` | `00:00:00.0000106` |
+| [19](AdventOfCode/src/Solutions/Y2021/D19/Solver.cs) | 🟧 | `00:00:00.8945526` | `00:00:00.0003455` | `00:00:00` | `00:00:00.8941966` | `00:00:00.0000105` |
 | [20](AdventOfCode/src/Solutions/Y2021/D20/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [21](AdventOfCode/src/Solutions/Y2021/D21/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [22](AdventOfCode/src/Solutions/Y2021/D22/Solver.cs) | 🟥 | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
