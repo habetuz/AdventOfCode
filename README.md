@@ -9,6 +9,30 @@
 > 🟨 -> `< 00:00:00.1000000`<br/>
 > 🟧 -> `< 00:00:01`<br/>
 > 🟥 -> `> 00:00:01` or only partially solved.
+### 2024
+
+| Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
+| :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
+| [01](AdventOfCode/src/Solutions/Y2024/D01/Solver.cs) | 🟩 | `00:00:00.0001859` | `00:00:00.0000668` | `00:00:00` | `00:00:00.0001179` | `00:00:00.0000012` |
+| [02](AdventOfCode/src/Solutions/Y2024/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [03](AdventOfCode/src/Solutions/Y2024/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [04](AdventOfCode/src/Solutions/Y2024/D04/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [05](AdventOfCode/src/Solutions/Y2024/D05/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [06](AdventOfCode/src/Solutions/Y2024/D06/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [07](AdventOfCode/src/Solutions/Y2024/D07/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [08](AdventOfCode/src/Solutions/Y2024/D08/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [09](AdventOfCode/src/Solutions/Y2024/D09/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [10](AdventOfCode/src/Solutions/Y2024/D10/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [11](AdventOfCode/src/Solutions/Y2024/D11/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [12](AdventOfCode/src/Solutions/Y2024/D12/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [13](AdventOfCode/src/Solutions/Y2024/D13/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [14](AdventOfCode/src/Solutions/Y2024/D14/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [15](AdventOfCode/src/Solutions/Y2024/D15/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [16](AdventOfCode/src/Solutions/Y2024/D16/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [17](AdventOfCode/src/Solutions/Y2024/D17/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [18](AdventOfCode/src/Solutions/Y2024/D18/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [19](AdventOfCode/src/Solutions/Y2024/D19/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [20](AdventOfCode/src/Solutions/Y2024/D20/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 ### 2023
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |

@@ -29,7 +29,7 @@ public class InitSettings : CommandSettings
   public bool Force { get; init; }
 
   [Description(
-    "The type of solver you want to create. Choose from 'none', 'custom-grid', 'grid', 'lines', 'unmodified'."
+    "The type of solver you want to create. Choose from 'none', 'custom-grid', 'grid', 'custom-lines', 'lines', 'unmodified', 'numbers'."
   )]
   [CommandOption("-s|--solver")]
   [DefaultValue("none")]
