@@ -14,8 +14,8 @@
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
 | :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
 | [01](AdventOfCode/src/Solutions/Y2024/D01/Solver.cs) | 🟩 | `00:00:00.0001859` | `00:00:00.0000668` | `00:00:00` | `00:00:00.0001179` | `00:00:00.0000012` |
-| [02](AdventOfCode/src/Solutions/Y2024/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
-| [03](AdventOfCode/src/Solutions/Y2024/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [02](AdventOfCode/src/Solutions/Y2024/D02/Solver.cs) | 🟩 | `00:00:00.0006716` | `00:00:00.0001587` | `00:00:00` | `00:00:00.0002317` | `00:00:00.0002812` |
+| [03](AdventOfCode/src/Solutions/Y2024/D03/Solver.cs) | 🟩 | `00:00:00.0001653` | `00:00:00.0000013` | `00:00:00` | `00:00:00.0001640` | `00:00:00` |
 | [04](AdventOfCode/src/Solutions/Y2024/D04/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [05](AdventOfCode/src/Solutions/Y2024/D05/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 | [06](AdventOfCode/src/Solutions/Y2024/D06/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
