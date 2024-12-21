@@ -39,7 +39,7 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
       (array, coordinate, direction) =>
       {
         (var x, var y) = coordinate;
-        if ((direction & map[x, y].Invert()) != 0)
+        if ((direction & map[x, y].Rotate180()) != 0)
         {
           map[start.X, start.Y] |= direction;
         }

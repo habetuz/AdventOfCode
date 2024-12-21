@@ -17,160 +17,22 @@ public static class DirectionUtils
     }
   }
 
-  public static Direction Invert(this Direction direction)
+  public static Direction Rotate180(this Direction direction)
   {
-    if (direction.HasFlag(Direction.All) || direction == 0)
-    {
-      return direction;
-    }
-
-    var inverted = Direction.None;
-
-    if (direction.HasFlag(Direction.UpLeft))
-    {
-      inverted |= Direction.DownRight;
-    }
-
-    if (direction.HasFlag(Direction.Up))
-    {
-      inverted |= Direction.Down;
-    }
-
-    if (direction.HasFlag(Direction.UpRight))
-    {
-      inverted |= Direction.DownLeft;
-    }
-
-    if (direction.HasFlag(Direction.Right))
-    {
-      inverted |= Direction.Left;
-    }
-
-    if (direction.HasFlag(Direction.DownRight))
-    {
-      inverted |= Direction.UpLeft;
-    }
-
-    if (direction.HasFlag(Direction.Down))
-    {
-      inverted |= Direction.Up;
-    }
-
-    if (direction.HasFlag(Direction.DownLeft))
-    {
-      inverted |= Direction.UpRight;
-    }
-
-    if (direction.HasFlag(Direction.Left))
-    {
-      inverted |= Direction.Right;
-    }
-
-    return inverted;
+    int shifted = (int)direction << 4;
+    return (Direction)((shifted & 0xff) | ((shifted & 0xff00) >> 8));
   }
 
   public static Direction Rotate90Right(this Direction direction)
   {
-    if (direction.HasFlag(Direction.All) || direction == 0)
-    {
-      return direction;
-    }
-
-    var rotated = Direction.None;
-
-    if (direction.HasFlag(Direction.UpLeft))
-    {
-      rotated |= Direction.UpRight;
-    }
-
-    if (direction.HasFlag(Direction.Up))
-    {
-      rotated |= Direction.Right;
-    }
-
-    if (direction.HasFlag(Direction.UpRight))
-    {
-      rotated |= Direction.DownRight;
-    }
-
-    if (direction.HasFlag(Direction.Right))
-    {
-      rotated |= Direction.Down;
-    }
-
-    if (direction.HasFlag(Direction.DownRight))
-    {
-      rotated |= Direction.DownLeft;
-    }
-
-    if (direction.HasFlag(Direction.Down))
-    {
-      rotated |= Direction.Left;
-    }
-
-    if (direction.HasFlag(Direction.DownLeft))
-    {
-      rotated |= Direction.UpLeft;
-    }
-
-    if (direction.HasFlag(Direction.Left))
-    {
-      rotated |= Direction.Up;
-    }
-
-    return rotated;
+    int shifted = (int)direction << 2;
+    return (Direction)((shifted & 0xff) | ((shifted & 0xff00) >> 8));
   }
 
   public static Direction Rotate90Left(this Direction direction)
   {
-    if (direction.HasFlag(Direction.All) || direction == 0)
-    {
-      return direction;
-    }
-
-    var rotated = Direction.None;
-
-    if (direction.HasFlag(Direction.UpLeft))
-    {
-      rotated |= Direction.DownLeft;
-    }
-
-    if (direction.HasFlag(Direction.Up))
-    {
-      rotated |= Direction.Left;
-    }
-
-    if (direction.HasFlag(Direction.UpRight))
-    {
-      rotated |= Direction.UpLeft;
-    }
-
-    if (direction.HasFlag(Direction.Right))
-    {
-      rotated |= Direction.Up;
-    }
-
-    if (direction.HasFlag(Direction.DownRight))
-    {
-      rotated |= Direction.UpRight;
-    }
-
-    if (direction.HasFlag(Direction.Down))
-    {
-      rotated |= Direction.Right;
-    }
-
-    if (direction.HasFlag(Direction.DownLeft))
-    {
-      rotated |= Direction.DownRight;
-    }
-
-    if (direction.HasFlag(Direction.Left))
-    {
-      rotated |= Direction.Down;
-    }
-
-    return rotated;
+    int shifted = (int)direction << 4 >> 2;
+    return (Direction)(((shifted & 0xff0) | ((shifted & 0xf) << 8)) >> 4);
   }
 
   public static Coordinate ToCoordinate(this Direction direction)

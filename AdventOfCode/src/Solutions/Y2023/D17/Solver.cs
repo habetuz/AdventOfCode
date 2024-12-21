@@ -88,7 +88,7 @@ public class Solver : ISolver<Node[,,,], Node[,,,]>
               ).Iterate()
             )
             {
-              if (node.Direction.Invert() == direction)
+              if (node.Direction.Rotate180() == direction)
               {
                 continue;
               }
