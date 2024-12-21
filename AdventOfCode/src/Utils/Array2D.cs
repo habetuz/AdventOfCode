@@ -1,3 +1,4 @@
+using Microsoft.CodeAnalysis;
 using SharpLog;
 using Spectre.Console;
 
@@ -26,7 +27,7 @@ public static class Array2D
 
   public static T[,] FromString<T>(string input, ConvertCallback<char, T> callback)
   {
-    var lines = input.Split((char[])['\n'], StringSplitOptions.RemoveEmptyEntries);
+    var lines = input.Split(['\n'], StringSplitOptions.RemoveEmptyEntries);
     var array = new T[lines[0].Length, lines.Length];
     for (int y = 0; y < lines.Length; y++)
     {
@@ -46,8 +47,6 @@ public static class Array2D
   /// </summary>
   /// <typeparam name="T">The type of the 2D array.</typeparam>
   /// <param name="array">The array to iterate on.</param>
-  /// <param name="x">The x coordinate to iterate around.</param>
-  /// <param name="y">The y coordinate to iterate around.</param>
   /// <param name="callback">The callback to call for each coordinate.</param>
   /// <param name="toSkip">The directions to skip.</param>
   /// <example>
@@ -57,54 +56,16 @@ public static class Array2D
   /// </example>
   public static void IterateAroundCoordinate<T>(
     T[,] array,
-    int x,
-    int y,
+    Coordinate coordinate,
     IterateAroundCoordinateCallback<T> callback,
     Direction toSkip = Direction.None
   )
   {
-    if (!toSkip.HasFlag(Direction.UpLeft) && x - 1 >= 0 && y - 1 >= 0)
+    foreach (Direction direction in Direction.All.Iterate())
     {
-      toSkip |= callback(array, x - 1, y - 1, Direction.UpLeft);
-    }
-
-    if (!toSkip.HasFlag(Direction.Up) && y - 1 >= 0)
-    {
-      toSkip |= callback(array, x, y - 1, Direction.Up);
-    }
-
-    if (!toSkip.HasFlag(Direction.UpRight) && x + 1 < array.GetLength(0) && y - 1 >= 0)
-    {
-      toSkip |= callback(array, x + 1, y - 1, Direction.UpRight);
-    }
-
-    if (!toSkip.HasFlag(Direction.Left) && x - 1 >= 0)
-    {
-      toSkip |= callback(array, x - 1, y, Direction.Left);
-    }
-
-    if (!toSkip.HasFlag(Direction.Left) && x + 1 < array.GetLength(0))
-    {
-      toSkip |= callback(array, x + 1, y, Direction.Right);
-    }
-
-    if (!toSkip.HasFlag(Direction.DownLeft) && x - 1 >= 0 && y + 1 < array.GetLength(1))
-    {
-      toSkip |= callback(array, x - 1, y + 1, Direction.DownLeft);
-    }
-
-    if (!toSkip.HasFlag(Direction.Down) && y + 1 < array.GetLength(1))
-    {
-      toSkip |= callback(array, x, y + 1, Direction.Down);
-    }
-
-    if (
-      !toSkip.HasFlag(Direction.DownRight)
-      && x + 1 < array.GetLength(0)
-      && y + 1 < array.GetLength(1)
-    )
-    {
-      toSkip |= callback(array, x + 1, y + 1, Direction.DownRight);
+      if (toSkip.HasFlag(direction))
+        continue;
+      toSkip |= callback(array, coordinate + direction, direction);
     }
   }
 
@@ -118,8 +79,7 @@ public static class Array2D
   /// <returns>The directions to skip.</returns>
   public delegate Direction IterateAroundCoordinateCallback<T>(
     T[,] array,
-    int x,
-    int y,
+    Coordinate coordinate,
     Direction direction
   );
 
@@ -197,5 +157,55 @@ public static class Array2D
         destination[x, y] = source[x, y];
       }
     }
+  }
+
+  public static IEnumerable<(T value, Coordinate coordinate)> Enumerate<T>(T[,] array)
+  {
+    for (int y = 0; y < array.GetLength(1); y++)
+    {
+      for (int x = 0; x < array.GetLength(0); x++)
+      {
+        yield return (array[x, y], (x, y));
+      }
+    }
+  }
+
+  public static T[] GetInDirection<T>(
+    T[,] array,
+    Coordinate coordinate,
+    Direction direction,
+    uint count
+  )
+  {
+    List<T> output = new((int)count);
+    for (uint i = count; i > 0; i--)
+    {
+      var value = GetInDirection(array, coordinate, direction);
+      if (value is null)
+      {
+        return [.. output];
+      }
+
+      output.Add(value);
+      coordinate += direction.ToCoordinate();
+    }
+
+    return [.. output];
+  }
+
+  public static T? GetInDirection<T>(T[,] array, Coordinate coordinate, Direction direction)
+  {
+    var transformed = direction.ToCoordinate() + coordinate;
+    if (
+      transformed.X < 0
+      || transformed.Y < 0
+      || transformed.X >= array.GetLength(0)
+      || transformed.Y >= array.GetLength(1)
+    )
+    {
+      return default;
+    }
+
+    return array[transformed.X, transformed.Y];
   }
 }

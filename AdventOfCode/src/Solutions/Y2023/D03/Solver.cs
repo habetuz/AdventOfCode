@@ -99,11 +99,11 @@ public class Solver : ISolver<char[,]>
 
         Array2D.IterateAroundCoordinate(
           input,
-          x,
-          y,
-          (array, x, y, direction) =>
+          (x, y),
+          (array, coordinate, direction) =>
           {
-            int startX = x;
+            (var x, var y) = coordinate;
+            int startX = (int)x;
 
             if (array[x, y] < '0' || array[x, y] > '9')
             {

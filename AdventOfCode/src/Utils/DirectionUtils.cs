@@ -4,11 +4,15 @@ public static class DirectionUtils
 {
   public static IEnumerable<Direction> Iterate(this Direction direction)
   {
-    foreach (Direction value in Enum.GetValues(typeof(Direction)).OfType<Direction>())
+    for (
+      Direction toCheck = Direction.UpLeft;
+      toCheck <= Direction.DownRight;
+      toCheck = (Direction)((int)toCheck << 1)
+    )
     {
-      if (direction.HasFlag(value) && value != Direction.All && value != Direction.None)
+      if (direction.HasFlag(toCheck))
       {
-        yield return value;
+        yield return toCheck;
       }
     }
   }

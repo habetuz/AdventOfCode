@@ -174,5 +174,16 @@ namespace AdventOfCode.Utils
         yield return this + direction;
       }
     }
+
+    public readonly void Deconstruct(out long x, out long y)
+    {
+      x = X;
+      y = Y;
+    }
+
+    public readonly bool IsInSpace(Coordinate downRight, Coordinate upLeft = default)
+    {
+      return X >= upLeft.X && Y >= upLeft.Y && X <= downRight.X && Y <= downRight.Y;
+    }
   }
 }

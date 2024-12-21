@@ -35,10 +35,10 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
 
     Array2D.IterateAroundCoordinate(
       map,
-      (int)start.X,
-      (int)start.Y,
-      (array, x, y, direction) =>
+      (start.X, start.Y),
+      (array, coordinate, direction) =>
       {
+        (var x, var y) = coordinate;
         if ((direction & map[x, y].Invert()) != 0)
         {
           map[start.X, start.Y] |= direction;
