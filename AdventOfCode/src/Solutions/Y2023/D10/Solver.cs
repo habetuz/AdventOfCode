@@ -10,7 +10,7 @@ public class Solver : ISolver<(Direction[,], Coordinate)>
   {
     var lines = input.Split('\n', StringSplitOptions.RemoveEmptyEntries);
     var start = new Coordinate();
-    var map = Array2D.FromString<Direction>(
+    var map = Array2D.FromString(
       input,
       (c, x, y) =>
       {

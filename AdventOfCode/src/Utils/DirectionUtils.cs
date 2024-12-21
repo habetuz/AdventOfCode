@@ -6,7 +6,7 @@ public static class DirectionUtils
   {
     for (
       Direction toCheck = Direction.UpLeft;
-      toCheck <= Direction.DownRight;
+      toCheck <= Direction.Left;
       toCheck = (Direction)((int)toCheck << 1)
     )
     {

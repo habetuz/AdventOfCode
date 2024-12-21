@@ -116,6 +116,7 @@ public class Solver : ISolver<char[,]>
             }
 
             int number = 0;
+            long leftX = x;
 
             do
             {
@@ -124,6 +125,7 @@ public class Solver : ISolver<char[,]>
             } while (x < array.GetLength(0) && array[x, y] >= '0' && array[x, y] <= '9');
 
             x--;
+            long rightX = x;
 
             if (number1 == -1)
             {
@@ -145,18 +147,18 @@ public class Solver : ISolver<char[,]>
             {
               toSkip |= Direction.Up;
 
-              if (x - startX >= 1)
+              if (rightX - startX >= 1)
               {
                 toSkip |= Direction.UpRight;
               }
             }
-            else if (direction == Direction.DownLeft)
+            else if (direction == Direction.DownRight)
             {
               toSkip |= Direction.Down;
 
-              if (x - startX >= 1)
+              if (startX - leftX >= 1)
               {
-                toSkip |= Direction.DownRight;
+                toSkip |= Direction.DownLeft;
               }
             }
             else if (direction == Direction.Up)
@@ -165,7 +167,7 @@ public class Solver : ISolver<char[,]>
             }
             else if (direction == Direction.Down)
             {
-              toSkip |= Direction.DownRight;
+              toSkip |= Direction.DownLeft;
             }
 
             return toSkip;
