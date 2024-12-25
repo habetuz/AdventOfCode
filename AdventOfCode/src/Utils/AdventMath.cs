@@ -54,4 +54,30 @@ public static class AdventMath
       }
     }
   }
+
+  /// <summary>
+  /// Calculates the "Triangle number" with an additional offset.
+  ///
+  /// <code>
+  /// n = 3 -> 6
+  /// x
+  /// xx
+  /// xxx
+  /// </code>
+  ///
+  /// <code>
+  /// n = 5 -> 15
+  /// x
+  /// xx
+  /// xxx
+  /// xxxx
+  /// xxxxx
+  /// </code>
+  /// </summary>
+  /// <param name="n">The triangle number</param>
+  /// <returns></returns>
+  public static ulong TriangleNumber(ulong n)
+  {
+    return (n * (n+1) / 2);
+  }
 }
