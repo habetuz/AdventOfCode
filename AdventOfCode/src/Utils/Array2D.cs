@@ -43,7 +43,7 @@ public static class Array2D
 
   /// <summary>
   /// Iterates around a coordinate in a 2D array.
-  /// Iterates from left to right.
+  /// Iterates from top left in clock direction.
   /// </summary>
   /// <typeparam name="T">The type of the 2D array.</typeparam>
   /// <param name="array">The array to iterate on.</param>
@@ -51,8 +51,8 @@ public static class Array2D
   /// <param name="toSkip">The directions to skip.</param>
   /// <example>
   /// 123
-  /// 4x5
-  /// 678
+  /// 8x4
+  /// 765
   /// </example>
   public static void IterateAroundCoordinate<T>(
     T[,] array,
