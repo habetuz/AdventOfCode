@@ -9,12 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="5.2.1" />
-    <PackageReference Include="CSharpier.Core" Version="0.30.6" />
+    <PackageReference Include="CSharpier.Core" Version="1.0.2" />
     <PackageReference Include="MarvinFuchs.Sharplog" Version="3.6.2" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
-    <PackageReference Include="Spectre.console" Version="0.49.1" />
-    <PackageReference Include="Spectre.Console.Cli" Version="0.49.1" />
-    <PackageReference Include="microsoft.data.sqlite" Version="9.0.2" />
+    <PackageReference Include="Spectre.console" Version="0.50.0" />
+    <PackageReference Include="Spectre.Console.Cli" Version="0.50.0" />
+    <PackageReference Include="microsoft.data.sqlite" Version="9.0.5" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
