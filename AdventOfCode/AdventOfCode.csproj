@@ -14,7 +14,7 @@
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="Spectre.console" Version="0.51.1" />
     <PackageReference Include="Spectre.Console.Cli" Version="0.51.1" />
-    <PackageReference Include="microsoft.data.sqlite" Version="9.0.6" />
+    <PackageReference Include="microsoft.data.sqlite" Version="9.0.9" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
