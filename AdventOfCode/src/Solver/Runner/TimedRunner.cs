@@ -17,7 +17,6 @@ namespace AdventOfCode.Solver.Runner
     {
       if (
         RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-        || RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
       )
       {
         Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2);

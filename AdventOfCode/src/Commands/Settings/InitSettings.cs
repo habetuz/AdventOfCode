@@ -53,7 +53,7 @@ public class InitSettings : CommandSettings
     SolutionPath = Path.Join(
       ProjectDir.Get(),
       "src",
-      "solutions",
+      "Solutions",
       $"Y{Date.Year}",
       $"D{Date.Day:D2}",
       "Solver.cs"

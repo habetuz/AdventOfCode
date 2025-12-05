@@ -9,6 +9,15 @@
 > 🟨 -> `< 00:00:00.1000000`<br/>
 > 🟧 -> `< 00:00:01`<br/>
 > 🟥 -> `> 00:00:01` or only partially solved.
+### 2025
+
+| Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
+| :---: | :--------: | :---: | :-------: | :-------: | :------: | :------: |
+| [01](AdventOfCode/src/Solutions/Y2025/D01/Solver.cs) | 🟩 | `00:00:00.0009770` | `00:00:00.0003242` | `00:00:00` | `00:00:00.0005705` | `00:00:00.0000823` |
+| [02](AdventOfCode/src/Solutions/Y2025/D02/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [03](AdventOfCode/src/Solutions/Y2025/D03/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [04](AdventOfCode/src/Solutions/Y2025/D04/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
+| [05](AdventOfCode/src/Solutions/Y2025/D05/Solver.cs) | ❌ | `N/A` | `N/A` | `N/A` | `N/A` | `N/A` |
 ### 2024
 
 | Day   | Evaluation | Time  | Parsing 1 | Parsing 2 | Puzzle 1 | Puzzle 2 |
