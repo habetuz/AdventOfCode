@@ -8,7 +8,8 @@ public class SetReadmeFileCommand : Command<SetReadmeFileSettings>
 {
   public override int Execute(
     [NotNull] CommandContext context,
-    [NotNull] SetReadmeFileSettings settings
+    [NotNull] SetReadmeFileSettings settings,
+    CancellationToken cancellationToken
   )
   {
     ApplicationSettings.Instance.ReadmePath = settings.Path;

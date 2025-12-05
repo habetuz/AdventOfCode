@@ -8,7 +8,8 @@ public class TouchInputCommand : Command<TouchInputSettings>
 {
   public override int Execute(
     [NotNull] CommandContext context,
-    [NotNull] TouchInputSettings settings
+    [NotNull] TouchInputSettings settings,
+    CancellationToken cancellationToken
   )
   {
     new InputManager(new WebResourceManager()).TouchInput(settings.Date, settings.Example);

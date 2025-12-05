@@ -10,7 +10,7 @@ namespace AdventOfCode.Commands;
 
 public class RunCommand : Command<RunSettings>
 {
-  public override int Execute([NotNull] CommandContext context, [NotNull] RunSettings settings)
+  public override int Execute([NotNull] CommandContext context, [NotNull] RunSettings settings, CancellationToken cancellationToken)
   {
     var calendarRange = settings.RunRange;
 

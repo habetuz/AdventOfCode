@@ -8,7 +8,8 @@ public class SaveCookieCommand : Command<SaveCookieSettings>
 {
   public override int Execute(
     [NotNull] CommandContext context,
-    [NotNull] SaveCookieSettings settings
+    [NotNull] SaveCookieSettings settings,
+    CancellationToken cancellationToken
   )
   {
     ApplicationSettings.Instance.Cookie = settings.Cookie;

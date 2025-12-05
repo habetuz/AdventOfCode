@@ -7,7 +7,7 @@ namespace AdventOfCode.Commands;
 
 public class SubmitCommand : Command<SubmitSettings>
 {
-  public override int Execute([NotNull] CommandContext context, [NotNull] SubmitSettings settings)
+  public override int Execute([NotNull] CommandContext context, [NotNull] SubmitSettings settings, CancellationToken cancellationToken)
   {
     SolutionStatisticsManager solutionStatisticsManager = new();
     var solutionStatistics = solutionStatisticsManager.Retrieve(settings.Date);

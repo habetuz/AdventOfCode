@@ -8,7 +8,7 @@ namespace AdventOfCode.Commands;
 
 public class InitCommand : Command<InitSettings>
 {
-  public override int Execute(CommandContext context, InitSettings settings)
+  public override int Execute(CommandContext context, InitSettings settings, CancellationToken cancellationToken)
   {
     string file = settings.Generator(settings.Date);
 
