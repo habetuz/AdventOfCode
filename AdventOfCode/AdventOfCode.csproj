@@ -11,8 +11,8 @@
     <PackageReference Include="CSharpier.Core" Version="1.0.2" />
     <PackageReference Include="MarvinFuchs.Sharplog" Version="3.6.2" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
-    <PackageReference Include="Spectre.console" Version="0.51.1" />
-    <PackageReference Include="Spectre.Console.Cli" Version="0.51.1" />
+    <PackageReference Include="Spectre.console" Version="0.54.0" />
+    <PackageReference Include="Spectre.Console.Cli" Version="0.53.1" />
     <PackageReference Include="microsoft.data.sqlite" Version="10.0.0" />
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
