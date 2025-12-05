@@ -99,8 +99,7 @@ namespace AdventOfCode.Time
       if (
         date.Year > AOCDateTimeUtils.GetCurrentYear(currentTime)
         || date.Year < 2015
-        || date.Day
-          > maxDay
+        || date.Day > maxDay
         || date.Day < 1
       )
       {
@@ -210,13 +209,17 @@ namespace AdventOfCode.Time
       else if ((endDate.Day < START_DAY || endDate.Day > END_DAY_OLD) && endDate.Year < 2025)
       {
         return ValidationResult.Error(
-          string.Format("[range] is invalid. End day has to be between 01 and 25 for the years 2015-2024.")
+          string.Format(
+            "[range] is invalid. End day has to be between 01 and 25 for the years 2015-2024."
+          )
         );
       }
       else if ((endDate.Day < START_DAY || endDate.Day > END_DAY_NEW) && endDate.Year >= 2025)
       {
         return ValidationResult.Error(
-          string.Format("[range] is invalid. End day has to be between 01 and 12 for the years 2025 and beyond.")
+          string.Format(
+            "[range] is invalid. End day has to be between 01 and 12 for the years 2025 and beyond."
+          )
         );
       }
       else if (endDate.Year < START_YEAR || endDate.Year > AOCDateTimeUtils.GetCurrentYear())

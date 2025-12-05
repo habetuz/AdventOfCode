@@ -41,7 +41,11 @@ public class Solver : CustomLineSplittingSolver<Instruction>
       }
 
       // Passing zero check
-      if (Math.Sign(previousPosition) != Math.Sign(pointerPosition) && previousPosition != 0 && pointerPosition != 0)
+      if (
+        Math.Sign(previousPosition) != Math.Sign(pointerPosition)
+        && previousPosition != 0
+        && pointerPosition != 0
+      )
       {
         //Logging.LogDebug($"Pointer passed zero moving from {previousPosition} to {pointerPosition}.");
         passedZero++;

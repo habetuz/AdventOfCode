@@ -15,9 +15,7 @@ namespace AdventOfCode.Solver.Runner
 
     public Solution Run()
     {
-      if (
-        RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-      )
+      if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
       {
         Process.GetCurrentProcess().ProcessorAffinity = new IntPtr(2);
         Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.High;
