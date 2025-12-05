@@ -30,12 +30,29 @@ namespace AdventOfCode.Time
 
       int currentDay = currentDate.Value.Day;
 
-      if (currentDate.Value.Month == 12 && currentDay >= 1 && currentDay <= 25)
+      // Starting with 2025, only 12 puzzles are available
+      if (currentDate.Value.Year >= 2025)
       {
-        return (int)currentDay;
+        if (currentDate.Value.Month == 12 && currentDay >= 1 && currentDay <= 12)
+        {
+          return (int)currentDay;
+        }
+        else
+        {
+          return 12;
+        }
       }
-
-      return 25;
+      else // Else there are 25 puzzles available
+      {
+        if (currentDate.Value.Month == 12 && currentDay >= 1 && currentDay <= 25)
+        {
+          return (int)currentDay;
+        }
+        else
+        {
+          return 25;
+        }
+      }
     }
   }
 }

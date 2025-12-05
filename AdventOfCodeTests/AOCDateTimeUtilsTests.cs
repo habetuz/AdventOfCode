@@ -36,4 +36,12 @@ public class AOCDateTimeUtilsTests
     int day = AOCDateTimeUtils.GetCurrentDay(fakeDate);
     Assert.AreEqual(25, day);
   }
+
+  [TestMethod]
+  public void GetCurrentDay_Returns12_InDecember2025_After12th()
+  {
+    DateTime fakeDate = new(2025, 12, 20);
+    int day = AOCDateTimeUtils.GetCurrentDay(fakeDate);
+    Assert.AreEqual(12, day);
+  }
 }

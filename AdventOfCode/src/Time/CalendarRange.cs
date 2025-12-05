@@ -88,7 +88,12 @@ namespace AdventOfCode.Time
       public bool MoveNext()
       {
         current.Day++;
-        if (current.Day > 25)
+        if (current.Year >= 2025 && current.Day > 12)
+        {
+          current.Day = 1;
+          current.Year++;
+        }
+        else if (current.Day > 25)
         {
           current.Day = 1;
           current.Year++;

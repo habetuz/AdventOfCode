@@ -6,7 +6,8 @@ namespace AdventOfCode.Time
   {
     private const int START_YEAR = 2015;
     private const int START_DAY = 01;
-    private const int END_DAY = 25;
+    private const int END_DAY_OLD = 25;
+    private const int END_DAY_NEW = 12;
 
     public static Date SingleDate(string date)
     {
@@ -93,15 +94,13 @@ namespace AdventOfCode.Time
       date.Year = date.Year == -1 ? AOCDateTimeUtils.GetCurrentYear(currentTime) : date.Year;
       date.Day = date.Day == -1 ? AOCDateTimeUtils.GetCurrentDay(currentTime) : date.Day;
 
+      var maxDay = date.Year >= 2025 ? END_DAY_NEW : END_DAY_OLD;
+
       if (
         date.Year > AOCDateTimeUtils.GetCurrentYear(currentTime)
         || date.Year < 2015
         || date.Day
-          > (
-            currentTime.Year == AOCDateTimeUtils.GetCurrentYear(currentTime)
-              ? AOCDateTimeUtils.GetCurrentDay(currentTime)
-              : 25
-          )
+          > maxDay
         || date.Day < 1
       )
       {
@@ -205,13 +204,19 @@ namespace AdventOfCode.Time
       )
       {
         return ValidationResult.Error(
-          string.Format("[range] is invalid. Start day has to be before the current day.")
+          string.Format("[range] is invalid. Start day has to be before or the current day.")
         );
       }
-      else if (endDate.Day < START_DAY || endDate.Day > END_DAY)
+      else if ((endDate.Day < START_DAY || endDate.Day > END_DAY_OLD) && endDate.Year < 2025)
       {
         return ValidationResult.Error(
-          string.Format("[range] is invalid. End day has to be between 01 and 25.")
+          string.Format("[range] is invalid. End day has to be between 01 and 25 for the years 2015-2024.")
+        );
+      }
+      else if ((endDate.Day < START_DAY || endDate.Day > END_DAY_NEW) && endDate.Year >= 2025)
+      {
+        return ValidationResult.Error(
+          string.Format("[range] is invalid. End day has to be between 01 and 12 for the years 2025 and beyond.")
         );
       }
       else if (endDate.Year < START_YEAR || endDate.Year > AOCDateTimeUtils.GetCurrentYear())
@@ -230,12 +235,6 @@ namespace AdventOfCode.Time
       {
         return ValidationResult.Error(
           string.Format("[range] is invalid. End day has to be before the current day.")
-        );
-      }
-      else if (endDate.Day < START_DAY || endDate.Day > END_DAY)
-      {
-        return ValidationResult.Error(
-          string.Format("[range] is invalid. End day has to be between 01 and 25.")
         );
       }
 

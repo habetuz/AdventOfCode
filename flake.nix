@@ -24,14 +24,15 @@
           system:
           f {
             pkgs = import inputs.nixpkgs { inherit system; };
+            lib = inputs.nixpkgs.lib;
           }
         );
     in
     {
       devShells = forEachSupportedSystem (
-        { pkgs }:
+        { pkgs, lib }:
         {
-          default = pkgs.mkShellNoCC {
+          default = pkgs.mkShell {
             # The Nix packages provided in the environment
             # Add any you need here
             packages = with pkgs; [
@@ -40,8 +41,8 @@
             ];
 
             # Set any environment variables for your dev shell
-            env = { 
-              
+            env = {
+              LD_LIBRARY_PATH = lib.makeLibraryPath (with pkgs; [ stdenv.cc.cc libunwind libuuid icu openssl zlib curl ]);
             };
 
             # Add any shell logic you want executed any time the environment is activated
