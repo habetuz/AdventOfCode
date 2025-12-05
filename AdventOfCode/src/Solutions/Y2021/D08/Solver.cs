@@ -48,45 +48,36 @@ public class Solver : CustomLineSplittingSolver<Display>
   {
     string[] inputs = new string[10];
 
-    inputs[1] = new string(
-      [
-        .. display
-          .Inputs.Where((input) => input.Length == Display.DigitSegments[1].Length)
-          .First()
-          .Order(),
-      ]
-    );
-    inputs[4] = new string(
-      [
-        .. display
-          .Inputs.Where((input) => input.Length == Display.DigitSegments[4].Length)
-          .First()
-          .Order(),
-      ]
-    );
-    inputs[7] = new string(
-      [
-        .. display
-          .Inputs.Where((input) => input.Length == Display.DigitSegments[7].Length)
-          .First()
-          .Order(),
-      ]
-    );
-    inputs[8] = new string(
-      [
-        .. display
-          .Inputs.Where((input) => input.Length == Display.DigitSegments[8].Length)
-          .First()
-          .Order(),
-      ]
-    );
+    inputs[1] = new string([
+      .. display
+        .Inputs.Where((input) => input.Length == Display.DigitSegments[1].Length)
+        .First()
+        .Order(),
+    ]);
+    inputs[4] = new string([
+      .. display
+        .Inputs.Where((input) => input.Length == Display.DigitSegments[4].Length)
+        .First()
+        .Order(),
+    ]);
+    inputs[7] = new string([
+      .. display
+        .Inputs.Where((input) => input.Length == Display.DigitSegments[7].Length)
+        .First()
+        .Order(),
+    ]);
+    inputs[8] = new string([
+      .. display
+        .Inputs.Where((input) => input.Length == Display.DigitSegments[8].Length)
+        .First()
+        .Order(),
+    ]);
 
-    List<string> sixSegments =
-      new(
-        display
-          .Inputs.Where((input) => input.Length == 6)
-          .Select((value) => new string([.. value.Order()]))
-      );
+    List<string> sixSegments = new(
+      display
+        .Inputs.Where((input) => input.Length == 6)
+        .Select((value) => new string([.. value.Order()]))
+    );
     inputs[6] = sixSegments
       .Where((input) => input.Where((value) => inputs[1].Contains(value)).Count() == 1)
       .First();
@@ -99,12 +90,11 @@ public class Solver : CustomLineSplittingSolver<Display>
 
     inputs[9] = sixSegments.First();
 
-    List<string> fiveSegments =
-      new(
-        display
-          .Inputs.Where((input) => input.Length == 5)
-          .Select((value) => new string([.. value.Order()]))
-      );
+    List<string> fiveSegments = new(
+      display
+        .Inputs.Where((input) => input.Length == 5)
+        .Select((value) => new string([.. value.Order()]))
+    );
 
     inputs[3] = fiveSegments
       .Where((input) => input.Where((value) => inputs[7].Contains(value)).Count() == 3)

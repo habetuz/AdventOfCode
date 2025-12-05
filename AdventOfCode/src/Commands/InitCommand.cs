@@ -1,5 +1,6 @@
 using AdventOfCode.Commands.Settings;
-using CSharpier;
+using CSharpier.Core;
+using CSharpier.Core.CSharp;
 using SharpLog;
 using Spectre.Console.Cli;
 
@@ -11,9 +12,15 @@ public class InitCommand : Command<InitSettings>
   {
     string file = settings.Generator(settings.Date);
 
-    var options = new CodeFormatterOptions() { IndentSize = 2 };
+    var options = new CodeFormatterOptions()
+    {
+      IndentSize = 2,
+      EndOfLine = EndOfLine.Auto,
+      IndentStyle = IndentStyle.Spaces,
+      Width = 100,
+    };
 
-    var result = CodeFormatter.Format(file, options);
+    var result = CSharpFormatter.Format(file, options);
 
     if (result.CompilationErrors.Any())
     {

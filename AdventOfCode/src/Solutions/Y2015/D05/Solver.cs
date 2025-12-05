@@ -5,14 +5,13 @@ namespace AdventOfCode.Solutions.Y2015.D05;
 
 public class Solver : ISolver<string[]>
 {
-  private readonly Dictionary<char, char> disallowed =
-    new()
-    {
-      { 'a', 'b' },
-      { 'c', 'd' },
-      { 'p', 'q' },
-      { 'x', 'y' },
-    };
+  private readonly Dictionary<char, char> disallowed = new()
+  {
+    { 'a', 'b' },
+    { 'c', 'd' },
+    { 'p', 'q' },
+    { 'x', 'y' },
+  };
 
   private readonly char[] vowels = ['a', 'e', 'i', 'o', 'u'];
 

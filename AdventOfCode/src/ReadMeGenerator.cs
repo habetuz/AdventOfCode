@@ -19,15 +19,14 @@ internal class ReadMeGenerator(ISolutionRetriever solutions)
   private const string EMOJI_SNAIL_SPEED = "🟥";
   private static readonly TimeSpan TIME_SNAIL_SPEED = TimeSpan.MaxValue;
 
-  private static readonly ClosestTimeSpanDictionary<string> speedMap =
-    new()
-    {
-      { TIME_LIGHT_SPEED, EMOJI_LIGHT_SPEED },
-      { TIME_SOUND_SPEED, EMOJI_SOUND_SPEED },
-      { TIME_MODERAT_SPEED, EMOJI_MODERAD_SPEED },
-      { TIME_SLOW_SPEED, EMOJI_SLOW_SPEED },
-      { TIME_SNAIL_SPEED, EMOJI_SNAIL_SPEED },
-    };
+  private static readonly ClosestTimeSpanDictionary<string> speedMap = new()
+  {
+    { TIME_LIGHT_SPEED, EMOJI_LIGHT_SPEED },
+    { TIME_SOUND_SPEED, EMOJI_SOUND_SPEED },
+    { TIME_MODERAT_SPEED, EMOJI_MODERAD_SPEED },
+    { TIME_SLOW_SPEED, EMOJI_SLOW_SPEED },
+    { TIME_SNAIL_SPEED, EMOJI_SNAIL_SPEED },
+  };
 
   private readonly ISolutionRetriever solutions = solutions;
 

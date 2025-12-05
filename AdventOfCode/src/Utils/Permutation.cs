@@ -16,7 +16,8 @@ public static class Permutation
         value /= values.Length;
       } while (value > 0);
 
-      if (!allowDuplicates && HasDuplicates(permutation)) {
+      if (!allowDuplicates && HasDuplicates(permutation))
+      {
         continue;
       }
 
@@ -24,15 +25,22 @@ public static class Permutation
     }
   }
 
-  public static bool HasDuplicates<T>(IEnumerable<T> values) {
+  public static bool HasDuplicates<T>(IEnumerable<T> values)
+  {
     HashSet<T> registered = [];
-    return values.Any((value) => {
-      if (registered.Contains(value)) {
-        return true;
-      } else {
-        registered.Add(value);
-        return false;
+    return values.Any(
+      (value) =>
+      {
+        if (registered.Contains(value))
+        {
+          return true;
+        }
+        else
+        {
+          registered.Add(value);
+          return false;
+        }
       }
-    });
+    );
   }
 }

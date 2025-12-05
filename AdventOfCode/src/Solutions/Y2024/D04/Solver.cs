@@ -52,7 +52,8 @@ public class Solver : GridSplittingSolver
             && Array2D.GetInDirection(input, coordinate, Direction.DownLeft) == 'M'
           )
         )
-      ) { 
+      )
+      {
         xmasCount2++;
       }
     }

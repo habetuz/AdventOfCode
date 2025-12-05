@@ -10,35 +10,31 @@ public class Solver : ISolver<Orchestrator>
     var lines = input.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
     // Initialize modules
-    Dictionary<string, IModule> modules =
-      new(
-        lines.Select(
-          (line) =>
+    Dictionary<string, IModule> modules = new(
+      lines.Select(
+        (line) =>
+        {
+          var name = line.Split(" -> ")[0];
+          switch (name[0])
           {
-            var name = line.Split(" -> ")[0];
-            switch (name[0])
-            {
-              case '%':
-                return new KeyValuePair<string, IModule>(
-                  name[1..],
-                  new FlipFlopModule() { Name = name[1..] }
-                );
-              case '&':
-                return new KeyValuePair<string, IModule>(
-                  name[1..],
-                  new ConjunctionModule() { Name = name[1..] }
-                );
-              case 'b':
-                return new KeyValuePair<string, IModule>(
-                  name,
-                  new BroadcastModule() { Name = name }
-                );
-              default:
-                throw new Exception("Unknown module type");
-            }
+            case '%':
+              return new KeyValuePair<string, IModule>(
+                name[1..],
+                new FlipFlopModule() { Name = name[1..] }
+              );
+            case '&':
+              return new KeyValuePair<string, IModule>(
+                name[1..],
+                new ConjunctionModule() { Name = name[1..] }
+              );
+            case 'b':
+              return new KeyValuePair<string, IModule>(name, new BroadcastModule() { Name = name });
+            default:
+              throw new Exception("Unknown module type");
           }
-        )
-      );
+        }
+      )
+    );
 
     // Link modules
     foreach (var line in lines)

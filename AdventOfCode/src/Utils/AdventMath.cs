@@ -78,6 +78,6 @@ public static class AdventMath
   /// <returns></returns>
   public static ulong TriangleNumber(ulong n)
   {
-    return (n * (n+1) / 2);
+    return (n * (n + 1) / 2);
   }
 }

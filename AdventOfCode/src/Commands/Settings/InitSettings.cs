@@ -8,17 +8,16 @@ namespace AdventOfCode.Commands.Settings;
 
 public class InitSettings : CommandSettings
 {
-  private readonly Dictionary<string, Func<Date, string>> generators =
-    new()
-    {
-      { "none", DefaultSolverGenerator },
-      { "custom-grid", CustomGridSplittingSolverGenerator },
-      { "grid", GridSplittingSolverGenerator },
-      { "custom-lines", CustomLineSplittingSolverGenerator },
-      { "lines", LineSplittingSolverGenerator },
-      { "unmodified", UnmodifingSolverGenerator },
-      { "numbers", NumbersSolverGenerator },
-    };
+  private readonly Dictionary<string, Func<Date, string>> generators = new()
+  {
+    { "none", DefaultSolverGenerator },
+    { "custom-grid", CustomGridSplittingSolverGenerator },
+    { "grid", GridSplittingSolverGenerator },
+    { "custom-lines", CustomLineSplittingSolverGenerator },
+    { "lines", LineSplittingSolverGenerator },
+    { "unmodified", UnmodifingSolverGenerator },
+    { "numbers", NumbersSolverGenerator },
+  };
 
   [Description("The date you want to initialize. Leave empty for the current date.")]
   [CommandArgument(0, "[date]")]
